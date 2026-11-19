@@ -1,0 +1,83 @@
+# Job & Scholarship Alert Bot Configuration
+# Edit keywords and sources below to match what you're looking for.
+
+settings:
+  # Max number of new alerts to send per run (prevents Telegram spam on first run)
+  max_alerts_per_run: 15
+  # Keep seen item hashes for this many days before pruning old entries
+  seen_retention_days: 90
+  # HTTP timeout in seconds for each source
+  request_timeout: 15
+  # On the very first run (when data/seen_items.json does not exist),
+  # set seed_only_on_first_run: true to mark existing items as seen without flooding your chat.
+  seed_only_on_first_run: false
+
+categories:
+  jobs:
+    label: "💼 Job Alert"
+    include_keywords:
+      - "python"
+      - "backend"
+      - "remote"
+      - "junior"
+      - "intern"
+      - "internship"
+      - "data analyst"
+      - "software engineer"
+    exclude_keywords:
+      - "senior only"
+      - "10+ years"
+      - "principal"
+      - "staff engineer"
+    sources:
+      - name: "Remotive Remote Jobs"
+        type: "rss"
+        url: "https://remotive.com/remote-jobs/feed"
+        enabled: true
+      - name: "We Work Remotely - Programming"
+        type: "rss"
+        url: "https://weworkremotely.com/categories/remote-programming-jobs.rss"
+        enabled: true
+      # Example HTML source (disabled by default — customize selector for any career page)
+      - name: "Example Custom Career Page"
+        type: "html"
+        url: "https://example.com/careers"
+        enabled: false
+        item_selector: "article.job-card"
+        title_selector: "h2 a"
+        link_selector: "h2 a"
+        summary_selector: "p.summary"
+
+  scholarships:
+    label: "🎓 Scholarship & Fellowship"
+    include_keywords:
+      - "fully funded"
+      - "scholarship"
+      - "fellowship"
+      - "masters"
+      - "msc"
+      - "undergraduate"
+      - "africa"
+      - "nigeria"
+      - "tech"
+      - "stem"
+    exclude_keywords:
+      - "phd only"
+      - "us citizens only"
+    sources:
+      - name: "Opportunity Desk"
+        type: "rss"
+        url: "https://opportunitydesk.org/feed/"
+        enabled: true
+      - name: "Opportunities For Africans"
+        type: "rss"
+        url: "https://www.opportunitiesforafricans.com/feed/"
+        enabled: true
+      - name: "Scholars4Dev"
+        type: "rss"
+        url: "https://www.scholars4dev.com/feed/"
+        enabled: true
+      - name: "AfterSchoolAfrica"
+        type: "rss"
+        url: "https://afterschoolafrica.com/feed/"
+        enabled: true
