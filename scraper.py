@@ -13,7 +13,7 @@ import os
 import re
 import sys
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
@@ -54,6 +54,8 @@ class Opportunity:
     matched_keywords: list[str]
     published: str = ""
     published_dt: datetime | None = None
+    badges: list[str] = field(default_factory=list)
+    deadline: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -67,6 +69,8 @@ class Opportunity:
             "matched_keywords": self.matched_keywords,
             "published": self.published,
             "published_iso": self.published_dt.isoformat() if self.published_dt else "",
+            "badges": self.badges,
+            "deadline": self.deadline,
         }
 
     @classmethod
@@ -91,6 +95,8 @@ class Opportunity:
             matched_keywords=[str(k) for k in data.get("matched_keywords", [])],
             published=str(data.get("published", "")),
             published_dt=published_dt,
+            badges=[str(b) for b in data.get("badges", [])],
+            deadline=str(data.get("deadline", "")),
         )
 
 
@@ -202,6 +208,81 @@ def is_recent_post(
     return published_dt >= cutoff
 
 
+DEADLINE_RE = re.compile(
+    r"(?:deadline|apply\s+by|closes(?:\s+on)?|closing\s+date|due\s+date)\s*[:\-–]?\s*"
+    r"([A-Za-z]{3,9}\s+\d{1,2}(?:st|nd|rd|th)?(?:,\s*\d{4})?|"
+    r"\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]{3,9}(?:,?\s*\d{4})?|"
+    r"\d{4}-\d{2}-\d{2})",
+    re.IGNORECASE,
+)
+
+
+def extract_deadline(text: str) -> str:
+    """Extract a human-readable application deadline if mentioned."""
+    if not text:
+        return ""
+    m = DEADLINE_RE.search(text)
+    if not m:
+        return ""
+    return re.sub(r"\s+", " ", m.group(1)).strip(" .,;:")[:40]
+
+
+def extract_badges(
+    text: str,
+    category: str = "",
+    extra_flags: dict[str, bool] | None = None,
+) -> list[str]:
+    """Derive helpful smart badges (Worldwide, Visa, Fully Funded, Entry/Intern)."""
+    haystack = text.lower()
+    flags = extra_flags or {}
+    badges: list[str] = []
+
+    if flags.get("worldwide") or any(
+        term in haystack
+        for term in (
+            "worldwide",
+            "no geographical restrictions",
+            "work from anywhere",
+            "anywhere in the world",
+            "global remote",
+        )
+    ):
+        badges.append("🌍 Worldwide")
+
+    if flags.get("visa") or any(
+        term in haystack
+        for term in (
+            "visa sponsorship",
+            "visa sponsored",
+            "sponsors visa",
+            "relocation assistance",
+            "relocation package",
+        )
+    ):
+        badges.append("🛂 Visa Sponsored")
+
+    if any(
+        term in haystack
+        for term in (
+            "fully funded",
+            "fully-funded",
+            "full scholarship",
+            "full funding",
+            "tuition waiver",
+            "all-expenses",
+        )
+    ):
+        badges.append("💰 Fully Funded")
+
+    if any(
+        re.search(r"(?<![a-z0-9])" + re.escape(term) + r"(?![a-z0-9])", haystack)
+        for term in ("intern", "internship", "junior", "entry level", "entry-level", "graduate")
+    ):
+        badges.append("🟢 Entry / Intern")
+
+    return badges
+
+
 def parse_rss_source(
     source: dict[str, Any],
     category_key: str,
@@ -238,6 +319,7 @@ def parse_rss_source(
         if not matched:
             continue
 
+        full_text = f"{title} {clean_html_text(summary_raw, max_len=1200)}"
         results.append(
             Opportunity(
                 item_id=make_item_id(link, title),
@@ -250,6 +332,156 @@ def parse_rss_source(
                 matched_keywords=matched,
                 published=published,
                 published_dt=published_dt,
+                badges=extract_badges(full_text, category=category_key),
+                deadline=extract_deadline(full_text),
+            )
+        )
+    return results
+
+
+def parse_himalayas_source(
+    source: dict[str, Any],
+    category_key: str,
+    category_label: str,
+    include_kw: list[str],
+    exclude_kw: list[str],
+    timeout: int,
+    max_age_days: float | None = None,
+    allow_undated: bool = True,
+    now: datetime | None = None,
+    require_kw: list[str] | None = None,
+) -> list[Opportunity]:
+    """Fetch remote jobs from the public Himalayas JSON API."""
+    raw_json = fetch_url(source["url"], timeout=timeout)
+    payload = json.loads(raw_json)
+    jobs = payload.get("jobs", []) if isinstance(payload, dict) else []
+
+    results: list[Opportunity] = []
+    for job in jobs:
+        if not isinstance(job, dict):
+            continue
+        raw_title = str(job.get("title") or "").strip()
+        company = str(job.get("companyName") or "").strip()
+        title = f"{company}: {raw_title}" if company and raw_title else raw_title
+        link = str(job.get("applicationLink") or job.get("guid") or "").strip()
+        summary_raw = str(job.get("excerpt") or job.get("description") or "")
+        summary = clean_html_text(summary_raw, max_len=240)
+        locs = job.get("locationRestrictions") or []
+        seniority = " ".join(str(s) for s in (job.get("seniority") or []))
+
+        published_dt: datetime | None = None
+        published = ""
+        pub_ts = job.get("pubDate")
+        if isinstance(pub_ts, (int, float)):
+            published_dt = datetime.fromtimestamp(float(pub_ts), tz=timezone.utc)
+            published = published_dt.strftime("%a, %d %b %Y %H:%M:%S +0000")
+
+        if not title or not link:
+            continue
+        if not is_recent_post(published_dt, max_age_days, allow_undated=allow_undated, now=now):
+            continue
+
+        loc_text = "worldwide remote" if not locs else f"remote {' '.join(str(x) for x in locs)}"
+        combined = f"{title} {summary} {loc_text} {seniority}"
+        matched = match_keywords(combined, include_kw, exclude_kw, require_keywords=require_kw)
+        if not matched:
+            continue
+
+        full_text = f"{title} {clean_html_text(summary_raw, max_len=1200)} {loc_text} {seniority}"
+        results.append(
+            Opportunity(
+                item_id=make_item_id(link, title),
+                category=category_key,
+                category_label=category_label,
+                source_name=source["name"],
+                title=title,
+                link=link,
+                summary=summary,
+                matched_keywords=matched,
+                published=published,
+                published_dt=published_dt,
+                badges=extract_badges(
+                    full_text,
+                    category=category_key,
+                    extra_flags={"worldwide": not locs},
+                ),
+                deadline=extract_deadline(full_text),
+            )
+        )
+    return results
+
+
+def parse_arbeitnow_source(
+    source: dict[str, Any],
+    category_key: str,
+    category_label: str,
+    include_kw: list[str],
+    exclude_kw: list[str],
+    timeout: int,
+    max_age_days: float | None = None,
+    allow_undated: bool = True,
+    now: datetime | None = None,
+    require_kw: list[str] | None = None,
+) -> list[Opportunity]:
+    """Fetch remote & visa-sponsored jobs from the public Arbeitnow JSON API."""
+    raw_json = fetch_url(source["url"], timeout=timeout)
+    payload = json.loads(raw_json)
+    jobs = payload.get("data", []) if isinstance(payload, dict) else []
+
+    results: list[Opportunity] = []
+    for job in jobs:
+        if not isinstance(job, dict):
+            continue
+        raw_title = str(job.get("title") or "").strip()
+        company = str(job.get("company_name") or "").strip()
+        title = f"{company}: {raw_title}" if company and raw_title else raw_title
+        link = str(job.get("url") or "").strip()
+        summary_raw = str(job.get("description") or "")
+        summary = clean_html_text(summary_raw, max_len=240)
+        tags_text = " ".join(str(t) for t in (job.get("tags") or []))
+        is_remote = bool(job.get("remote", False))
+        has_visa = "visa" in tags_text.lower() or "visa sponsorship" in summary_raw.lower()
+
+        if not (is_remote or has_visa):
+            continue
+
+        published_dt: datetime | None = None
+        published = ""
+        created_ts = job.get("created_at")
+        if isinstance(created_ts, (int, float)):
+            published_dt = datetime.fromtimestamp(float(created_ts), tz=timezone.utc)
+            published = published_dt.strftime("%a, %d %b %Y %H:%M:%S +0000")
+
+        if not title or not link:
+            continue
+        if not is_recent_post(published_dt, max_age_days, allow_undated=allow_undated, now=now):
+            continue
+
+        remote_tag = "remote" if is_remote else ""
+        combined = f"{title} {summary} {tags_text} {remote_tag}"
+        matched = match_keywords(combined, include_kw, exclude_kw, require_keywords=require_kw)
+        if not matched:
+            continue
+
+        full_text = f"{title} {clean_html_text(summary_raw, max_len=1200)} {tags_text}"
+        results.append(
+            Opportunity(
+                item_id=make_item_id(link, title),
+                category=category_key,
+                category_label=category_label,
+                source_name=source["name"],
+                title=title,
+                link=link,
+                summary=summary,
+                matched_keywords=matched,
+                published=published,
+                published_dt=published_dt,
+                badges=extract_badges(
+                    full_text,
+                    category=category_key,
+                    extra_flags={"visa": has_visa},
+                ),
+                deadline=extract_deadline(full_text),
             )
         )
     return results
@@ -306,6 +538,8 @@ def parse_html_source(
                 link=link,
                 summary=summary,
                 matched_keywords=matched,
+                badges=extract_badges(combined, category=category_key),
+                deadline=extract_deadline(combined),
             )
         )
     return results
@@ -423,6 +657,29 @@ def get_broadcast_target(config: dict[str, Any] | None = None) -> str:
     return os.environ.get("TELEGRAM_CHAT_ID", "").strip()
 
 
+def get_public_channel_url(config: dict[str, Any] | None = None) -> str:
+    """Return the public Telegram channel URL if configured."""
+    url = os.environ.get("PUBLIC_CHANNEL_URL", "").strip()
+    if url:
+        return url
+    target = get_broadcast_target(config)
+    if target.startswith("@"):
+        return f"https://t.me/{target[1:]}"
+    if config:
+        cfg_url = str(config.get("settings", {}).get("public_channel_url", "")).strip()
+        if cfg_url:
+            return cfg_url
+    return ""
+
+
+def build_item_reply_markup(item: Opportunity, channel_url: str = "") -> dict[str, Any]:
+    """Build inline Telegram buttons under an individual opportunity alert."""
+    row: list[dict[str, str]] = [{"text": "Apply Now 🔗", "url": item.link}]
+    if channel_url:
+        row.append({"text": "Join Channel 📢", "url": channel_url})
+    return {"inline_keyboard": [row]}
+
+
 def format_telegram_message(item: Opportunity, channel_tag: str = "") -> str:
     """Format an opportunity cleanly for Telegram HTML parse_mode."""
     label = html.escape(item.category_label)
@@ -435,9 +692,13 @@ def format_telegram_message(item: Opportunity, channel_tag: str = "") -> str:
         f"<b>{label}</b> · <i>{source}</i>",
         f"<b><a href=\"{link}\">{title}</a></b>",
     ]
+    if item.badges:
+        lines.append(html.escape(" · ".join(item.badges)))
     if item.summary:
         lines.append(html.escape(item.summary))
     lines.append(f"🏷 <code>{keywords}</code>")
+    if item.deadline:
+        lines.append(f"⏳ <b>Deadline:</b> {html.escape(item.deadline)}")
     if item.published:
         lines.append(f"🗓 {html.escape(item.published)}")
     if channel_tag:
@@ -445,15 +706,35 @@ def format_telegram_message(item: Opportunity, channel_tag: str = "") -> str:
     return "\n\n".join(lines)
 
 
-def send_telegram_message(bot_token: str, chat_id: str, text: str) -> None:
-    """Send one message via Telegram Bot API."""
-    api_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-    payload = {
-        "chat_id": chat_id,
-        "text": text,
-        "parse_mode": "HTML",
-        "disable_web_page_preview": False,
-    }
+def format_daily_digest(
+    items: list[Opportunity],
+    channel_tag: str = "",
+    limit: int = 9,
+) -> str:
+    """Format a compact daily digest message across categories."""
+    top = interleave_by_category(items)[:limit]
+    today = datetime.now(timezone.utc).strftime("%b %d, %Y")
+    if not top:
+        return f"<b>☀️ Daily Opportunities Digest ({today})</b>\n\nNo recent opportunities found today."
+
+    lines = [f"<b>☀️ Daily Opportunities Digest · {html.escape(today)}</b>"]
+    for idx, item in enumerate(top, start=1):
+        title = html.escape(item.title)
+        link = html.escape(item.link, quote=True)
+        badge_str = f" · {html.escape(' '.join(item.badges))}" if item.badges else ""
+        deadline_str = f" · ⏳ {html.escape(item.deadline)}" if item.deadline else ""
+        lines.append(
+            f"{idx}. {html.escape(item.category_label)}: "
+            f"<b><a href=\"{link}\">{title}</a></b>{badge_str}{deadline_str}"
+        )
+    if channel_tag:
+        lines.append(f"📢 Follow {html.escape(channel_tag)} for instant updates")
+    return "\n\n".join(lines)
+
+
+def _post_telegram_api(bot_token: str, method: str, payload: dict[str, Any]) -> dict[str, Any]:
+    """POST to Telegram Bot API with basic 429 retry handling."""
+    api_url = f"https://api.telegram.org/bot{bot_token}/{method}"
     response = requests.post(api_url, json=payload, timeout=15)
     if response.status_code == 429:
         retry_after = response.json().get("parameters", {}).get("retry_after", 5)
@@ -461,6 +742,58 @@ def send_telegram_message(bot_token: str, chat_id: str, text: str) -> None:
         time.sleep(float(retry_after) + 0.5)
         response = requests.post(api_url, json=payload, timeout=15)
     response.raise_for_status()
+    return response.json()
+
+
+def send_telegram_message(
+    bot_token: str,
+    chat_id: str,
+    text: str,
+    reply_markup: dict[str, Any] | None = None,
+    disable_web_page_preview: bool = False,
+) -> None:
+    """Send one message via Telegram Bot API."""
+    payload: dict[str, Any] = {
+        "chat_id": chat_id,
+        "text": text,
+        "parse_mode": "HTML",
+        "disable_web_page_preview": disable_web_page_preview,
+    }
+    if reply_markup:
+        payload["reply_markup"] = reply_markup
+    _post_telegram_api(bot_token, "sendMessage", payload)
+
+
+def edit_telegram_message(
+    bot_token: str,
+    chat_id: str,
+    message_id: int,
+    text: str,
+    reply_markup: dict[str, Any] | None = None,
+) -> None:
+    """Edit an existing Telegram message in place (used for inline pagination)."""
+    payload: dict[str, Any] = {
+        "chat_id": chat_id,
+        "message_id": message_id,
+        "text": text,
+        "parse_mode": "HTML",
+        "disable_web_page_preview": True,
+    }
+    if reply_markup:
+        payload["reply_markup"] = reply_markup
+    _post_telegram_api(bot_token, "editMessageText", payload)
+
+
+def answer_callback_query(
+    bot_token: str,
+    callback_query_id: str,
+    text: str = "",
+) -> None:
+    """Acknowledge an inline keyboard button press."""
+    payload: dict[str, Any] = {"callback_query_id": callback_query_id}
+    if text:
+        payload["text"] = text
+    _post_telegram_api(bot_token, "answerCallbackQuery", payload)
 
 
 def load_config(path: Path) -> dict[str, Any]:
@@ -496,6 +829,30 @@ def collect_opportunities(config: dict[str, Any]) -> list[Opportunity]:
             try:
                 if source_type == "rss":
                     found = parse_rss_source(
+                        source,
+                        cat_key,
+                        label,
+                        include_kw,
+                        exclude_kw,
+                        timeout,
+                        max_age_days=max_age_days,
+                        allow_undated=allow_undated,
+                        require_kw=require_kw,
+                    )
+                elif source_type == "himalayas":
+                    found = parse_himalayas_source(
+                        source,
+                        cat_key,
+                        label,
+                        include_kw,
+                        exclude_kw,
+                        timeout,
+                        max_age_days=max_age_days,
+                        allow_undated=allow_undated,
+                        require_kw=require_kw,
+                    )
+                elif source_type == "arbeitnow":
+                    found = parse_arbeitnow_source(
                         source,
                         cat_key,
                         label,
@@ -590,6 +947,7 @@ def run(
     dry_run: bool = False,
     latest_path: Path = DEFAULT_LATEST_PATH,
     subscribers_path: Path = DEFAULT_SUBSCRIBERS_PATH,
+    send_digest: bool = False,
 ) -> int:
     """Execute one scrape + alert cycle. Returns number of new alerts processed."""
     config = load_config(config_path)
@@ -602,6 +960,7 @@ def run(
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     target_id = get_broadcast_target(config)
     channel_tag = target_id if target_id.startswith("@") else os.environ.get("PUBLIC_CHANNEL_HANDLE", "").strip()
+    channel_url = get_public_channel_url(config)
 
     if not dry_run and (not bot_token or not target_id):
         logger.error(
@@ -648,18 +1007,42 @@ def run(
             print(f"[DRY RUN] {item.category_label} | {item.source_name}")
             print(f"Title: {item.title}")
             print(f"Link:  {item.link}")
+            if item.badges:
+                print(f"Badge: {' · '.join(item.badges)}")
+            if item.deadline:
+                print(f"Due:   {item.deadline}")
             if item.published:
                 print(f"Date:  {item.published}")
             print(f"Tags:  {', '.join(item.matched_keywords)}")
             sent_count += 1
         else:
             try:
-                send_telegram_message(bot_token, target_id, message)
+                reply_markup = build_item_reply_markup(item, channel_url=channel_url)
+                send_telegram_message(bot_token, target_id, message, reply_markup=reply_markup)
                 seen[item.item_id] = now_iso
                 sent_count += 1
                 time.sleep(0.5)  # Stay well below Telegram rate limits
             except Exception as exc:  # noqa: BLE001
                 logger.error("Failed to send Telegram alert for '%s': %s", item.title, exc)
+
+    if send_digest and opportunities:
+        digest_text = format_daily_digest(opportunities, channel_tag=channel_tag)
+        if dry_run:
+            print("=" * 60)
+            print("[DRY RUN DIGEST]")
+            print(digest_text)
+        else:
+            try:
+                markup = {"inline_keyboard": [[{"text": "Join Channel 📢", "url": channel_url}]]} if channel_url else None
+                send_telegram_message(
+                    bot_token,
+                    target_id,
+                    digest_text,
+                    reply_markup=markup,
+                    disable_web_page_preview=True,
+                )
+            except Exception as exc:  # noqa: BLE001
+                logger.error("Failed to send daily digest: %s", exc)
 
     if not dry_run:
         save_seen_items(seen_path, seen)
@@ -698,12 +1081,28 @@ def main() -> None:
         action="store_true",
         help="Print matching alerts to stdout instead of sending Telegram messages.",
     )
+    parser.add_argument(
+        "--digest",
+        action="store_true",
+        help="Also send a Daily Opportunities Digest summary message.",
+    )
+    parser.add_argument(
+        "--digest-hour",
+        type=int,
+        default=None,
+        help="Send the Daily Digest only when current UTC hour matches (e.g. 6).",
+    )
     args = parser.parse_args()
+    should_digest = bool(args.digest)
+    if args.digest_hour is not None:
+        should_digest = should_digest or (datetime.now(timezone.utc).hour == args.digest_hour)
+
     run(
         config_path=args.config,
         seen_path=args.seen,
         dry_run=args.dry_run,
         latest_path=args.latest,
+        send_digest=should_digest,
     )
 
 

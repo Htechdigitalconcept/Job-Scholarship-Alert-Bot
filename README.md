@@ -4,12 +4,17 @@ A **100% free, zero-server** automation bot that scrapes recent job boards and s
 
 ## Features
 - **Public Telegram Channel Broadcast:** Posts fresh jobs & scholarships automatically to your `@your_channel` on a schedule.
-- **Interactive User Commands:**
+- **Interactive User Commands & Inline Buttons:**
   - `/start`, `/help` — Welcome & channel invite link
-  - `/latest` — 5 newest jobs, Web3 remote jobs & scholarships
+  - `/latest` — 5 newest jobs, Web3 remote jobs & scholarships (with `Next 5 ▶` / `◀ Prev 5` inline pagination)
   - `/jobs [keyword]` — Filter recent remote jobs (e.g. `/jobs python`)
   - `/web3 [keyword]` — Filter recent Web3 remote jobs (e.g. `/web3 solidity`)
   - `/scholarships [keyword]` — Filter recent scholarships (e.g. `/scholarships africa`)
+  - `/search <keyword>` — Search across all categories at once
+  - `/worldwide [keyword]` — Filter 🌍 Worldwide remote opportunities
+  - `/visa [keyword]` — Filter 🛂 Visa-sponsored opportunities
+  - `/digest` — On-demand top opportunities digest (also auto-posted daily at `06:00 UTC` in the channel)
+  - Channel posts include direct **Apply Now 🔗** + **Join Channel 📢** inline buttons, smart badges (`🌍 Worldwide`, `🛂 Visa Sponsored`, `💰 Fully Funded`, `🟢 Entry / Intern`), and extracted scholarship deadlines (`⏳`).
   - `/keywords` — View tracked include/exclude keywords
   - `/setkeywords <words>` — Set personal DM keywords & subscribe
   - `/subscribe` / `/unsubscribe` — Toggle personal DM alerts

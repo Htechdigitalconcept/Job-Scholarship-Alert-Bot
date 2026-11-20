@@ -36,13 +36,16 @@ BOT_COMMANDS_MENU = [
     {"command": "jobs", "description": "Latest remote jobs (optional: /jobs python)"},
     {"command": "web3", "description": "Latest Web3 remote jobs (optional: /web3 solidity)"},
     {"command": "scholarships", "description": "Latest scholarships (optional: /scholarships africa)"},
+    {"command": "search", "description": "Search all categories (e.g. /search python)"},
+    {"command": "worldwide", "description": "Filter 🌍 Worldwide opportunities"},
+    {"command": "visa", "description": "Filter 🛂 Visa-sponsored opportunities"},
+    {"command": "digest", "description": "Today's top opportunities summary"},
     {"command": "keywords", "description": "View tracked keywords"},
-    {"command": "setkeywords", "description": "Set personal DM keywords"},
-    {"command": "subscribe", "description": "Enable personal DM alerts"},
-    {"command": "unsubscribe", "description": "Pause personal DM alerts"},
     {"command": "sources", "description": "View monitored feeds & age limit"},
     {"command": "help", "description": "Show command guide"},
 ]
+
+PAGE_SIZE = 5
 
 
 def load_state(path: Path) -> dict[str, Any]:
@@ -83,7 +86,7 @@ def get_updates(bot_token: str, offset: int, timeout: int = 0) -> list[dict[str,
     params: dict[str, Any] = {
         "offset": offset,
         "timeout": timeout,
-        "allowed_updates": json.dumps(["message"]),
+        "allowed_updates": json.dumps(["message", "callback_query"]),
     }
     resp = requests.get(url, params=params, timeout=timeout + 15)
     if resp.status_code == 409:
@@ -102,7 +105,7 @@ def set_webhook(bot_token: str, webhook_url: str, secret_token: str = "") -> dic
     url = f"https://api.telegram.org/bot{bot_token}/setWebhook"
     payload: dict[str, Any] = {
         "url": webhook_url,
-        "allowed_updates": ["message"],
+        "allowed_updates": ["message", "callback_query"],
     }
     if secret_token:
         payload["secret_token"] = secret_token
@@ -167,24 +170,68 @@ def format_compact_list(
     heading: str,
     items: list[scraper.Opportunity],
     empty_hint: str,
+    start_index: int = 1,
 ) -> str:
     """Format a compact multi-item Telegram HTML message."""
     if not items:
         return f"<b>{html.escape(heading)}</b>\n\n{html.escape(empty_hint)}"
 
     lines = [f"<b>{html.escape(heading)}</b>"]
-    for idx, item in enumerate(items, start=1):
+    for idx, item in enumerate(items, start=start_index):
         title = html.escape(item.title)
         link = html.escape(item.link, quote=True)
         source = html.escape(item.source_name)
         tags = html.escape(", ".join(item.matched_keywords))
         date_line = f" · 🗓 {html.escape(item.published)}" if item.published else ""
+        meta_parts: list[str] = []
+        if item.badges:
+            meta_parts.append(html.escape(" · ".join(item.badges)))
+        if item.deadline:
+            meta_parts.append(f"⏳ {html.escape(item.deadline)}")
+        meta_line = f"\n   {' · '.join(meta_parts)}" if meta_parts else ""
         lines.append(
             f"{idx}. <b><a href=\"{link}\">{title}</a></b>\n"
-            f"   <i>{source}</i>{date_line}\n"
+            f"   <i>{source}</i>{date_line}{meta_line}\n"
             f"   🏷 <code>{tags}</code>"
         )
     return "\n\n".join(lines)
+
+
+def encode_callback_data(cmd_name: str, page: int, query: str = "") -> str:
+    """Encode pagination state within Telegram's 64-byte callback_data limit."""
+    prefix = f"pg:{cmd_name}:{page}:"
+    budget = 64 - len(prefix.encode("utf-8"))
+    q_bytes = query.strip().encode("utf-8")[: max(0, budget)]
+    safe_query = q_bytes.decode("utf-8", errors="ignore")
+    return f"{prefix}{safe_query}"
+
+
+def build_list_markup(
+    cmd_name: str,
+    page: int,
+    total_items: int,
+    page_size: int = PAGE_SIZE,
+    query: str = "",
+    channel_url: str = "",
+) -> dict[str, Any] | None:
+    """Build inline Prev/Next pagination + Join Channel buttons."""
+    rows: list[list[dict[str, str]]] = []
+    nav_row: list[dict[str, str]] = []
+    if page > 0:
+        nav_row.append({
+            "text": "◀ Prev 5",
+            "callback_data": encode_callback_data(cmd_name, page - 1, query),
+        })
+    if (page + 1) * page_size < total_items:
+        nav_row.append({
+            "text": "Next 5 ▶",
+            "callback_data": encode_callback_data(cmd_name, page + 1, query),
+        })
+    if nav_row:
+        rows.append(nav_row)
+    if channel_url:
+        rows.append([{"text": "Join Channel 📢", "url": channel_url}])
+    return {"inline_keyboard": rows} if rows else None
 
 
 def format_keywords_message(
@@ -242,25 +289,120 @@ def format_sources_message(config: dict[str, Any]) -> str:
     return "\n\n".join(lines)
 
 
-def handle_command(
+def _filter_opportunities_for_command(
+    cmd: str,
+    arg: str,
+    config: dict[str, Any],
+    latest_path: Path,
+) -> tuple[str, list[scraper.Opportunity], str]:
+    """Return (heading, matching_items, empty_hint) for list/search commands."""
+    if cmd == "/latest":
+        items = scraper.interleave_by_category(get_recent_opportunities(config, latest_path))
+        return "🆕 Latest Recent Opportunities", items, "No recent opportunities cached yet. Check back soon!"
+
+    if cmd == "/search":
+        if not arg:
+            return (
+                "🔎 Search All Opportunities",
+                [],
+                "Provide a search keyword, e.g. /search python or /search africa.",
+            )
+        items = scraper.interleave_by_category(get_recent_opportunities(config, latest_path))
+        search_terms = [t.strip() for t in arg.replace(",", " ").split() if t.strip()]
+        filtered = [
+            i
+            for i in items
+            if scraper.match_keywords(
+                f"{i.title} {i.summary} {' '.join(i.matched_keywords)} {' '.join(i.badges)}",
+                search_terms,
+                [],
+            )
+        ]
+        return (
+            f"🔎 Search Results ({arg})",
+            filtered,
+            f"No recent opportunities matched '{arg}'.",
+        )
+
+    if cmd in {"/worldwide", "/visa"}:
+        items = scraper.interleave_by_category(get_recent_opportunities(config, latest_path))
+        target_badge = "🌍 Worldwide" if cmd == "/worldwide" else "🛂 Visa Sponsored"
+        filtered = [
+            i
+            for i in items
+            if target_badge in i.badges
+            or (cmd == "/worldwide" and "worldwide" in f"{i.title} {i.summary}".lower())
+            or (cmd == "/visa" and "visa" in f"{i.title} {i.summary}".lower())
+        ]
+        if arg:
+            search_terms = [t.strip() for t in arg.replace(",", " ").split() if t.strip()]
+            filtered = [
+                i
+                for i in filtered
+                if scraper.match_keywords(f"{i.title} {i.summary}", search_terms, [])
+            ]
+        heading = (
+            f"🌍 Worldwide Remote Opportunities{f' ({arg})' if arg else ''}"
+            if cmd == "/worldwide"
+            else f"🛂 Visa-Sponsored Opportunities{f' ({arg})' if arg else ''}"
+        )
+        return heading, filtered, f"No recent {target_badge} opportunities matched right now."
+
+    if cmd == "/jobs":
+        target_cats = {"jobs", "web3_jobs"}
+        label_name = "jobs"
+        base_heading = "💼 Latest Remote Jobs"
+    elif cmd == "/web3":
+        target_cats = {"web3_jobs"}
+        label_name = "Web3 remote jobs"
+        base_heading = "⛓️ Latest Web3 Remote Jobs"
+    else:
+        target_cats = {"scholarships"}
+        label_name = "scholarships"
+        base_heading = "🎓 Latest Scholarships"
+
+    items = get_recent_opportunities(config, latest_path, required_categories=target_cats)
+    filtered = [i for i in items if i.category in target_cats]
+    if arg:
+        search_terms = [t.strip() for t in arg.split(",") if t.strip()]
+        filtered = [
+            i
+            for i in filtered
+            if scraper.match_keywords(f"{i.title} {i.summary}", search_terms, [])
+        ]
+
+    heading = f"{base_heading}{f' ({arg})' if arg else ''}"
+    return (
+        heading,
+        filtered,
+        f"No recent {label_name} matched{' for ' + arg if arg else ''} right now.",
+    )
+
+
+def build_command_responses(
     chat_id: str,
     text: str,
     config: dict[str, Any],
     latest_path: Path,
     subscribers_path: Path,
-) -> list[str]:
-    """Parse a user command and return one or more HTML reply strings."""
+    page: int = 0,
+) -> list[tuple[str, dict[str, Any] | None]]:
+    """Parse a command and return [(html_text, optional_reply_markup), ...]."""
     stripped = text.strip()
     if not stripped.startswith("/"):
         return []
 
     parts = stripped.split(maxsplit=1)
     raw_cmd = parts[0].lower()
-    # Strip @BotUsername suffix in group chats
     cmd = raw_cmd.split("@", 1)[0]
     arg = parts[1].strip() if len(parts) > 1 else ""
 
     channel_link = get_channel_display(config)
+    channel_markup = (
+        {"inline_keyboard": [[{"text": "Join Channel 📢", "url": channel_link}]]}
+        if channel_link
+        else None
+    )
 
     if cmd in {"/start", "/help"}:
         channel_line = (
@@ -268,35 +410,44 @@ def handle_command(
             if channel_link
             else ""
         )
-        return [
+        msg = (
             "<b>👋 Job & Scholarship Alert Bot</b>\n"
-            "Get fresh remote jobs, fellowships, and funded scholarships."
+            "Get fresh remote jobs, Web3 roles, fellowships, and funded scholarships."
             f"{channel_line}\n\n"
             "<b>Available Commands:</b>\n"
-            "• /latest — 5 newest jobs, Web3 & scholarships\n"
+            "• /latest — Newest jobs, Web3 & scholarships\n"
             "• /jobs [keyword] — Latest remote jobs (e.g. <code>/jobs python</code>)\n"
             "• /web3 [keyword] — Latest Web3 remote jobs (e.g. <code>/web3 rust</code>)\n"
             "• /scholarships [keyword] — Latest scholarships\n"
+            "• /search &lt;word&gt; — Search across all categories\n"
+            "• /worldwide [word] — 🌍 Work-from-anywhere roles\n"
+            "• /visa [word] — 🛂 Visa-sponsored roles\n"
+            "• /digest — ☀️ Top opportunities summary\n"
             "• /keywords — View tracked keywords\n"
-            "• /setkeywords &lt;words&gt; — Set personal DM alert keywords\n"
-            "• /subscribe / /unsubscribe — Manage personal DM alerts\n"
             "• /sources — Monitored feeds & recency window"
-        ]
+        )
+        return [(msg, channel_markup)]
+
+    if cmd == "/digest":
+        items = get_recent_opportunities(config, latest_path)
+        channel_id = str(config.get("settings", {}).get("channel_id", "")).strip()
+        return [(scraper.format_daily_digest(items, channel_tag=channel_id), channel_markup)]
 
     if cmd == "/keywords":
         subscribers = scraper.load_subscribers(subscribers_path)
-        return [format_keywords_message(config, subscribers.get(chat_id))]
+        return [(format_keywords_message(config, subscribers.get(chat_id)), None)]
 
     if cmd == "/sources":
-        return [format_sources_message(config)]
+        return [(format_sources_message(config), None)]
 
     if cmd == "/setkeywords":
         keywords = [kw.strip() for kw in arg.split(",") if kw.strip()]
         if not keywords:
-            return [
+            return [(
                 "Please provide comma-separated keywords, for example:\n"
-                "<code>/setkeywords python, backend, fully funded</code>"
-            ]
+                "<code>/setkeywords python, backend, fully funded</code>",
+                None,
+            )]
         subscribers = scraper.load_subscribers(subscribers_path)
         subscribers[chat_id] = {
             "subscribed": True,
@@ -305,16 +456,18 @@ def handle_command(
         try:
             save_subscribers(subscribers_path, subscribers)
         except OSError:
-            return [
+            return [(
                 "ℹ️ Personal DM subscriptions are disabled in stateless serverless mode.\n"
-                "Use <code>/jobs &lt;keyword&gt;</code>, <code>/web3 &lt;keyword&gt;</code>, "
-                "or <code>/scholarships &lt;keyword&gt;</code> anytime for instant results!"
-            ]
-        return [
+                "Use <code>/search &lt;keyword&gt;</code>, <code>/jobs &lt;keyword&gt;</code>, "
+                "<code>/web3 &lt;keyword&gt;</code>, or <code>/scholarships &lt;keyword&gt;</code> anytime!",
+                channel_markup,
+            )]
+        return [(
             "✅ <b>Personal keywords saved &amp; DM alerts enabled!</b>\n"
             f"🏷 <code>{html.escape(', '.join(keywords))}</code>\n\n"
-            "Send /unsubscribe anytime to pause personal DMs."
-        ]
+            "Send /unsubscribe anytime to pause personal DMs.",
+            None,
+        )]
 
     if cmd == "/subscribe":
         subscribers = scraper.load_subscribers(subscribers_path)
@@ -325,16 +478,17 @@ def handle_command(
         try:
             save_subscribers(subscribers_path, subscribers)
         except OSError:
-            return [
+            return [(
                 "ℹ️ Personal DM subscriptions are disabled in stateless serverless mode.\n"
-                "Join the public channel for automatic alerts and use /latest anytime!"
-            ]
+                "Join the public channel for automatic alerts and use /latest anytime!",
+                channel_markup,
+            )]
         kw_note = (
             f"Filtering by: <code>{html.escape(', '.join(existing['keywords']))}</code>"
             if existing["keywords"]
             else "Receiving all channel matches. Use /setkeywords to narrow down."
         )
-        return [f"✅ <b>Subscribed to personal DM alerts!</b>\n{kw_note}"]
+        return [(f"✅ <b>Subscribed to personal DM alerts!</b>\n{kw_note}", None)]
 
     if cmd == "/unsubscribe":
         subscribers = scraper.load_subscribers(subscribers_path)
@@ -344,58 +498,110 @@ def handle_command(
                 save_subscribers(subscribers_path, subscribers)
             except OSError:
                 pass
-        return ["🔕 <b>Personal DM alerts paused.</b> Send /subscribe anytime to resume."]
+        return [("🔕 <b>Personal DM alerts paused.</b> Send /subscribe anytime to resume.", None)]
 
-    if cmd in {"/latest", "/jobs", "/web3", "/scholarships"}:
-        if cmd == "/latest":
-            items = get_recent_opportunities(config, latest_path)
-            limit = 5
-            if arg.isdigit():
-                limit = max(1, min(10, int(arg)))
-            ordered = scraper.interleave_by_category(items)[:limit]
-            return [
-                format_compact_list(
-                    f"🆕 Latest {len(ordered)} Recent Opportunities",
-                    ordered,
-                    "No recent matching opportunities cached yet. Check back soon!",
-                )
-            ]
-
-        if cmd == "/jobs":
-            target_cats = {"jobs", "web3_jobs"}
-            label_name = "jobs"
-            base_heading = "💼 Latest Remote Jobs"
-        elif cmd == "/web3":
-            target_cats = {"web3_jobs"}
-            label_name = "Web3 remote jobs"
-            base_heading = "⛓️ Latest Web3 Remote Jobs"
+    if cmd in {"/latest", "/jobs", "/web3", "/scholarships", "/search", "/worldwide", "/visa"}:
+        page_size = PAGE_SIZE
+        if cmd == "/latest" and arg.isdigit():
+            page_size = max(1, min(10, int(arg)))
+            query = ""
         else:
-            target_cats = {"scholarships"}
-            label_name = "scholarships"
-            base_heading = "🎓 Latest Scholarships"
+            query = arg
 
-        items = get_recent_opportunities(config, latest_path, required_categories=target_cats)
-        filtered = [i for i in items if i.category in target_cats]
-        if arg:
-            search_terms = [t.strip() for t in arg.split(",") if t.strip()]
-            filtered = [
-                i
-                for i in filtered
-                if scraper.match_keywords(f"{i.title} {i.summary}", search_terms, [])
-            ]
+        heading, all_items, empty_hint = _filter_opportunities_for_command(
+            cmd, query, config, latest_path
+        )
+        total = len(all_items)
+        safe_page = max(0, page)
+        if safe_page * page_size >= total and total > 0:
+            safe_page = 0
 
-        heading = f"{base_heading}{f' ({arg})' if arg else ''}"
-        return [
-            format_compact_list(
-                heading,
-                filtered[:5],
-                f"No recent {label_name} matched{' for ' + arg if arg else ''} right now.",
+        start = safe_page * page_size
+        page_items = all_items[start : start + page_size]
+        page_suffix = f" (Page {safe_page + 1})" if total > page_size else ""
+        msg = format_compact_list(
+            f"{heading}{page_suffix}",
+            page_items,
+            empty_hint,
+            start_index=start + 1,
+        )
+        cmd_name = cmd.lstrip("/")
+        markup = (
+            build_list_markup(
+                cmd_name=cmd_name,
+                page=safe_page,
+                total_items=total,
+                page_size=page_size,
+                query=query,
+                channel_url=channel_link,
             )
-        ]
+            if total > 0
+            else channel_markup
+        )
+        return [(msg, markup)]
 
+    return [("❓ Unknown command. Send /help to see all available commands.", None)]
+
+
+def handle_command(
+    chat_id: str,
+    text: str,
+    config: dict[str, Any],
+    latest_path: Path,
+    subscribers_path: Path,
+) -> list[str]:
+    """Parse a user command and return plain HTML reply strings."""
     return [
-        "❓ Unknown command. Send /help to see all available commands."
+        reply_text
+        for reply_text, _markup in build_command_responses(
+            chat_id, text, config, latest_path, subscribers_path
+        )
     ]
+
+
+def _handle_callback_query(
+    callback_query: dict[str, Any],
+    bot_token: str,
+    config: dict[str, Any],
+    latest_path: Path,
+    subscribers_path: Path,
+) -> int:
+    """Handle inline pagination button presses."""
+    cq_id = str(callback_query.get("id", "")).strip()
+    data = str(callback_query.get("data", "")).strip()
+    message = callback_query.get("message") or {}
+    chat = message.get("chat") or {}
+    chat_id = str(chat.get("id", "")).strip()
+    message_id = message.get("message_id")
+
+    if not cq_id or not data.startswith("pg:") or not chat_id or not message_id:
+        if cq_id:
+            scraper.answer_callback_query(bot_token, cq_id)
+        return 0
+
+    parts = data.split(":", 3)
+    if len(parts) < 3:
+        scraper.answer_callback_query(bot_token, cq_id)
+        return 0
+
+    cmd_name = parts[1]
+    try:
+        page = int(parts[2])
+    except ValueError:
+        page = 0
+    query = parts[3] if len(parts) > 3 else ""
+
+    cmd_text = f"/{cmd_name}" + (f" {query}" if query else "")
+    responses = build_command_responses(
+        chat_id, cmd_text, config, latest_path, subscribers_path, page=page
+    )
+    if responses:
+        reply_text, markup = responses[0]
+        scraper.edit_telegram_message(
+            bot_token, chat_id, int(message_id), reply_text, reply_markup=markup
+        )
+    scraper.answer_callback_query(bot_token, cq_id)
+    return 1
 
 
 def process_webhook_update(
@@ -406,6 +612,12 @@ def process_webhook_update(
     subscribers_path: Path,
 ) -> int:
     """Process a single Telegram webhook update dict and send replies immediately."""
+    if "callback_query" in update and isinstance(update["callback_query"], dict):
+        config = scraper.load_config(config_path)
+        return _handle_callback_query(
+            update["callback_query"], bot_token, config, latest_path, subscribers_path
+        )
+
     message = update.get("message") or {}
     text = (message.get("text") or "").strip()
     chat = message.get("chat") or {}
@@ -415,10 +627,16 @@ def process_webhook_update(
         return 0
 
     config = scraper.load_config(config_path)
-    replies = handle_command(chat_id, text, config, latest_path, subscribers_path)
+    responses = build_command_responses(chat_id, text, config, latest_path, subscribers_path)
     handled = 0
-    for reply in replies:
-        scraper.send_telegram_message(bot_token, chat_id, reply)
+    for reply_text, markup in responses:
+        scraper.send_telegram_message(
+            bot_token,
+            chat_id,
+            reply_text,
+            reply_markup=markup,
+            disable_web_page_preview=True,
+        )
         handled += 1
     return handled
 
@@ -448,6 +666,15 @@ def process_updates_once(
         if update_id > max_update_id:
             max_update_id = update_id
 
+        if "callback_query" in update and isinstance(update["callback_query"], dict):
+            try:
+                handled += _handle_callback_query(
+                    update["callback_query"], bot_token, config, latest_path, subscribers_path
+                )
+            except Exception as exc:  # noqa: BLE001
+                logger.error("Failed handling callback query: %s", exc)
+            continue
+
         message = update.get("message") or {}
         text = (message.get("text") or "").strip()
         chat = message.get("chat") or {}
@@ -456,10 +683,16 @@ def process_updates_once(
         if not chat_id or not text.startswith("/"):
             continue
 
-        replies = handle_command(chat_id, text, config, latest_path, subscribers_path)
-        for reply in replies:
+        responses = build_command_responses(chat_id, text, config, latest_path, subscribers_path)
+        for reply_text, markup in responses:
             try:
-                scraper.send_telegram_message(bot_token, chat_id, reply)
+                scraper.send_telegram_message(
+                    bot_token,
+                    chat_id,
+                    reply_text,
+                    reply_markup=markup,
+                    disable_web_page_preview=True,
+                )
                 handled += 1
             except Exception as exc:  # noqa: BLE001
                 logger.error("Failed sending reply to %s: %s", chat_id, exc)

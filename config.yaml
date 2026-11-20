@@ -48,6 +48,14 @@ categories:
         type: "rss"
         url: "https://weworkremotely.com/remote-jobs.rss"
         enabled: true
+      - name: "Himalayas Remote Jobs"
+        type: "himalayas"
+        url: "https://himalayas.app/jobs/api?limit=30"
+        enabled: true
+      - name: "Arbeitnow Remote & Visa"
+        type: "arbeitnow"
+        url: "https://www.arbeitnow.com/api/job-board-api"
+        enabled: true
       # Example HTML source (disabled by default — customize selector for any career page)
       - name: "Example Custom Career Page"
         type: "html"

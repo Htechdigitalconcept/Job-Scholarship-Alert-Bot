@@ -1,3 +1,4 @@
+import json
 import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
@@ -169,6 +170,58 @@ class ScraperTests(unittest.TestCase):
         s1 = scraper.Opportunity("3", "scholarships", "Sc", "S", "S1", "u3", "", ["stem"], published_dt=t_new)
         ordered = scraper.interleave_by_category([j1, j2, s1])
         self.assertEqual([o.item_id for o in ordered], ["2", "3", "1"])
+
+    def test_extract_badges_and_deadline(self) -> None:
+        text = (
+            "Junior Python Backend Intern (Work from anywhere, Worldwide). "
+            "Visa sponsorship available. Fully funded fellowship. Deadline: December 15, 2026."
+        )
+        badges = scraper.extract_badges(text)
+        self.assertIn("🌍 Worldwide", badges)
+        self.assertIn("🛂 Visa Sponsored", badges)
+        self.assertIn("💰 Fully Funded", badges)
+        self.assertIn("🟢 Entry / Intern", badges)
+        self.assertEqual(scraper.extract_deadline(text), "December 15, 2026")
+
+    def test_parse_himalayas_and_arbeitnow_sources(self) -> None:
+        now_ts = int(datetime.now(timezone.utc).timestamp())
+        him_json = json.dumps({
+            "jobs": [{
+                "title": "Backend Engineer",
+                "companyName": "Acme",
+                "applicationLink": "https://himalayas.app/jobs/1",
+                "excerpt": "Python backend role.",
+                "locationRestrictions": [],
+                "seniority": ["Mid"],
+                "pubDate": now_ts,
+            }]
+        })
+        arb_json = json.dumps({
+            "data": [{
+                "title": "Python Developer",
+                "company_name": "BerlinCo",
+                "url": "https://arbeitnow.com/jobs/1",
+                "description": "Remote Python role with visa sponsorship.",
+                "tags": ["Remote", "Visa Sponsorship"],
+                "remote": True,
+                "created_at": now_ts,
+            }]
+        })
+        with patch("scraper.fetch_url", return_value=him_json):
+            him = scraper.parse_himalayas_source(
+                {"name": "Himalayas", "url": "https://himalayas.app/jobs/api"},
+                "jobs", "💼 Job Alert", ["python"], [], 10, max_age_days=3,
+            )
+        self.assertEqual(len(him), 1)
+        self.assertIn("🌍 Worldwide", him[0].badges)
+
+        with patch("scraper.fetch_url", return_value=arb_json):
+            arb = scraper.parse_arbeitnow_source(
+                {"name": "Arbeitnow", "url": "https://www.arbeitnow.com/api/job-board-api"},
+                "jobs", "💼 Job Alert", ["python"], [], 10, max_age_days=3,
+            )
+        self.assertEqual(len(arb), 1)
+        self.assertIn("🛂 Visa Sponsored", arb[0].badges)
 
     def test_save_latest_items_balances_categories(self) -> None:
         now = datetime.now(timezone.utc)

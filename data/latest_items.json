@@ -1,5 +1,21 @@
 [
   {
+    "item_id": "c7d42e998febe279",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "We Work Remotely",
+    "title": "Celonis: Account Executive - Public Sector Germany - Defense (Bundeswehr)",
+    "link": "https://weworkremotely.com/remote-jobs/celonis-account-executive-public-sector-germany-defense-bundeswehr",
+    "summary": "Headquarters: Remote, Germany Celonis is the trusted platform to industrialize Enterprise AI. At our core is the Celonis Context Model \u2014 which combines process data, business knowledge, and intelligence into a living digital twin of the en\u2026",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Fri, 20 Nov 2026 18:32:40 +0000",
+    "published_iso": "2026-11-20T18:32:40+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
     "item_id": "ca86e5302a8c374d",
     "category": "scholarships",
     "category_label": "\ud83c\udf93 Scholarship & Fellowship",
@@ -11,22 +27,11 @@
       "fully funded"
     ],
     "published": "Fri, 20 Nov 2026 18:09:17 +0000",
-    "published_iso": "2026-11-20T18:09:17+00:00"
-  },
-  {
-    "item_id": "565b95ee17100936",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Cribl: Staff Software Engineer, Search Core",
-    "link": "https://weworkremotely.com/remote-jobs/cribl-staff-software-engineer-search-core",
-    "summary": "Headquarters: Remote - United States URL: https://cribl.io Join the company that\u2019s building the telemetry infrastructure for the AI era. At Cribl, we partner with IT and Security teams at many of the world\u2019s biggest enterprises, including\u2026",
-    "matched_keywords": [
-      "remote",
-      "software engineer"
+    "published_iso": "2026-11-20T18:09:17+00:00",
+    "badges": [
+      "\ud83d\udcb0 Fully Funded"
     ],
-    "published": "Fri, 20 Nov 2026 17:02:36 +0000",
-    "published_iso": "2026-11-20T17:02:36+00:00"
+    "deadline": ""
   },
   {
     "item_id": "fa1810bb9e01ed66",
@@ -41,7 +46,27 @@
       "researcher"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
-    "published_iso": "2026-11-18T06:00:00+00:00"
+    "published_iso": "2026-11-18T06:00:00+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "3cd158fe42f18e43",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "We Work Remotely",
+    "title": "Cockroach Labs: Escalation Engineer",
+    "link": "https://weworkremotely.com/remote-jobs/cockroach-labs-escalation-engineer",
+    "summary": "Headquarters: Remote, United States Category-defining tech. Career-defining work. For more than a decade, Cockroach Labs has built database technology trusted to power some of the world's most mission-critical applications. Now, as AI tran\u2026",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Fri, 20 Nov 2026 18:32:40 +0000",
+    "published_iso": "2026-11-20T18:32:40+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
     "item_id": "26fd253bd661f014",
@@ -55,21 +80,9 @@
       "africa"
     ],
     "published": "Fri, 20 Nov 2026 18:08:18 +0000",
-    "published_iso": "2026-11-20T18:08:18+00:00"
-  },
-  {
-    "item_id": "ee872b76947fcd8f",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Coderio: Sr AWS Cloud Integration Engineer - Remote",
-    "link": "https://weworkremotely.com/remote-jobs/coderio-sr-aws-cloud-integration-engineer-remote",
-    "summary": "Headquarters: Argentina URL: https://www.coderio.com \\n \\n $1 - $1 a month About Us Coderio designs and develops scalable digital solutions for global companies. We combine deep technical expertise with a product-driven mindset to lead com\u2026",
-    "matched_keywords": [
-      "remote"
-    ],
-    "published": "Fri, 20 Nov 2026 17:02:34 +0000",
-    "published_iso": "2026-11-20T17:02:34+00:00"
+    "published_iso": "2026-11-20T18:08:18+00:00",
+    "badges": [],
+    "deadline": "January 31, 2027"
   },
   {
     "item_id": "825e1fb6d09d2a66",
@@ -83,7 +96,27 @@
       "backend"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
-    "published_iso": "2026-11-18T06:00:00+00:00"
+    "published_iso": "2026-11-18T06:00:00+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "891c880e7a4f0f97",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "We Work Remotely",
+    "title": "Celonis: Account Executive - Cross Industries",
+    "link": "https://weworkremotely.com/remote-jobs/celonis-account-executive-cross-industries",
+    "summary": "Headquarters: Remote, Switzerland Celonis is the trusted platform to industrialize Enterprise AI. At our core is the Celonis Context Model \u2014 which combines process data, business knowledge, and intelligence into a living digital twin of th\u2026",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Fri, 20 Nov 2026 18:32:40 +0000",
+    "published_iso": "2026-11-20T18:32:40+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
     "item_id": "29d96c10346684f0",
@@ -97,21 +130,9 @@
       "africa"
     ],
     "published": "Fri, 20 Nov 2026 05:50:00 +0000",
-    "published_iso": "2026-11-20T05:50:00+00:00"
-  },
-  {
-    "item_id": "7404bc9f0b7bffbe",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Oscar Health: Senior Analyst, Payment Integrity",
-    "link": "https://weworkremotely.com/remote-jobs/oscar-health-senior-analyst-payment-integrity",
-    "summary": "Headquarters: Remote URL: https://oscarhealth.com Hi, we're Oscar. We're hiring a Senior Analyst, Payment Intergrityto join our Payment Integrity Support. Oscar is the first health insurance company built around a full stack technology pla\u2026",
-    "matched_keywords": [
-      "remote"
-    ],
-    "published": "Fri, 20 Nov 2026 17:01:44 +0000",
-    "published_iso": "2026-11-20T17:01:44+00:00"
+    "published_iso": "2026-11-20T05:50:00+00:00",
+    "badges": [],
+    "deadline": "29 November 2026"
   },
   {
     "item_id": "71a5cae9ce704ced",
@@ -125,7 +146,27 @@
       "software engineer"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
-    "published_iso": "2026-11-18T06:00:00+00:00"
+    "published_iso": "2026-11-18T06:00:00+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "53765d24cd859e03",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "We Work Remotely",
+    "title": "Postscript: Senior Software Engineer, Full Stack (80% backend)",
+    "link": "https://weworkremotely.com/remote-jobs/postscript-senior-software-engineer-full-stack-80-backend",
+    "summary": "Headquarters: Remote Postscript is the AI-powered, all-in-one retention platform trusted by 20,000+ Shopify brands, including Brooklinen, Ruggable, True Classic, and Dr. Squatch. Our mission is to maximize the lifetime value of every shopp\u2026",
+    "matched_keywords": [
+      "backend",
+      "remote",
+      "software engineer"
+    ],
+    "published": "Fri, 20 Nov 2026 18:32:40 +0000",
+    "published_iso": "2026-11-20T18:32:40+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
     "item_id": "9e5a6abc269c5c2b",
@@ -139,21 +180,11 @@
       "fellowship"
     ],
     "published": "Thu, 19 Nov 2026 20:09:26 +0000",
-    "published_iso": "2026-11-19T20:09:26+00:00"
-  },
-  {
-    "item_id": "c3b9886d5fd2aec6",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Siemens: Associate Energy Engineer",
-    "link": "https://weworkremotely.com/remote-jobs/siemens-associate-energy-engineer",
-    "summary": "Headquarters: Berlin, Germany URL: http://www.siemens.com Position Location: This role is remote. Here at Siemens, we take pride in enabling sustainable progress through technology. We do this through empowering customers by combining the\u2026",
-    "matched_keywords": [
-      "remote"
+    "published_iso": "2026-11-19T20:09:26+00:00",
+    "badges": [
+      "\ud83d\udcb0 Fully Funded"
     ],
-    "published": "Fri, 20 Nov 2026 17:01:32 +0000",
-    "published_iso": "2026-11-20T17:01:32+00:00"
+    "deadline": "December 6, 2026"
   },
   {
     "item_id": "91d9a71ba47f830b",
@@ -167,7 +198,27 @@
       "product manager"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
-    "published_iso": "2026-11-18T06:00:00+00:00"
+    "published_iso": "2026-11-18T06:00:00+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "4319de8776ae6893",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "We Work Remotely",
+    "title": "Cockroach Labs: Account Executive, DACH",
+    "link": "https://weworkremotely.com/remote-jobs/cockroach-labs-account-executive-dach",
+    "summary": "Headquarters: Remote, Germany Category-defining tech. Career-defining work. For more than a decade, Cockroach Labs has built database technology trusted to power some of the world's most mission-critical applications. Now, as AI transforms\u2026",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Fri, 20 Nov 2026 18:32:29 +0000",
+    "published_iso": "2026-11-20T18:32:29+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
     "item_id": "646b812b351e9d9d",
@@ -181,22 +232,9 @@
       "fellowship"
     ],
     "published": "Thu, 19 Nov 2026 19:52:03 +0000",
-    "published_iso": "2026-11-19T19:52:03+00:00"
-  },
-  {
-    "item_id": "dd8fc250c3965192",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Teamified: Senior Software Engineer",
-    "link": "https://weworkremotely.com/remote-jobs/teamified-senior-software-engineer",
-    "summary": "Headquarters: Philippines URL: https://jobs.workable.com/company/sC3VVUzx14A9GZdFM7giB7/jobs-at-teamified About Teamified: Teamified is a talent partner helping companies build exceptional remote teams across IT, software, product, and dig\u2026",
-    "matched_keywords": [
-      "remote",
-      "software engineer"
-    ],
-    "published": "Fri, 20 Nov 2026 17:01:26 +0000",
-    "published_iso": "2026-11-20T17:01:26+00:00"
+    "published_iso": "2026-11-19T19:52:03+00:00",
+    "badges": [],
+    "deadline": "December 15, 2026"
   },
   {
     "item_id": "43b6bc5fe04ee916",
@@ -210,7 +248,27 @@
       "blockchain"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
-    "published_iso": "2026-11-18T06:00:00+00:00"
+    "published_iso": "2026-11-18T06:00:00+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "1c9270954b99ff30",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "We Work Remotely",
+    "title": "Postscript: Senior Product Marketing Manager",
+    "link": "https://weworkremotely.com/remote-jobs/postscript-senior-product-marketing-manager",
+    "summary": "Headquarters: Remote Postscript is the AI-powered, all-in-one retention platform trusted by 20,000+ Shopify brands, including Brooklinen, Ruggable, True Classic, and Dr. Squatch. Our mission is to maximize the lifetime value of every shopp\u2026",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Fri, 20 Nov 2026 18:32:29 +0000",
+    "published_iso": "2026-11-20T18:32:29+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
     "item_id": "ab2673386352782a",
@@ -225,21 +283,11 @@
       "scholarship"
     ],
     "published": "Thu, 19 Nov 2026 18:24:50 +0000",
-    "published_iso": "2026-11-19T18:24:50+00:00"
-  },
-  {
-    "item_id": "2af9403661a2930e",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Databricks: Strategic Core Account Executive - Telco",
-    "link": "https://weworkremotely.com/remote-jobs/databricks-strategic-core-account-executive-telco",
-    "summary": "Headquarters: Remote - Washington URL: https://databricks.com SLSQ128R30 While candidates in the listed location(s) are encouraged for this role, candidates in other locations may be considered. Candidates in the listed location(s) are enc\u2026",
-    "matched_keywords": [
-      "remote"
+    "published_iso": "2026-11-19T18:24:50+00:00",
+    "badges": [
+      "\ud83d\udcb0 Fully Funded"
     ],
-    "published": "Fri, 20 Nov 2026 17:01:02 +0000",
-    "published_iso": "2026-11-20T17:01:02+00:00"
+    "deadline": "20 January 2027"
   },
   {
     "item_id": "531166d49c59c803",
@@ -253,7 +301,25 @@
       "product manager"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
-    "published_iso": "2026-11-18T06:00:00+00:00"
+    "published_iso": "2026-11-18T06:00:00+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "eb6cb1c465141303",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "We Work Remotely",
+    "title": "Bybit: Country Manager",
+    "link": "https://weworkremotely.com/remote-jobs/bybit-country-manager",
+    "summary": "Headquarters: Europe - Remote About Us Established in 2018, Bybit is one of the world\u2019s leading cryptocurrency exchanges and digital financial platforms, serving over 80 million users across more than 200 countries and regions. Powered by\u2026",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Fri, 20 Nov 2026 18:32:29 +0000",
+    "published_iso": "2026-11-20T18:32:29+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
     "item_id": "61f138443589576b",
@@ -267,21 +333,9 @@
       "fellowship"
     ],
     "published": "Thu, 19 Nov 2026 17:20:09 +0000",
-    "published_iso": "2026-11-19T17:20:09+00:00"
-  },
-  {
-    "item_id": "989359f31b0a8490",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Cribl: Sales Engineer, Global System Integrators (GSIs)",
-    "link": "https://weworkremotely.com/remote-jobs/cribl-sales-engineer-global-system-integrators-gsis",
-    "summary": "Headquarters: Remote - United States URL: https://cribl.io Join the company that\u2019s building the telemetry infrastructure for the AI era. At Cribl, we partner with IT and Security teams at many of the world\u2019s biggest enterprises, including\u2026",
-    "matched_keywords": [
-      "remote"
-    ],
-    "published": "Fri, 20 Nov 2026 17:00:59 +0000",
-    "published_iso": "2026-11-20T17:00:59+00:00"
+    "published_iso": "2026-11-19T17:20:09+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
     "item_id": "f0b93ca9ec0dabf0",
@@ -295,7 +349,27 @@
       "product manager"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
-    "published_iso": "2026-11-18T06:00:00+00:00"
+    "published_iso": "2026-11-18T06:00:00+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "7b7a2e202b028937",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "We Work Remotely",
+    "title": "BeyondTrust: Lead-to-Cash Business Partner",
+    "link": "https://weworkremotely.com/remote-jobs/beyondtrust-lead-to-cash-business-partner",
+    "summary": "Headquarters: Remote United States BeyondTrust is a place where you can bring your purpose to life through the work that you do, creating a safer world through our cybersecurity SaaS portfolio. Our culture of flexibility, trust, and contin\u2026",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Fri, 20 Nov 2026 18:32:28 +0000",
+    "published_iso": "2026-11-20T18:32:28+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
     "item_id": "df49647965be9451",
@@ -310,21 +384,12 @@
       "fellowship"
     ],
     "published": "Thu, 19 Nov 2026 15:36:55 +0000",
-    "published_iso": "2026-11-19T15:36:55+00:00"
-  },
-  {
-    "item_id": "614294d4bcebe4ed",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Ping Identity: Strategic Account Executive - LATAM",
-    "link": "https://weworkremotely.com/remote-jobs/ping-identity-strategic-account-executive-latam",
-    "summary": "Headquarters: USA - Remote About Ping Identity: At Ping Identity, we believe in making digital experiences both secure and seamless for all users, without compromise. We call this digital freedom. And it's not just something we provide our\u2026",
-    "matched_keywords": [
-      "remote"
+    "published_iso": "2026-11-19T15:36:55+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide",
+      "\ud83d\udcb0 Fully Funded"
     ],
-    "published": "Fri, 20 Nov 2026 17:00:57 +0000",
-    "published_iso": "2026-11-20T17:00:57+00:00"
+    "deadline": "December 15th, 2026"
   },
   {
     "item_id": "414417ff69de5099",
@@ -339,7 +404,25 @@
       "developer"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
-    "published_iso": "2026-11-18T06:00:00+00:00"
+    "published_iso": "2026-11-18T06:00:00+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "125b17d4c91cce6e",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "We Work Remotely",
+    "title": "SeekOut: Senior Product Designer (Remote)",
+    "link": "https://weworkremotely.com/remote-jobs/seekout-senior-product-designer-remote",
+    "summary": "Headquarters: Remote What is SeekOut? SeekOut is a leader in AI-driven talent optimization, helping organizations recruit, reskill, and redeploy talent with AI-driven solutions. SeekOut transforms how companies build winning teams by empow\u2026",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Fri, 20 Nov 2026 18:32:19 +0000",
+    "published_iso": "2026-11-20T18:32:19+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
     "item_id": "ac87be6092d50d8c",
@@ -354,21 +437,28 @@
       "fellowship"
     ],
     "published": "Thu, 19 Nov 2026 14:59:12 +0000",
-    "published_iso": "2026-11-19T14:59:12+00:00"
+    "published_iso": "2026-11-19T14:59:12+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide",
+      "\ud83d\udcb0 Fully Funded"
+    ],
+    "deadline": "December 6, 2026"
   },
   {
-    "item_id": "8b1ba3268e7bfc4b",
+    "item_id": "a448679cb9e318f8",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Abnormal: Senior Technical Marketing Manager",
-    "link": "https://weworkremotely.com/remote-jobs/abnormal-senior-technical-marketing-manager",
-    "summary": "Headquarters: Remote - USA URL: https://abnormal.ai Senior Technical Marketing Manager About the Role Attackers are using AI to look more human than ever. Stopping them takes technology that recognizes normal behavior, and prevents when th\u2026",
+    "title": "Bybit: Compliance Officer/MLRO",
+    "link": "https://weworkremotely.com/remote-jobs/bybit-compliance-officer-mlro",
+    "summary": "Headquarters: Pakistan - Remote About Us Established in 2018, Bybit is one of the world\u2019s leading cryptocurrency exchanges and digital financial platforms, serving over 80 million users across more than 200 countries and regions. Powered b\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 17:00:55 +0000",
-    "published_iso": "2026-11-20T17:00:55+00:00"
+    "published": "Fri, 20 Nov 2026 18:32:19 +0000",
+    "published_iso": "2026-11-20T18:32:19+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
     "item_id": "78cf73f9036b6b4d",
@@ -382,21 +472,27 @@
       "africa"
     ],
     "published": "Mon, 16 Nov 2026 09:35:00 +0000",
-    "published_iso": "2026-11-16T09:35:00+00:00"
+    "published_iso": "2026-11-16T09:35:00+00:00",
+    "badges": [
+      "\ud83d\udfe2 Entry / Intern"
+    ],
+    "deadline": ""
   },
   {
-    "item_id": "c35271f27d3d62fa",
+    "item_id": "885b4273d4514a4b",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Abnormal: Sales Development Representative, Dutch Speaking",
-    "link": "https://weworkremotely.com/remote-jobs/abnormal-sales-development-representative-dutch-speaking",
-    "summary": "Headquarters: Remote - Netherlands URL: https://abnormal.ai About the Role We are hiring the \u201cbest of the best\u201d sales professionals who are passionate about their craft and want to continue to excel within our elite sales organization. Our\u2026",
+    "title": "BeyondTrust: Field & Partner Marketing Manager, Public Sector",
+    "link": "https://weworkremotely.com/remote-jobs/beyondtrust-field-partner-marketing-manager-public-sector",
+    "summary": "Headquarters: Remote Unites States | Atlanta, Austin, Boston, Chicago, Dallas, Denver, Phoenix BeyondTrust is a place where you can bring your purpose to life through the work that you do, creating a safer world through our cybersecurity S\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 17:00:53 +0000",
-    "published_iso": "2026-11-20T17:00:53+00:00"
+    "published": "Fri, 20 Nov 2026 18:32:15 +0000",
+    "published_iso": "2026-11-20T18:32:15+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
     "item_id": "428dcf4b07378ebc",
@@ -410,21 +506,25 @@
       "scholarship"
     ],
     "published": "Mon, 16 Nov 2026 09:31:00 +0000",
-    "published_iso": "2026-11-16T09:31:00+00:00"
+    "published_iso": "2026-11-16T09:31:00+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
-    "item_id": "4146581326684ba7",
+    "item_id": "791e12a84eba4537",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Abnormal: Sales Development Representative, German Speaking",
-    "link": "https://weworkremotely.com/remote-jobs/abnormal-sales-development-representative-german-speaking",
-    "summary": "Headquarters: Remote - Germany URL: https://abnormal.ai About the Role We are hiring the \u201cbest of the best\u201d sales professionals who are passionate about their craft and want to continue to excel within our elite sales organization. Our Bus\u2026",
+    "title": "Affirm: Affirm Bank Strategic Finance Lead",
+    "link": "https://weworkremotely.com/remote-jobs/affirm-affirm-bank-strategic-finance-lead",
+    "summary": "Headquarters: Remote US At Affirm, we exist for the moments that matter\u2014giving people a clear, predictable way to pay over time, with no hidden fees, no surprises, and no tradeoffs on what matters most. About the Finance team The Finance t\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 17:00:51 +0000",
-    "published_iso": "2026-11-20T17:00:51+00:00"
+    "published": "Fri, 20 Nov 2026 18:32:14 +0000",
+    "published_iso": "2026-11-20T18:32:14+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
     "item_id": "e8c2ad8c9278677e",
@@ -438,21 +538,25 @@
       "scholarship"
     ],
     "published": "Sun, 15 Nov 2026 16:42:00 +0000",
-    "published_iso": "2026-11-15T16:42:00+00:00"
+    "published_iso": "2026-11-15T16:42:00+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
-    "item_id": "7cd6d1cd10663148",
+    "item_id": "e4b7e8e32a63c780",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "\u014cURA: Senior Director of Retail, North America",
-    "link": "https://weworkremotely.com/remote-jobs/oura-senior-director-of-retail-north-america",
-    "summary": "Headquarters: Remote - United States Our mission at \u014cURA is to empower every person to own their inner potential. Our award-winning products help our global community gain a deeper knowledge of their readiness, activity, and sleep quality\u2026",
+    "title": "Affirm: Accounting Manager",
+    "link": "https://weworkremotely.com/remote-jobs/affirm-accounting-manager",
+    "summary": "Headquarters: Remote US At Affirm, we exist for the moments that matter\u2014giving people a clear, predictable way to pay over time, with no hidden fees, no surprises, and no tradeoffs on what matters most. About the Finance team The Finance t\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 17:00:49 +0000",
-    "published_iso": "2026-11-20T17:00:49+00:00"
+    "published": "Fri, 20 Nov 2026 18:32:14 +0000",
+    "published_iso": "2026-11-20T18:32:14+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
     "item_id": "afec84415b7bcc47",
@@ -466,104 +570,108 @@
       "scholarship"
     ],
     "published": "Sun, 15 Nov 2026 16:42:00 +0000",
-    "published_iso": "2026-11-15T16:42:00+00:00"
+    "published_iso": "2026-11-15T16:42:00+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
-    "item_id": "f95d02f3ffba723d",
+    "item_id": "734c36dccf49e4c0",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Everpure: Territory Account Executive - BW/Hessen",
-    "link": "https://weworkremotely.com/remote-jobs/everpure-territory-account-executive-bw-hessen",
-    "summary": "Headquarters: Remote, Germany Everpure (NYSE: P) has evolved from storage pioneer to data platform, closing fiscal 2026 with $3.7 billion in revenue, its first billion-dollar quarter, and accelerating growth into FY27. Our strategic agenda\u2026",
+    "title": "Wrike: Senior Customer Success Manager",
+    "link": "https://weworkremotely.com/remote-jobs/wrike-senior-customer-success-manager",
+    "summary": "Headquarters: US - Remote Wrike is the most powerful work management platform. Built for teams and organizations looking to collaborate, create, and exceed every day, Wrike brings everyone and all work into a single place to remove complex\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 17:00:44 +0000",
-    "published_iso": "2026-11-20T17:00:44+00:00"
+    "published": "Fri, 20 Nov 2026 18:32:14 +0000",
+    "published_iso": "2026-11-20T18:32:14+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
-    "item_id": "aa57b1b6a7bb0bd0",
+    "item_id": "7bf38c00b4020f44",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Everpure: District Manager, Enterprise (Florida)",
-    "link": "https://weworkremotely.com/remote-jobs/everpure-district-manager-enterprise-florida",
-    "summary": "Headquarters: Remote, Florida Everpure (NYSE: P) has evolved from storage pioneer to data platform, closing fiscal 2026 with $3.7 billion in revenue, its first billion-dollar quarter, and accelerating growth into FY27. Our strategic agenda\u2026",
+    "title": "Wrike: Senior CloudOps Engineer (Network Engineer)",
+    "link": "https://weworkremotely.com/remote-jobs/wrike-senior-cloudops-engineer-network-engineer",
+    "summary": "Headquarters: Czech Republic - Remote Wrike is the most powerful work management platform. Built for teams and organizations looking to collaborate, create, and exceed every day, Wrike brings everyone and all work into a single place to re\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 17:00:42 +0000",
-    "published_iso": "2026-11-20T17:00:42+00:00"
+    "published": "Fri, 20 Nov 2026 18:32:06 +0000",
+    "published_iso": "2026-11-20T18:32:06+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
-    "item_id": "b5bc1213ecb19c11",
+    "item_id": "a8927dfebe757ca1",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "GitLab: Strategic Account Executive - San Francisco",
-    "link": "https://weworkremotely.com/remote-jobs/gitlab-strategic-account-executive-san-francisco",
-    "summary": "Headquarters: Remote, United States GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and a\u2026",
+    "title": "Sezzle: Customer Service Agent",
+    "link": "https://weworkremotely.com/remote-jobs/sezzle-customer-service-agent",
+    "summary": "Headquarters: Colombia, Remote This is a remote position for candidates based in Bogota, Colombia. About Sezzle: With a mission to financially empower the next generation, Sezzle is revolutionizing the shopping experience beyond payments,\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 17:00:41 +0000",
-    "published_iso": "2026-11-20T17:00:41+00:00"
+    "published": "Fri, 20 Nov 2026 18:32:06 +0000",
+    "published_iso": "2026-11-20T18:32:06+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
-    "item_id": "dfb810f7a8944049",
+    "item_id": "fe260526f44b2fb8",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "GitLab: Sr. Manager, Support Engineering (Public Sector)",
-    "link": "https://weworkremotely.com/remote-jobs/gitlab-sr-manager-support-engineering-public-sector",
-    "summary": "Headquarters: Remote, United States GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and a\u2026",
+    "title": "Talkspace: Data Analyst",
+    "link": "https://weworkremotely.com/remote-jobs/talkspace-data-analyst",
+    "summary": "Headquarters: New York, NY (Remote) At Talkspace, we are committed to fostering a diverse, equitable, inclusive, and belonging-centered workplace where everyone can thrive while making a difference in mental health. Want to help over two m\u2026",
     "matched_keywords": [
-      "remote"
+      "remote",
+      "data analyst"
     ],
-    "published": "Fri, 20 Nov 2026 17:00:34 +0000",
-    "published_iso": "2026-11-20T17:00:34+00:00"
+    "published": "Fri, 20 Nov 2026 18:32:02 +0000",
+    "published_iso": "2026-11-20T18:32:02+00:00",
+    "badges": [],
+    "deadline": ""
   },
   {
-    "item_id": "517255dc5452482d",
+    "item_id": "122b2744fdbf7536",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "6sense: Sr. Customer Success Manager - Upmarket",
-    "link": "https://weworkremotely.com/remote-jobs/6sense-sr-customer-success-manager-upmarket",
-    "summary": "Headquarters: United States, Remote Our Mission: 6sense's mission is to multiply what matters: growth, retention, and efficiency. We envision a future where companies, teams and people reach their full potential. Our People: People are the\u2026",
+    "title": "Sezzle: A.I. Engineering Intern (Remote)",
+    "link": "https://weworkremotely.com/remote-jobs/sezzle-a-i-engineering-intern-remote",
+    "summary": "Headquarters: T\u00fcrkiye, Remote About Sezzle: With a mission to financially empower the next generation, Sezzle is revolutionizing the shopping experience beyond payments, blending cutting-edge tech with seamless, interest-free installment p\u2026",
     "matched_keywords": [
-      "remote"
+      "remote",
+      "intern"
     ],
-    "published": "Fri, 20 Nov 2026 17:00:32 +0000",
-    "published_iso": "2026-11-20T17:00:32+00:00"
+    "published": "Fri, 20 Nov 2026 18:32:00 +0000",
+    "published_iso": "2026-11-20T18:32:00+00:00",
+    "badges": [
+      "\ud83d\udfe2 Entry / Intern"
+    ],
+    "deadline": ""
   },
   {
-    "item_id": "52a77ce2d98617bd",
+    "item_id": "3c25c34d6598ca75",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Global Dimensions, LLC: Part-Time HUBZone Business Operations & Support Specialist",
-    "link": "https://weworkremotely.com/remote-jobs/global-dimensions-llc-part-time-hubzone-business-operations-support-specialist",
-    "summary": "Headquarters: Houston, Texas, United States URL: http://www.globaldllc.com Location: Remote \u2013 United States (Must reside in an SBA-designated HUBZone) Schedule: Part-Time | 10 Hours per Week | Flexible Monday\u2013Friday Employment Type: Part-T\u2026",
+    "title": "StockX: Don\u2019t See the Right Role? Join Our Talent Community!",
+    "link": "https://weworkremotely.com/remote-jobs/stockx-don-t-see-the-right-role-join-our-talent-community",
+    "summary": "Headquarters: Bangalore, India; Detroit, MI; Douglasville, GA; Eindhoven, Netherlands; Hong Kong, China; London, United Kingdom; Mississauga, ON, Canada; Remote, Netherlands; Remote, United Kingdom; Remote, USA; Tempe, AZ; West Caldwell, N\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 17:00:26 +0000",
-    "published_iso": "2026-11-20T17:00:26+00:00"
-  },
-  {
-    "item_id": "0506525dea666d9b",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Fin: Senior Manager, Solutions Engineering",
-    "link": "https://weworkremotely.com/remote-jobs/fin-senior-manager-solutions-engineering",
-    "summary": "Headquarters: NYC, Remote; San Francisco, California Fin , now part of Salesforce, is on a mission to help businesses provide perfect customer experiences. Our AI Agent Fin is the highest-performing AI Customer Agent on the market today, e\u2026",
-    "matched_keywords": [
-      "remote"
-    ],
-    "published": "Fri, 20 Nov 2026 06:02:02 +0000",
-    "published_iso": "2026-11-20T06:02:02+00:00"
+    "published": "Fri, 20 Nov 2026 18:31:58 +0000",
+    "published_iso": "2026-11-20T18:31:58+00:00",
+    "badges": [],
+    "deadline": ""
   }
 ]

@@ -64,10 +64,12 @@ class BotCommandsTests(unittest.TestCase):
                 source_name="WWR",
                 title="Python Backend Engineer",
                 link="https://example.com/j1",
-                summary="Build APIs in Python",
+                summary="Build APIs in Python worldwide with visa sponsorship",
                 matched_keywords=["python", "backend"],
                 published="Today",
                 published_dt=now,
+                badges=["🌍 Worldwide", "🛂 Visa Sponsored"],
+                deadline="Dec 20, 2026",
             ),
             scraper.Opportunity(
                 item_id="w1",
@@ -225,6 +227,54 @@ class BotCommandsTests(unittest.TestCase):
         self.assertEqual(captured["status"], "200 OK")
         self.assertEqual(json.loads(post_body.decode("utf-8"))["handled"], 1)
         mock_send.assert_called_once()
+
+    def test_search_worldwide_visa_digest_and_pagination_callback(self) -> None:
+        search = bot_commands.handle_command("123", "/search python", self.config, self.latest_path, self.subs_path)
+        self.assertIn("Python Backend Engineer", search[0])
+
+        ww = bot_commands.handle_command("123", "/worldwide", self.config, self.latest_path, self.subs_path)
+        self.assertIn("Python Backend Engineer", ww[0])
+
+        visa = bot_commands.handle_command("123", "/visa", self.config, self.latest_path, self.subs_path)
+        self.assertIn("Python Backend Engineer", visa[0])
+
+        digest = bot_commands.handle_command("123", "/digest", self.config, self.latest_path, self.subs_path)
+        self.assertIn("Daily Opportunities Digest", digest[0])
+
+        # Test pagination button generation + callback_query handling
+        many = [
+            scraper.Opportunity(
+                f"x{i}", "jobs", "J", "WWR", f"Python Role {i}", f"https://ex.com/{i}",
+                "Remote Python", ["python"], published_dt=datetime.now(timezone.utc),
+            )
+            for i in range(7)
+        ]
+        scraper.save_latest_items(self.latest_path, many, self.config, limit=20)
+        responses = bot_commands.build_command_responses("123", "/jobs python", self.config, self.latest_path, self.subs_path)
+        _txt, markup = responses[0]
+        self.assertIsNotNone(markup)
+        cb_data = markup["inline_keyboard"][0][0]["callback_data"]
+        self.assertEqual(cb_data, "pg:jobs:1:python")
+
+        with patch("scraper.load_config", return_value=self.config), patch(
+            "scraper.edit_telegram_message"
+        ) as mock_edit, patch("scraper.answer_callback_query") as mock_ack:
+            handled = bot_commands.process_webhook_update(
+                {
+                    "callback_query": {
+                        "id": "cq1",
+                        "data": cb_data,
+                        "message": {"message_id": 99, "chat": {"id": 123}},
+                    }
+                },
+                bot_token="tok",
+                config_path=self.root / "config.yaml",
+                latest_path=self.latest_path,
+                subscribers_path=self.subs_path,
+            )
+        self.assertEqual(handled, 1)
+        mock_edit.assert_called_once()
+        mock_ack.assert_called_once()
 
 
 if __name__ == "__main__":
