@@ -232,6 +232,10 @@ class BotCommandsTests(unittest.TestCase):
         self.assertIn("# Jobs, Web3 & Scholarships Live Board", llms)
         self.assertIn("## Recent Opportunities", llms)
 
+        g_verify = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/googlefee6033bceb7f78c.html"}, start_response)).decode("utf-8")
+        self.assertEqual(captured["status"], "200 OK")
+        self.assertIn("google-site-verification: googlefee6033bceb7f78c.html", g_verify)
+
         # /api/opportunities serves JSON list
         api_body = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/api/opportunities"}, start_response))
         self.assertEqual(captured["status"], "200 OK")

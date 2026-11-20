@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any, Callable, Iterable
@@ -148,6 +149,17 @@ def app(
             ]
             start_response(STATUS_TEXT[200], headers)
             return [] if method == "HEAD" else [body]
+
+        if re.fullmatch(r"/google[0-9a-f]+\.html", path):
+            verify_file = BASE_DIR / path.lstrip("/")
+            if verify_file.is_file():
+                body = verify_file.read_bytes()
+                headers = [
+                    ("Content-Type", "text/html; charset=utf-8"),
+                    ("Content-Length", str(len(body))),
+                ]
+                start_response(STATUS_TEXT[200], headers)
+                return [] if method == "HEAD" else [body]
 
         if path == "/api/opportunities":
             items, _url, _handle = _load_board_data()
