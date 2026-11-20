@@ -38,6 +38,8 @@ USER_AGENT = (
 
 DEFAULT_CONFIG_PATH = Path("config.yaml")
 DEFAULT_SEEN_PATH = Path("data/seen_items.json")
+DEFAULT_LATEST_PATH = Path("data/latest_items.json")
+DEFAULT_SUBSCRIBERS_PATH = Path("data/subscribers.json")
 
 
 @dataclass
@@ -52,6 +54,44 @@ class Opportunity:
     matched_keywords: list[str]
     published: str = ""
     published_dt: datetime | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "item_id": self.item_id,
+            "category": self.category,
+            "category_label": self.category_label,
+            "source_name": self.source_name,
+            "title": self.title,
+            "link": self.link,
+            "summary": self.summary,
+            "matched_keywords": self.matched_keywords,
+            "published": self.published,
+            "published_iso": self.published_dt.isoformat() if self.published_dt else "",
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> "Opportunity":
+        published_dt: datetime | None = None
+        iso_val = (data.get("published_iso") or "").strip()
+        if iso_val:
+            try:
+                published_dt = datetime.fromisoformat(iso_val)
+                if published_dt.tzinfo is None:
+                    published_dt = published_dt.replace(tzinfo=timezone.utc)
+            except ValueError:
+                published_dt = None
+        return cls(
+            item_id=str(data.get("item_id", "")),
+            category=str(data.get("category", "")),
+            category_label=str(data.get("category_label", "")),
+            source_name=str(data.get("source_name", "")),
+            title=str(data.get("title", "")),
+            link=str(data.get("link", "")),
+            summary=str(data.get("summary", "")),
+            matched_keywords=[str(k) for k in data.get("matched_keywords", [])],
+            published=str(data.get("published", "")),
+            published_dt=published_dt,
+        )
 
 
 def make_item_id(link: str, title: str) -> str:
@@ -296,7 +336,79 @@ def save_seen_items(path: Path, seen: dict[str, str]) -> None:
     path.write_text(json.dumps(seen, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
-def format_telegram_message(item: Opportunity) -> str:
+def load_latest_items(path: Path) -> list[Opportunity]:
+    """Load cached recent opportunities from JSON."""
+    if not path.exists():
+        return []
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(raw, list):
+            return [Opportunity.from_dict(item) for item in raw if isinstance(item, dict)]
+    except (json.JSONDecodeError, OSError) as exc:
+        logger.warning("Could not read %s (%s); ignoring cache.", path, exc)
+    return []
+
+
+def save_latest_items(
+    path: Path,
+    new_items: list[Opportunity],
+    config: dict[str, Any],
+    limit: int = 40,
+) -> list[Opportunity]:
+    """Merge fresh opportunities into latest_items.json, pruning stale entries."""
+    settings = config.get("settings", {})
+    default_max_age = settings.get("max_post_age_days")
+    allow_undated = bool(settings.get("allow_undated_posts", True))
+    categories = config.get("categories", {})
+
+    existing = load_latest_items(path)
+    merged_by_id: dict[str, Opportunity] = {}
+    for item in [*new_items, *existing]:
+        if not item.item_id or item.item_id in merged_by_id:
+            continue
+        cat_cfg = categories.get(item.category, {})
+        cat_max_age = cat_cfg.get("max_post_age_days", default_max_age)
+        max_age = float(cat_max_age) if cat_max_age is not None else None
+        if is_recent_post(item.published_dt, max_age, allow_undated=allow_undated):
+            merged_by_id[item.item_id] = item
+
+    epoch = datetime.min.replace(tzinfo=timezone.utc)
+    sorted_items = sorted(
+        merged_by_id.values(),
+        key=lambda o: o.published_dt or epoch,
+        reverse=True,
+    )[:limit]
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps([item.to_dict() for item in sorted_items], indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return sorted_items
+
+
+def load_subscribers(path: Path) -> dict[str, dict[str, Any]]:
+    """Load optional personal DM subscriber preferences."""
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(data, dict):
+            return data
+    except (json.JSONDecodeError, OSError) as exc:
+        logger.warning("Could not read %s (%s); skipping subscribers.", path, exc)
+    return {}
+
+
+def get_broadcast_target() -> str:
+    """Return channel/chat target from TELEGRAM_CHANNEL_ID or TELEGRAM_CHAT_ID."""
+    channel_id = os.environ.get("TELEGRAM_CHANNEL_ID", "").strip()
+    if channel_id:
+        return channel_id
+    return os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+
+
+def format_telegram_message(item: Opportunity, channel_tag: str = "") -> str:
     """Format an opportunity cleanly for Telegram HTML parse_mode."""
     label = html.escape(item.category_label)
     source = html.escape(item.source_name)
@@ -313,6 +425,8 @@ def format_telegram_message(item: Opportunity) -> str:
     lines.append(f"🏷 <code>{keywords}</code>")
     if item.published:
         lines.append(f"🗓 {html.escape(item.published)}")
+    if channel_tag:
+        lines.append(f"📢 {html.escape(channel_tag)}")
     return "\n\n".join(lines)
 
 
@@ -415,20 +529,60 @@ def interleave_by_category(items: list[Opportunity]) -> list[Opportunity]:
     return result
 
 
-def run(config_path: Path, seen_path: Path, dry_run: bool = False) -> int:
+def send_subscriber_alerts(
+    bot_token: str,
+    items: list[Opportunity],
+    subscribers_path: Path,
+    broadcast_target: str,
+) -> int:
+    """Send matching alerts to opted-in personal DM subscribers."""
+    subscribers = load_subscribers(subscribers_path)
+    if not subscribers or not items:
+        return 0
+
+    dm_sent = 0
+    for chat_id, prefs in subscribers.items():
+        if not prefs.get("subscribed", False):
+            continue
+        if str(chat_id) == str(broadcast_target):
+            continue
+        user_keywords = [k.strip() for k in prefs.get("keywords", []) if k.strip()]
+        for item in items:
+            if user_keywords:
+                text_blob = f"{item.title} {item.summary}"
+                if not match_keywords(text_blob, user_keywords, []):
+                    continue
+            try:
+                send_telegram_message(bot_token, str(chat_id), format_telegram_message(item))
+                dm_sent += 1
+                time.sleep(0.35)
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("Failed DM to subscriber %s: %s", chat_id, exc)
+    return dm_sent
+
+
+def run(
+    config_path: Path,
+    seen_path: Path,
+    dry_run: bool = False,
+    latest_path: Path = DEFAULT_LATEST_PATH,
+    subscribers_path: Path = DEFAULT_SUBSCRIBERS_PATH,
+) -> int:
     """Execute one scrape + alert cycle. Returns number of new alerts processed."""
     config = load_config(config_path)
     settings = config.get("settings", {})
     max_alerts = int(settings.get("max_alerts_per_run", 15))
+    latest_cache_limit = int(settings.get("latest_cache_limit", 40))
     retention_days = int(settings.get("seen_retention_days", 90))
     seed_on_first_run = bool(settings.get("seed_only_on_first_run", False))
 
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
-    chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+    target_id = get_broadcast_target()
+    channel_tag = target_id if target_id.startswith("@") else os.environ.get("PUBLIC_CHANNEL_HANDLE", "").strip()
 
-    if not dry_run and (not bot_token or not chat_id):
+    if not dry_run and (not bot_token or not target_id):
         logger.error(
-            "Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID. "
+            "Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHANNEL_ID/TELEGRAM_CHAT_ID. "
             "Set them as environment variables or run with --dry-run."
         )
         sys.exit(1)
@@ -437,6 +591,9 @@ def run(config_path: Path, seen_path: Path, dry_run: bool = False) -> int:
     seen = prune_seen_items(seen, retention_days)
 
     opportunities = collect_opportunities(config)
+
+    if not dry_run:
+        save_latest_items(latest_path, opportunities, config, limit=latest_cache_limit)
 
     # Deduplicate across sources within the same run as well as prior runs
     new_items: list[Opportunity] = []
@@ -462,7 +619,7 @@ def run(config_path: Path, seen_path: Path, dry_run: bool = False) -> int:
     sent_count = 0
 
     for item in to_send:
-        message = format_telegram_message(item)
+        message = format_telegram_message(item, channel_tag=channel_tag)
         if dry_run:
             print("-" * 60)
             print(f"[DRY RUN] {item.category_label} | {item.source_name}")
@@ -474,7 +631,7 @@ def run(config_path: Path, seen_path: Path, dry_run: bool = False) -> int:
             sent_count += 1
         else:
             try:
-                send_telegram_message(bot_token, chat_id, message)
+                send_telegram_message(bot_token, target_id, message)
                 seen[item.item_id] = now_iso
                 sent_count += 1
                 time.sleep(0.5)  # Stay well below Telegram rate limits
@@ -483,6 +640,9 @@ def run(config_path: Path, seen_path: Path, dry_run: bool = False) -> int:
 
     if not dry_run:
         save_seen_items(seen_path, seen)
+        dm_count = send_subscriber_alerts(bot_token, to_send, subscribers_path, target_id)
+        if dm_count:
+            logger.info("Personal DM alerts sent: %d", dm_count)
 
     logger.info("Done. Alerts processed: %d", sent_count)
     return sent_count
@@ -505,12 +665,23 @@ def main() -> None:
         help="Path to seen_items.json (default: data/seen_items.json)",
     )
     parser.add_argument(
+        "--latest",
+        type=Path,
+        default=DEFAULT_LATEST_PATH,
+        help="Path to latest_items.json cache (default: data/latest_items.json)",
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Print matching alerts to stdout instead of sending Telegram messages.",
     )
     args = parser.parse_args()
-    run(config_path=args.config, seen_path=args.seen, dry_run=args.dry_run)
+    run(
+        config_path=args.config,
+        seen_path=args.seen,
+        dry_run=args.dry_run,
+        latest_path=args.latest,
+    )
 
 
 if __name__ == "__main__":

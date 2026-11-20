@@ -1,13 +1,22 @@
-# Job & Scholarship Alert Bot (Python + Telegram + GitHub Actions)
+# Job & Scholarship Alert Bot (Public Telegram Channel + Commands)
 
-A **100% free, zero-server** automation bot that checks public job boards and scholarship portals on a schedule using GitHub Actions and sends matching opportunities straight to your **Telegram** chat.
+A **100% free, zero-server** automation bot that scrapes recent job boards and scholarship portals, broadcasts matching alerts to a **public Telegram channel**, and answers interactive **user commands** (`/latest`, `/jobs`, `/scholarships`, `/keywords`, `/setkeywords`, `/sources`).
 
 ## Features
-- **Zero hosting cost:** Runs inside GitHub Actions' free tier (2,000+ free minutes/month on private repos, unlimited on public repos).
-- **Jobs + Scholarships in one config:** Track remote/tech jobs alongside fully funded scholarships & fellowships in `config.yaml`.
-- **Smart keyword filtering:** Supports `include_keywords` (whole-word matching so `intern` doesn't falsely match `international`) and `exclude_keywords`.
-- **RSS + HTML support:** Works out-of-the-box with RSS/Atom feeds and lets you add custom HTML career/scholarship pages via CSS selectors.
-- **Automatic deduplication:** Stores seen links in `data/seen_items.json` and auto-prunes old entries after 90 days.
+- **Public Telegram Channel Broadcast:** Posts fresh jobs & scholarships automatically to your `@your_channel` on a schedule.
+- **Interactive User Commands:**
+  - `/start`, `/help` — Welcome & channel invite link
+  - `/latest` — 5 newest jobs & scholarships
+  - `/jobs [keyword]` — Filter recent jobs (e.g. `/jobs python`)
+  - `/scholarships [keyword]` — Filter recent scholarships (e.g. `/scholarships africa`)
+  - `/keywords` — View tracked include/exclude keywords
+  - `/setkeywords <words>` — Set personal DM keywords & subscribe
+  - `/subscribe` / `/unsubscribe` — Toggle personal DM alerts
+  - `/sources` — Monitored feeds & recency window
+- **Recency Filtering & Newest-First Sorting:** Filters out old posts (`max_post_age_days` in `config.yaml`: 3 days for jobs, 7 days for scholarships) and prioritizes the freshest opportunities first.
+- **Two Free Command Modes:**
+  1. **Zero-server (GitHub Actions):** Runs `python bot_commands.py --once` alongside `scraper.py` every 6 hours (replies arrive on each run).
+  2. **Instant Replies (Long Polling):** Run `python bot_commands.py` on any free Python host (or locally) for immediate <1s replies and persisted personal DM subscriptions.
 
 ---
 
@@ -15,79 +24,53 @@ A **100% free, zero-server** automation bot that checks public job boards and sc
 
 ```text
 job-scholarship-alert-bot/
-├── .github/
-│   └── workflows/
-│       └── check_alerts.yml   # Runs every 6 hours & commits seen_items.json
+├── .github/workflows/
+│   └── check_alerts.yml       # Scheduled scraper + command polling
 ├── data/
-│   └── seen_items.json        # Tracks already-sent opportunities
+│   ├── bot_state.json         # Tracks Telegram getUpdates offset
+│   ├── latest_items.json      # Cached recent items for /latest, /jobs, /scholarships
+│   └── seen_items.json        # Deduplication store
 ├── tests/
-│   └── test_scraper.py        # Unit tests
-├── config.yaml                # Your keywords and RSS/HTML sources
+│   ├── test_bot_commands.py   # Command handler tests
+│   └── test_scraper.py        # Scraper & recency tests
+├── bot_commands.py            # Telegram slash-command handler
+├── config.yaml                # Keywords, recency limits & RSS/HTML sources
 ├── requirements.txt           # Python dependencies
-└── scraper.py                 # Main scraper & Telegram notifier
+└── scraper.py                 # Main scraper & channel broadcaster
 ```
 
 ---
 
-## 5-Minute Setup Guide
+## Setup Guide (Public Channel + Commands)
 
-### 1. Create a Free Telegram Bot
-1. Open Telegram and message **[@BotFather](https://t.me/BotFather)**.
-2. Send `/newbot`, choose a name and username, and copy the **Bot Token** (`123456:ABC-DEF...`).
-3. Start a chat with your new bot and send `/start` (or add the bot to a Telegram group/channel where you want alerts).
-4. Get your **Chat ID**:
-   - Open `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates` in a browser (after sending a message to your bot), and look for `"chat":{"id": 123456789}`.
-   - Or message `@userinfobot` on Telegram to get your personal user ID.
+### 1. Create Your Telegram Bot & Public Channel
+1. Message **[@BotFather](https://t.me/BotFather)** → `/newbot` → copy your `TELEGRAM_BOT_TOKEN`.
+2. Create a **Public Telegram Channel** (e.g. `@TechJobsAndScholarships`).
+3. Open your channel's **Administrators → Add Admin**, search for your bot, and grant **Post Messages**.
+4. Note your channel username (e.g. `@TechJobsAndScholarships`).
 
-### 2. Push to GitHub
-Create a new GitHub repository (private or public) and push this folder:
-
-```bash
-git init
-git add .
-git commit -m "Initial job & scholarship alert bot"
-git branch -M main
-git remote add origin https://github.com/<your-username>/<your-repo>.git
-git push -u origin main
-```
-
-### 3. Add GitHub Secrets
-In your GitHub repository, go to:
-**Settings → Secrets and variables → Actions → New repository secret**
-
-Add these two secrets:
+### 2. Configure GitHub Secrets
+In your GitHub repo, go to **Settings → Secrets and variables → Actions → Repository secrets**:
 - `TELEGRAM_BOT_TOKEN` = your BotFather token
-- `TELEGRAM_CHAT_ID` = your chat or channel ID
+- `TELEGRAM_CHANNEL_ID` = your public channel username (e.g. `@TechJobsAndScholarships`)
+- `TELEGRAM_CHAT_ID` = *(optional fallback if you also keep your personal chat ID)*
 
-*(Note: `.github/workflows/check_alerts.yml` already includes `permissions: contents: write` so the bot can commit `data/seen_items.json` automatically.)*
+> **Privacy note:** `data/subscribers.json` is listed in `.gitignore` so personal user IDs from `/subscribe` or `/setkeywords` are never committed to a public repository. If you want persisted personal DMs across runs, run `python bot_commands.py` on a private host or keep your repository **Private**.
 
-### 4. Test Manually
-Go to the **Actions** tab in GitHub → **Job & Scholarship Alert Scraper** → **Run workflow**.
-
----
-
-## Local Testing (Dry Run)
-
+### 3. Test Locally
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# Preview matching opportunities in your terminal without messaging Telegram
+# Test scraping + recency filtering without posting to Telegram
 python scraper.py --dry-run
-```
 
-To run the unit tests:
-
-```bash
+# Run all unit tests
 python -m unittest discover -s tests -v
+
+# Run instant interactive command polling locally (optional)
+export TELEGRAM_BOT_TOKEN="your-token"
+export TELEGRAM_CHANNEL_ID="@your_channel"
+python bot_commands.py
 ```
-
----
-
-## Customizing Sources & Keywords
-
-Open `config.yaml`:
-- Add/remove terms under `include_keywords` and `exclude_keywords` for `jobs` or `scholarships`.
-- Toggle feeds with `enabled: true` / `false`.
-- Set `seed_only_on_first_run: true` if you want the first run to silently record existing posts and only alert you about brand-new postings going forward.

@@ -2,8 +2,10 @@
 # Edit keywords and sources below to match what you're looking for.
 
 settings:
-  # Max number of new alerts to send per run (prevents Telegram spam on first run)
+  # Max number of new alerts to broadcast to the channel per run
   max_alerts_per_run: 15
+  # Max number of recent opportunities to cache in data/latest_items.json for /latest, /jobs, /scholarships
+  latest_cache_limit: 40
   # Only send posts published within this many days (can be overridden per category)
   max_post_age_days: 3
   # Keep posts that have no publish date (e.g. custom HTML pages without dates)
