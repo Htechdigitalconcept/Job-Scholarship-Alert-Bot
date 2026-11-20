@@ -43,17 +43,17 @@ job-scholarship-alert-bot/
 
 ## Setup Guide (Public Channel + Commands)
 
-### 1. Create Your Telegram Bot & Public Channel
-1. Message **[@BotFather](https://t.me/BotFather)** → `/newbot` → copy your `TELEGRAM_BOT_TOKEN`.
-2. Create a **Public Telegram Channel** (e.g. `@TechJobsAndScholarships`).
-3. Open your channel's **Administrators → Add Admin**, search for your bot, and grant **Post Messages**.
-4. Note your channel username (e.g. `@TechJobsAndScholarships`).
+### 1. Add Your Bot to `@latestjobsandscholarship`
+1. Make sure your bot (from **@BotFather**) is added as an **Administrator** of **[t.me/latestjobsandscholarship](https://t.me/latestjobsandscholarship)** with **Post Messages** permission.
+2. `config.yaml` is already configured with:
+   - `channel_id: "@latestjobsandscholarship"`
+   - `public_channel_url: "https://t.me/latestjobsandscholarship"`
 
-### 2. Configure GitHub Secrets
+### 2. GitHub Secrets
 In your GitHub repo, go to **Settings → Secrets and variables → Actions → Repository secrets**:
 - `TELEGRAM_BOT_TOKEN` = your BotFather token
-- `TELEGRAM_CHANNEL_ID` = your public channel username (e.g. `@TechJobsAndScholarships`)
-- `TELEGRAM_CHAT_ID` = *(optional fallback if you also keep your personal chat ID)*
+- `TELEGRAM_CHANNEL_ID` = `@latestjobsandscholarship` *(optional override since it is already set in `config.yaml`)*
+- `TELEGRAM_CHAT_ID` = *(optional fallback)*
 
 > **Privacy note:** `data/subscribers.json` is listed in `.gitignore` so personal user IDs from `/subscribe` or `/setkeywords` are never committed to a public repository. If you want persisted personal DMs across runs, run `python bot_commands.py` on a private host or keep your repository **Private**.
 

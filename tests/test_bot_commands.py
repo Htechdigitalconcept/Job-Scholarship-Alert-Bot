@@ -78,8 +78,13 @@ class BotCommandsTests(unittest.TestCase):
         self.tmp.cleanup()
 
     def test_start_and_keywords_and_sources(self) -> None:
+        self.config["settings"]["channel_id"] = "@latestjobsandscholarship"
+        self.config["settings"]["public_channel_url"] = "https://t.me/latestjobsandscholarship"
+        self.assertEqual(scraper.get_broadcast_target(self.config), "@latestjobsandscholarship")
+
         start_reply = bot_commands.handle_command("123", "/start", self.config, self.latest_path, self.subs_path)
         self.assertIn("/latest", start_reply[0])
+        self.assertIn("https://t.me/latestjobsandscholarship", start_reply[0])
 
         kw_reply = bot_commands.handle_command("123", "/keywords", self.config, self.latest_path, self.subs_path)
         self.assertIn("python, backend", kw_reply[0])

@@ -400,11 +400,15 @@ def load_subscribers(path: Path) -> dict[str, dict[str, Any]]:
     return {}
 
 
-def get_broadcast_target() -> str:
-    """Return channel/chat target from TELEGRAM_CHANNEL_ID or TELEGRAM_CHAT_ID."""
+def get_broadcast_target(config: dict[str, Any] | None = None) -> str:
+    """Return channel/chat target from env vars or config.yaml."""
     channel_id = os.environ.get("TELEGRAM_CHANNEL_ID", "").strip()
     if channel_id:
         return channel_id
+    if config:
+        cfg_channel = str(config.get("settings", {}).get("channel_id", "")).strip()
+        if cfg_channel:
+            return cfg_channel
     return os.environ.get("TELEGRAM_CHAT_ID", "").strip()
 
 
@@ -577,7 +581,7 @@ def run(
     seed_on_first_run = bool(settings.get("seed_only_on_first_run", False))
 
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
-    target_id = get_broadcast_target()
+    target_id = get_broadcast_target(config)
     channel_tag = target_id if target_id.startswith("@") else os.environ.get("PUBLIC_CHANNEL_HANDLE", "").strip()
 
     if not dry_run and (not bot_token or not target_id):

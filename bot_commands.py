@@ -92,7 +92,7 @@ def get_updates(bot_token: str, offset: int, timeout: int = 0) -> list[dict[str,
     return payload.get("result", [])
 
 
-def get_channel_display() -> str:
+def get_channel_display(config: dict[str, Any] | None = None) -> str:
     """Return a user-friendly public channel handle or URL if configured."""
     url = os.environ.get("PUBLIC_CHANNEL_URL", "").strip()
     if url:
@@ -103,6 +103,14 @@ def get_channel_display() -> str:
     channel_id = os.environ.get("TELEGRAM_CHANNEL_ID", "").strip()
     if channel_id.startswith("@"):
         return f"https://t.me/{channel_id[1:]}"
+    if config:
+        settings = config.get("settings", {})
+        cfg_url = str(settings.get("public_channel_url", "")).strip()
+        if cfg_url:
+            return cfg_url
+        cfg_id = str(settings.get("channel_id", "")).strip()
+        if cfg_id.startswith("@"):
+            return f"https://t.me/{cfg_id[1:]}"
     return ""
 
 
@@ -216,7 +224,7 @@ def handle_command(
     cmd = raw_cmd.split("@", 1)[0]
     arg = parts[1].strip() if len(parts) > 1 else ""
 
-    channel_link = get_channel_display()
+    channel_link = get_channel_display(config)
 
     if cmd in {"/start", "/help"}:
         channel_line = (
