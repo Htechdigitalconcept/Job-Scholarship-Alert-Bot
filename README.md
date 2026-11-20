@@ -1,31 +1,104 @@
-# Job & Scholarship Alert Bot (Public Telegram Channel + Commands)
+# Job, Web3 & Scholarship Alert Bot + Live Web Board
 
-A **100% free, zero-server** automation bot that scrapes recent job boards and scholarship portals, broadcasts matching alerts to a **public Telegram channel**, and answers interactive **user commands** (`/latest`, `/jobs`, `/scholarships`, `/keywords`, `/setkeywords`, `/sources`).
+A **100% free, zero-server** automation platform that tracks recent remote software/tech jobs, **Web3 remote jobs**, and **fully funded scholarships & fellowships**, broadcasts curated alerts to **[t.me/latestjobsandscholarship](https://t.me/latestjobsandscholarship)** (`@latestjobsandscholarship`), replies **instantly 24/7** to interactive Telegram bot commands via Vercel serverless functions, and publishes an SEO- and AI-Search-ready **Live Web Board** at **[job-scholarship-alert-bot-chi.vercel.app](https://job-scholarship-alert-bot-chi.vercel.app/)**.
 
-## Features
-- **Public Telegram Channel Broadcast:** Posts fresh jobs & scholarships automatically to your `@your_channel` on a schedule.
-- **Live Searchable Web Board (`/` & `/api/opportunities`):** Opening your Vercel URL in a browser renders a dark-mode, searchable opportunity board synced with `@latestjobsandscholarship`.
-- **Cross-Source Duplicate Title Filtering & `/stats`:** Deduplicates reposts across sources by normalized title in addition to URL hash, and exposes `/stats` for quick counts.
-- **Interactive User Commands & Inline Buttons:**
-  - `/start`, `/help` — Welcome & channel invite link
-  - `/latest` — 5 newest jobs, Web3 remote jobs & scholarships (with `Next 5 ▶` / `◀ Prev 5` inline pagination)
-  - `/jobs [keyword]` — Filter recent remote jobs (e.g. `/jobs python`)
-  - `/web3 [keyword]` — Filter recent Web3 remote jobs (e.g. `/web3 solidity`)
-  - `/scholarships [keyword]` — Filter recent scholarships (e.g. `/scholarships africa`)
-  - `/search <keyword>` — Search across all categories at once
-  - `/worldwide [keyword]` — Filter 🌍 Worldwide remote opportunities
-  - `/visa [keyword]` — Filter 🛂 Visa-sponsored opportunities
-  - `/digest` — On-demand top opportunities digest (also auto-posted daily at `06:00 UTC` in the channel)
-  - `/stats` — Show cached counts by category, badges, and total tracked history
-  - Channel posts include direct **Apply Now 🔗** + **Join Channel 📢** inline buttons, smart badges (`🌍 Worldwide`, `🛂 Visa Sponsored`, `💰 Fully Funded`, `🟢 Entry / Intern`), and extracted scholarship deadlines (`⏳`).
-  - `/keywords` — View tracked include/exclude keywords
-  - `/setkeywords <words>` — Set personal DM keywords & subscribe
-  - `/subscribe` / `/unsubscribe` — Toggle personal DM alerts
-  - `/sources` — Monitored feeds & recency window
-- **Recency Filtering & Newest-First Sorting:** Filters out old posts (`max_post_age_days` in `config.yaml`: 3 days for jobs, 7 days for scholarships) and prioritizes the freshest opportunities first.
-- **Two Free Command Modes:**
-  1. **Instant 24/7 Replies (Vercel Serverless Webhook — Recommended):** Deploy this repo to Vercel's free tier (`api/webhook.py`) so `/latest`, `/jobs`, `/web3`, `/scholarships`, `/keywords`, and `/sources` reply in **<1 second**, while GitHub Actions continues scraping every 6 hours and updating `data/latest_items.json`.
-  2. **Zero-server Scheduled Polling (GitHub Actions):** Runs `python bot_commands.py --once` every 6 hours (replies arrive on each scheduled run).
+---
+
+## Live Links & Endpoints
+
+| Surface | URL | Purpose |
+| :--- | :--- | :--- |
+| **Live Web Board** | `https://job-scholarship-alert-bot-chi.vercel.app/` | Searchable, filterable dark-mode SSR board with Schema.org JSON-LD |
+| **Public Telegram Channel** | `https://t.me/latestjobsandscholarship` | Automated alerts, inline Apply/Join buttons, and daily `06:00 UTC` digest |
+| **JSON Feed API** | `https://job-scholarship-alert-bot-chi.vercel.app/api/opportunities` | Machine-readable JSON feed of up to 40 balanced recent opportunities |
+| **Telegram Webhook** | `https://job-scholarship-alert-bot-chi.vercel.app/api/webhook` | `GET` healthcheck & `POST` instant 24/7 Telegram bot update handler |
+| **AI Search Index** | `https://job-scholarship-alert-bot-chi.vercel.app/llms.txt` | Clean Markdown summary for AI search engines (`OAI-SearchBot`, `ClaudeBot`, `PerplexityBot`) |
+| **Search Crawlers** | `/sitemap.xml`, `/robots.txt`, `/googlefee6033bceb7f78c.html` | Google Search Console verification, XML sitemap, and crawler directives |
+
+---
+
+## System Architecture
+
+```text
+  9 RSS / JSON / HTML Feeds
+             │
+             ▼  (Every 6 hours via GitHub Actions: scraper.py --digest-hour 6)
+  ┌─────────────────────────────┐
+  │  Recency + Keyword Filter   │  jobs/web3 <= 3 days | scholarships <= 7 days
+  │  Smart Badges & Deadlines   │  🌍 Worldwide · 🛂 Visa · 💰 Fully Funded · 🟢 Entry
+  │  Cross-Source Deduplication │  URL/item hash + normalized title hash ("t:...")
+  └──────────────┬──────────────┘
+                 │
+        ┌────────┴──────────────────────┐
+        ▼                               ▼
+  Public Telegram Channel        Git Repo State Files (auto-committed)
+  @latestjobsandscholarship       - data/seen_items.json (90-day retention)
+  + Daily Digest (06:00 UTC)      - data/latest_items.json (40 balanced items)
+  + Inline Apply / Join Buttons   - data/bot_state.json
+                                        │
+                                        ▼  (Auto-deployed on Vercel: api/webhook.py)
+                     ┌──────────────────┴──────────────────┐
+                     ▼                                     ▼
+        Live Web Board & Feeds                 24/7 Instant Bot Webhook
+        / · /api/opportunities                 POST /api/webhook
+        /llms.txt · /sitemap.xml               16 slash commands + inline pagination
+```
+
+---
+
+## Key Features
+
+### 1. Opportunity Categories & Monitored Sources (9 Active Feeds)
+Configured in `config.yaml`:
+
+| Category | Label | Recency Window | Active Sources |
+| :--- | :--- | :--- | :--- |
+| **Remote Tech Jobs** (`jobs`) | `💼 Job Alert` | 3 days | Remotive Remote Jobs (RSS), We Work Remotely (RSS), Himalayas Remote Jobs (JSON API), Arbeitnow Remote & Visa (JSON API) |
+| **Web3 Remote Jobs** (`web3_jobs`) | `⛓️ Web3 Remote Job` | 3 days | Cryptocurrency Jobs (RSS, with `require_keywords`: `remote`, `remotely`) |
+| **Scholarships & Fellowships** (`scholarships`) | `🎓 Scholarship & Fellowship` | 7 days | Opportunity Desk (RSS), Opportunities For Africans (RSS), Scholars4Dev (RSS), AfterSchoolAfrica (RSS) |
+
+*(An example disabled custom HTML career-page scraper entry is also included in `config.yaml` and can be enabled with CSS selectors.)*
+
+### 2. Smart Enrichment & Deduplication
+- **Smart Badges (`extract_badges`)**: Automatically tags opportunities with:
+  - `🌍 Worldwide` (remote anywhere / global / EMEA / APAC / LATAM)
+  - `🛂 Visa Sponsored` (visa sponsorship / relocation support)
+  - `💰 Fully Funded` (full funding / full tuition / stipend)
+  - `🟢 Entry / Intern` (junior / entry-level / intern / graduate)
+- **Deadline Extraction (`extract_deadline`)**: Detects deadline phrases in titles and summaries (e.g. `Deadline: Dec 20, 2026`, `Apply by ...`, `Closes on ...`) and highlights them with `⏳`.
+- **Cross-Source Deduplication (`normalize_title` & `make_title_id`)**: Tracks both item/URL hashes and normalized title IDs (`t:<sha256>`) in `data/seen_items.json` (pruned after 90 days) so identical reposts across multiple job boards or scholarship portals are never sent twice.
+- **Balanced Category Caching (`save_latest_items`)**: Interleaves categories round-robin before slicing to `latest_cache_limit: 40`, preventing high-volume job feeds from crowding out Web3 roles or scholarships.
+
+### 3. Interactive Telegram Bot Commands (16 Commands + Inline Pagination)
+Handled instantly by `bot_commands.py` via `api/webhook.py` (with `409` polling conflict safety and read-only filesystem fallback on Vercel):
+
+| Command | Description |
+| :--- | :--- |
+| `/start`, `/help` | Welcome guide, quick command overview, and link to `@latestjobsandscholarship` |
+| `/latest` | 5 newest opportunities across all categories (with `◀ Prev 5` / `Next 5 ▶` inline buttons) |
+| `/jobs [keyword]` | Recent remote software & tech jobs (e.g., `/jobs python`) |
+| `/web3 [keyword]` | Recent Web3 & blockchain remote jobs (e.g., `/web3 solidity`) |
+| `/scholarships [keyword]` | Recent funded scholarships & fellowships (e.g., `/scholarships africa`) |
+| `/search <keyword>` | Multi-word search across every category at once |
+| `/worldwide [keyword]` | Filter `🌍 Worldwide` remote opportunities |
+| `/visa [keyword]` | Filter `🛂 Visa Sponsored` opportunities |
+| `/digest` | On-demand summary digest of top cached roles & scholarships |
+| `/stats` | Live breakdown of cached counts by category, smart badges, and tracked history |
+| `/keywords` | View configured include, require, and exclude keywords |
+| `/setkeywords <words>` | Save personal DM alert keywords & subscribe (e.g., `/setkeywords python, remote`) |
+| `/subscribe` / `/unsubscribe` | Enable or pause personal DM keyword alerts |
+| `/sources` | List all active feeds and recency windows |
+
+### 4. Live Web Board, SEO & AI Search Optimization
+Rendered by `web_board.py`:
+- **Sticky Navigation & Interactive Hero**: Glassmorphic sticky top bar, pulsing live-sync indicator, gradient hero headline, Telegram CTAs, and clickable category KPI cards (`Total Cached`, `Remote Jobs`, `Web3 Remote`, `Scholarships`).
+- **Instant Client-Side Filtering + SSR Cards**: Server-side renders `<article class="card">` elements for search crawlers while hydrating client-side search, category chips, and badge filters with zero external dependencies.
+- **3-Column Footer**: Quick filter shortcuts, channel & feed links (`/api/opportunities`, `/llms.txt`, `/sitemap.xml`, `/robots.txt`), and smooth scroll-to-top.
+- **Search & AI Indexing**:
+  - OpenGraph, Twitter Card, canonical URL, and `X-Robots-Tag: index, follow` headers.
+  - Schema.org JSON-LD graph (`WebSite` + `ItemList` with `JobPosting` / `CreativeWork` entries).
+  - Dedicated `/robots.txt` explicitly allowing `Googlebot`, `Google-Extended`, `OAI-SearchBot`, `GPTBot`, `ChatGPT-User`, `PerplexityBot`, and `ClaudeBot` while disallowing `/api/webhook`.
+  - Dynamic `/sitemap.xml` and `/llms.txt` Markdown index.
 
 ---
 
@@ -34,75 +107,72 @@ A **100% free, zero-server** automation bot that scrapes recent job boards and s
 ```text
 job-scholarship-alert-bot/
 ├── api/
-│   └── webhook.py             # Vercel serverless endpoint for instant 24/7 replies
+│   ├── __init__.py
+│   └── webhook.py                 # Vercel WSGI entrypoint (Web Board, SEO/AI routes, Webhook)
 ├── .github/workflows/
-│   └── check_alerts.yml       # Scheduled scraper + fallback command polling
+│   └── check_alerts.yml           # 6-hour cron + workflow_dispatch scraper & state committer
 ├── data/
-│   ├── bot_state.json         # Tracks Telegram getUpdates offset
-│   ├── latest_items.json      # Cached recent items for /latest, /jobs, /web3, /scholarships
-│   └── seen_items.json        # Deduplication store
+│   ├── bot_state.json             # Tracks Telegram getUpdates offset
+│   ├── latest_items.json          # 40 balanced recent opportunities for Web Board & bot commands
+│   └── seen_items.json            # URL + normalized-title deduplication store (90-day TTL)
 ├── tests/
-│   ├── test_bot_commands.py   # Command & webhook tests
-│   └── test_scraper.py        # Scraper & recency tests
-├── bot_commands.py            # Telegram slash-command handler
-├── config.yaml                # Keywords, recency limits & RSS/HTML sources
-├── requirements.txt           # Python dependencies
-├── scraper.py                 # Main scraper & channel broadcaster
-└── vercel.json                # Vercel routing config
+│   ├── test_bot_commands.py       # 9 unit tests (commands, pagination, WSGI routes, webhook)
+│   └── test_scraper.py            # 15 unit tests (parsers, recency, badges, dedup, balancing)
+├── bot_commands.py                # Command parser, callback pagination & webhook/polling runner
+├── config.yaml                    # Channel settings, keywords, recency windows & 9 data sources
+├── googlefee6033bceb7f78c.html    # Google Search Console verification file
+├── MARKETING.md                   # Ready-to-use launch copy, channel templates & growth playbook
+├── pyproject.toml                 # Python >=3.12 config & Vercel entrypoint declaration
+├── README.md                      # Technical & operational reference
+├── requirements.txt               # Runtime dependencies (requests, beautifulsoup4, PyYAML)
+├── scraper.py                     # Multi-feed scraper, deduplicator, formatter & broadcaster
+├── vercel.json                    # Minimal Vercel config
+└── web_board.py                   # Self-contained SSR HTML, JSON-LD, robots, sitemap & llms.txt
 ```
 
 ---
 
-## Enable Instant 24/7 Replies (Free on Vercel — 2 Minutes)
+## Configuration & Environment Variables
 
-1. Go to **[vercel.com](https://vercel.com)** → **Add New Project** → import your `Job-Scholarship-Alert-Bot` GitHub repository.
-2. Under **Environment Variables**, add:
-   - `TELEGRAM_BOT_TOKEN` = your BotFather token
-   - `TELEGRAM_CHANNEL_ID` = `@latestjobsandscholarship`
-   - `TELEGRAM_WEBHOOK_SECRET` = *(optional random secret string)*
-3. Click **Deploy**, then copy your deployment URL (e.g. `https://job-scholarship-alert-bot.vercel.app`).
-4. Register the webhook with Telegram by opening this URL once in your browser (replace `<BOT_TOKEN>` and `<YOUR_VERCEL_URL>`):
-   ```text
-   https://api.telegram.org/bot<BOT_TOKEN>/setWebhook?url=https://<YOUR_VERCEL_URL>/api/webhook
-   ```
-   *(If you set `TELEGRAM_WEBHOOK_SECRET`, pass `&secret_token=<YOUR_SECRET>` or run `python bot_commands.py --set-webhook https://<YOUR_VERCEL_URL>/api/webhook` locally.)*
+### GitHub Actions Secrets
+Set under **GitHub → Settings → Secrets and variables → Actions**:
+- `TELEGRAM_BOT_TOKEN` *(required)* — Bot token from `@BotFather`
+- `TELEGRAM_CHANNEL_ID` *(optional override)* — Defaults to `@latestjobsandscholarship` in `config.yaml`
+- `TELEGRAM_CHAT_ID` *(optional fallback)* — Fallback chat ID if no channel is configured
 
-Once the webhook is registered:
-- Commands like `/start`, `/latest`, `/jobs`, `/web3`, `/scholarships`, `/keywords`, and `/sources` reply **instantly 24/7**.
-- GitHub Actions continues running every 6 hours to post new alerts to `@latestjobsandscholarship` and update `data/latest_items.json` (which automatically keeps Vercel's cache up to date!).
+### Vercel Environment Variables
+Set under **Vercel Project → Settings → Environment Variables** (Production):
+- `TELEGRAM_BOT_TOKEN` *(required)* — Bot token from `@BotFather`
+- `TELEGRAM_CHANNEL_ID` *(optional)* — `@latestjobsandscholarship`
+- `TELEGRAM_WEBHOOK_SECRET` *(optional, recommended)* — Verified against `X-Telegram-Bot-Api-Secret-Token`
+- `PUBLIC_SITE_URL` *(optional)* — Overrides auto-detected `https://<host>` for canonical/sitemap URLs
 
 ---
 
-## Setup Guide (Public Channel + Commands)
+## Local Development & Testing
 
-### 1. Add Your Bot to `@latestjobsandscholarship`
-1. Make sure your bot (from **@BotFather**) is added as an **Administrator** of **[t.me/latestjobsandscholarship](https://t.me/latestjobsandscholarship)** with **Post Messages** permission.
-2. `config.yaml` is already configured with:
-   - `channel_id: "@latestjobsandscholarship"`
-   - `public_channel_url: "https://t.me/latestjobsandscholarship"`
-
-### 2. GitHub Secrets
-In your GitHub repo, go to **Settings → Secrets and variables → Actions → Repository secrets**:
-- `TELEGRAM_BOT_TOKEN` = your BotFather token
-- `TELEGRAM_CHANNEL_ID` = `@latestjobsandscholarship` *(optional override since it is already set in `config.yaml`)*
-- `TELEGRAM_CHAT_ID` = *(optional fallback)*
-
-> **Privacy note:** `data/subscribers.json` is listed in `.gitignore` so personal user IDs from `/subscribe` or `/setkeywords` are never committed to a public repository. If you want persisted personal DMs across runs, run `python bot_commands.py` on a private host or keep your repository **Private**.
-
-### 3. Test Locally
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# Test scraping + recency filtering without posting to Telegram
-python scraper.py --dry-run
+# 1. Dry-run scraper + digest preview without posting to Telegram
+python scraper.py --dry-run --digest
 
-# Run all unit tests
+# 2. Run all 24 unit tests
 python -m unittest discover -s tests -v
 
-# Run instant interactive command polling locally (optional)
-export TELEGRAM_BOT_TOKEN="your-token"
-export TELEGRAM_CHANNEL_ID="@your_channel"
-python bot_commands.py
+# 3. Run local WSGI dev server to preview Web Board & endpoints
+python -c "
+from wsgiref.simple_server import make_server
+from api.webhook import app
+print('Serving on http://127.0.0.1:8000')
+make_server('127.0.0.1', 8000, app).serve_forever()
+"
+
+# 4. Register / update Telegram webhook URL
+export TELEGRAM_BOT_TOKEN="your-bot-token"
+python bot_commands.py --set-webhook https://job-scholarship-alert-bot-chi.vercel.app/api/webhook
 ```
+
+> **Privacy note:** `data/subscribers.json` is listed in `.gitignore` so personal user IDs from `/subscribe` or `/setkeywords` are never committed to a public repository.
