@@ -1,4 +1,4 @@
-"""Vercel Python WSGI webhook for instant 24/7 Telegram bot replies."""
+"""Vercel Python WSGI entrypoint: Telegram Webhook + Live Web Board."""
 
 from __future__ import annotations
 
@@ -61,19 +61,57 @@ def handle_webhook_request(
         return 200, {"ok": False, "error": str(exc)}
 
 
+def _load_board_data() -> tuple[list[Any], str, str]:
+    import bot_commands
+    import scraper
+
+    config = scraper.load_config(BASE_DIR / "config.yaml")
+    items = bot_commands.get_recent_opportunities(config, BASE_DIR / "data" / "latest_items.json")
+    channel_url = scraper.get_public_channel_url(config) or "https://t.me/latestjobsandscholarship"
+    channel_handle = str(config.get("settings", {}).get("channel_id", "@latestjobsandscholarship")).strip()
+    return items, channel_url, channel_handle
+
+
 def app(
     environ: dict[str, Any],
     start_response: Callable[[str, list[tuple[str, str]]], Any],
 ) -> Iterable[bytes]:
-    """Standard WSGI entrypoint for Vercel Python Runtime."""
+    """Standard WSGI entrypoint serving /, /api/opportunities, and /api/webhook."""
     method = str(environ.get("REQUEST_METHOD", "GET")).upper()
+    path = str(environ.get("PATH_INFO", "/")).rstrip("/") or "/"
 
     if method in {"GET", "HEAD"}:
-        status = 200
-        payload: dict[str, Any] = {
-            "ok": True,
-            "service": "Job & Scholarship Alert Bot Webhook",
-        }
+        if path in {"/", "/index.html"}:
+            import web_board
+
+            items, channel_url, channel_handle = _load_board_data()
+            html_doc = web_board.render_web_board_html(
+                items,
+                channel_url=channel_url,
+                channel_handle=channel_handle,
+            )
+            body = html_doc.encode("utf-8")
+            headers = [
+                ("Content-Type", "text/html; charset=utf-8"),
+                ("Content-Length", str(len(body))),
+            ]
+            start_response(STATUS_TEXT[200], headers)
+            return [] if method == "HEAD" else [body]
+
+        if path == "/api/opportunities":
+            items, _url, _handle = _load_board_data()
+            status = 200
+            payload: dict[str, Any] = {
+                "ok": True,
+                "count": len(items),
+                "items": [item.to_dict() for item in items],
+            }
+        else:
+            status = 200
+            payload = {
+                "ok": True,
+                "service": "Job & Scholarship Alert Bot Webhook",
+            }
     elif method == "POST":
         try:
             length = int(environ.get("CONTENT_LENGTH") or 0)

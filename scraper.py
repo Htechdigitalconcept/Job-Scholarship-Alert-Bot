@@ -106,6 +106,20 @@ def make_item_id(link: str, title: str) -> str:
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
 
 
+def normalize_title(title: str) -> str:
+    """Normalize a posting title for cross-source duplicate detection."""
+    cleaned = re.sub(r"[^a-z0-9]+", " ", title.lower()).strip()
+    return re.sub(r"\s+", " ", cleaned)
+
+
+def make_title_id(title: str) -> str:
+    """Create a prefixed hash key from a normalized title."""
+    norm = normalize_title(title)
+    if not norm:
+        return ""
+    return "t:" + hashlib.sha256(norm.encode("utf-8")).hexdigest()[:16]
+
+
 def clean_html_text(raw_html: str, max_len: int = 240) -> str:
     """Strip HTML tags and collapse whitespace."""
     if not raw_html:
@@ -607,14 +621,20 @@ def save_latest_items(
 
     existing = load_latest_items(path)
     merged_by_id: dict[str, Opportunity] = {}
+    seen_titles: set[str] = set()
     for item in [*new_items, *existing]:
         if not item.item_id or item.item_id in merged_by_id:
+            continue
+        norm_title = normalize_title(item.title)
+        if norm_title and norm_title in seen_titles:
             continue
         cat_cfg = categories.get(item.category, {})
         cat_max_age = cat_cfg.get("max_post_age_days", default_max_age)
         max_age = float(cat_max_age) if cat_max_age is not None else None
         if is_recent_post(item.published_dt, max_age, allow_undated=allow_undated):
             merged_by_id[item.item_id] = item
+            if norm_title:
+                seen_titles.add(norm_title)
 
     epoch = datetime.min.replace(tzinfo=timezone.utc)
     sorted_items = sorted(
@@ -977,13 +997,19 @@ def run(
     if not dry_run:
         save_latest_items(latest_path, opportunities, config, limit=latest_cache_limit)
 
-    # Deduplicate across sources within the same run as well as prior runs
+    # Deduplicate across sources (both by link/item_id and normalized title)
     new_items: list[Opportunity] = []
     batch_ids: set[str] = set()
+    batch_titles: set[str] = set()
     for item in opportunities:
+        title_id = make_title_id(item.title)
         if item.item_id in seen or item.item_id in batch_ids:
             continue
+        if title_id and (title_id in seen or title_id in batch_titles):
+            continue
         batch_ids.add(item.item_id)
+        if title_id:
+            batch_titles.add(title_id)
         new_items.append(item)
 
     logger.info("Total new matching opportunities: %d", len(new_items))
@@ -993,6 +1019,9 @@ def run(
         logger.info("First run with seed_only_on_first_run=true; marking items seen without sending.")
         for item in new_items:
             seen[item.item_id] = now_iso
+            title_id = make_title_id(item.title)
+            if title_id:
+                seen[title_id] = now_iso
         if not dry_run:
             save_seen_items(seen_path, seen)
         return 0
@@ -1020,6 +1049,9 @@ def run(
                 reply_markup = build_item_reply_markup(item, channel_url=channel_url)
                 send_telegram_message(bot_token, target_id, message, reply_markup=reply_markup)
                 seen[item.item_id] = now_iso
+                title_id = make_title_id(item.title)
+                if title_id:
+                    seen[title_id] = now_iso
                 sent_count += 1
                 time.sleep(0.5)  # Stay well below Telegram rate limits
             except Exception as exc:  # noqa: BLE001

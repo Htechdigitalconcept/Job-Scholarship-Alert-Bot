@@ -208,8 +208,23 @@ class BotCommandsTests(unittest.TestCase):
 
         def start_response(status: str, headers: list[tuple[str, str]]) -> None:
             captured["status"] = status
+            captured["content_type"] = dict(headers).get("Content-Type", "")
 
-        get_body = b"".join(webhook.app({"REQUEST_METHOD": "GET"}, start_response))
+        # Root / serves HTML Web Board
+        root_body = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/"}, start_response))
+        self.assertEqual(captured["status"], "200 OK")
+        self.assertIn("text/html", captured["content_type"])
+        self.assertIn("Live Board", root_body.decode("utf-8"))
+
+        # /api/opportunities serves JSON list
+        api_body = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/api/opportunities"}, start_response))
+        self.assertEqual(captured["status"], "200 OK")
+        api_json = json.loads(api_body.decode("utf-8"))
+        self.assertTrue(api_json["ok"])
+        self.assertGreater(api_json["count"], 0)
+
+        # /api/webhook serves healthcheck JSON
+        get_body = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/api/webhook"}, start_response))
         self.assertEqual(captured["status"], "200 OK")
         self.assertTrue(json.loads(get_body.decode("utf-8"))["ok"])
 
@@ -219,6 +234,7 @@ class BotCommandsTests(unittest.TestCase):
         }).encode("utf-8")
         environ = {
             "REQUEST_METHOD": "POST",
+            "PATH_INFO": "/api/webhook",
             "CONTENT_LENGTH": str(len(post_bytes)),
             "wsgi.input": io.BytesIO(post_bytes),
         }
@@ -227,6 +243,11 @@ class BotCommandsTests(unittest.TestCase):
         self.assertEqual(captured["status"], "200 OK")
         self.assertEqual(json.loads(post_body.decode("utf-8"))["handled"], 1)
         mock_send.assert_called_once()
+
+    def test_stats_command(self) -> None:
+        stats = bot_commands.handle_command("123", "/stats", self.config, self.latest_path, self.subs_path)
+        self.assertIn("Stats", stats[0])
+        self.assertIn("Recent cached opportunities", stats[0])
 
     def test_search_worldwide_visa_digest_and_pagination_callback(self) -> None:
         search = bot_commands.handle_command("123", "/search python", self.config, self.latest_path, self.subs_path)

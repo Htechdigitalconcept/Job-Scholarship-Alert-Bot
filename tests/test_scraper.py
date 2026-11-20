@@ -238,6 +238,17 @@ class ScraperTests(unittest.TestCase):
             cats = {item.category for item in saved}
             self.assertEqual(cats, {"jobs", "web3_jobs", "scholarships"})
 
+    def test_duplicate_title_deduplication(self) -> None:
+        now = datetime.now(timezone.utc)
+        a = scraper.Opportunity("id_1", "jobs", "J", "WWR", "Dropbox: Backend Engineer", "https://ex.com/1", "", ["backend"], published_dt=now)
+        b = scraper.Opportunity("id_2", "jobs", "J", "Himalayas", "Dropbox — Backend Engineer!", "https://ex.com/2", "", ["backend"], published_dt=now)
+        self.assertEqual(scraper.make_title_id(a.title), scraper.make_title_id(b.title))
+        cfg = {"settings": {"max_post_age_days": 3, "allow_undated_posts": True}, "categories": {}}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "latest.json"
+            saved = scraper.save_latest_items(path, [a, b], cfg, limit=10)
+            self.assertEqual(len(saved), 1)
+
     def test_seen_roundtrip(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "seen.json"

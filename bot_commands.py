@@ -40,6 +40,7 @@ BOT_COMMANDS_MENU = [
     {"command": "worldwide", "description": "Filter 🌍 Worldwide opportunities"},
     {"command": "visa", "description": "Filter 🛂 Visa-sponsored opportunities"},
     {"command": "digest", "description": "Today's top opportunities summary"},
+    {"command": "stats", "description": "Bot & opportunity counts"},
     {"command": "keywords", "description": "View tracked keywords"},
     {"command": "sources", "description": "View monitored feeds & age limit"},
     {"command": "help", "description": "Show command guide"},
@@ -269,6 +270,52 @@ def format_keywords_message(
     return "\n\n".join(lines)
 
 
+def format_stats_message(
+    config: dict[str, Any],
+    items: list[scraper.Opportunity],
+    seen_path: Path = scraper.DEFAULT_SEEN_PATH,
+) -> str:
+    """Format /stats summary showing counts by category, badges, and tracked history."""
+    cat_counts: dict[str, int] = {}
+    badge_counts: dict[str, int] = {}
+    for item in items:
+        cat_counts[item.category] = cat_counts.get(item.category, 0) + 1
+        for b in item.badges:
+            badge_counts[b] = badge_counts.get(b, 0) + 1
+
+    seen_map, _ = scraper.load_seen_items(seen_path)
+    total_tracked = sum(1 for k in seen_map if not k.startswith("t:"))
+    enabled_sources = sum(
+        1
+        for cat_cfg in config.get("categories", {}).values()
+        for src in cat_cfg.get("sources", [])
+        if src.get("enabled", True)
+    )
+
+    lines = [
+        "<b>📊 Job &amp; Scholarship Alert Bot Stats</b>",
+        f"• <b>Recent cached opportunities:</b> {len(items)}\n"
+        f"• <b>Active monitored feeds:</b> {enabled_sources}\n"
+        f"• <b>Total alerts tracked:</b> {total_tracked}",
+    ]
+
+    cat_lines: list[str] = []
+    for cat_key, cat_cfg in config.get("categories", {}).items():
+        label = html.escape(cat_cfg.get("label", cat_key.title()))
+        cat_lines.append(f"• {label}: <b>{cat_counts.get(cat_key, 0)}</b>")
+    if cat_lines:
+        lines.append("<b>By Category:</b>\n" + "\n".join(cat_lines))
+
+    if badge_counts:
+        badge_lines = [
+            f"• {html.escape(badge)}: <b>{count}</b>"
+            for badge, count in sorted(badge_counts.items())
+        ]
+        lines.append("<b>Highlights:</b>\n" + "\n".join(badge_lines))
+
+    return "\n\n".join(lines)
+
+
 def format_sources_message(config: dict[str, Any]) -> str:
     """Format monitored feeds for /sources."""
     lines = ["<b>📡 Monitored Sources</b>"]
@@ -423,6 +470,7 @@ def build_command_responses(
             "• /worldwide [word] — 🌍 Work-from-anywhere roles\n"
             "• /visa [word] — 🛂 Visa-sponsored roles\n"
             "• /digest — ☀️ Top opportunities summary\n"
+            "• /stats — 📊 Counts by category & highlights\n"
             "• /keywords — View tracked keywords\n"
             "• /sources — Monitored feeds & recency window"
         )
@@ -432,6 +480,11 @@ def build_command_responses(
         items = get_recent_opportunities(config, latest_path)
         channel_id = str(config.get("settings", {}).get("channel_id", "")).strip()
         return [(scraper.format_daily_digest(items, channel_tag=channel_id), channel_markup)]
+
+    if cmd == "/stats":
+        items = get_recent_opportunities(config, latest_path)
+        seen_path = latest_path.parent / "seen_items.json"
+        return [(format_stats_message(config, items, seen_path=seen_path), channel_markup)]
 
     if cmd == "/keywords":
         subscribers = scraper.load_subscribers(subscribers_path)

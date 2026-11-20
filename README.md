@@ -4,6 +4,8 @@ A **100% free, zero-server** automation bot that scrapes recent job boards and s
 
 ## Features
 - **Public Telegram Channel Broadcast:** Posts fresh jobs & scholarships automatically to your `@your_channel` on a schedule.
+- **Live Searchable Web Board (`/` & `/api/opportunities`):** Opening your Vercel URL in a browser renders a dark-mode, searchable opportunity board synced with `@latestjobsandscholarship`.
+- **Cross-Source Duplicate Title Filtering & `/stats`:** Deduplicates reposts across sources by normalized title in addition to URL hash, and exposes `/stats` for quick counts.
 - **Interactive User Commands & Inline Buttons:**
   - `/start`, `/help` — Welcome & channel invite link
   - `/latest` — 5 newest jobs, Web3 remote jobs & scholarships (with `Next 5 ▶` / `◀ Prev 5` inline pagination)
@@ -14,6 +16,7 @@ A **100% free, zero-server** automation bot that scrapes recent job boards and s
   - `/worldwide [keyword]` — Filter 🌍 Worldwide remote opportunities
   - `/visa [keyword]` — Filter 🛂 Visa-sponsored opportunities
   - `/digest` — On-demand top opportunities digest (also auto-posted daily at `06:00 UTC` in the channel)
+  - `/stats` — Show cached counts by category, badges, and total tracked history
   - Channel posts include direct **Apply Now 🔗** + **Join Channel 📢** inline buttons, smart badges (`🌍 Worldwide`, `🛂 Visa Sponsored`, `💰 Fully Funded`, `🟢 Entry / Intern`), and extracted scholarship deadlines (`⏳`).
   - `/keywords` — View tracked include/exclude keywords
   - `/setkeywords <words>` — Set personal DM keywords & subscribe
