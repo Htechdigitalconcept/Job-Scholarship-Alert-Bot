@@ -13,8 +13,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
-import bot_commands  # noqa: E402
-
 logger = logging.getLogger(__name__)
 
 STATUS_TEXT = {
@@ -48,6 +46,8 @@ def handle_webhook_request(
         return 400, {"ok": False, "error": "Expected JSON object"}
 
     try:
+        import bot_commands
+
         handled = bot_commands.process_webhook_update(
             update=update,
             bot_token=bot_token,
