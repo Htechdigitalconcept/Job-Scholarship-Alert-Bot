@@ -86,11 +86,29 @@ def get_updates(bot_token: str, offset: int, timeout: int = 0) -> list[dict[str,
         "allowed_updates": json.dumps(["message"]),
     }
     resp = requests.get(url, params=params, timeout=timeout + 15)
+    if resp.status_code == 409:
+        logger.info("Telegram webhook is active; skipping getUpdates polling.")
+        return []
     resp.raise_for_status()
     payload = resp.json()
     if not payload.get("ok"):
         return []
     return payload.get("result", [])
+
+
+def set_webhook(bot_token: str, webhook_url: str, secret_token: str = "") -> dict[str, Any]:
+    """Configure Telegram webhook URL and register bot slash commands."""
+    register_bot_commands(bot_token)
+    url = f"https://api.telegram.org/bot{bot_token}/setWebhook"
+    payload: dict[str, Any] = {
+        "url": webhook_url,
+        "allowed_updates": ["message"],
+    }
+    if secret_token:
+        payload["secret_token"] = secret_token
+    resp = requests.post(url, json=payload, timeout=15)
+    resp.raise_for_status()
+    return resp.json()
 
 
 def get_channel_display(config: dict[str, Any] | None = None) -> str:
@@ -267,7 +285,14 @@ def handle_command(
             "subscribed": True,
             "keywords": keywords,
         }
-        save_subscribers(subscribers_path, subscribers)
+        try:
+            save_subscribers(subscribers_path, subscribers)
+        except OSError:
+            return [
+                "ℹ️ Personal DM subscriptions are disabled in stateless serverless mode.\n"
+                "Use <code>/jobs &lt;keyword&gt;</code>, <code>/web3 &lt;keyword&gt;</code>, "
+                "or <code>/scholarships &lt;keyword&gt;</code> anytime for instant results!"
+            ]
         return [
             "✅ <b>Personal keywords saved &amp; DM alerts enabled!</b>\n"
             f"🏷 <code>{html.escape(', '.join(keywords))}</code>\n\n"
@@ -280,7 +305,13 @@ def handle_command(
         existing["subscribed"] = True
         existing.setdefault("keywords", [])
         subscribers[chat_id] = existing
-        save_subscribers(subscribers_path, subscribers)
+        try:
+            save_subscribers(subscribers_path, subscribers)
+        except OSError:
+            return [
+                "ℹ️ Personal DM subscriptions are disabled in stateless serverless mode.\n"
+                "Join the public channel for automatic alerts and use /latest anytime!"
+            ]
         kw_note = (
             f"Filtering by: <code>{html.escape(', '.join(existing['keywords']))}</code>"
             if existing["keywords"]
@@ -292,7 +323,10 @@ def handle_command(
         subscribers = scraper.load_subscribers(subscribers_path)
         if chat_id in subscribers:
             subscribers[chat_id]["subscribed"] = False
-            save_subscribers(subscribers_path, subscribers)
+            try:
+                save_subscribers(subscribers_path, subscribers)
+            except OSError:
+                pass
         return ["🔕 <b>Personal DM alerts paused.</b> Send /subscribe anytime to resume."]
 
     if cmd in {"/latest", "/jobs", "/web3", "/scholarships"}:
@@ -345,6 +379,31 @@ def handle_command(
     return [
         "❓ Unknown command. Send /help to see all available commands."
     ]
+
+
+def process_webhook_update(
+    update: dict[str, Any],
+    bot_token: str,
+    config_path: Path,
+    latest_path: Path,
+    subscribers_path: Path,
+) -> int:
+    """Process a single Telegram webhook update dict and send replies immediately."""
+    message = update.get("message") or {}
+    text = (message.get("text") or "").strip()
+    chat = message.get("chat") or {}
+    chat_id = str(chat.get("id", "")).strip()
+
+    if not chat_id or not text.startswith("/"):
+        return 0
+
+    config = scraper.load_config(config_path)
+    replies = handle_command(chat_id, text, config, latest_path, subscribers_path)
+    handled = 0
+    for reply in replies:
+        scraper.send_telegram_message(bot_token, chat_id, reply)
+        handled += 1
+    return handled
 
 
 def process_updates_once(
@@ -406,12 +465,24 @@ def main() -> None:
         action="store_true",
         help="Process pending updates once and exit (recommended for GitHub Actions).",
     )
+    parser.add_argument(
+        "--set-webhook",
+        type=str,
+        default="",
+        help="Register a Telegram webhook URL (e.g. https://your-app.vercel.app/api/webhook) and exit.",
+    )
     args = parser.parse_args()
 
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     if not bot_token:
         logger.error("Missing TELEGRAM_BOT_TOKEN environment variable.")
         sys.exit(1)
+
+    if args.set_webhook:
+        secret = os.environ.get("TELEGRAM_WEBHOOK_SECRET", "").strip()
+        result = set_webhook(bot_token, args.set_webhook.strip(), secret_token=secret)
+        logger.info("Webhook set: %s", result)
+        return
 
     register_bot_commands(bot_token)
 

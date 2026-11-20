@@ -3,10 +3,11 @@ import tempfile
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import bot_commands
 import scraper
+from api import webhook
 
 
 def make_sample_config() -> dict:
@@ -172,6 +173,31 @@ class BotCommandsTests(unittest.TestCase):
         mock_send.assert_called_once()
         state = json.loads(self.state_path.read_text(encoding="utf-8"))
         self.assertEqual(state["last_update_id"], 500)
+
+    @patch("bot_commands.requests.get")
+    def test_get_updates_skips_gracefully_on_409_webhook_conflict(self, mock_get) -> None:
+        resp = MagicMock()
+        resp.status_code = 409
+        mock_get.return_value = resp
+        self.assertEqual(bot_commands.get_updates("fake-token", offset=1), [])
+
+    @patch("scraper.send_telegram_message")
+    def test_vercel_webhook_handler_processes_command_and_checks_secret(self, mock_send) -> None:
+        payload = json.dumps({
+            "update_id": 777,
+            "message": {"chat": {"id": 42}, "text": "/web3"},
+        }).encode("utf-8")
+
+        with patch.dict("os.environ", {"TELEGRAM_BOT_TOKEN": "tok", "TELEGRAM_WEBHOOK_SECRET": "sec"}):
+            code_bad, _ = webhook.handle_webhook_request(payload, secret_header="wrong")
+            self.assertEqual(code_bad, 403)
+            mock_send.assert_not_called()
+
+            code_ok, body_ok = webhook.handle_webhook_request(payload, secret_header="sec")
+            self.assertEqual(code_ok, 200)
+            self.assertTrue(body_ok["ok"])
+            self.assertEqual(body_ok["handled"], 1)
+            mock_send.assert_called_once()
 
 
 if __name__ == "__main__":

@@ -16,8 +16,8 @@ A **100% free, zero-server** automation bot that scrapes recent job boards and s
   - `/sources` — Monitored feeds & recency window
 - **Recency Filtering & Newest-First Sorting:** Filters out old posts (`max_post_age_days` in `config.yaml`: 3 days for jobs, 7 days for scholarships) and prioritizes the freshest opportunities first.
 - **Two Free Command Modes:**
-  1. **Zero-server (GitHub Actions):** Runs `python bot_commands.py --once` alongside `scraper.py` every 6 hours (replies arrive on each run).
-  2. **Instant Replies (Long Polling):** Run `python bot_commands.py` on any free Python host (or locally) for immediate <1s replies and persisted personal DM subscriptions.
+  1. **Instant 24/7 Replies (Vercel Serverless Webhook — Recommended):** Deploy this repo to Vercel's free tier (`api/webhook.py`) so `/latest`, `/jobs`, `/web3`, `/scholarships`, `/keywords`, and `/sources` reply in **<1 second**, while GitHub Actions continues scraping every 6 hours and updating `data/latest_items.json`.
+  2. **Zero-server Scheduled Polling (GitHub Actions):** Runs `python bot_commands.py --once` every 6 hours (replies arrive on each scheduled run).
 
 ---
 
@@ -25,20 +25,43 @@ A **100% free, zero-server** automation bot that scrapes recent job boards and s
 
 ```text
 job-scholarship-alert-bot/
+├── api/
+│   └── webhook.py             # Vercel serverless endpoint for instant 24/7 replies
 ├── .github/workflows/
-│   └── check_alerts.yml       # Scheduled scraper + command polling
+│   └── check_alerts.yml       # Scheduled scraper + fallback command polling
 ├── data/
 │   ├── bot_state.json         # Tracks Telegram getUpdates offset
-│   ├── latest_items.json      # Cached recent items for /latest, /jobs, /scholarships
+│   ├── latest_items.json      # Cached recent items for /latest, /jobs, /web3, /scholarships
 │   └── seen_items.json        # Deduplication store
 ├── tests/
-│   ├── test_bot_commands.py   # Command handler tests
+│   ├── test_bot_commands.py   # Command & webhook tests
 │   └── test_scraper.py        # Scraper & recency tests
 ├── bot_commands.py            # Telegram slash-command handler
 ├── config.yaml                # Keywords, recency limits & RSS/HTML sources
 ├── requirements.txt           # Python dependencies
-└── scraper.py                 # Main scraper & channel broadcaster
+├── scraper.py                 # Main scraper & channel broadcaster
+└── vercel.json                # Vercel routing config
 ```
+
+---
+
+## Enable Instant 24/7 Replies (Free on Vercel — 2 Minutes)
+
+1. Go to **[vercel.com](https://vercel.com)** → **Add New Project** → import your `Job-Scholarship-Alert-Bot` GitHub repository.
+2. Under **Environment Variables**, add:
+   - `TELEGRAM_BOT_TOKEN` = your BotFather token
+   - `TELEGRAM_CHANNEL_ID` = `@latestjobsandscholarship`
+   - `TELEGRAM_WEBHOOK_SECRET` = *(optional random secret string)*
+3. Click **Deploy**, then copy your deployment URL (e.g. `https://job-scholarship-alert-bot.vercel.app`).
+4. Register the webhook with Telegram by opening this URL once in your browser (replace `<BOT_TOKEN>` and `<YOUR_VERCEL_URL>`):
+   ```text
+   https://api.telegram.org/bot<BOT_TOKEN>/setWebhook?url=https://<YOUR_VERCEL_URL>/api/webhook
+   ```
+   *(If you set `TELEGRAM_WEBHOOK_SECRET`, pass `&secret_token=<YOUR_SECRET>` or run `python bot_commands.py --set-webhook https://<YOUR_VERCEL_URL>/api/webhook` locally.)*
+
+Once the webhook is registered:
+- Commands like `/start`, `/latest`, `/jobs`, `/web3`, `/scholarships`, `/keywords`, and `/sources` reply **instantly 24/7**.
+- GitHub Actions continues running every 6 hours to post new alerts to `@latestjobsandscholarship` and update `data/latest_items.json` (which automatically keeps Vercel's cache up to date!).
 
 ---
 
