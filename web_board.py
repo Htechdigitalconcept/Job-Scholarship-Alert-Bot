@@ -235,6 +235,11 @@ def render_web_board_html(
     safe_desc = html.escape(meta_desc, quote=True)
     ssr_cards = _render_ssr_cards(items)
     total_count = len(items)
+    jobs_count = sum(1 for i in items if i.category == "jobs")
+    web3_count = sum(1 for i in items if i.category == "web3_jobs")
+    scholarships_count = sum(1 for i in items if i.category == "scholarships")
+    sources_count = len({i.source_name for i in items if i.source_name}) or 9
+    current_year = datetime.now(timezone.utc).year
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -256,51 +261,197 @@ def render_web_board_html(
   <script type="application/ld+json">{structured_json}</script>
   <style>
     :root {{
-      --bg: #0b1120;
-      --surface: #111827;
+      --bg: #070b14;
+      --surface: #0f172a;
       --surface-2: #1e293b;
-      --border: #263248;
+      --border: #24324a;
       --text: #f8fafc;
       --muted: #94a3b8;
       --accent: #38bdf8;
       --accent-2: #818cf8;
       --green: #34d399;
+      --amber: #fbbf24;
     }}
     * {{ box-sizing: border-box; }}
+    html {{ scroll-behavior: smooth; }}
     body {{
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
-      background: radial-gradient(circle at top, #172554 0%, var(--bg) 42%);
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(56, 189, 248, 0.18), transparent),
+        radial-gradient(ellipse 60% 40% at 85% 0%, rgba(129, 140, 248, 0.14), transparent),
+        var(--bg);
       color: var(--text);
       min-height: 100vh;
       line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+    }}
+    .topbar {{
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(7, 11, 20, 0.78);
+      border-bottom: 1px solid rgba(36, 50, 74, 0.8);
+    }}
+    .topbar-inner {{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }}
+    .brand {{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.96rem;
+      letter-spacing: -0.01em;
+    }}
+    .brand-icon {{
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(129, 140, 248, 0.25));
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--accent);
+      flex-shrink: 0;
+    }}
+    .nav-links {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }}
+    .nav-link {{
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 6px 11px;
+      border-radius: 8px;
+      transition: all 0.15s ease;
+    }}
+    .nav-link:hover {{
+      color: var(--text);
+      background: rgba(30, 41, 59, 0.7);
+    }}
+    .nav-cta {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.38);
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 7px 13px;
+      border-radius: 9px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }}
+    .nav-cta:hover {{
+      background: rgba(56, 189, 248, 0.24);
+      color: #e0f2fe;
     }}
     .container {{
-      max-width: 1060px;
+      width: 100%;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 28px 18px 60px;
+      padding: 26px 18px 48px;
+      flex: 1;
     }}
     .hero {{
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.82)),
+        var(--surface);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      border-radius: 20px;
+      padding: 28px 28px 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 20px 50px -24px rgba(0, 0, 0, 0.75);
+    }}
+    .hero::before {{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+      background-size: 22px 22px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.45), transparent 85%);
+      pointer-events: none;
+    }}
+    .hero-top {{
+      position: relative;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }}
+    .hero-copy {{
+      max-width: 650px;
+    }}
+    .live-pill {{
+      display: inline-flex;
       align-items: center;
-      gap: 16px;
-      background: rgba(17, 24, 39, 0.85);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 22px 24px;
-      margin-bottom: 20px;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--green);
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.28);
+      padding: 4px 11px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }}
+    .pulse-dot {{
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+      animation: pulse 2s infinite;
+    }}
+    @keyframes pulse {{
+      0% {{ box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.65); }}
+      70% {{ box-shadow: 0 0 0 7px rgba(52, 211, 153, 0); }}
+      100% {{ box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }}
     }}
     .hero h1 {{
-      margin: 0 0 6px;
-      font-size: 1.55rem;
-      letter-spacing: -0.02em;
+      margin: 0 0 10px;
+      font-size: clamp(1.55rem, 2.8vw, 2.15rem);
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+    }}
+    .hero h1 .grad {{
+      background: linear-gradient(120deg, #38bdf8, #818cf8 60%, #34d399);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }}
     .hero p {{
       margin: 0;
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 0.96rem;
+      max-width: 58ch;
+    }}
+    .hero-actions {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
     }}
     .tg-btn {{
       display: inline-flex;
@@ -311,11 +462,68 @@ def render_web_board_html(
       font-weight: 700;
       text-decoration: none;
       padding: 11px 18px;
-      border-radius: 10px;
-      font-size: 0.92rem;
+      border-radius: 11px;
+      font-size: 0.9rem;
       white-space: nowrap;
+      box-shadow: 0 8px 24px -8px rgba(56, 189, 248, 0.65);
+      transition: transform 0.15s ease, opacity 0.15s ease;
     }}
-    .tg-btn:hover {{ opacity: 0.92; }}
+    .tg-btn:hover {{ opacity: 0.94; transform: translateY(-1px); }}
+    .ghost-btn {{
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(30, 41, 59, 0.72);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 11px 16px;
+      border-radius: 11px;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }}
+    .ghost-btn:hover {{
+      border-color: var(--accent);
+      background: rgba(30, 41, 59, 0.95);
+    }}
+    .hero-kpis {{
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(36, 50, 74, 0.75);
+    }}
+    .kpi {{
+      background: rgba(7, 11, 20, 0.55);
+      border: 1px solid rgba(36, 50, 74, 0.85);
+      border-radius: 12px;
+      padding: 10px 14px;
+      text-align: left;
+      cursor: pointer;
+      color: inherit;
+      font-family: inherit;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }}
+    .kpi:hover {{
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }}
+    .kpi-label {{
+      display: block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }}
+    .kpi-value {{
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }}
     .controls {{
       display: flex;
       flex-direction: column;
@@ -377,15 +585,16 @@ def render_web_board_html(
       gap: 14px;
     }}
     .card {{
-      background: rgba(17, 24, 39, 0.92);
+      background: rgba(15, 23, 42, 0.92);
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 16px 18px;
       display: flex;
       flex-direction: column;
       gap: 10px;
+      transition: border-color 0.15s ease, transform 0.15s ease;
     }}
-    .card:hover {{ border-color: #3b4f73; }}
+    .card:hover {{ border-color: #3b4f73; transform: translateY(-1px); }}
     .card-top {{
       display: flex;
       justify-content: space-between;
@@ -426,7 +635,7 @@ def render_web_board_html(
     }}
     .deadline {{
       font-size: 0.8rem;
-      color: #fbbf24;
+      color: var(--amber);
       font-weight: 600;
     }}
     .summary {{
@@ -441,7 +650,7 @@ def render_web_board_html(
       align-items: center;
       gap: 10px;
       padding-top: 8px;
-      border-top: 1px solid rgba(38, 50, 72, 0.7);
+      border-top: 1px solid rgba(36, 50, 74, 0.7);
       font-size: 0.78rem;
       color: var(--muted);
     }}
@@ -471,33 +680,164 @@ def render_web_board_html(
       border-radius: 14px;
     }}
     .site-footer {{
-      margin-top: 32px;
-      padding-top: 16px;
+      margin-top: auto;
+      background: rgba(11, 17, 32, 0.95);
       border-top: 1px solid var(--border);
+    }}
+    .footer-inner {{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 36px 18px 26px;
+    }}
+    .footer-grid {{
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(36, 50, 74, 0.75);
+    }}
+    .footer-brand p {{
+      margin: 10px 0 14px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      max-width: 40ch;
+    }}
+    .footer-pill {{
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 5px 11px;
+      border-radius: 999px;
+    }}
+    .footer-col h3 {{
+      margin: 0 0 12px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }}
+    .footer-links {{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }}
+    .footer-links a,
+    .footer-links button {{
+      background: none;
+      border: none;
+      padding: 0;
+      font: inherit;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.86rem;
+      cursor: pointer;
+      text-align: left;
+      transition: color 0.15s ease;
+    }}
+    .footer-links a:hover,
+    .footer-links button:hover {{
+      color: var(--accent);
+    }}
+    .footer-bottom {{
+      padding-top: 18px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: 10px;
+      align-items: center;
+      gap: 12px;
       color: var(--muted);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
     }}
-    .site-footer a {{ color: var(--accent); text-decoration: none; }}
-    .site-footer a:hover {{ text-decoration: underline; }}
+    .back-top {{
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }}
+    .back-top:hover {{ text-decoration: underline; }}
+    @media (max-width: 780px) {{
+      .nav-links .hide-sm {{ display: none; }}
+      .hero {{ padding: 20px 18px; }}
+      .hero-kpis {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .footer-grid {{ grid-template-columns: 1fr; gap: 22px; }}
+    }}
   </style>
 </head>
-<body>
+<body id="top">
+  <nav class="topbar" aria-label="Primary navigation">
+    <div class="topbar-inner">
+      <a class="brand" href="#top">
+        <span class="brand-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </span>
+        <span>Jobs &amp; Scholarships Live Board</span>
+      </a>
+      <div class="nav-links">
+        <a class="nav-link hide-sm" href="#board" data-jump-cat="jobs">Remote Jobs</a>
+        <a class="nav-link hide-sm" href="#board" data-jump-cat="web3_jobs">Web3</a>
+        <a class="nav-link hide-sm" href="#board" data-jump-cat="scholarships">Scholarships</a>
+        <a class="nav-link hide-sm" href="/api/opportunities">API</a>
+        <a class="nav-cta" href="{safe_channel_url}" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+          </svg>
+          <span>Telegram {safe_handle}</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
   <div class="container">
     <header class="hero">
-      <div>
-        <h1>🚀 Jobs, Web3 &amp; Scholarships Live Board</h1>
-        <p>Automatically curated recent opportunities — synced with {safe_handle} on Telegram.</p>
+      <div class="hero-top">
+        <div class="hero-copy">
+          <div class="live-pill">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            <span>Live Board · {sources_count} Curated Sources · Synced Every 6h</span>
+          </div>
+          <h1>Remote Tech Jobs, <span class="grad">Web3 Roles</span> &amp; Funded Scholarships</h1>
+          <p>Fresh, deduplicated opportunities filtered for global remote work, visa sponsorship, and fully funded fellowships — mirrored straight to {safe_handle}.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="tg-btn" href="{safe_channel_url}" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+            </svg>
+            Join {safe_handle}
+          </a>
+          <a class="ghost-btn" href="#board">Browse Feed ↓</a>
+        </div>
       </div>
-      <a class="tg-btn" href="{safe_channel_url}" target="_blank" rel="noopener noreferrer">
-        📢 Join {safe_handle}
-      </a>
+
+      <div class="hero-kpis" aria-label="Live category totals">
+        <button type="button" class="kpi" data-jump-cat="all">
+          <span class="kpi-label">Total Cached</span>
+          <span class="kpi-value">{total_count} Live</span>
+        </button>
+        <button type="button" class="kpi" data-jump-cat="jobs">
+          <span class="kpi-label">💼 Remote Jobs</span>
+          <span class="kpi-value">{jobs_count}</span>
+        </button>
+        <button type="button" class="kpi" data-jump-cat="web3_jobs">
+          <span class="kpi-label">⛓️ Web3 Remote</span>
+          <span class="kpi-value">{web3_count}</span>
+        </button>
+        <button type="button" class="kpi" data-jump-cat="scholarships">
+          <span class="kpi-label">🎓 Scholarships</span>
+          <span class="kpi-value">{scholarships_count}</span>
+        </button>
+      </div>
     </header>
 
-    <section class="controls" aria-label="Filter opportunities">
+    <section id="board" class="controls" aria-label="Filter opportunities">
       <div class="search-row">
         <input id="searchInput" class="search-input" type="search" placeholder="Search roles, skills, countries (e.g. python, solidity, nigeria, fully funded)..." />
         <div class="stats-pill"><strong id="shownCount">{total_count}</strong> of <strong id="totalCount">{total_count}</strong> recent posts</div>
@@ -519,16 +859,56 @@ def render_web_board_html(
     <main class="grid" id="cardsGrid">
 {ssr_cards}
     </main>
-
-    <footer class="site-footer">
-      <span>Updated automatically from verified RSS &amp; job APIs.</span>
-      <span>
-        <a href="/api/opportunities">JSON Feed</a> ·
-        <a href="/llms.txt">llms.txt</a> ·
-        <a href="/sitemap.xml">Sitemap</a>
-      </span>
-    </footer>
   </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#top">
+            <span class="brand-icon" aria-hidden="true">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+            </span>
+            <span>Jobs &amp; Scholarships Live Board</span>
+          </a>
+          <p>Zero-cost automated radar tracking recent remote software roles, Web3 jobs, visa-sponsored openings, and funded scholarships worldwide.</p>
+          <span class="footer-pill">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            Auto-synced every 6 hours · Cross-source deduplicated
+          </span>
+        </div>
+
+        <div class="footer-col">
+          <h3>Quick Filters</h3>
+          <ul class="footer-links">
+            <li><button type="button" data-jump-cat="jobs">💼 Remote Tech Jobs</button></li>
+            <li><button type="button" data-jump-cat="web3_jobs">⛓️ Web3 Remote Roles</button></li>
+            <li><button type="button" data-jump-cat="scholarships">🎓 Scholarships &amp; Fellowships</button></li>
+            <li><button type="button" data-jump-badge="🌍 Worldwide">🌍 Worldwide Remote</button></li>
+            <li><button type="button" data-jump-badge="🛂 Visa Sponsored">🛂 Visa Sponsored</button></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Channels &amp; Feeds</h3>
+          <ul class="footer-links">
+            <li><a href="{safe_channel_url}" target="_blank" rel="noopener noreferrer">📢 Telegram ({safe_handle})</a></li>
+            <li><a href="/api/opportunities">⚡ JSON API (/api/opportunities)</a></li>
+            <li><a href="/llms.txt">🤖 AI Index (/llms.txt)</a></li>
+            <li><a href="/sitemap.xml">🗺️ XML Sitemap</a></li>
+            <li><a href="/robots.txt">🕷️ Robots.txt</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© {current_year} Jobs, Web3 &amp; Scholarships Live Board · Curated from {sources_count} verified feeds.</span>
+        <a class="back-top" href="#top">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
 
   <script>
     const ITEMS = {safe_json};
@@ -541,6 +921,15 @@ def render_web_board_html(
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
+
+    const syncFilterButtons = () => {{
+      document.querySelectorAll("#catFilters .chip").forEach((c) => {{
+        c.classList.toggle("active", c.dataset.cat === activeCat);
+      }});
+      document.querySelectorAll("#badgeFilters .chip").forEach((c) => {{
+        c.classList.toggle("active", c.dataset.badge === activeBadge);
+      }});
+    }};
 
     const render = () => {{
       const q = searchTerm.trim().toLowerCase();
@@ -602,7 +991,7 @@ def render_web_board_html(
       const btn = e.target.closest(".chip");
       if (!btn) return;
       activeCat = btn.dataset.cat;
-      document.querySelectorAll("#catFilters .chip").forEach((c) => c.classList.toggle("active", c === btn));
+      syncFilterButtons();
       render();
     }});
 
@@ -611,8 +1000,28 @@ def render_web_board_html(
       if (!btn) return;
       const b = btn.dataset.badge;
       activeBadge = activeBadge === b ? "" : b;
-      document.querySelectorAll("#badgeFilters .chip").forEach((c) => c.classList.toggle("active", c.dataset.badge === activeBadge));
+      syncFilterButtons();
       render();
+    }});
+
+    document.addEventListener("click", (e) => {{
+      const jumpCat = e.target.closest("[data-jump-cat]");
+      if (jumpCat) {{
+        activeCat = jumpCat.dataset.jumpCat;
+        activeBadge = "";
+        syncFilterButtons();
+        render();
+        document.getElementById("board")?.scrollIntoView({{ behavior: "smooth" }});
+        return;
+      }}
+      const jumpBadge = e.target.closest("[data-jump-badge]");
+      if (jumpBadge) {{
+        activeCat = "all";
+        activeBadge = jumpBadge.dataset.jumpBadge;
+        syncFilterButtons();
+        render();
+        document.getElementById("board")?.scrollIntoView({{ behavior: "smooth" }});
+      }}
     }});
   </script>
 </body>

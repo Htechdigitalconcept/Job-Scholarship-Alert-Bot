@@ -215,6 +215,9 @@ class BotCommandsTests(unittest.TestCase):
         self.assertEqual(captured["status"], "200 OK")
         self.assertIn("text/html", captured["content_type"])
         self.assertIn("Live Board", root_body)
+        self.assertIn('class="topbar"', root_body)
+        self.assertIn('class="hero-kpis"', root_body)
+        self.assertIn('class="footer-grid"', root_body)
         self.assertIn('<article class="card">', root_body)
         self.assertIn('application/ld+json', root_body)
 
