@@ -1,17 +1,68 @@
 [
   {
-    "item_id": "c7d42e998febe279",
+    "item_id": "26ba6716cddc7949",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Celonis: Account Executive - Public Sector Germany - Defense (Bundeswehr)",
-    "link": "https://weworkremotely.com/remote-jobs/celonis-account-executive-public-sector-germany-defense-bundeswehr",
-    "summary": "Headquarters: Remote, Germany Celonis is the trusted platform to industrialize Enterprise AI. At our core is the Celonis Context Model \u2014 which combines process data, business knowledge, and intelligence into a living digital twin of the en\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Southern New Hampshire University: Associate Chief Nursing Administrator",
+    "link": "https://himalayas.app/companies/southern-new-hampshire-university/jobs/associate-chief-nursing-administrator?utm_source=api",
+    "summary": "Southern New Hampshire University is a team of innovators.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:40 +0000",
-    "published_iso": "2026-11-20T18:32:40+00:00",
+    "published": "Fri, 20 Nov 2026 23:02:11 +0000",
+    "published_iso": "2026-11-20T23:02:11+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "13f77889e8fa03bf",
+    "category": "scholarships",
+    "category_label": "\ud83c\udf93 Scholarship & Fellowship",
+    "source_name": "Opportunity Desk",
+    "title": "Cambridge Africa Climate Collaborative Research Fund 2026/2027",
+    "link": "https://opportunitydesk.org/2026/11/20/cambridge-africa-climate-collaborative-research-fund-2026-2027/",
+    "summary": "Deadline: January 15, 2027 Applications for the Cambridge Africa Climate Collaborative Research Fund 2026/2027 are now open. Applications are invited from pairs of researchers (at post-doctoral level and above) from the University of Cambr\u2026",
+    "matched_keywords": [
+      "africa"
+    ],
+    "published": "Fri, 20 Nov 2026 18:37:28 +0000",
+    "published_iso": "2026-11-20T18:37:28+00:00",
+    "badges": [],
+    "deadline": "January 15, 2027"
+  },
+  {
+    "item_id": "fa1810bb9e01ed66",
+    "category": "web3_jobs",
+    "category_label": "\u26d3\ufe0f Web3 Remote Job",
+    "source_name": "Cryptocurrency Jobs",
+    "title": "ZK Researcher at Anagram",
+    "link": "https://cryptocurrencyjobs.co/research/anagram-zk-researcher/",
+    "summary": "Anagram is looking to hire a ZK Researcher to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "matched_keywords": [
+      "zk",
+      "researcher"
+    ],
+    "published": "Wed, 18 Nov 2026 08:00:00 +0200",
+    "published_iso": "2026-11-18T06:00:00+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "3f6882ced20f4b53",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Linesight: Mechanical Estimator",
+    "link": "https://himalayas.app/companies/linesight/jobs/mechanical-estimator?utm_source=api",
+    "summary": "Overview As a Mechanical Estimator at Linesight, you will work with highly experienced, culturally diverse, and passionate teams, building your industry knowledge and developing your estimating skillset.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Fri, 20 Nov 2026 22:59:38 +0000",
+    "published_iso": "2026-11-20T22:59:38+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -34,16 +85,15 @@
     "deadline": ""
   },
   {
-    "item_id": "fa1810bb9e01ed66",
+    "item_id": "825e1fb6d09d2a66",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "Cryptocurrency Jobs",
-    "title": "ZK Researcher at Anagram",
-    "link": "https://cryptocurrencyjobs.co/research/anagram-zk-researcher/",
-    "summary": "Anagram is looking to hire a ZK Researcher to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "title": "Staff Backend Engineer at Superstate",
+    "link": "https://cryptocurrencyjobs.co/engineering/superstate-staff-backend-engineer/",
+    "summary": "Superstate is looking to hire a Staff Backend Engineer to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
     "matched_keywords": [
-      "zk",
-      "researcher"
+      "backend"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
     "published_iso": "2026-11-18T06:00:00+00:00",
@@ -53,18 +103,18 @@
     "deadline": ""
   },
   {
-    "item_id": "3cd158fe42f18e43",
+    "item_id": "6008a28cb54367c5",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Cockroach Labs: Escalation Engineer",
-    "link": "https://weworkremotely.com/remote-jobs/cockroach-labs-escalation-engineer",
-    "summary": "Headquarters: Remote, United States Category-defining tech. Career-defining work. For more than a decade, Cockroach Labs has built database technology trusted to power some of the world's most mission-critical applications. Now, as AI tran\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "AdQuick: VP, Ecosystem Partnerships",
+    "link": "https://himalayas.app/companies/adquick/jobs/vp-ecosystem-partnerships?utm_source=api",
+    "summary": "AdQuick is hiring its first VP, Ecosystem Partnerships to make out of home easy to buy wherever advertisers plan media.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:40 +0000",
-    "published_iso": "2026-11-20T18:32:40+00:00",
+    "published": "Fri, 20 Nov 2026 22:56:53 +0000",
+    "published_iso": "2026-11-20T22:56:53+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -85,36 +135,34 @@
     "deadline": "January 31, 2027"
   },
   {
-    "item_id": "825e1fb6d09d2a66",
+    "item_id": "71a5cae9ce704ced",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "Cryptocurrency Jobs",
-    "title": "Staff Backend Engineer at Superstate",
-    "link": "https://cryptocurrencyjobs.co/engineering/superstate-staff-backend-engineer/",
-    "summary": "Superstate is looking to hire a Staff Backend Engineer to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "title": "Senior Software Engineer at Shakepay",
+    "link": "https://cryptocurrencyjobs.co/engineering/shakepay-senior-software-engineer/",
+    "summary": "Shakepay is looking to hire a Senior Software Engineer to join their team. This is a full-time position that can be done remotely anywhere in Canada.",
     "matched_keywords": [
-      "backend"
+      "software engineer"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
     "published_iso": "2026-11-18T06:00:00+00:00",
-    "badges": [
-      "\ud83c\udf0d Worldwide"
-    ],
+    "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "891c880e7a4f0f97",
+    "item_id": "c6069aee8fdbf43d",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Celonis: Account Executive - Cross Industries",
-    "link": "https://weworkremotely.com/remote-jobs/celonis-account-executive-cross-industries",
-    "summary": "Headquarters: Remote, Switzerland Celonis is the trusted platform to industrialize Enterprise AI. At our core is the Celonis Context Model \u2014 which combines process data, business knowledge, and intelligence into a living digital twin of th\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Eracore: Project Manager - LATAM",
+    "link": "https://himalayas.app/companies/eracore/jobs/project-manager-latam?utm_source=api",
+    "summary": "Eracore is an electrical engineering and BIM company delivering complex Electrical BIM models for large construction projects across the U.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:40 +0000",
-    "published_iso": "2026-11-20T18:32:40+00:00",
+    "published": "Fri, 20 Nov 2026 22:56:13 +0000",
+    "published_iso": "2026-11-20T22:56:13+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -135,36 +183,36 @@
     "deadline": "29 November 2026"
   },
   {
-    "item_id": "71a5cae9ce704ced",
+    "item_id": "91d9a71ba47f830b",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "Cryptocurrency Jobs",
-    "title": "Senior Software Engineer at Shakepay",
-    "link": "https://cryptocurrencyjobs.co/engineering/shakepay-senior-software-engineer/",
-    "summary": "Shakepay is looking to hire a Senior Software Engineer to join their team. This is a full-time position that can be done remotely anywhere in Canada.",
+    "title": "Senior Product Manager, Trading at 0x",
+    "link": "https://cryptocurrencyjobs.co/product/0x-senior-product-manager-trading/",
+    "summary": "0x is looking to hire a Senior Product Manager, Trading to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
     "matched_keywords": [
-      "software engineer"
+      "product manager"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
     "published_iso": "2026-11-18T06:00:00+00:00",
-    "badges": [],
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
     "deadline": ""
   },
   {
-    "item_id": "53765d24cd859e03",
+    "item_id": "b1a32f445024a67d",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Postscript: Senior Software Engineer, Full Stack (80% backend)",
-    "link": "https://weworkremotely.com/remote-jobs/postscript-senior-software-engineer-full-stack-80-backend",
-    "summary": "Headquarters: Remote Postscript is the AI-powered, all-in-one retention platform trusted by 20,000+ Shopify brands, including Brooklinen, Ruggable, True Classic, and Dr. Squatch. Our mission is to maximize the lifetime value of every shopp\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "EXL: Training Coordinator, Healthcare",
+    "link": "https://himalayas.app/companies/exl/jobs/training-coordinator-healthcare-86817298?utm_source=api",
+    "summary": "This is a remote office opportunity. The Training Coordinator will work closely with the Training Manager to successfully complete the full training cycle for employees (assess needs, plan, develop, coordinate, monitor and evaluate).",
     "matched_keywords": [
-      "backend",
-      "remote",
-      "software engineer"
+      "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:40 +0000",
-    "published_iso": "2026-11-20T18:32:40+00:00",
+    "published": "Fri, 20 Nov 2026 22:55:51 +0000",
+    "published_iso": "2026-11-20T22:55:51+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -187,15 +235,15 @@
     "deadline": "December 6, 2026"
   },
   {
-    "item_id": "91d9a71ba47f830b",
+    "item_id": "43b6bc5fe04ee916",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "Cryptocurrency Jobs",
-    "title": "Senior Product Manager, Trading at 0x",
-    "link": "https://cryptocurrencyjobs.co/product/0x-senior-product-manager-trading/",
-    "summary": "0x is looking to hire a Senior Product Manager, Trading to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "title": "Senior IT Engineer at Blockchain.com",
+    "link": "https://cryptocurrencyjobs.co/engineering/blockchain-com-senior-it-engineer/",
+    "summary": "Blockchain.com is looking to hire a Senior IT Engineer to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
     "matched_keywords": [
-      "product manager"
+      "blockchain"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
     "published_iso": "2026-11-18T06:00:00+00:00",
@@ -205,18 +253,18 @@
     "deadline": ""
   },
   {
-    "item_id": "4319de8776ae6893",
+    "item_id": "11bc8ff1a8bcd89d",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Cockroach Labs: Account Executive, DACH",
-    "link": "https://weworkremotely.com/remote-jobs/cockroach-labs-account-executive-dach",
-    "summary": "Headquarters: Remote, Germany Category-defining tech. Career-defining work. For more than a decade, Cockroach Labs has built database technology trusted to power some of the world's most mission-critical applications. Now, as AI transforms\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Omnigo Software: Sales Director - Public Safety (Remote Position)",
+    "link": "https://himalayas.app/companies/omnigo-software/jobs/sales-director-public-safety-remote-position?utm_source=api",
+    "summary": "Position Summary The Sales Director, Public Safety is responsible for leading a team of Account Executives selling mission-critical software solutions to state and local government agencies, law enforcement organizations, courts, correctio\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:29 +0000",
-    "published_iso": "2026-11-20T18:32:29+00:00",
+    "published": "Fri, 20 Nov 2026 22:54:12 +0000",
+    "published_iso": "2026-11-20T22:54:12+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -237,36 +285,34 @@
     "deadline": "December 15, 2026"
   },
   {
-    "item_id": "43b6bc5fe04ee916",
+    "item_id": "531166d49c59c803",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "Cryptocurrency Jobs",
-    "title": "Senior IT Engineer at Blockchain.com",
-    "link": "https://cryptocurrencyjobs.co/engineering/blockchain-com-senior-it-engineer/",
-    "summary": "Blockchain.com is looking to hire a Senior IT Engineer to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "title": "Product Manager - Growth at Sei Labs",
+    "link": "https://cryptocurrencyjobs.co/product/sei-labs-product-manager-growth/",
+    "summary": "Sei Labs is looking to hire a Product Manager - Growth to join their team. This is a full-time position that can be done remotely anywhere in the United States or on-site in New York NY, or San Francisco CA.",
     "matched_keywords": [
-      "blockchain"
+      "product manager"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
     "published_iso": "2026-11-18T06:00:00+00:00",
-    "badges": [
-      "\ud83c\udf0d Worldwide"
-    ],
+    "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "1c9270954b99ff30",
+    "item_id": "af07463964f79fbe",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Postscript: Senior Product Marketing Manager",
-    "link": "https://weworkremotely.com/remote-jobs/postscript-senior-product-marketing-manager",
-    "summary": "Headquarters: Remote Postscript is the AI-powered, all-in-one retention platform trusted by 20,000+ Shopify brands, including Brooklinen, Ruggable, True Classic, and Dr. Squatch. Our mission is to maximize the lifetime value of every shopp\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Quality Digital: 12901086 - PRODUCT OWNER (PO)",
+    "link": "https://himalayas.app/companies/quality-digital/jobs/12901086-product-owner-po?utm_source=api",
+    "summary": "N\u00f3s somos aQuality Digital! Saiba mais sobre a gente: \u2022 Uma frase que nos define- Somos especialistas em solu\u00e7\u00f5es de TI e apaixonados por inova\u00e7\u00e3o!",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:29 +0000",
-    "published_iso": "2026-11-20T18:32:29+00:00",
+    "published": "Fri, 20 Nov 2026 22:52:50 +0000",
+    "published_iso": "2026-11-20T22:52:50+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -290,34 +336,36 @@
     "deadline": "20 January 2027"
   },
   {
-    "item_id": "531166d49c59c803",
+    "item_id": "f0b93ca9ec0dabf0",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "Cryptocurrency Jobs",
-    "title": "Product Manager - Growth at Sei Labs",
-    "link": "https://cryptocurrencyjobs.co/product/sei-labs-product-manager-growth/",
-    "summary": "Sei Labs is looking to hire a Product Manager - Growth to join their team. This is a full-time position that can be done remotely anywhere in the United States or on-site in New York NY, or San Francisco CA.",
+    "title": "Product Manager at Wynd Labs",
+    "link": "https://cryptocurrencyjobs.co/other/wynd-labs-product-manager/",
+    "summary": "Wynd Labs is looking to hire a Product Manager to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
     "matched_keywords": [
       "product manager"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
     "published_iso": "2026-11-18T06:00:00+00:00",
-    "badges": [],
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
     "deadline": ""
   },
   {
-    "item_id": "eb6cb1c465141303",
+    "item_id": "71a3afa192d73f98",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Bybit: Country Manager",
-    "link": "https://weworkremotely.com/remote-jobs/bybit-country-manager",
-    "summary": "Headquarters: Europe - Remote About Us Established in 2018, Bybit is one of the world\u2019s leading cryptocurrency exchanges and digital financial platforms, serving over 80 million users across more than 200 countries and regions. Powered by\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "USAA: Director, Design",
+    "link": "https://himalayas.app/companies/usaa/jobs/director-design?utm_source=api",
+    "summary": "Why USAA? At USAA, our mission is to empower our members to achieve financial security through highly competitive products, exceptional service and trusted advice.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:29 +0000",
-    "published_iso": "2026-11-20T18:32:29+00:00",
+    "published": "Fri, 20 Nov 2026 22:52:19 +0000",
+    "published_iso": "2026-11-20T22:52:19+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -338,37 +386,39 @@
     "deadline": ""
   },
   {
-    "item_id": "f0b93ca9ec0dabf0",
+    "item_id": "414417ff69de5099",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "Cryptocurrency Jobs",
-    "title": "Product Manager at Wynd Labs",
-    "link": "https://cryptocurrencyjobs.co/other/wynd-labs-product-manager/",
-    "summary": "Wynd Labs is looking to hire a Product Manager to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "title": "Backend Developer at RedStone",
+    "link": "https://cryptocurrencyjobs.co/engineering/redstone-backend-developer/",
+    "summary": "RedStone is looking to hire a Backend Developer to join their team. This is a full-time position that can be done remotely anywhere in Europe or on-site in Warsaw.",
     "matched_keywords": [
-      "product manager"
+      "backend",
+      "developer"
     ],
     "published": "Wed, 18 Nov 2026 08:00:00 +0200",
     "published_iso": "2026-11-18T06:00:00+00:00",
-    "badges": [
-      "\ud83c\udf0d Worldwide"
-    ],
+    "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "7b7a2e202b028937",
+    "item_id": "eff6dd4847e24744",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "BeyondTrust: Lead-to-Cash Business Partner",
-    "link": "https://weworkremotely.com/remote-jobs/beyondtrust-lead-to-cash-business-partner",
-    "summary": "Headquarters: Remote United States BeyondTrust is a place where you can bring your purpose to life through the work that you do, creating a safer world through our cybersecurity SaaS portfolio. Our culture of flexibility, trust, and contin\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Highmark Health: Summer 2027 Analytic Enablement Graduate Intern",
+    "link": "https://himalayas.app/companies/highmark-health/jobs/summer-2027-analytic-enablement-graduate-intern?utm_source=api",
+    "summary": "Company : Highmark HealthJob Description : Applicants must be authorized to work in the U.",
     "matched_keywords": [
-      "remote"
+      "remote",
+      "intern"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:28 +0000",
-    "published_iso": "2026-11-20T18:32:28+00:00",
-    "badges": [],
+    "published": "Fri, 20 Nov 2026 22:51:25 +0000",
+    "published_iso": "2026-11-20T22:51:25+00:00",
+    "badges": [
+      "\ud83d\udfe2 Entry / Intern"
+    ],
     "deadline": ""
   },
   {
@@ -392,36 +442,21 @@
     "deadline": "December 15th, 2026"
   },
   {
-    "item_id": "414417ff69de5099",
-    "category": "web3_jobs",
-    "category_label": "\u26d3\ufe0f Web3 Remote Job",
-    "source_name": "Cryptocurrency Jobs",
-    "title": "Backend Developer at RedStone",
-    "link": "https://cryptocurrencyjobs.co/engineering/redstone-backend-developer/",
-    "summary": "RedStone is looking to hire a Backend Developer to join their team. This is a full-time position that can be done remotely anywhere in Europe or on-site in Warsaw.",
-    "matched_keywords": [
-      "backend",
-      "developer"
-    ],
-    "published": "Wed, 18 Nov 2026 08:00:00 +0200",
-    "published_iso": "2026-11-18T06:00:00+00:00",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "125b17d4c91cce6e",
+    "item_id": "202288e138121b2e",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "SeekOut: Senior Product Designer (Remote)",
-    "link": "https://weworkremotely.com/remote-jobs/seekout-senior-product-designer-remote",
-    "summary": "Headquarters: Remote What is SeekOut? SeekOut is a leader in AI-driven talent optimization, helping organizations recruit, reskill, and redeploy talent with AI-driven solutions. SeekOut transforms how companies build winning teams by empow\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Grupo SysMap: Analista de Backoffice JR",
+    "link": "https://himalayas.app/companies/grupo-sysmap/jobs/analista-de-backoffice-jr?utm_source=api",
+    "summary": "Voc\u00ea \u00e9 movido(a) por tecnologia, dados e inova\u00e7\u00e3o?",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:19 +0000",
-    "published_iso": "2026-11-20T18:32:19+00:00",
-    "badges": [],
+    "published": "Fri, 20 Nov 2026 22:48:42 +0000",
+    "published_iso": "2026-11-20T22:48:42+00:00",
+    "badges": [
+      "\ud83d\udfe2 Entry / Intern"
+    ],
     "deadline": ""
   },
   {
@@ -445,18 +480,18 @@
     "deadline": "December 6, 2026"
   },
   {
-    "item_id": "a448679cb9e318f8",
+    "item_id": "41977140b451aec9",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Bybit: Compliance Officer/MLRO",
-    "link": "https://weworkremotely.com/remote-jobs/bybit-compliance-officer-mlro",
-    "summary": "Headquarters: Pakistan - Remote About Us Established in 2018, Bybit is one of the world\u2019s leading cryptocurrency exchanges and digital financial platforms, serving over 80 million users across more than 200 countries and regions. Powered b\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Sedgwick: Manager Client Services",
+    "link": "https://himalayas.app/companies/sedgwick/jobs/manager-client-services-7317320769?utm_source=api",
+    "summary": "By joining Sedgwick, you'll be part of something truly meaningful.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:19 +0000",
-    "published_iso": "2026-11-20T18:32:19+00:00",
+    "published": "Fri, 20 Nov 2026 22:47:39 +0000",
+    "published_iso": "2026-11-20T22:47:39+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -479,18 +514,18 @@
     "deadline": ""
   },
   {
-    "item_id": "885b4273d4514a4b",
+    "item_id": "35ccc9807a78cbbd",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "BeyondTrust: Field & Partner Marketing Manager, Public Sector",
-    "link": "https://weworkremotely.com/remote-jobs/beyondtrust-field-partner-marketing-manager-public-sector",
-    "summary": "Headquarters: Remote Unites States | Atlanta, Austin, Boston, Chicago, Dallas, Denver, Phoenix BeyondTrust is a place where you can bring your purpose to life through the work that you do, creating a safer world through our cybersecurity S\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Genios AI: Senior Platform Engineer \u2014 Kubernetes, DevOps, & Cloud Infra (US)",
+    "link": "https://himalayas.app/companies/genios-ai/jobs/senior-platform-engineer-kubernetes-devops-cloud-infra-us?utm_source=api",
+    "summary": "We are on a mission to build the AI-native platform for finance\u2014a multi-agent system that reimagines how investment teams make decisions and empowers them to move faster, think deeper, and operate smarter.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:15 +0000",
-    "published_iso": "2026-11-20T18:32:15+00:00",
+    "published": "Fri, 20 Nov 2026 22:47:31 +0000",
+    "published_iso": "2026-11-20T22:47:31+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -511,18 +546,18 @@
     "deadline": ""
   },
   {
-    "item_id": "791e12a84eba4537",
+    "item_id": "6823faa262816680",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Affirm: Affirm Bank Strategic Finance Lead",
-    "link": "https://weworkremotely.com/remote-jobs/affirm-affirm-bank-strategic-finance-lead",
-    "summary": "Headquarters: Remote US At Affirm, we exist for the moments that matter\u2014giving people a clear, predictable way to pay over time, with no hidden fees, no surprises, and no tradeoffs on what matters most. About the Finance team The Finance t\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Sicredi: CAS | Especialista de Opera\u00e7\u00f5es de Seguran\u00e7a de TI (SecOps)",
+    "link": "https://himalayas.app/companies/sicredi/jobs/cas-especialista-de-operacoes-de-seguranca-de-ti-secops?utm_source=api",
+    "summary": "Buscamos pessoas que sejam movidas a desafios t\u00e9cnicos, que se identifiquem com um ambiente din\u00e2mico e diverso, e que combinem profundidade t\u00e9cnica com vis\u00e3o de neg\u00f3cio para atuar como refer\u00eancia especializada na opera\u00e7\u00e3o de seguran\u00e7a de u\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:14 +0000",
-    "published_iso": "2026-11-20T18:32:14+00:00",
+    "published": "Fri, 20 Nov 2026 22:46:51 +0000",
+    "published_iso": "2026-11-20T22:46:51+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -543,18 +578,18 @@
     "deadline": ""
   },
   {
-    "item_id": "e4b7e8e32a63c780",
+    "item_id": "8c0656f9831ddd63",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Affirm: Accounting Manager",
-    "link": "https://weworkremotely.com/remote-jobs/affirm-accounting-manager",
-    "summary": "Headquarters: Remote US At Affirm, we exist for the moments that matter\u2014giving people a clear, predictable way to pay over time, with no hidden fees, no surprises, and no tradeoffs on what matters most. About the Finance team The Finance t\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "First Advantage: Customer Specialist (MRO Support)",
+    "link": "https://himalayas.app/companies/first-advantage/jobs/customer-specialist-mro-support?utm_source=api",
+    "summary": "We are on the front line of recruitment, enabling organizations to hire smarter and onboard faster.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:14 +0000",
-    "published_iso": "2026-11-20T18:32:14+00:00",
+    "published": "Fri, 20 Nov 2026 22:45:58 +0000",
+    "published_iso": "2026-11-20T22:45:58+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -575,102 +610,66 @@
     "deadline": ""
   },
   {
-    "item_id": "734c36dccf49e4c0",
+    "item_id": "6461cd1035a6c454",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Wrike: Senior Customer Success Manager",
-    "link": "https://weworkremotely.com/remote-jobs/wrike-senior-customer-success-manager",
-    "summary": "Headquarters: US - Remote Wrike is the most powerful work management platform. Built for teams and organizations looking to collaborate, create, and exceed every day, Wrike brings everyone and all work into a single place to remove complex\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Skillable: Manager, Security and Compliance",
+    "link": "https://himalayas.app/companies/skillable/jobs/manager-security-and-compliance?utm_source=api",
+    "summary": "Skillable is a 100% remote and virtual tech company that\u2019s modernizing the world of training.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:14 +0000",
-    "published_iso": "2026-11-20T18:32:14+00:00",
+    "published": "Fri, 20 Nov 2026 22:44:39 +0000",
+    "published_iso": "2026-11-20T22:44:39+00:00",
     "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "7bf38c00b4020f44",
+    "item_id": "9fa19d609b45aa73",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Wrike: Senior CloudOps Engineer (Network Engineer)",
-    "link": "https://weworkremotely.com/remote-jobs/wrike-senior-cloudops-engineer-network-engineer",
-    "summary": "Headquarters: Czech Republic - Remote Wrike is the most powerful work management platform. Built for teams and organizations looking to collaborate, create, and exceed every day, Wrike brings everyone and all work into a single place to re\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Piedmont Healthcare: Epic Application Coord - Inpatient HOD",
+    "link": "https://himalayas.app/companies/piedmont-healthcare/jobs/epic-application-coord-inpatient-hod?utm_source=api",
+    "summary": "Overview The position of Application Coordinator is responsible for the design, build, testing, validation, and ongoing support of clinical and/or revenue cycle applications.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:06 +0000",
-    "published_iso": "2026-11-20T18:32:06+00:00",
+    "published": "Fri, 20 Nov 2026 22:42:51 +0000",
+    "published_iso": "2026-11-20T22:42:51+00:00",
     "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "a8927dfebe757ca1",
+    "item_id": "89570311cb223d27",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Sezzle: Customer Service Agent",
-    "link": "https://weworkremotely.com/remote-jobs/sezzle-customer-service-agent",
-    "summary": "Headquarters: Colombia, Remote This is a remote position for candidates based in Bogota, Colombia. About Sezzle: With a mission to financially empower the next generation, Sezzle is revolutionizing the shopping experience beyond payments,\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "HCCS (Healthcare Coding & Consulting Services): Pro Fee & Pro Clinic Orthopedic Coder",
+    "link": "https://himalayas.app/companies/hccs-healthcare-coding-consulting-services/jobs/pro-fee-pro-clinic-orthopedic-coder?utm_source=api",
+    "summary": "About HCCS Healthcare Coding & Consulting Services (HCCS) is a family-owned, U.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:32:06 +0000",
-    "published_iso": "2026-11-20T18:32:06+00:00",
+    "published": "Fri, 20 Nov 2026 22:40:27 +0000",
+    "published_iso": "2026-11-20T22:40:27+00:00",
     "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "fe260526f44b2fb8",
+    "item_id": "7bf9d270ae6a6cbc",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Talkspace: Data Analyst",
-    "link": "https://weworkremotely.com/remote-jobs/talkspace-data-analyst",
-    "summary": "Headquarters: New York, NY (Remote) At Talkspace, we are committed to fostering a diverse, equitable, inclusive, and belonging-centered workplace where everyone can thrive while making a difference in mental health. Want to help over two m\u2026",
-    "matched_keywords": [
-      "remote",
-      "data analyst"
-    ],
-    "published": "Fri, 20 Nov 2026 18:32:02 +0000",
-    "published_iso": "2026-11-20T18:32:02+00:00",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "122b2744fdbf7536",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Sezzle: A.I. Engineering Intern (Remote)",
-    "link": "https://weworkremotely.com/remote-jobs/sezzle-a-i-engineering-intern-remote",
-    "summary": "Headquarters: T\u00fcrkiye, Remote About Sezzle: With a mission to financially empower the next generation, Sezzle is revolutionizing the shopping experience beyond payments, blending cutting-edge tech with seamless, interest-free installment p\u2026",
-    "matched_keywords": [
-      "remote",
-      "intern"
-    ],
-    "published": "Fri, 20 Nov 2026 18:32:00 +0000",
-    "published_iso": "2026-11-20T18:32:00+00:00",
-    "badges": [
-      "\ud83d\udfe2 Entry / Intern"
-    ],
-    "deadline": ""
-  },
-  {
-    "item_id": "3c25c34d6598ca75",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "StockX: Don\u2019t See the Right Role? Join Our Talent Community!",
-    "link": "https://weworkremotely.com/remote-jobs/stockx-don-t-see-the-right-role-join-our-talent-community",
-    "summary": "Headquarters: Bangalore, India; Detroit, MI; Douglasville, GA; Eindhoven, Netherlands; Hong Kong, China; London, United Kingdom; Mississauga, ON, Canada; Remote, Netherlands; Remote, United Kingdom; Remote, USA; Tempe, AZ; West Caldwell, N\u2026",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "PagBank: Engenheiro de Sistema Fun\u00e7\u00e3o Pl. (Tempor\u00e1rio)",
+    "link": "https://himalayas.app/companies/pagbank/jobs/engenheiro-de-sistema-funcao-pl-temporario?utm_source=api",
+    "summary": "Quando voc\u00ea pensa em carreira, o que vem \u00e0 sua mente?",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Fri, 20 Nov 2026 18:31:58 +0000",
-    "published_iso": "2026-11-20T18:31:58+00:00",
+    "published": "Fri, 20 Nov 2026 22:37:52 +0000",
+    "published_iso": "2026-11-20T22:37:52+00:00",
     "badges": [],
     "deadline": ""
   }
