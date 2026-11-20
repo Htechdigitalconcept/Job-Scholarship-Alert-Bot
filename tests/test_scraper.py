@@ -170,6 +170,21 @@ class ScraperTests(unittest.TestCase):
         ordered = scraper.interleave_by_category([j1, j2, s1])
         self.assertEqual([o.item_id for o in ordered], ["2", "3", "1"])
 
+    def test_save_latest_items_balances_categories(self) -> None:
+        now = datetime.now(timezone.utc)
+        many_jobs = [
+            scraper.Opportunity(f"j{i}", "jobs", "J", "WWR", f"Job {i}", f"https://ex.com/j{i}", "", ["remote"], published_dt=now)
+            for i in range(10)
+        ]
+        one_web3 = scraper.Opportunity("w1", "web3_jobs", "W3", "CCJ", "Web3 Role", "https://ex.com/w1", "", ["web3"], published_dt=now - timedelta(hours=5))
+        one_sch = scraper.Opportunity("s1", "scholarships", "Sc", "OD", "Scholarship", "https://ex.com/s1", "", ["africa"], published_dt=now - timedelta(hours=5))
+        cfg = {"settings": {"max_post_age_days": 3, "allow_undated_posts": True}, "categories": {}}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "latest.json"
+            saved = scraper.save_latest_items(path, [*many_jobs, one_web3, one_sch], cfg, limit=5)
+            cats = {item.category for item in saved}
+            self.assertEqual(cats, {"jobs", "web3_jobs", "scholarships"})
+
     def test_seen_roundtrip(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "seen.json"

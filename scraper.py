@@ -387,14 +387,15 @@ def save_latest_items(
         merged_by_id.values(),
         key=lambda o: o.published_dt or epoch,
         reverse=True,
-    )[:limit]
+    )
+    balanced_items = interleave_by_category(sorted_items)[:limit]
 
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
-        json.dumps([item.to_dict() for item in sorted_items], indent=2) + "\n",
+        json.dumps([item.to_dict() for item in balanced_items], indent=2) + "\n",
         encoding="utf-8",
     )
-    return sorted_items
+    return balanced_items
 
 
 def load_subscribers(path: Path) -> dict[str, dict[str, Any]]:

@@ -133,17 +133,34 @@ def get_channel_display(config: dict[str, Any] | None = None) -> str:
     return ""
 
 
+_LIVE_CACHE: dict[str, Any] = {"ts": 0.0, "items": []}
+LIVE_CACHE_TTL_SECONDS = 300
+
+
 def get_recent_opportunities(
     config: dict[str, Any],
     latest_path: Path,
+    required_categories: set[str] | None = None,
 ) -> list[scraper.Opportunity]:
-    """Read recent cached opportunities, or fall back to live scrape if cache is empty."""
+    """Read recent cached opportunities, refreshing live if empty or missing a category."""
     cached = scraper.load_latest_items(latest_path)
     if cached:
-        return cached
-    live = scraper.collect_opportunities(config)
+        if not required_categories or any(i.category in required_categories for i in cached):
+            return cached
+
+    now = time.time()
+    if _LIVE_CACHE["items"] and (now - float(_LIVE_CACHE["ts"])) < LIVE_CACHE_TTL_SECONDS:
+        live = list(_LIVE_CACHE["items"])
+    else:
+        live = scraper.collect_opportunities(config)
+        _LIVE_CACHE["ts"] = now
+        _LIVE_CACHE["items"] = live
+
     limit = int(config.get("settings", {}).get("latest_cache_limit", 40))
-    return scraper.save_latest_items(latest_path, live, config, limit=limit)
+    try:
+        return scraper.save_latest_items(latest_path, live, config, limit=limit)
+    except OSError:
+        return scraper.interleave_by_category(live)[:limit]
 
 
 def format_compact_list(
@@ -330,9 +347,8 @@ def handle_command(
         return ["🔕 <b>Personal DM alerts paused.</b> Send /subscribe anytime to resume."]
 
     if cmd in {"/latest", "/jobs", "/web3", "/scholarships"}:
-        items = get_recent_opportunities(config, latest_path)
-
         if cmd == "/latest":
+            items = get_recent_opportunities(config, latest_path)
             limit = 5
             if arg.isdigit():
                 limit = max(1, min(10, int(arg)))
@@ -358,6 +374,7 @@ def handle_command(
             label_name = "scholarships"
             base_heading = "🎓 Latest Scholarships"
 
+        items = get_recent_opportunities(config, latest_path, required_categories=target_cats)
         filtered = [i for i in items if i.category in target_cats]
         if arg:
             search_terms = [t.strip() for t in arg.split(",") if t.strip()]
