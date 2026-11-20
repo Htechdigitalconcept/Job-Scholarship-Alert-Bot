@@ -1,4 +1,4 @@
-"""Vercel Python WSGI entrypoint: Telegram Webhook + Live Web Board."""
+"""Vercel Python WSGI entrypoint: Telegram Webhook, Live Web Board & SEO/AI endpoints."""
 
 from __future__ import annotations
 
@@ -61,6 +61,17 @@ def handle_webhook_request(
         return 200, {"ok": False, "error": str(exc)}
 
 
+def _detect_site_url(environ: dict[str, Any]) -> str:
+    env_url = os.environ.get("PUBLIC_SITE_URL", "").strip()
+    if env_url:
+        return env_url.rstrip("/")
+    host = str(environ.get("HTTP_X_FORWARDED_HOST") or environ.get("HTTP_HOST") or "").strip()
+    if host:
+        proto = str(environ.get("HTTP_X_FORWARDED_PROTO") or "https").strip()
+        return f"{proto}://{host}".rstrip("/")
+    return "https://job-scholarship-alert-bot-chi.vercel.app"
+
+
 def _load_board_data() -> tuple[list[Any], str, str]:
     import bot_commands
     import scraper
@@ -76,9 +87,10 @@ def app(
     environ: dict[str, Any],
     start_response: Callable[[str, list[tuple[str, str]]], Any],
 ) -> Iterable[bytes]:
-    """Standard WSGI entrypoint serving /, /api/opportunities, and /api/webhook."""
+    """Standard WSGI entrypoint serving Web Board, SEO/AI endpoints, and Telegram Webhook."""
     method = str(environ.get("REQUEST_METHOD", "GET")).upper()
     path = str(environ.get("PATH_INFO", "/")).rstrip("/") or "/"
+    site_url = _detect_site_url(environ)
 
     if method in {"GET", "HEAD"}:
         if path in {"/", "/index.html"}:
@@ -89,10 +101,49 @@ def app(
                 items,
                 channel_url=channel_url,
                 channel_handle=channel_handle,
+                site_url=site_url,
             )
             body = html_doc.encode("utf-8")
             headers = [
                 ("Content-Type", "text/html; charset=utf-8"),
+                ("Content-Length", str(len(body))),
+                ("X-Robots-Tag", "index, follow"),
+            ]
+            start_response(STATUS_TEXT[200], headers)
+            return [] if method == "HEAD" else [body]
+
+        if path == "/robots.txt":
+            import web_board
+
+            body = web_board.render_robots_txt(site_url).encode("utf-8")
+            headers = [
+                ("Content-Type", "text/plain; charset=utf-8"),
+                ("Content-Length", str(len(body))),
+            ]
+            start_response(STATUS_TEXT[200], headers)
+            return [] if method == "HEAD" else [body]
+
+        if path == "/sitemap.xml":
+            import web_board
+
+            items, _url, _handle = _load_board_data()
+            body = web_board.render_sitemap_xml(site_url, items).encode("utf-8")
+            headers = [
+                ("Content-Type", "application/xml; charset=utf-8"),
+                ("Content-Length", str(len(body))),
+            ]
+            start_response(STATUS_TEXT[200], headers)
+            return [] if method == "HEAD" else [body]
+
+        if path == "/llms.txt":
+            import web_board
+
+            items, channel_url, channel_handle = _load_board_data()
+            body = web_board.render_llms_txt(
+                site_url, items, channel_url=channel_url, channel_handle=channel_handle
+            ).encode("utf-8")
+            headers = [
+                ("Content-Type", "text/plain; charset=utf-8"),
                 ("Content-Length", str(len(body))),
             ]
             start_response(STATUS_TEXT[200], headers)

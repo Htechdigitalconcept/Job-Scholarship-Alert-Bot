@@ -210,11 +210,27 @@ class BotCommandsTests(unittest.TestCase):
             captured["status"] = status
             captured["content_type"] = dict(headers).get("Content-Type", "")
 
-        # Root / serves HTML Web Board
-        root_body = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/"}, start_response))
+        # Root / serves SSR HTML Web Board + JSON-LD structured data
+        root_body = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/"}, start_response)).decode("utf-8")
         self.assertEqual(captured["status"], "200 OK")
         self.assertIn("text/html", captured["content_type"])
-        self.assertIn("Live Board", root_body.decode("utf-8"))
+        self.assertIn("Live Board", root_body)
+        self.assertIn('<article class="card">', root_body)
+        self.assertIn('application/ld+json', root_body)
+
+        # /robots.txt, /sitemap.xml, /llms.txt for Google & AI search crawlers
+        robots = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/robots.txt"}, start_response)).decode("utf-8")
+        self.assertIn("OAI-SearchBot", robots)
+        self.assertIn("Disallow: /api/webhook", robots)
+        self.assertIn("Sitemap:", robots)
+
+        sitemap = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/sitemap.xml"}, start_response)).decode("utf-8")
+        self.assertIn("<urlset", sitemap)
+        self.assertIn("/llms.txt", sitemap)
+
+        llms = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/llms.txt"}, start_response)).decode("utf-8")
+        self.assertIn("# Jobs, Web3 & Scholarships Live Board", llms)
+        self.assertIn("## Recent Opportunities", llms)
 
         # /api/opportunities serves JSON list
         api_body = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/api/opportunities"}, start_response))

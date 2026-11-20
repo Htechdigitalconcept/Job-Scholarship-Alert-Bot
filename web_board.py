@@ -1,31 +1,259 @@
-"""Self-contained HTML renderer for the live Job & Scholarship Web Board."""
+"""Self-contained SEO + AI-Search-ready HTML renderer for the live Web Board."""
 
 from __future__ import annotations
 
 import html
 import json
+import re
+from datetime import datetime, timezone
 from typing import Any
 
 import scraper
+
+DEFAULT_SITE_URL = "https://job-scholarship-alert-bot-chi.vercel.app"
+
+
+def _strip_tz_suffix(published: str) -> str:
+    return re.sub(r"\s*(?:[+-]\d{4}|GMT|UTC)$", "", published).strip()
+
+
+def _render_ssr_cards(items: list[scraper.Opportunity]) -> str:
+    """Server-side render opportunity cards so Google & AI bots index all content."""
+    if not items:
+        return (
+            '<div class="empty">No recent opportunities cached right now. '
+            "Check back soon or join the Telegram channel.</div>"
+        )
+
+    cards: list[str] = []
+    for item in items:
+        badges_html = "".join(
+            f'<span class="badge">{html.escape(b)}</span>' for b in item.badges
+        )
+        deadline_html = (
+            f'<div class="deadline">⏳ Deadline: {html.escape(item.deadline)}</div>'
+            if item.deadline
+            else ""
+        )
+        summary_html = (
+            f'<p class="summary">{html.escape(item.summary)}</p>'
+            if item.summary
+            else ""
+        )
+        short_date = html.escape(_strip_tz_suffix(item.published)) if item.published else ""
+        kws = html.escape(", ".join(item.matched_keywords))
+        date_prefix = f"{short_date} · " if short_date else ""
+        cards.append(
+            f"""<article class="card">
+  <div class="card-top">
+    <span class="cat-tag">{html.escape(item.category_label)}</span>
+    <span>{html.escape(item.source_name)}</span>
+  </div>
+  <h2><a href="{html.escape(item.link, quote=True)}" target="_blank" rel="noopener noreferrer">{html.escape(item.title)}</a></h2>
+  {f'<div class="badges">{badges_html}</div>' if badges_html else ''}
+  {deadline_html}
+  {summary_html}
+  <div class="card-footer">
+    <span class="kw-list">{date_prefix}🏷 {kws}</span>
+    <a class="apply-btn" href="{html.escape(item.link, quote=True)}" target="_blank" rel="noopener noreferrer">Apply ↗</a>
+  </div>
+</article>"""
+        )
+    return "\n".join(cards)
+
+
+def build_structured_data(
+    site_url: str,
+    items: list[scraper.Opportunity],
+) -> dict[str, Any]:
+    """Build Schema.org JSON-LD graph for Google Search & AI Search engines."""
+    clean_url = site_url.rstrip("/")
+    list_elements: list[dict[str, Any]] = []
+    for idx, item in enumerate(items[:25], start=1):
+        if item.category in {"jobs", "web3_jobs"}:
+            node: dict[str, Any] = {
+                "@type": "JobPosting",
+                "title": item.title,
+                "url": item.link,
+                "description": item.summary or item.title,
+                "hiringOrganization": {
+                    "@type": "Organization",
+                    "name": item.source_name,
+                },
+                "jobLocationType": "TELECOMMUTE",
+            }
+            if item.published_dt:
+                node["datePosted"] = item.published_dt.date().isoformat()
+        else:
+            node = {
+                "@type": "CreativeWork",
+                "name": item.title,
+                "url": item.link,
+                "description": item.summary or item.title,
+                "publisher": {
+                    "@type": "Organization",
+                    "name": item.source_name,
+                },
+            }
+            if item.published_dt:
+                node["datePublished"] = item.published_dt.date().isoformat()
+        list_elements.append({"@type": "ListItem", "position": idx, "item": node})
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "name": "Jobs, Web3 & Scholarships Live Board",
+                "url": f"{clean_url}/",
+                "description": (
+                    "Daily curated remote tech jobs, Web3 remote roles, and "
+                    "funded international scholarships and fellowships."
+                ),
+            },
+            {
+                "@type": "ItemList",
+                "name": "Latest Remote Jobs, Web3 Roles & Scholarships",
+                "numberOfItems": len(list_elements),
+                "itemListElement": list_elements,
+            },
+        ],
+    }
+
+
+def render_robots_txt(site_url: str = DEFAULT_SITE_URL) -> str:
+    """Generate robots.txt welcoming Google, Bing, and AI Search crawlers."""
+    clean_url = site_url.rstrip("/")
+    return (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Allow: /api/opportunities\n"
+        "Allow: /llms.txt\n"
+        "Disallow: /api/webhook\n\n"
+        "User-agent: Googlebot\n"
+        "Allow: /\n\n"
+        "User-agent: Google-Extended\n"
+        "Allow: /\n\n"
+        "User-agent: OAI-SearchBot\n"
+        "Allow: /\n\n"
+        "User-agent: GPTBot\n"
+        "Allow: /\n\n"
+        "User-agent: ChatGPT-User\n"
+        "Allow: /\n\n"
+        "User-agent: PerplexityBot\n"
+        "Allow: /\n\n"
+        "User-agent: ClaudeBot\n"
+        "Allow: /\n\n"
+        f"Sitemap: {clean_url}/sitemap.xml\n"
+    )
+
+
+def render_sitemap_xml(
+    site_url: str = DEFAULT_SITE_URL,
+    items: list[scraper.Opportunity] | None = None,
+) -> str:
+    """Generate an XML sitemap for search engines."""
+    clean_url = site_url.rstrip("/")
+    latest_dt = None
+    for item in items or []:
+        if item.published_dt and (latest_dt is None or item.published_dt > latest_dt):
+            latest_dt = item.published_dt
+    lastmod = (latest_dt or datetime.now(timezone.utc)).date().isoformat()
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{html.escape(clean_url)}/</loc>
+    <lastmod>{lastmod}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>{html.escape(clean_url)}/llms.txt</loc>
+    <lastmod>{lastmod}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>{html.escape(clean_url)}/api/opportunities</loc>
+    <lastmod>{lastmod}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>
+"""
+
+
+def render_llms_txt(
+    site_url: str,
+    items: list[scraper.Opportunity],
+    channel_url: str = "https://t.me/latestjobsandscholarship",
+    channel_handle: str = "@latestjobsandscholarship",
+) -> str:
+    """Generate /llms.txt Markdown index for AI Search engines and LLM agents."""
+    clean_url = site_url.rstrip("/")
+    lines = [
+        "# Jobs, Web3 & Scholarships Live Board",
+        "",
+        "> Curated recent remote software/tech jobs, Web3 remote roles, and funded international scholarships & fellowships, synced automatically every 6 hours.",
+        "",
+        f"- Web Board: {clean_url}/",
+        f"- JSON Feed: {clean_url}/api/opportunities",
+        f"- Telegram Channel ({channel_handle}): {channel_url}",
+        "",
+        "## Recent Opportunities",
+        "",
+    ]
+    for item in items[:30]:
+        badge_str = f" [{' | '.join(item.badges)}]" if item.badges else ""
+        deadline_str = f" (Deadline: {item.deadline})" if item.deadline else ""
+        lines.append(
+            f"- [{item.title}]({item.link}) — {item.category_label} via {item.source_name}"
+            f"{badge_str}{deadline_str}"
+        )
+    lines.append("")
+    return "\n".join(lines)
 
 
 def render_web_board_html(
     items: list[scraper.Opportunity],
     channel_url: str = "https://t.me/latestjobsandscholarship",
     channel_handle: str = "@latestjobsandscholarship",
+    site_url: str = DEFAULT_SITE_URL,
 ) -> str:
-    """Render a responsive, searchable web board with embedded opportunity data."""
+    """Render a responsive, SEO + AI-Search-ready web board."""
+    clean_site_url = site_url.rstrip("/")
     payload = [item.to_dict() for item in items]
     safe_json = json.dumps(payload).replace("</", "<\\/")
+    structured_json = json.dumps(build_structured_data(clean_site_url, items)).replace("</", "<\\/")
     safe_channel_url = html.escape(channel_url or "https://t.me/latestjobsandscholarship", quote=True)
     safe_handle = html.escape(channel_handle or "@latestjobsandscholarship")
+    safe_canonical = html.escape(f"{clean_site_url}/", quote=True)
+    meta_desc = (
+        f"Browse {len(items)} recent remote tech jobs, Web3 remote opportunities, "
+        "visa-sponsored roles, and fully funded scholarships & fellowships updated daily."
+    )
+    safe_desc = html.escape(meta_desc, quote=True)
+    ssr_cards = _render_ssr_cards(items)
+    total_count = len(items)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Job, Web3 &amp; Scholarship Live Board</title>
+  <title>Jobs, Web3 &amp; Scholarships Live Board | Remote Roles &amp; Funded Fellowships</title>
+  <meta name="description" content="{safe_desc}" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <link rel="canonical" href="{safe_canonical}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Jobs, Web3 &amp; Scholarships Live Board" />
+  <meta property="og:description" content="{safe_desc}" />
+  <meta property="og:url" content="{safe_canonical}" />
+  <meta property="og:site_name" content="Jobs, Web3 &amp; Scholarships Live Board" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Jobs, Web3 &amp; Scholarships Live Board" />
+  <meta name="twitter:description" content="{safe_desc}" />
+  <script type="application/ld+json">{structured_json}</script>
   <style>
     :root {{
       --bg: #0b1120;
@@ -242,6 +470,19 @@ def render_web_board_html(
       border: 1px dashed var(--border);
       border-radius: 14px;
     }}
+    .site-footer {{
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }}
+    .site-footer a {{ color: var(--accent); text-decoration: none; }}
+    .site-footer a:hover {{ text-decoration: underline; }}
   </style>
 </head>
 <body>
@@ -256,10 +497,10 @@ def render_web_board_html(
       </a>
     </header>
 
-    <section class="controls">
+    <section class="controls" aria-label="Filter opportunities">
       <div class="search-row">
         <input id="searchInput" class="search-input" type="search" placeholder="Search roles, skills, countries (e.g. python, solidity, nigeria, fully funded)..." />
-        <div class="stats-pill"><strong id="shownCount">0</strong> of <strong id="totalCount">0</strong> recent posts</div>
+        <div class="stats-pill"><strong id="shownCount">{total_count}</strong> of <strong id="totalCount">{total_count}</strong> recent posts</div>
       </div>
       <div class="filters" id="catFilters">
         <button class="chip active" data-cat="all">All</button>
@@ -275,7 +516,18 @@ def render_web_board_html(
       </div>
     </section>
 
-    <main class="grid" id="cardsGrid"></main>
+    <main class="grid" id="cardsGrid">
+{ssr_cards}
+    </main>
+
+    <footer class="site-footer">
+      <span>Updated automatically from verified RSS &amp; job APIs.</span>
+      <span>
+        <a href="/api/opportunities">JSON Feed</a> ·
+        <a href="/llms.txt">llms.txt</a> ·
+        <a href="/sitemap.xml">Sitemap</a>
+      </span>
+    </footer>
   </div>
 
   <script>
@@ -320,7 +572,7 @@ def render_web_board_html(
       grid.innerHTML = filtered.map((item) => {{
         const badgesHtml = (item.badges || []).map((b) => `<span class="badge">${{esc(b)}}</span>`).join("");
         const deadlineHtml = item.deadline ? `<div class="deadline">⏳ Deadline: ${{esc(item.deadline)}}</div>` : "";
-        const shortDate = item.published ? esc(item.published.replace(/\\s*[+-]\\d{{4}}$/, "").replace(/\\s*GMT$/, "")) : "";
+        const shortDate = item.published ? esc(item.published.replace(/\\s*[+-]\\d{{4}}$/, "").replace(/\\s*(?:GMT|UTC)$/, "")) : "";
         const kws = esc((item.matched_keywords || []).join(", "));
         return `
           <article class="card">
@@ -362,8 +614,6 @@ def render_web_board_html(
       document.querySelectorAll("#badgeFilters .chip").forEach((c) => c.classList.toggle("active", c.dataset.badge === activeBadge));
       render();
     }});
-
-    render();
   </script>
 </body>
 </html>
