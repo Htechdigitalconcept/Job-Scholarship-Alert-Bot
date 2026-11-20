@@ -54,6 +54,23 @@ class ScraperTests(unittest.TestCase):
         )
         self.assertEqual(blocked, [])
 
+    def test_match_keywords_require_keywords(self) -> None:
+        on_site = scraper.match_keywords(
+            "Solidity Engineer based in New York",
+            include_keywords=["solidity"],
+            exclude_keywords=[],
+            require_keywords=["remote", "remotely"],
+        )
+        self.assertEqual(on_site, [])
+
+        remote = scraper.match_keywords(
+            "Solidity Engineer - 100% Remote",
+            include_keywords=["solidity"],
+            exclude_keywords=[],
+            require_keywords=["remote", "remotely"],
+        )
+        self.assertEqual(remote, ["solidity"])
+
     def test_match_keywords_avoids_partial_word_false_positives(self) -> None:
         # 'intern' should not match 'international'
         matched = scraper.match_keywords(

@@ -25,6 +25,14 @@ def make_sample_config() -> dict:
                 "exclude_keywords": ["senior only"],
                 "sources": [{"name": "We Work Remotely", "type": "rss", "url": "https://example.com/jobs.rss", "enabled": True}],
             },
+            "web3_jobs": {
+                "label": "⛓️ Web3 Remote Job",
+                "max_post_age_days": 3,
+                "require_keywords": ["remote"],
+                "include_keywords": ["solidity", "zk"],
+                "exclude_keywords": [],
+                "sources": [{"name": "Cryptocurrency Jobs", "type": "rss", "url": "https://example.com/web3.xml", "enabled": True}],
+            },
             "scholarships": {
                 "label": "🎓 Scholarship & Fellowship",
                 "max_post_age_days": 7,
@@ -56,6 +64,18 @@ class BotCommandsTests(unittest.TestCase):
                 link="https://example.com/j1",
                 summary="Build APIs in Python",
                 matched_keywords=["python", "backend"],
+                published="Today",
+                published_dt=now,
+            ),
+            scraper.Opportunity(
+                item_id="w1",
+                category="web3_jobs",
+                category_label="⛓️ Web3 Remote Job",
+                source_name="Cryptocurrency Jobs",
+                title="Solidity Protocol Engineer",
+                link="https://example.com/w1",
+                summary="100% remote Web3 smart contract role",
+                matched_keywords=["solidity"],
                 published="Today",
                 published_dt=now,
             ),
@@ -101,6 +121,10 @@ class BotCommandsTests(unittest.TestCase):
         jobs = bot_commands.handle_command("123", "/jobs python", self.config, self.latest_path, self.subs_path)
         self.assertIn("Python Backend Engineer", jobs[0])
         self.assertNotIn("STEM Fellowship", jobs[0])
+
+        web3 = bot_commands.handle_command("123", "/web3 solidity", self.config, self.latest_path, self.subs_path)
+        self.assertIn("Solidity Protocol Engineer", web3[0])
+        self.assertNotIn("Python Backend Engineer", web3[0])
 
         sch = bot_commands.handle_command("123", "/scholarships@MyTestBot africa", self.config, self.latest_path, self.subs_path)
         self.assertIn("Fully Funded Africa STEM Fellowship", sch[0])

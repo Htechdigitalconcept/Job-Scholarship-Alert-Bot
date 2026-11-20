@@ -58,6 +58,42 @@ categories:
         link_selector: "h2 a"
         summary_selector: "p.summary"
 
+  web3_jobs:
+    label: "⛓️ Web3 Remote Job"
+    max_post_age_days: 3
+    require_keywords:
+      - "remote"
+      - "remotely"
+    include_keywords:
+      - "solidity"
+      - "rust"
+      - "web3"
+      - "blockchain"
+      - "smart contract"
+      - "defi"
+      - "zk"
+      - "protocol"
+      - "software engineer"
+      - "backend"
+      - "frontend"
+      - "full-stack"
+      - "fullstack"
+      - "python"
+      - "typescript"
+      - "developer"
+      - "researcher"
+      - "product manager"
+      - "analyst"
+      - "intern"
+    exclude_keywords:
+      - "10+ years"
+      - "principal"
+    sources:
+      - name: "Cryptocurrency Jobs"
+        type: "rss"
+        url: "https://cryptocurrencyjobs.co/index.xml"
+        enabled: true
+
   scholarships:
     label: "🎓 Scholarship & Fellowship"
     max_post_age_days: 7

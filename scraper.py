@@ -115,16 +115,32 @@ def match_keywords(
     text: str,
     include_keywords: list[str],
     exclude_keywords: list[str],
+    require_keywords: list[str] | None = None,
 ) -> list[str]:
-    """Return matched include keywords if text passes include/exclude rules.
+    """Return matched include keywords if text passes require/include/exclude rules.
 
-    If include_keywords is empty, all non-excluded items match with ['all'].
+    - exclude_keywords: any match rejects the item.
+    - require_keywords: if non-empty, at least one required keyword must match.
+    - include_keywords: if empty, all passing items match with ['all'].
     """
     haystack = text.lower()
 
+    def _contains_kw(kw: str) -> bool:
+        kw_clean = kw.strip().lower()
+        if not kw_clean:
+            return False
+        if re.fullmatch(r"[a-z0-9\s\-\+]+", kw_clean):
+            pattern = r"(?<![a-z0-9])" + re.escape(kw_clean) + r"(?![a-z0-9])"
+            return bool(re.search(pattern, haystack))
+        return kw_clean in haystack
+
     for bad in exclude_keywords:
-        bad_clean = bad.strip().lower()
-        if bad_clean and bad_clean in haystack:
+        if _contains_kw(bad):
+            return []
+
+    if require_keywords:
+        req_clean = [k for k in require_keywords if k.strip()]
+        if req_clean and not any(_contains_kw(req) for req in req_clean):
             return []
 
     if not include_keywords:
@@ -132,15 +148,7 @@ def match_keywords(
 
     matched: list[str] = []
     for kw in include_keywords:
-        kw_clean = kw.strip().lower()
-        if not kw_clean:
-            continue
-        # Match whole words/phrases cleanly when alphanumeric, fallback to substring
-        if re.fullmatch(r"[a-z0-9\s\-\+]+", kw_clean):
-            pattern = r"(?<![a-z0-9])" + re.escape(kw_clean) + r"(?![a-z0-9])"
-            if re.search(pattern, haystack):
-                matched.append(kw.strip())
-        elif kw_clean in haystack:
+        if _contains_kw(kw):
             matched.append(kw.strip())
     return matched
 
@@ -204,6 +212,7 @@ def parse_rss_source(
     max_age_days: float | None = None,
     allow_undated: bool = True,
     now: datetime | None = None,
+    require_kw: list[str] | None = None,
 ) -> list[Opportunity]:
     """Fetch and parse an RSS/Atom feed."""
     raw_xml = fetch_url(source["url"], timeout=timeout)
@@ -225,7 +234,7 @@ def parse_rss_source(
             continue
 
         combined = f"{title} {summary}"
-        matched = match_keywords(combined, include_kw, exclude_kw)
+        matched = match_keywords(combined, include_kw, exclude_kw, require_keywords=require_kw)
         if not matched:
             continue
 
@@ -253,6 +262,7 @@ def parse_html_source(
     include_kw: list[str],
     exclude_kw: list[str],
     timeout: int,
+    require_kw: list[str] | None = None,
 ) -> list[Opportunity]:
     """Fetch and parse an HTML page using CSS selectors from config.yaml."""
     page_html = fetch_url(source["url"], timeout=timeout)
@@ -282,7 +292,7 @@ def parse_html_source(
             continue
 
         combined = f"{title} {summary}"
-        matched = match_keywords(combined, include_kw, exclude_kw)
+        matched = match_keywords(combined, include_kw, exclude_kw, require_keywords=require_kw)
         if not matched:
             continue
 
@@ -473,6 +483,7 @@ def collect_opportunities(config: dict[str, Any]) -> list[Opportunity]:
         label = cat_cfg.get("label", cat_key.title())
         include_kw = cat_cfg.get("include_keywords", [])
         exclude_kw = cat_cfg.get("exclude_keywords", [])
+        require_kw = cat_cfg.get("require_keywords", [])
         cat_max_age = cat_cfg.get("max_post_age_days", default_max_age)
         max_age_days = float(cat_max_age) if cat_max_age is not None else None
 
@@ -492,10 +503,17 @@ def collect_opportunities(config: dict[str, Any]) -> list[Opportunity]:
                         timeout,
                         max_age_days=max_age_days,
                         allow_undated=allow_undated,
+                        require_kw=require_kw,
                     )
                 elif source_type == "html":
                     found = parse_html_source(
-                        source, cat_key, label, include_kw, exclude_kw, timeout
+                        source,
+                        cat_key,
+                        label,
+                        include_kw,
+                        exclude_kw,
+                        timeout,
+                        require_kw=require_kw,
                     )
                 else:
                     logger.warning("Unknown source type '%s' for %s", source_type, source_name)

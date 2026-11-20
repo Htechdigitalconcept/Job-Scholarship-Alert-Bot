@@ -32,8 +32,9 @@ DEFAULT_STATE_PATH = Path("data/bot_state.json")
 
 BOT_COMMANDS_MENU = [
     {"command": "start", "description": "Welcome & public channel link"},
-    {"command": "latest", "description": "Latest jobs & scholarships"},
-    {"command": "jobs", "description": "Latest jobs (optional: /jobs python)"},
+    {"command": "latest", "description": "Latest jobs, Web3 & scholarships"},
+    {"command": "jobs", "description": "Latest remote jobs (optional: /jobs python)"},
+    {"command": "web3", "description": "Latest Web3 remote jobs (optional: /web3 solidity)"},
     {"command": "scholarships", "description": "Latest scholarships (optional: /scholarships africa)"},
     {"command": "keywords", "description": "View tracked keywords"},
     {"command": "setkeywords", "description": "Set personal DM keywords"},
@@ -237,8 +238,9 @@ def handle_command(
             "Get fresh remote jobs, fellowships, and funded scholarships."
             f"{channel_line}\n\n"
             "<b>Available Commands:</b>\n"
-            "• /latest — 5 newest jobs & scholarships\n"
-            "• /jobs [keyword] — Latest jobs (e.g. <code>/jobs python</code>)\n"
+            "• /latest — 5 newest jobs, Web3 & scholarships\n"
+            "• /jobs [keyword] — Latest remote jobs (e.g. <code>/jobs python</code>)\n"
+            "• /web3 [keyword] — Latest Web3 remote jobs (e.g. <code>/web3 rust</code>)\n"
             "• /scholarships [keyword] — Latest scholarships\n"
             "• /keywords — View tracked keywords\n"
             "• /setkeywords &lt;words&gt; — Set personal DM alert keywords\n"
@@ -293,7 +295,7 @@ def handle_command(
             save_subscribers(subscribers_path, subscribers)
         return ["🔕 <b>Personal DM alerts paused.</b> Send /subscribe anytime to resume."]
 
-    if cmd in {"/latest", "/jobs", "/scholarships"}:
+    if cmd in {"/latest", "/jobs", "/web3", "/scholarships"}:
         items = get_recent_opportunities(config, latest_path)
 
         if cmd == "/latest":
@@ -309,8 +311,20 @@ def handle_command(
                 )
             ]
 
-        cat_key = "jobs" if cmd == "/jobs" else "scholarships"
-        filtered = [i for i in items if i.category == cat_key]
+        if cmd == "/jobs":
+            target_cats = {"jobs", "web3_jobs"}
+            label_name = "jobs"
+            base_heading = "💼 Latest Remote Jobs"
+        elif cmd == "/web3":
+            target_cats = {"web3_jobs"}
+            label_name = "Web3 remote jobs"
+            base_heading = "⛓️ Latest Web3 Remote Jobs"
+        else:
+            target_cats = {"scholarships"}
+            label_name = "scholarships"
+            base_heading = "🎓 Latest Scholarships"
+
+        filtered = [i for i in items if i.category in target_cats]
         if arg:
             search_terms = [t.strip() for t in arg.split(",") if t.strip()]
             filtered = [
@@ -319,16 +333,12 @@ def handle_command(
                 if scraper.match_keywords(f"{i.title} {i.summary}", search_terms, [])
             ]
 
-        heading = (
-            f"💼 Latest Jobs{f' ({arg})' if arg else ''}"
-            if cat_key == "jobs"
-            else f"🎓 Latest Scholarships{f' ({arg})' if arg else ''}"
-        )
+        heading = f"{base_heading}{f' ({arg})' if arg else ''}"
         return [
             format_compact_list(
                 heading,
                 filtered[:5],
-                f"No recent {cat_key} matched{' for ' + arg if arg else ''} right now.",
+                f"No recent {label_name} matched{' for ' + arg if arg else ''} right now.",
             )
         ]
 
