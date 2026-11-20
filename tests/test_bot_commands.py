@@ -1,3 +1,4 @@
+import io
 import json
 import tempfile
 import unittest
@@ -198,6 +199,32 @@ class BotCommandsTests(unittest.TestCase):
             self.assertTrue(body_ok["ok"])
             self.assertEqual(body_ok["handled"], 1)
             mock_send.assert_called_once()
+
+    @patch("scraper.send_telegram_message")
+    def test_wsgi_app_handles_get_and_post(self, mock_send) -> None:
+        captured: dict[str, str] = {}
+
+        def start_response(status: str, headers: list[tuple[str, str]]) -> None:
+            captured["status"] = status
+
+        get_body = b"".join(webhook.app({"REQUEST_METHOD": "GET"}, start_response))
+        self.assertEqual(captured["status"], "200 OK")
+        self.assertTrue(json.loads(get_body.decode("utf-8"))["ok"])
+
+        post_bytes = json.dumps({
+            "update_id": 778,
+            "message": {"chat": {"id": 42}, "text": "/keywords"},
+        }).encode("utf-8")
+        environ = {
+            "REQUEST_METHOD": "POST",
+            "CONTENT_LENGTH": str(len(post_bytes)),
+            "wsgi.input": io.BytesIO(post_bytes),
+        }
+        with patch.dict("os.environ", {"TELEGRAM_BOT_TOKEN": "tok", "TELEGRAM_WEBHOOK_SECRET": ""}):
+            post_body = b"".join(webhook.app(environ, start_response))
+        self.assertEqual(captured["status"], "200 OK")
+        self.assertEqual(json.loads(post_body.decode("utf-8"))["handled"], 1)
+        mock_send.assert_called_once()
 
 
 if __name__ == "__main__":

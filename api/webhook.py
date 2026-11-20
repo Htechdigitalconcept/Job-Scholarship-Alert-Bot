@@ -1,4 +1,4 @@
-"""Vercel Python serverless webhook for instant 24/7 Telegram bot replies."""
+"""Vercel Python WSGI webhook for instant 24/7 Telegram bot replies."""
 
 from __future__ import annotations
 
@@ -6,9 +6,8 @@ import json
 import logging
 import os
 import sys
-from http.server import BaseHTTPRequestHandler
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, Iterable
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 if str(BASE_DIR) not in sys.path:
@@ -17,6 +16,14 @@ if str(BASE_DIR) not in sys.path:
 import bot_commands  # noqa: E402
 
 logger = logging.getLogger(__name__)
+
+STATUS_TEXT = {
+    200: "200 OK",
+    400: "400 Bad Request",
+    403: "403 Forbidden",
+    405: "405 Method Not Allowed",
+    500: "500 Internal Server Error",
+}
 
 
 def handle_webhook_request(
@@ -54,26 +61,36 @@ def handle_webhook_request(
         return 200, {"ok": False, "error": str(exc)}
 
 
-class handler(BaseHTTPRequestHandler):
-    """Vercel Serverless Function entrypoint."""
+def app(
+    environ: dict[str, Any],
+    start_response: Callable[[str, list[tuple[str, str]]], Any],
+) -> Iterable[bytes]:
+    """Standard WSGI entrypoint for Vercel Python Runtime."""
+    method = str(environ.get("REQUEST_METHOD", "GET")).upper()
 
-    def _send_json(self, status: int, payload: dict[str, Any]) -> None:
-        body = json.dumps(payload).encode("utf-8")
-        self.send_response(status)
-        self.send_header("Content-Type", "application/json")
-        self.send_header("Content-Length", str(len(body)))
-        self.end_headers()
-        self.wfile.write(body)
-
-    def do_GET(self) -> None:  # noqa: N802
-        self._send_json(
-            200,
-            {"ok": True, "service": "Job & Scholarship Alert Bot Webhook"},
-        )
-
-    def do_POST(self) -> None:  # noqa: N802
-        length = int(self.headers.get("Content-Length", "0") or 0)
-        raw_body = self.rfile.read(length) if length > 0 else b"{}"
-        secret_header = self.headers.get("X-Telegram-Bot-Api-Secret-Token", "")
+    if method in {"GET", "HEAD"}:
+        status = 200
+        payload: dict[str, Any] = {
+            "ok": True,
+            "service": "Job & Scholarship Alert Bot Webhook",
+        }
+    elif method == "POST":
+        try:
+            length = int(environ.get("CONTENT_LENGTH") or 0)
+        except (TypeError, ValueError):
+            length = 0
+        wsgi_input = environ.get("wsgi.input")
+        raw_body = wsgi_input.read(length) if (wsgi_input and length > 0) else b"{}"
+        secret_header = str(environ.get("HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN", ""))
         status, payload = handle_webhook_request(raw_body, secret_header=secret_header)
-        self._send_json(status, payload)
+    else:
+        status = 405
+        payload = {"ok": False, "error": f"Method {method} not allowed"}
+
+    body = json.dumps(payload).encode("utf-8")
+    headers = [
+        ("Content-Type", "application/json; charset=utf-8"),
+        ("Content-Length", str(len(body))),
+    ]
+    start_response(STATUS_TEXT.get(status, f"{status} Error"), headers)
+    return [] if method == "HEAD" else [body]
