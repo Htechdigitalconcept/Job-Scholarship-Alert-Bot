@@ -4,6 +4,10 @@
 settings:
   # Max number of new alerts to send per run (prevents Telegram spam on first run)
   max_alerts_per_run: 15
+  # Only send posts published within this many days (can be overridden per category)
+  max_post_age_days: 3
+  # Keep posts that have no publish date (e.g. custom HTML pages without dates)
+  allow_undated_posts: true
   # Keep seen item hashes for this many days before pruning old entries
   seen_retention_days: 90
   # HTTP timeout in seconds for each source
@@ -15,6 +19,7 @@ settings:
 categories:
   jobs:
     label: "💼 Job Alert"
+    max_post_age_days: 3
     include_keywords:
       - "python"
       - "backend"
@@ -34,9 +39,9 @@ categories:
         type: "rss"
         url: "https://remotive.com/remote-jobs/feed"
         enabled: true
-      - name: "We Work Remotely - Programming"
+      - name: "We Work Remotely"
         type: "rss"
-        url: "https://weworkremotely.com/categories/remote-programming-jobs.rss"
+        url: "https://weworkremotely.com/remote-jobs.rss"
         enabled: true
       # Example HTML source (disabled by default — customize selector for any career page)
       - name: "Example Custom Career Page"
@@ -50,6 +55,7 @@ categories:
 
   scholarships:
     label: "🎓 Scholarship & Fellowship"
+    max_post_age_days: 7
     include_keywords:
       - "fully funded"
       - "scholarship"

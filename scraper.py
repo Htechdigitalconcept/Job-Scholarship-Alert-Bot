@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import calendar
 import hashlib
 import html
 import json
@@ -14,6 +15,7 @@ import sys
 import time
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin
@@ -49,6 +51,7 @@ class Opportunity:
     summary: str
     matched_keywords: list[str]
     published: str = ""
+    published_dt: datetime | None = None
 
 
 def make_item_id(link: str, title: str) -> str:
@@ -113,6 +116,44 @@ def fetch_url(url: str, timeout: int = 15) -> str:
     return response.text
 
 
+def parse_entry_datetime(entry: Any) -> datetime | None:
+    """Extract a UTC-aware publish datetime from an RSS/Atom entry."""
+    struct = entry.get("published_parsed") or entry.get("updated_parsed")
+    if struct is not None:
+        try:
+            ts = calendar.timegm(struct)
+            return datetime.fromtimestamp(ts, tz=timezone.utc)
+        except (TypeError, ValueError, OverflowError):
+            pass
+
+    raw_date = (entry.get("published") or entry.get("updated") or "").strip()
+    if raw_date:
+        try:
+            dt = parsedate_to_datetime(raw_date)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            return dt.astimezone(timezone.utc)
+        except (TypeError, ValueError):
+            pass
+    return None
+
+
+def is_recent_post(
+    published_dt: datetime | None,
+    max_age_days: float | None,
+    allow_undated: bool = True,
+    now: datetime | None = None,
+) -> bool:
+    """Return True if the post is within max_age_days (or undated and allowed)."""
+    if max_age_days is None or max_age_days <= 0:
+        return True
+    if published_dt is None:
+        return allow_undated
+    current = now or datetime.now(timezone.utc)
+    cutoff = current - timedelta(days=max_age_days)
+    return published_dt >= cutoff
+
+
 def parse_rss_source(
     source: dict[str, Any],
     category_key: str,
@@ -120,6 +161,9 @@ def parse_rss_source(
     include_kw: list[str],
     exclude_kw: list[str],
     timeout: int,
+    max_age_days: float | None = None,
+    allow_undated: bool = True,
+    now: datetime | None = None,
 ) -> list[Opportunity]:
     """Fetch and parse an RSS/Atom feed."""
     raw_xml = fetch_url(source["url"], timeout=timeout)
@@ -132,8 +176,12 @@ def parse_rss_source(
         summary_raw = entry.get("summary") or entry.get("description") or ""
         summary = clean_html_text(summary_raw, max_len=240)
         published = (entry.get("published") or entry.get("updated") or "").strip()
+        published_dt = parse_entry_datetime(entry)
 
         if not title or not link:
+            continue
+
+        if not is_recent_post(published_dt, max_age_days, allow_undated=allow_undated, now=now):
             continue
 
         combined = f"{title} {summary}"
@@ -152,6 +200,7 @@ def parse_rss_source(
                 summary=summary,
                 matched_keywords=matched,
                 published=published,
+                published_dt=published_dt,
             )
         )
     return results
@@ -298,12 +347,16 @@ def collect_opportunities(config: dict[str, Any]) -> list[Opportunity]:
     """Fetch all enabled sources across categories and return matched items."""
     settings = config.get("settings", {})
     timeout = int(settings.get("request_timeout", 15))
+    default_max_age = settings.get("max_post_age_days")
+    allow_undated = bool(settings.get("allow_undated_posts", True))
     all_items: list[Opportunity] = []
 
     for cat_key, cat_cfg in config.get("categories", {}).items():
         label = cat_cfg.get("label", cat_key.title())
         include_kw = cat_cfg.get("include_keywords", [])
         exclude_kw = cat_cfg.get("exclude_keywords", [])
+        cat_max_age = cat_cfg.get("max_post_age_days", default_max_age)
+        max_age_days = float(cat_max_age) if cat_max_age is not None else None
 
         for source in cat_cfg.get("sources", []):
             if not source.get("enabled", True):
@@ -313,7 +366,14 @@ def collect_opportunities(config: dict[str, Any]) -> list[Opportunity]:
             try:
                 if source_type == "rss":
                     found = parse_rss_source(
-                        source, cat_key, label, include_kw, exclude_kw, timeout
+                        source,
+                        cat_key,
+                        label,
+                        include_kw,
+                        exclude_kw,
+                        timeout,
+                        max_age_days=max_age_days,
+                        allow_undated=allow_undated,
                     )
                 elif source_type == "html":
                     found = parse_html_source(
@@ -331,10 +391,14 @@ def collect_opportunities(config: dict[str, Any]) -> list[Opportunity]:
 
 
 def interleave_by_category(items: list[Opportunity]) -> list[Opportunity]:
-    """Interleave items across categories so no single category starves others."""
+    """Sort each category newest-first and interleave so no category starves others."""
+    epoch = datetime.min.replace(tzinfo=timezone.utc)
     buckets: dict[str, list[Opportunity]] = {}
     for item in items:
         buckets.setdefault(item.category, []).append(item)
+
+    for bucket in buckets.values():
+        bucket.sort(key=lambda o: o.published_dt or epoch, reverse=True)
 
     result: list[Opportunity] = []
     queues = list(buckets.values())
@@ -404,6 +468,8 @@ def run(config_path: Path, seen_path: Path, dry_run: bool = False) -> int:
             print(f"[DRY RUN] {item.category_label} | {item.source_name}")
             print(f"Title: {item.title}")
             print(f"Link:  {item.link}")
+            if item.published:
+                print(f"Date:  {item.published}")
             print(f"Tags:  {', '.join(item.matched_keywords)}")
             sent_count += 1
         else:

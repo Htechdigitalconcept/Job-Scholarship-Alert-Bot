@@ -77,6 +77,28 @@ class ScraperTests(unittest.TestCase):
         self.assertEqual(items[0].title, "Junior Python Backend Engineer (Remote)")
         self.assertEqual(items[0].matched_keywords, ["python", "remote"])
 
+    @patch("scraper.fetch_url", return_value=SAMPLE_RSS)
+    def test_parse_rss_source_filters_old_posts(self, _mock_fetch) -> None:
+        old_now = datetime(2026, 11, 30, 12, 0, tzinfo=timezone.utc)
+        items = scraper.parse_rss_source(
+            source={"name": "Test RSS", "url": "https://example.com/rss"},
+            category_key="jobs",
+            category_label="💼 Job Alert",
+            include_kw=["python", "remote"],
+            exclude_kw=["senior only"],
+            timeout=10,
+            max_age_days=3,
+            now=old_now,
+        )
+        self.assertEqual(items, [])
+
+    def test_is_recent_post(self) -> None:
+        now = datetime(2026, 11, 19, 12, 0, tzinfo=timezone.utc)
+        self.assertTrue(scraper.is_recent_post(now - timedelta(days=1), max_age_days=3, now=now))
+        self.assertFalse(scraper.is_recent_post(now - timedelta(days=5), max_age_days=3, now=now))
+        self.assertTrue(scraper.is_recent_post(None, max_age_days=3, allow_undated=True, now=now))
+        self.assertFalse(scraper.is_recent_post(None, max_age_days=3, allow_undated=False, now=now))
+
     @patch("scraper.fetch_url", return_value=SAMPLE_HTML)
     def test_parse_html_source(self, _mock_fetch) -> None:
         items = scraper.parse_html_source(
@@ -123,11 +145,13 @@ class ScraperTests(unittest.TestCase):
         self.assertIn("https://example.com/?a=1&amp;b=2", msg)
 
     def test_interleave_by_category(self) -> None:
-        j1 = scraper.Opportunity("1", "jobs", "J", "S", "J1", "u1", "", ["python"])
-        j2 = scraper.Opportunity("2", "jobs", "J", "S", "J2", "u2", "", ["python"])
-        s1 = scraper.Opportunity("3", "scholarships", "Sc", "S", "S1", "u3", "", ["stem"])
+        t_old = datetime(2026, 11, 17, tzinfo=timezone.utc)
+        t_new = datetime(2026, 11, 19, tzinfo=timezone.utc)
+        j1 = scraper.Opportunity("1", "jobs", "J", "S", "J1", "u1", "", ["python"], published_dt=t_old)
+        j2 = scraper.Opportunity("2", "jobs", "J", "S", "J2", "u2", "", ["python"], published_dt=t_new)
+        s1 = scraper.Opportunity("3", "scholarships", "Sc", "S", "S1", "u3", "", ["stem"], published_dt=t_new)
         ordered = scraper.interleave_by_category([j1, j2, s1])
-        self.assertEqual([o.item_id for o in ordered], ["1", "3", "2"])
+        self.assertEqual([o.item_id for o in ordered], ["2", "3", "1"])
 
     def test_seen_roundtrip(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
