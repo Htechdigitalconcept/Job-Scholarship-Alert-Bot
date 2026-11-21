@@ -334,6 +334,46 @@ class BotCommandsTests(unittest.TestCase):
         mock_edit.assert_called_once()
         mock_ack.assert_called_once()
 
+    def test_subscribe_inline_callback_toggles_reminders(self) -> None:
+        with patch("scraper.load_config", return_value=self.config), patch(
+            "scraper.send_telegram_message"
+        ) as mock_send, patch("scraper.answer_callback_query") as mock_ack:
+            handled_on = bot_commands.process_webhook_update(
+                {
+                    "callback_query": {
+                        "id": "cq_sub_on",
+                        "data": "sub:on",
+                        "message": {"message_id": 10, "chat": {"id": 555}},
+                    }
+                },
+                bot_token="tok",
+                config_path=self.root / "config.yaml",
+                latest_path=self.latest_path,
+                subscribers_path=self.subs_path,
+            )
+            self.assertEqual(handled_on, 1)
+            subs = json.loads(self.subs_path.read_text(encoding="utf-8"))
+            self.assertTrue(subs["555"]["subscribed"])
+
+            handled_off = bot_commands.process_webhook_update(
+                {
+                    "callback_query": {
+                        "id": "cq_sub_off",
+                        "data": "sub:off",
+                        "message": {"message_id": 11, "chat": {"id": 555}},
+                    }
+                },
+                bot_token="tok",
+                config_path=self.root / "config.yaml",
+                latest_path=self.latest_path,
+                subscribers_path=self.subs_path,
+            )
+            self.assertEqual(handled_off, 1)
+            subs = json.loads(self.subs_path.read_text(encoding="utf-8"))
+            self.assertFalse(subs["555"]["subscribed"])
+        self.assertEqual(mock_send.call_count, 2)
+        self.assertEqual(mock_ack.call_count, 2)
+
 
 if __name__ == "__main__":
     unittest.main()

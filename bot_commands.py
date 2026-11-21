@@ -41,6 +41,8 @@ BOT_COMMANDS_MENU = [
     {"command": "visa", "description": "Filter 🛂 Visa-sponsored opportunities"},
     {"command": "digest", "description": "Today's top opportunities summary"},
     {"command": "stats", "description": "Bot & opportunity counts"},
+    {"command": "subscribe", "description": "Get cycle reminder DMs when new posts drop"},
+    {"command": "unsubscribe", "description": "Pause cycle reminder DMs"},
     {"command": "keywords", "description": "View tracked keywords"},
     {"command": "sources", "description": "View monitored feeds & age limit"},
     {"command": "help", "description": "Show command guide"},
@@ -67,8 +69,7 @@ def save_state(path: Path, state: dict[str, Any]) -> None:
 
 
 def save_subscribers(path: Path, subscribers: dict[str, dict[str, Any]]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(subscribers, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    scraper.save_subscribers(path, subscribers)
 
 
 def register_bot_commands(bot_token: str) -> None:
@@ -471,10 +472,16 @@ def build_command_responses(
             "• /visa [word] — 🛂 Visa-sponsored roles\n"
             "• /digest — ☀️ Top opportunities summary\n"
             "• /stats — 📊 Counts by category & highlights\n"
+            "• /subscribe — 🔔 Get cycle reminder DMs on new posts\n"
+            "• /unsubscribe — 🔕 Pause cycle reminder DMs\n"
             "• /keywords — View tracked keywords\n"
             "• /sources — Monitored feeds & recency window"
         )
-        return [(msg, channel_markup)]
+        start_rows: list[list[dict[str, str]]] = []
+        if channel_link:
+            start_rows.append([{"text": "Join Channel 📢", "url": channel_link}])
+        start_rows.append([{"text": "🔔 Get Cycle Reminders", "callback_data": "sub:on"}])
+        return [(msg, {"inline_keyboard": start_rows})]
 
     if cmd == "/digest":
         items = get_recent_opportunities(config, latest_path)
@@ -508,9 +515,9 @@ def build_command_responses(
         }
         try:
             save_subscribers(subscribers_path, subscribers)
-        except OSError:
+        except Exception:  # noqa: BLE001
             return [(
-                "ℹ️ Personal DM subscriptions are disabled in stateless serverless mode.\n"
+                "ℹ️ Personal DM subscriptions require <code>SUBSCRIBERS_GIST_ID</code> on Vercel.\n"
                 "Use <code>/search &lt;keyword&gt;</code>, <code>/jobs &lt;keyword&gt;</code>, "
                 "<code>/web3 &lt;keyword&gt;</code>, or <code>/scholarships &lt;keyword&gt;</code> anytime!",
                 channel_markup,
@@ -530,18 +537,18 @@ def build_command_responses(
         subscribers[chat_id] = existing
         try:
             save_subscribers(subscribers_path, subscribers)
-        except OSError:
+        except Exception:  # noqa: BLE001
             return [(
-                "ℹ️ Personal DM subscriptions are disabled in stateless serverless mode.\n"
-                "Join the public channel for automatic alerts and use /latest anytime!",
+                "ℹ️ Personal DM reminders require <code>SUBSCRIBERS_GIST_ID</code> on Vercel.\n"
+                "Meanwhile, join the public channel — it posts a 🔔 Cycle Update reminder every 6 hours whenever new jobs or scholarships drop!",
                 channel_markup,
             )]
         kw_note = (
-            f"Filtering by: <code>{html.escape(', '.join(existing['keywords']))}</code>"
+            f"Filtering cycle reminders by: <code>{html.escape(', '.join(existing['keywords']))}</code>"
             if existing["keywords"]
-            else "Receiving all channel matches. Use /setkeywords to narrow down."
+            else "You'll receive a 🔔 Cycle Reminder DM whenever new posts drop in the channel. Use /setkeywords to narrow down."
         )
-        return [(f"✅ <b>Subscribed to personal DM alerts!</b>\n{kw_note}", None)]
+        return [(f"✅ <b>Subscribed to cycle reminder DMs!</b>\n{kw_note}", channel_markup)]
 
     if cmd == "/unsubscribe":
         subscribers = scraper.load_subscribers(subscribers_path)
@@ -549,9 +556,9 @@ def build_command_responses(
             subscribers[chat_id]["subscribed"] = False
             try:
                 save_subscribers(subscribers_path, subscribers)
-            except OSError:
+            except Exception:  # noqa: BLE001
                 pass
-        return [("🔕 <b>Personal DM alerts paused.</b> Send /subscribe anytime to resume.", None)]
+        return [("🔕 <b>Cycle reminder DMs paused.</b> Send /subscribe anytime to resume.", None)]
 
     if cmd in {"/latest", "/jobs", "/web3", "/scholarships", "/search", "/worldwide", "/visa"}:
         page_size = PAGE_SIZE
@@ -619,7 +626,7 @@ def _handle_callback_query(
     latest_path: Path,
     subscribers_path: Path,
 ) -> int:
-    """Handle inline pagination button presses."""
+    """Handle inline pagination and subscription button presses."""
     cq_id = str(callback_query.get("id", "")).strip()
     data = str(callback_query.get("data", "")).strip()
     message = callback_query.get("message") or {}
@@ -627,9 +634,31 @@ def _handle_callback_query(
     chat_id = str(chat.get("id", "")).strip()
     message_id = message.get("message_id")
 
-    if not cq_id or not data.startswith("pg:") or not chat_id or not message_id:
+    if not cq_id or not chat_id:
         if cq_id:
             scraper.answer_callback_query(bot_token, cq_id)
+        return 0
+
+    if data in {"sub:on", "sub:off"}:
+        cmd_text = "/subscribe" if data == "sub:on" else "/unsubscribe"
+        responses = build_command_responses(
+            chat_id, cmd_text, config, latest_path, subscribers_path
+        )
+        if responses:
+            reply_text, markup = responses[0]
+            scraper.send_telegram_message(
+                bot_token,
+                chat_id,
+                reply_text,
+                reply_markup=markup,
+                disable_web_page_preview=True,
+            )
+        ack_msg = "🔔 Cycle reminders enabled!" if data == "sub:on" else "🔕 Cycle reminders paused."
+        scraper.answer_callback_query(bot_token, cq_id, text=ack_msg)
+        return 1
+
+    if not data.startswith("pg:") or not message_id:
+        scraper.answer_callback_query(bot_token, cq_id)
         return 0
 
     parts = data.split(":", 3)

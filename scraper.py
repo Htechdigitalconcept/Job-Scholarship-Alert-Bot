@@ -652,8 +652,38 @@ def save_latest_items(
     return balanced_items
 
 
+def _get_gist_credentials() -> tuple[str, str]:
+    """Return optional (gist_id, token) for private Gist subscriber storage."""
+    gist_id = os.environ.get("SUBSCRIBERS_GIST_ID", "").strip()
+    token = (
+        os.environ.get("SUBSCRIBERS_GITHUB_TOKEN", "").strip()
+        or os.environ.get("GITHUB_TOKEN", "").strip()
+    )
+    return gist_id, token
+
+
 def load_subscribers(path: Path) -> dict[str, dict[str, Any]]:
-    """Load optional personal DM subscriber preferences."""
+    """Load optional personal DM subscriber preferences (Gist or local JSON)."""
+    gist_id, token = _get_gist_credentials()
+    if gist_id and token:
+        try:
+            resp = requests.get(
+                f"https://api.github.com/gists/{gist_id}",
+                headers={
+                    "Authorization": f"Bearer {token}",
+                    "Accept": "application/vnd.github+json",
+                },
+                timeout=10,
+            )
+            resp.raise_for_status()
+            files = resp.json().get("files", {})
+            raw_content = (files.get("subscribers.json") or {}).get("content", "{}")
+            data = json.loads(raw_content)
+            if isinstance(data, dict):
+                return data
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("Could not load subscribers from Gist (%s); falling back to disk.", exc)
+
     if not path.exists():
         return {}
     try:
@@ -663,6 +693,39 @@ def load_subscribers(path: Path) -> dict[str, dict[str, Any]]:
     except (json.JSONDecodeError, OSError) as exc:
         logger.warning("Could not read %s (%s); skipping subscribers.", path, exc)
     return {}
+
+
+def save_subscribers(path: Path, subscribers: dict[str, dict[str, Any]]) -> None:
+    """Persist personal DM subscriber preferences (private Gist or local JSON)."""
+    payload_text = json.dumps(subscribers, indent=2, sort_keys=True) + "\n"
+    gist_id, token = _get_gist_credentials()
+    if gist_id and token:
+        resp = requests.patch(
+            f"https://api.github.com/gists/{gist_id}",
+            headers={
+                "Authorization": f"Bearer {token}",
+                "Accept": "application/vnd.github+json",
+            },
+            json={"files": {"subscribers.json": {"content": payload_text}}},
+            timeout=10,
+        )
+        resp.raise_for_status()
+        return
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(payload_text, encoding="utf-8")
+
+
+def get_public_site_url(config: dict[str, Any] | None = None) -> str:
+    """Return the public Live Web Board URL."""
+    url = os.environ.get("PUBLIC_SITE_URL", "").strip()
+    if url:
+        return url.rstrip("/")
+    if config:
+        cfg_url = str(config.get("settings", {}).get("public_site_url", "")).strip()
+        if cfg_url:
+            return cfg_url.rstrip("/")
+    return "https://job-scholarship-alert-bot-chi.vercel.app"
 
 
 def get_broadcast_target(config: dict[str, Any] | None = None) -> str:
@@ -765,12 +828,87 @@ def _post_telegram_api(bot_token: str, method: str, payload: dict[str, Any]) -> 
     return response.json()
 
 
+def build_cycle_reminder_markup(
+    channel_url: str = "",
+    site_url: str = "",
+    include_unsubscribe: bool = False,
+) -> dict[str, Any] | None:
+    """Build inline buttons for cycle summary reminder notifications."""
+    rows: list[list[dict[str, str]]] = []
+    link_row: list[dict[str, str]] = []
+    if site_url:
+        link_row.append({"text": "🌐 Live Web Board", "url": site_url})
+    if channel_url:
+        link_row.append({"text": "📢 Open Channel", "url": channel_url})
+    if link_row:
+        rows.append(link_row)
+    if include_unsubscribe:
+        rows.append([{"text": "🔕 Pause Reminders", "callback_data": "sub:off"}])
+    return {"inline_keyboard": rows} if rows else None
+
+
+def format_cycle_reminder(
+    items: list[Opportunity],
+    channel_tag: str = "",
+    site_url: str = "",
+    for_subscriber: bool = False,
+) -> str:
+    """Format a cycle notification reminder summarizing newly posted items."""
+    count = len(items)
+    jobs_n = sum(1 for i in items if i.category == "jobs")
+    web3_n = sum(1 for i in items if i.category == "web3_jobs")
+    sch_n = sum(1 for i in items if i.category == "scholarships")
+
+    breakdown_parts: list[str] = []
+    if jobs_n:
+        breakdown_parts.append(f"💼 {jobs_n} Job{'s' if jobs_n != 1 else ''}")
+    if web3_n:
+        breakdown_parts.append(f"⛓️ {web3_n} Web3")
+    if sch_n:
+        breakdown_parts.append(f"🎓 {sch_n} Scholarship{'s' if sch_n != 1 else ''}")
+
+    header = (
+        f"🔔 <b>New Cycle Alert: {count} New Match{'es' if count != 1 else ''} Posted!</b>"
+        if for_subscriber
+        else f"🔔 <b>New Cycle Update: {count} Fresh Opportunit{'ies' if count != 1 else 'y'} Just Posted!</b>"
+    )
+    lines = [header]
+    if breakdown_parts:
+        lines.append("📊 " + " · ".join(breakdown_parts))
+
+    badge_counts: dict[str, int] = {}
+    for item in items:
+        for b in item.badges:
+            badge_counts[b] = badge_counts.get(b, 0) + 1
+    if badge_counts:
+        badge_line = " · ".join(f"{b} ({c})" for b, c in badge_counts.items())
+        lines.append(html.escape(badge_line))
+
+    highlights = interleave_by_category(items)[:4]
+    if highlights:
+        top_lines = []
+        for idx, item in enumerate(highlights, start=1):
+            title = html.escape(item.title)
+            link = html.escape(item.link, quote=True)
+            top_lines.append(f"{idx}. <a href=\"{link}\">{title}</a>")
+        lines.append("<b>Highlights:</b>\n" + "\n".join(top_lines))
+
+    footer_bits = ["💡 Use /latest, /jobs, /web3, or /scholarships anytime."]
+    if channel_tag:
+        footer_bits.append(f"📢 Channel: {html.escape(channel_tag)}")
+    if site_url:
+        footer_bits.append(f"🌐 Web: {html.escape(site_url)}")
+    lines.append("\n".join(footer_bits))
+    return "\n\n".join(lines)
+
+
 def send_telegram_message(
     bot_token: str,
     chat_id: str,
     text: str,
     reply_markup: dict[str, Any] | None = None,
     disable_web_page_preview: bool = False,
+    disable_notification: bool = False,
 ) -> None:
     """Send one message via Telegram Bot API."""
     payload: dict[str, Any] = {
@@ -779,6 +917,8 @@ def send_telegram_message(
         "parse_mode": "HTML",
         "disable_web_page_preview": disable_web_page_preview,
     }
+    if disable_notification:
+        payload["disable_notification"] = True
     if reply_markup:
         payload["reply_markup"] = reply_markup
     _post_telegram_api(bot_token, "sendMessage", payload)
@@ -934,30 +1074,55 @@ def send_subscriber_alerts(
     items: list[Opportunity],
     subscribers_path: Path,
     broadcast_target: str,
+    channel_url: str = "",
+    channel_tag: str = "",
+    site_url: str = "",
 ) -> int:
-    """Send matching alerts to opted-in personal DM subscribers."""
+    """Send one cycle notification reminder DM per opted-in subscriber."""
     subscribers = load_subscribers(subscribers_path)
     if not subscribers or not items:
         return 0
 
     dm_sent = 0
+    markup = build_cycle_reminder_markup(
+        channel_url=channel_url,
+        site_url=site_url,
+        include_unsubscribe=True,
+    )
     for chat_id, prefs in subscribers.items():
         if not prefs.get("subscribed", False):
             continue
         if str(chat_id) == str(broadcast_target):
             continue
         user_keywords = [k.strip() for k in prefs.get("keywords", []) if k.strip()]
-        for item in items:
-            if user_keywords:
-                text_blob = f"{item.title} {item.summary}"
-                if not match_keywords(text_blob, user_keywords, []):
-                    continue
-            try:
-                send_telegram_message(bot_token, str(chat_id), format_telegram_message(item))
-                dm_sent += 1
-                time.sleep(0.35)
-            except Exception as exc:  # noqa: BLE001
-                logger.warning("Failed DM to subscriber %s: %s", chat_id, exc)
+        if user_keywords:
+            matched = [
+                item
+                for item in items
+                if match_keywords(f"{item.title} {item.summary}", user_keywords, [])
+            ]
+        else:
+            matched = list(items)
+        if not matched:
+            continue
+        reminder = format_cycle_reminder(
+            matched,
+            channel_tag=channel_tag,
+            site_url=site_url,
+            for_subscriber=True,
+        )
+        try:
+            send_telegram_message(
+                bot_token,
+                str(chat_id),
+                reminder,
+                reply_markup=markup,
+                disable_web_page_preview=True,
+            )
+            dm_sent += 1
+            time.sleep(0.35)
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("Failed DM to subscriber %s: %s", chat_id, exc)
     return dm_sent
 
 
@@ -976,11 +1141,14 @@ def run(
     latest_cache_limit = int(settings.get("latest_cache_limit", 40))
     retention_days = int(settings.get("seen_retention_days", 90))
     seed_on_first_run = bool(settings.get("seed_only_on_first_run", False))
+    cycle_reminder = bool(settings.get("cycle_reminder", True))
+    quiet_item_alerts = bool(settings.get("quiet_item_alerts", True))
 
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     target_id = get_broadcast_target(config)
     channel_tag = target_id if target_id.startswith("@") else os.environ.get("PUBLIC_CHANNEL_HANDLE", "").strip()
     channel_url = get_public_channel_url(config)
+    site_url = get_public_site_url(config)
 
     if not dry_run and (not bot_token or not target_id):
         logger.error(
@@ -1027,6 +1195,7 @@ def run(
         return 0
 
     to_send = interleave_by_category(new_items)[:max_alerts]
+    posted_items: list[Opportunity] = []
     sent_count = 0
 
     for item in to_send:
@@ -1043,19 +1212,56 @@ def run(
             if item.published:
                 print(f"Date:  {item.published}")
             print(f"Tags:  {', '.join(item.matched_keywords)}")
+            posted_items.append(item)
             sent_count += 1
         else:
             try:
                 reply_markup = build_item_reply_markup(item, channel_url=channel_url)
-                send_telegram_message(bot_token, target_id, message, reply_markup=reply_markup)
+                send_telegram_message(
+                    bot_token,
+                    target_id,
+                    message,
+                    reply_markup=reply_markup,
+                    disable_notification=cycle_reminder and quiet_item_alerts,
+                )
                 seen[item.item_id] = now_iso
                 title_id = make_title_id(item.title)
                 if title_id:
                     seen[title_id] = now_iso
+                posted_items.append(item)
                 sent_count += 1
                 time.sleep(0.5)  # Stay well below Telegram rate limits
             except Exception as exc:  # noqa: BLE001
                 logger.error("Failed to send Telegram alert for '%s': %s", item.title, exc)
+
+    if cycle_reminder and posted_items:
+        reminder_text = format_cycle_reminder(
+            posted_items,
+            channel_tag=channel_tag,
+            site_url=site_url,
+            for_subscriber=False,
+        )
+        if dry_run:
+            print("=" * 60)
+            print("[DRY RUN CYCLE REMINDER]")
+            print(reminder_text)
+        else:
+            try:
+                reminder_markup = build_cycle_reminder_markup(
+                    channel_url=channel_url,
+                    site_url=site_url,
+                    include_unsubscribe=False,
+                )
+                send_telegram_message(
+                    bot_token,
+                    target_id,
+                    reminder_text,
+                    reply_markup=reminder_markup,
+                    disable_web_page_preview=True,
+                    disable_notification=False,
+                )
+            except Exception as exc:  # noqa: BLE001
+                logger.error("Failed to send channel cycle reminder: %s", exc)
 
     if send_digest and opportunities:
         digest_text = format_daily_digest(opportunities, channel_tag=channel_tag)
@@ -1078,9 +1284,17 @@ def run(
 
     if not dry_run:
         save_seen_items(seen_path, seen)
-        dm_count = send_subscriber_alerts(bot_token, to_send, subscribers_path, target_id)
+        dm_count = send_subscriber_alerts(
+            bot_token,
+            posted_items,
+            subscribers_path,
+            target_id,
+            channel_url=channel_url,
+            channel_tag=channel_tag,
+            site_url=site_url,
+        )
         if dm_count:
-            logger.info("Personal DM alerts sent: %d", dm_count)
+            logger.info("Personal DM cycle reminders sent: %d", dm_count)
 
     logger.info("Done. Alerts processed: %d", sent_count)
     return sent_count

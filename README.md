@@ -37,9 +37,9 @@ A **100% free, zero-server** automation platform that tracks recent remote softw
         ▼                               ▼
   Public Telegram Channel        Git Repo State Files (auto-committed)
   @latestjobsandscholarship       - data/seen_items.json (90-day retention)
-  + Daily Digest (06:00 UTC)      - data/latest_items.json (40 balanced items)
-  + Inline Apply / Join Buttons   - data/bot_state.json
-                                        │
+  + Cycle Reminder every 6h       - data/latest_items.json (40 balanced items)
+  + Subscriber Cycle DM Alerts    - data/bot_state.json
+  + Daily Digest (06:00 UTC)            │
                                         ▼  (Auto-deployed on Vercel: api/webhook.py)
                      ┌──────────────────┴──────────────────┐
                      ▼                                     ▼
@@ -143,6 +143,7 @@ Set under **GitHub → Settings → Secrets and variables → Actions**:
 - `TELEGRAM_BOT_TOKEN` *(required)* — Bot token from `@BotFather`
 - `TELEGRAM_CHANNEL_ID` *(optional override)* — Defaults to `@latestjobsandscholarship` in `config.yaml`
 - `TELEGRAM_CHAT_ID` *(optional fallback)* — Fallback chat ID if no channel is configured
+- `SUBSCRIBERS_GIST_ID` & `SUBSCRIBERS_GITHUB_TOKEN` *(optional)* — Private GitHub Gist ID + token so `/subscribe` DM cycle reminders sync 24/7 between Vercel and GitHub Actions
 
 ### Vercel Environment Variables
 Set under **Vercel Project → Settings → Environment Variables** (Production):
@@ -150,6 +151,7 @@ Set under **Vercel Project → Settings → Environment Variables** (Production)
 - `TELEGRAM_CHANNEL_ID` *(optional)* — `@latestjobsandscholarship`
 - `TELEGRAM_WEBHOOK_SECRET` *(optional, recommended)* — Verified against `X-Telegram-Bot-Api-Secret-Token`
 - `PUBLIC_SITE_URL` *(optional)* — Overrides auto-detected `https://<host>` for canonical/sitemap URLs
+- `SUBSCRIBERS_GIST_ID` & `SUBSCRIBERS_GITHUB_TOKEN` *(optional)* — Enables 24/7 `/subscribe` and `/setkeywords` persistence on Vercel without exposing user chat IDs in your public repo
 
 ---
 

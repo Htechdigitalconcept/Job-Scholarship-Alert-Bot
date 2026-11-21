@@ -5,8 +5,13 @@ settings:
   # Public Telegram channel username (overridden if TELEGRAM_CHANNEL_ID secret is set)
   channel_id: "@latestjobsandscholarship"
   public_channel_url: "https://t.me/latestjobsandscholarship"
+  public_site_url: "https://job-scholarship-alert-bot-chi.vercel.app"
   # Max number of new alerts to broadcast to the channel per run
   max_alerts_per_run: 15
+  # Post one summary cycle reminder notification at the end of every cycle with new posts
+  cycle_reminder: true
+  # Send individual item posts silently so subscribers get one clean notification buzz per cycle
+  quiet_item_alerts: true
   # Max number of recent opportunities to cache in data/latest_items.json for /latest, /jobs, /scholarships
   latest_cache_limit: 40
   # Only send posts published within this many days (can be overridden per category)

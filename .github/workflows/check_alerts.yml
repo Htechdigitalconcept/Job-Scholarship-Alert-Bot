@@ -32,6 +32,8 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SUBSCRIBERS_GIST_ID: ${{ secrets.SUBSCRIBERS_GIST_ID }}
+          SUBSCRIBERS_GITHUB_TOKEN: ${{ secrets.SUBSCRIBERS_GITHUB_TOKEN }}
         run: python scraper.py --digest-hour 6
 
       - name: Process pending user commands
@@ -39,6 +41,8 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SUBSCRIBERS_GIST_ID: ${{ secrets.SUBSCRIBERS_GIST_ID }}
+          SUBSCRIBERS_GITHUB_TOKEN: ${{ secrets.SUBSCRIBERS_GITHUB_TOKEN }}
         run: python bot_commands.py --once
 
       - name: Commit updated state files

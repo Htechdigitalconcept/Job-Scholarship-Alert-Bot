@@ -257,6 +257,52 @@ class ScraperTests(unittest.TestCase):
             self.assertTrue(existed)
             self.assertEqual(loaded, {"id1": "2026-11-19T00:00:00+00:00"})
 
+    def test_cycle_reminder_and_subscriber_dm(self) -> None:
+        now = datetime.now(timezone.utc)
+        items = [
+            scraper.Opportunity(
+                "j1", "jobs", "💼 Job Alert", "WWR", "Python API Dev", "https://ex.com/j1",
+                "Remote worldwide", ["python"], published_dt=now, badges=["🌍 Worldwide"],
+            ),
+            scraper.Opportunity(
+                "s1", "scholarships", "🎓 Scholarship & Fellowship", "OD", "STEM Award", "https://ex.com/s1",
+                "Fully funded", ["fully funded"], published_dt=now, badges=["💰 Fully Funded"],
+            ),
+        ]
+        msg = scraper.format_cycle_reminder(
+            items,
+            channel_tag="@latestjobsandscholarship",
+            site_url="https://job-scholarship-alert-bot-chi.vercel.app",
+        )
+        self.assertIn("New Cycle Update", msg)
+        self.assertIn("1 Job", msg)
+        self.assertIn("1 Scholarship", msg)
+        self.assertIn("Python API Dev", msg)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            subs_path = Path(tmp) / "subscribers.json"
+            scraper.save_subscribers(subs_path, {
+                "111": {"subscribed": True, "keywords": []},
+                "222": {"subscribed": True, "keywords": ["solidity"]},
+                "333": {"subscribed": False, "keywords": []},
+            })
+            with patch("scraper.send_telegram_message") as mock_send:
+                sent = scraper.send_subscriber_alerts(
+                    "tok",
+                    items,
+                    subs_path,
+                    "@latestjobsandscholarship",
+                    channel_url="https://t.me/latestjobsandscholarship",
+                    channel_tag="@latestjobsandscholarship",
+                    site_url="https://job-scholarship-alert-bot-chi.vercel.app",
+                )
+            self.assertEqual(sent, 1)
+            mock_send.assert_called_once()
+            args, kwargs = mock_send.call_args
+            self.assertEqual(args[1], "111")
+            self.assertIn("New Cycle Alert", args[2])
+            self.assertEqual(kwargs["reply_markup"]["inline_keyboard"][1][0]["callback_data"], "sub:off")
+
 
 if __name__ == "__main__":
     unittest.main()
