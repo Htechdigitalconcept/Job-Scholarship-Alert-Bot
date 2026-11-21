@@ -364,7 +364,7 @@ def render_web_board_html(
         "visa-sponsored roles, and fully funded scholarships & fellowships updated daily."
     )
     safe_desc = html.escape(meta_desc, quote=True)
-    ssr_cards = _render_ssr_cards(items)
+    ssr_cards = _render_ssr_cards(items[:24])
     total_count = len(items)
     jobs_count = sum(1 for i in items if i.category == "jobs")
     web3_count = sum(1 for i in items if i.category == "web3_jobs")
@@ -899,6 +899,46 @@ def render_web_board_html(
       border: 1px dashed var(--border);
       border-radius: 14px;
     }}
+    .pagination {{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 22px;
+    }}
+    .page-btn {{
+      min-height: 40px;
+      min-width: 40px;
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+    }}
+    .page-btn:hover:not(:disabled) {{
+      border-color: var(--accent);
+      color: var(--accent);
+    }}
+    .page-btn.active {{
+      background: linear-gradient(135deg, #0284c7, #4f46e5);
+      border-color: transparent;
+      color: #fff;
+    }}
+    .page-btn:disabled {{
+      opacity: 0.42;
+      cursor: not-allowed;
+    }}
+    .page-dots {{
+      color: var(--muted);
+      padding: 0 4px;
+      font-size: 0.86rem;
+    }}
     .site-footer {{
       margin-top: auto;
       background: rgba(11, 17, 32, 0.95);
@@ -1170,6 +1210,8 @@ def render_web_board_html(
 {ssr_cards}
     </main>
 
+    <nav id="paginationBar" class="pagination" aria-label="Opportunity pages"></nav>
+
     <section class="seo-section" aria-label="About and frequently asked questions">
       <h2>How Our Automated Job, Web3 &amp; Scholarship Radar Works</h2>
       <p class="seo-lead">Curated every 6 hours from {sources_count} trusted job boards &amp; scholarship portals — built for global builders, software engineers, and fellows.</p>
@@ -1244,9 +1286,11 @@ def render_web_board_html(
 
   <script>
     const ITEMS = {safe_json};
+    const PAGE_SIZE = 24;
     let activeCat = "all";
     let activeBadge = "";
     let searchTerm = "";
+    let currentPage = 1;
 
     const esc = (v) => String(v || "")
       .replace(/&/g, "&amp;")
@@ -1261,6 +1305,38 @@ def render_web_board_html(
       document.querySelectorAll("#badgeFilters .chip").forEach((c) => {{
         c.classList.toggle("active", c.dataset.badge === activeBadge);
       }});
+    }};
+
+    const buildPageNumbers = (totalPages, page) => {{
+      if (totalPages <= 7) return Array.from({{ length: totalPages }}, (_, i) => i + 1);
+      const pages = new Set([1, totalPages, page - 1, page, page + 1]);
+      const sorted = Array.from(pages).filter((p) => p >= 1 && p <= totalPages).sort((a, b) => a - b);
+      const out = [];
+      for (let i = 0; i < sorted.length; i++) {{
+        if (i > 0 && sorted[i] - sorted[i - 1] > 1) out.push("...");
+        out.push(sorted[i]);
+      }}
+      return out;
+    }};
+
+    const renderPagination = (totalItems, totalPages) => {{
+      const bar = document.getElementById("paginationBar");
+      if (!bar) return;
+      if (totalPages <= 1) {{
+        bar.innerHTML = "";
+        return;
+      }}
+      const nums = buildPageNumbers(totalPages, currentPage);
+      const numHtml = nums.map((n) => {{
+        if (n === "...") return '<span class="page-dots">…</span>';
+        const activeCls = n === currentPage ? " active" : "";
+        return `<button type="button" class="page-btn${{activeCls}}" data-page="${{n}}" aria-label="Page ${{n}}"${{n === currentPage ? ' aria-current="page"' : ""}}>${{n}}</button>`;
+      }}).join("");
+      bar.innerHTML = `
+        <button type="button" class="page-btn" data-page="${{currentPage - 1}}"${{currentPage <= 1 ? " disabled" : ""}}>◀ Prev</button>
+        ${{numHtml}}
+        <button type="button" class="page-btn" data-page="${{currentPage + 1}}"${{currentPage >= totalPages ? " disabled" : ""}}>Next ▶</button>
+      `;
     }};
 
     const render = () => {{
@@ -1281,16 +1357,25 @@ def render_web_board_html(
         return true;
       }});
 
+      const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const pageItems = filtered.slice(start, start + PAGE_SIZE);
+
       document.getElementById("totalCount").textContent = ITEMS.length;
-      document.getElementById("shownCount").textContent = filtered.length;
+      document.getElementById("shownCount").textContent = filtered.length
+        ? `${{start + 1}}–${{start + pageItems.length}} of ${{filtered.length}}`
+        : "0";
 
       const grid = document.getElementById("cardsGrid");
       if (!filtered.length) {{
         grid.innerHTML = '<div class="empty">No matching opportunities found. Try clearing filters or searching another keyword.</div>';
+        renderPagination(0, 0);
         return;
       }}
 
-      grid.innerHTML = filtered.map((item) => {{
+      grid.innerHTML = pageItems.map((item) => {{
         const badgesHtml = (item.badges || []).map((b) => `<span class="badge">${{esc(b)}}</span>`).join("");
         const deadlineHtml = item.deadline ? `<div class="deadline">⏳ Deadline: ${{esc(item.deadline)}}</div>` : "";
         const shortDate = item.published ? esc(item.published.replace(/\\s*[+-]\\d{{4}}$/, "").replace(/\\s*(?:GMT|UTC)$/, "")) : "";
@@ -1312,10 +1397,13 @@ def render_web_board_html(
           </article>
         `;
       }}).join("");
+
+      renderPagination(filtered.length, totalPages);
     }};
 
     document.getElementById("searchInput").addEventListener("input", (e) => {{
       searchTerm = e.target.value;
+      currentPage = 1;
       render();
     }});
 
@@ -1323,6 +1411,7 @@ def render_web_board_html(
       const btn = e.target.closest(".chip");
       if (!btn) return;
       activeCat = btn.dataset.cat;
+      currentPage = 1;
       syncFilterButtons();
       render();
     }});
@@ -1332,8 +1421,20 @@ def render_web_board_html(
       if (!btn) return;
       const b = btn.dataset.badge;
       activeBadge = activeBadge === b ? "" : b;
+      currentPage = 1;
       syncFilterButtons();
       render();
+    }});
+
+    document.getElementById("paginationBar")?.addEventListener("click", (e) => {{
+      const btn = e.target.closest("[data-page]");
+      if (!btn || btn.disabled) return;
+      const next = parseInt(btn.dataset.page || "1", 10);
+      if (!Number.isNaN(next)) {{
+        currentPage = next;
+        render();
+        document.getElementById("board")?.scrollIntoView({{ behavior: "smooth" }});
+      }}
     }});
 
     document.addEventListener("click", (e) => {{
@@ -1341,6 +1442,7 @@ def render_web_board_html(
       if (jumpCat) {{
         activeCat = jumpCat.dataset.jumpCat;
         activeBadge = "";
+        currentPage = 1;
         syncFilterButtons();
         render();
         document.getElementById("board")?.scrollIntoView({{ behavior: "smooth" }});
@@ -1350,6 +1452,7 @@ def render_web_board_html(
       if (jumpBadge) {{
         activeCat = "all";
         activeBadge = jumpBadge.dataset.jumpBadge;
+        currentPage = 1;
         syncFilterButtons();
         render();
         document.getElementById("board")?.scrollIntoView({{ behavior: "smooth" }});
@@ -1361,6 +1464,7 @@ def render_web_board_html(
       const qParam = params.get("q");
       const catParam = params.get("cat");
       const badgeParam = params.get("badge");
+      const pageParam = parseInt(params.get("page") || "1", 10);
       if (qParam) {{
         searchTerm = qParam;
         const input = document.getElementById("searchInput");
@@ -1375,10 +1479,11 @@ def render_web_board_html(
           .find((b) => b && b.toLowerCase().includes(badgeParam.toLowerCase()));
         if (match) activeBadge = match;
       }}
-      if (qParam || catParam || badgeParam) {{
-        syncFilterButtons();
-        render();
+      if (!Number.isNaN(pageParam) && pageParam > 1) {{
+        currentPage = pageParam;
       }}
+      syncFilterButtons();
+      render();
     }})();
 
     const copyBoardUrl = async (btn, originalLabel) => {{

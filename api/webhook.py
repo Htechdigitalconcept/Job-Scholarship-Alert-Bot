@@ -9,6 +9,7 @@ import re
 import sys
 from pathlib import Path
 from typing import Any, Callable, Iterable
+from urllib.parse import parse_qs
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 if str(BASE_DIR) not in sys.path:
@@ -201,10 +202,37 @@ def app(
 
         if path == "/api/opportunities":
             items, _url, _handle = _load_board_data()
+            qs = parse_qs(str(environ.get("QUERY_STRING", "")))
+            q_val = (qs.get("q") or [""])[0].strip().lower()
+            cat_val = (qs.get("cat") or [""])[0].strip()
+            badge_val = (qs.get("badge") or [""])[0].strip().lower()
+            if cat_val and cat_val != "all":
+                items = [i for i in items if i.category == cat_val]
+            if badge_val:
+                items = [i for i in items if any(badge_val in b.lower() for b in i.badges)]
+            if q_val:
+                terms = q_val.split()
+                items = [
+                    i
+                    for i in items
+                    if all(
+                        t
+                        in f"{i.title} {i.summary} {i.source_name} {' '.join(i.matched_keywords)} {' '.join(i.badges)}".lower()
+                        for t in terms
+                    )
+                ]
+            total_filtered = len(items)
+            limit_raw = (qs.get("limit") or [""])[0].strip()
+            page_raw = (qs.get("page") or ["1"])[0].strip()
+            if limit_raw.isdigit() and int(limit_raw) > 0:
+                limit_n = min(200, int(limit_raw))
+                page_n = max(1, int(page_raw) if page_raw.isdigit() else 1)
+                start_i = (page_n - 1) * limit_n
+                items = items[start_i : start_i + limit_n]
             status = 200
             payload: dict[str, Any] = {
                 "ok": True,
-                "count": len(items),
+                "count": total_filtered,
                 "items": [item.to_dict() for item in items],
             }
         else:

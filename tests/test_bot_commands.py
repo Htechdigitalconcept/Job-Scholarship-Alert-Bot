@@ -368,6 +368,18 @@ class BotCommandsTests(unittest.TestCase):
         self.assertIn("SearchAction", root_body)
         self.assertIn('id="shareBoardBtn"', root_body)
         self.assertIn('class="share-strip"', root_body)
+        self.assertIn('id="paginationBar"', root_body)
+        self.assertIn("const PAGE_SIZE = 24;", root_body)
+
+        # /api/opportunities supports ?cat= and ?limit=&page=
+        api_paged = b"".join(webhook.app({
+            "REQUEST_METHOD": "GET",
+            "PATH_INFO": "/api/opportunities",
+            "QUERY_STRING": "cat=web3_jobs&limit=1&page=1",
+        }, start_response))
+        api_paged_json = json.loads(api_paged.decode("utf-8"))
+        self.assertEqual(len(api_paged_json["items"]), 1)
+        self.assertEqual(api_paged_json["items"][0]["category"], "web3_jobs")
 
         llms = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/llms.txt"}, start_response)).decode("utf-8")
         self.assertIn("# Jobs, Web3 & Scholarships Live Board", llms)
