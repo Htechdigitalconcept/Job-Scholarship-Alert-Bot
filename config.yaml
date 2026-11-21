@@ -5,6 +5,7 @@ settings:
   # Public Telegram channel & bot usernames (overridden if env vars/secrets are set)
   channel_id: "@latestjobsandscholarship"
   bot_username: "Scholar_job_bot"
+  mini_app_url: "https://t.me/Scholar_job_bot/RJS"
   public_channel_url: "https://t.me/latestjobsandscholarship"
   public_site_url: "https://job-scholarship-alert-bot-chi.vercel.app"
   # Max number of new alerts to broadcast to the channel per run

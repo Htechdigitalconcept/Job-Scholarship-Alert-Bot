@@ -106,9 +106,12 @@ class BotCommandsTests(unittest.TestCase):
         self.config["settings"]["public_channel_url"] = "https://t.me/latestjobsandscholarship"
         self.assertEqual(scraper.get_broadcast_target(self.config), "@latestjobsandscholarship")
 
-        start_reply = bot_commands.handle_command("123", "/start", self.config, self.latest_path, self.subs_path)
+        start_resp = bot_commands.build_command_responses("123", "/start", self.config, self.latest_path, self.subs_path)
+        start_reply = [start_resp[0][0]]
         self.assertIn("/latest", start_reply[0])
         self.assertIn("https://t.me/latestjobsandscholarship", start_reply[0])
+        self.assertEqual(start_resp[0][1]["inline_keyboard"][0][1]["text"], "📱 Open Mini App")
+        self.assertEqual(start_resp[0][1]["inline_keyboard"][0][1]["web_app"]["url"], "https://job-scholarship-alert-bot-chi.vercel.app")
 
         start_latest = bot_commands.handle_command("123", "/start latest", self.config, self.latest_path, self.subs_path)
         self.assertIn("Python Backend Engineer", start_latest[0])

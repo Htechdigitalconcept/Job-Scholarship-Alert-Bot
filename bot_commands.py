@@ -331,10 +331,17 @@ def sync_telegram_profile(bot_token: str, config: dict[str, Any] | None = None) 
         f"{channel_id} | {site_url}"
     )[:120]
 
-    for endpoint, payload in [
+    endpoints: list[tuple[str, dict[str, Any]]] = [
         ("setMyDescription", {"description": description[:512]}),
         ("setMyShortDescription", {"short_description": short_description}),
-    ]:
+    ]
+    if site_url:
+        endpoints.append((
+            "setChatMenuButton",
+            {"menu_button": {"type": "web_app", "text": "Open Board", "web_app": {"url": site_url}}},
+        ))
+
+    for endpoint, payload in endpoints:
         try:
             resp = requests.post(
                 f"https://api.telegram.org/bot{bot_token}/{endpoint}",
@@ -854,12 +861,13 @@ def build_command_responses(
             "• /keywords — View tracked keywords\n"
             "• /sources — Monitored feeds & recency window"
         )
-        start_rows: list[list[dict[str, str]]] = []
-        top_row: list[dict[str, str]] = []
+        mini_app_url = str(config.get("settings", {}).get("mini_app_url", "")).strip()
+        start_rows: list[list[dict[str, Any]]] = []
+        top_row: list[dict[str, Any]] = []
         if channel_link:
             top_row.append({"text": "Join Channel 📢", "url": channel_link})
         if site_url:
-            top_row.append({"text": "🌐 Live Web Board", "url": site_url})
+            top_row.append({"text": "📱 Open Mini App", "web_app": {"url": site_url}})
         if top_row:
             start_rows.append(top_row)
         ref_link = build_referral_link(chat_id, bot_url=bot_url, site_url=site_url, channel_url=channel_link)
@@ -894,6 +902,8 @@ def build_command_responses(
         ]
         if ref_link:
             share_lines.append(f"🔗 <b>Your Personal Invite Link:</b>\n<code>{html.escape(ref_link)}</code>")
+        if mini_app_url := str(config.get("settings", {}).get("mini_app_url", "")).strip():
+            share_lines.append(f"📱 <b>Telegram Mini App:</b> {html.escape(mini_app_url)}")
         if channel_link:
             share_lines.append(f"📢 <b>Channel:</b> {html.escape(channel_link)}")
         if site_url:
