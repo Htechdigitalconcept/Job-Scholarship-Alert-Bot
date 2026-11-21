@@ -113,6 +113,10 @@ class BotCommandsTests(unittest.TestCase):
         start_latest = bot_commands.handle_command("123", "/start latest", self.config, self.latest_path, self.subs_path)
         self.assertIn("Python Backend Engineer", start_latest[0])
 
+        share_responses = bot_commands.build_command_responses("123", "/share", self.config, self.latest_path, self.subs_path)
+        self.assertIn("Share This Bot", share_responses[0][0])
+        self.assertIn("https://t.me/share/url?", share_responses[0][1]["inline_keyboard"][0][0]["url"])
+
         kw_reply = bot_commands.handle_command("123", "/keywords", self.config, self.latest_path, self.subs_path)
         self.assertIn("python, backend", kw_reply[0])
 
@@ -255,6 +259,8 @@ class BotCommandsTests(unittest.TestCase):
         self.assertIn("<rss version=\"2.0\"", feed_xml)
         self.assertIn("FAQPage", root_body)
         self.assertIn("SearchAction", root_body)
+        self.assertIn('id="shareBoardBtn"', root_body)
+        self.assertIn('class="share-strip"', root_body)
 
         llms = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/llms.txt"}, start_response)).decode("utf-8")
         self.assertIn("# Jobs, Web3 & Scholarships Live Board", llms)

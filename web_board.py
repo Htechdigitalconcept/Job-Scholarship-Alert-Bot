@@ -649,6 +649,40 @@ def render_web_board_html(
       border-color: var(--accent);
       background: rgba(30, 41, 59, 0.95);
     }}
+    button.ghost-btn {{
+      cursor: pointer;
+      font-family: inherit;
+    }}
+    .share-strip {{
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }}
+    .share-pill {{
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(30, 41, 59, 0.65);
+      border: 1px solid rgba(36, 50, 74, 0.9);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }}
+    .share-pill:hover {{
+      border-color: var(--accent);
+      color: var(--accent);
+    }}
     .hero-kpis {{
       position: relative;
       display: grid;
@@ -1067,7 +1101,17 @@ def render_web_board_html(
             Join {safe_handle}
           </a>
           <a class="ghost-btn" href="#board">Browse Feed ↓</a>
+          <button type="button" id="shareBoardBtn" class="ghost-btn">📤 Share</button>
         </div>
+      </div>
+
+      <div class="share-strip" aria-label="Share this board">
+        <span>Share with friends:</span>
+        <a class="share-pill" href="https://t.me/share/url?url={safe_canonical}&amp;text=Free%20Live%20Board%20for%20Remote%20Tech%20Jobs%2C%20Web3%20%26%20Funded%20Scholarships" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a class="share-pill" href="https://wa.me/?text=Free%20Live%20Board%20for%20Remote%20Tech%20Jobs%2C%20Web3%20%26%20Funded%20Scholarships%20{safe_canonical}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a class="share-pill" href="https://twitter.com/intent/tweet?text=Real-time%20radar%20for%20Remote%20Tech%20Jobs%2C%20Web3%20Roles%20%26%20Funded%20Scholarships&amp;url={safe_canonical}" target="_blank" rel="noopener noreferrer">X / Twitter</a>
+        <a class="share-pill" href="https://www.linkedin.com/sharing/share-offsite/?url={safe_canonical}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <button type="button" id="copyLinkBtn" class="share-pill">🔗 Copy Link</button>
       </div>
 
       <div class="hero-kpis" aria-label="Live category totals">
@@ -1323,6 +1367,37 @@ def render_web_board_html(
         render();
       }}
     }})();
+
+    const copyBoardUrl = async (btn, originalLabel) => {{
+      const url = window.location.href.split("#")[0];
+      try {{
+        await navigator.clipboard.writeText(url);
+        btn.textContent = "✅ Link Copied!";
+        setTimeout(() => {{ btn.textContent = originalLabel; }}, 2000);
+      }} catch (_err) {{
+        window.prompt("Copy link to share:", url);
+      }}
+    }};
+
+    document.getElementById("shareBoardBtn")?.addEventListener("click", async (e) => {{
+      const btn = e.currentTarget;
+      const url = window.location.href.split("#")[0];
+      if (navigator.share) {{
+        try {{
+          await navigator.share({{
+            title: "Jobs, Web3 & Scholarships Live Board",
+            text: "Fresh remote tech jobs, Web3 roles & fully funded scholarships — updated every 6 hours!",
+            url,
+          }});
+          return;
+        }} catch (_err) {{}}
+      }}
+      copyBoardUrl(btn, "📤 Share");
+    }});
+
+    document.getElementById("copyLinkBtn")?.addEventListener("click", (e) => {{
+      copyBoardUrl(e.currentTarget, "🔗 Copy Link");
+    }});
   </script>
 </body>
 </html>

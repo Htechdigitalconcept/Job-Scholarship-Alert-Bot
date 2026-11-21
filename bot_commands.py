@@ -41,6 +41,7 @@ BOT_COMMANDS_MENU = [
     {"command": "visa", "description": "Filter 🛂 Visa-sponsored opportunities"},
     {"command": "digest", "description": "Today's top opportunities summary"},
     {"command": "stats", "description": "Bot & opportunity counts"},
+    {"command": "share", "description": "Share this bot, channel & web board"},
     {"command": "subscribe", "description": "Get cycle reminder DMs when new posts drop"},
     {"command": "unsubscribe", "description": "Pause cycle reminder DMs"},
     {"command": "keywords", "description": "View tracked keywords"},
@@ -250,8 +251,10 @@ def build_list_markup(
     page_size: int = PAGE_SIZE,
     query: str = "",
     channel_url: str = "",
+    bot_url: str = "",
+    site_url: str = "",
 ) -> dict[str, Any] | None:
-    """Build inline Prev/Next pagination + Join Channel buttons."""
+    """Build inline Prev/Next pagination + Join Channel + Share buttons."""
     rows: list[list[dict[str, str]]] = []
     nav_row: list[dict[str, str]] = []
     if page > 0:
@@ -266,8 +269,21 @@ def build_list_markup(
         })
     if nav_row:
         rows.append(nav_row)
+
+    action_row: list[dict[str, str]] = []
     if channel_url:
-        rows.append([{"text": "Join Channel 📢", "url": channel_url}])
+        action_row.append({"text": "Join Channel 📢", "url": channel_url})
+    share_target = bot_url or site_url or channel_url
+    if share_target:
+        action_row.append({
+            "text": "📤 Share Bot",
+            "url": scraper.build_telegram_share_url(
+                share_target,
+                "🚀 Free 24/7 bot for Remote Tech Jobs, Web3 Roles & Fully Funded Scholarships!",
+            ),
+        })
+    if action_row:
+        rows.append(action_row)
     return {"inline_keyboard": rows} if rows else None
 
 
@@ -469,6 +485,7 @@ def build_command_responses(
     latest_path: Path,
     subscribers_path: Path,
     page: int = 0,
+    bot_token: str = "",
 ) -> list[tuple[str, dict[str, Any] | None]]:
     """Parse a command and return [(html_text, optional_reply_markup), ...]."""
     stripped = text.strip()
@@ -481,6 +498,8 @@ def build_command_responses(
     arg = parts[1].strip() if len(parts) > 1 else ""
 
     channel_link = get_channel_display(config)
+    site_url = scraper.get_public_site_url(config)
+    bot_url = scraper.get_bot_url(bot_token, config)
     channel_markup = (
         {"inline_keyboard": [[{"text": "Join Channel 📢", "url": channel_link}]]}
         if channel_link
@@ -490,7 +509,7 @@ def build_command_responses(
     if cmd in {"/start", "/help"}:
         if cmd == "/start" and arg.lower() == "latest":
             return build_command_responses(
-                chat_id, "/latest", config, latest_path, subscribers_path, page=page
+                chat_id, "/latest", config, latest_path, subscribers_path, page=page, bot_token=bot_token
             )
         channel_line = (
             f"\n\n📢 <b>Public Alert Channel:</b> {html.escape(channel_link)}"
@@ -511,12 +530,12 @@ def build_command_responses(
             "• /visa [word] — 🛂 Visa-sponsored roles\n"
             "• /digest — ☀️ Top opportunities summary\n"
             "• /stats — 📊 Counts by category & highlights\n"
+            "• /share — 📤 Share this bot with friends & groups\n"
             "• /subscribe — 🔔 Get cycle reminder DMs on new posts\n"
             "• /unsubscribe — 🔕 Pause cycle reminder DMs\n"
             "• /keywords — View tracked keywords\n"
             "• /sources — Monitored feeds & recency window"
         )
-        site_url = scraper.get_public_site_url(config)
         start_rows: list[list[dict[str, str]]] = []
         top_row: list[dict[str, str]] = []
         if channel_link:
@@ -525,11 +544,64 @@ def build_command_responses(
             top_row.append({"text": "🌐 Live Web Board", "url": site_url})
         if top_row:
             start_rows.append(top_row)
-        start_rows.append([
-            {"text": "🔔 Get Cycle Reminders", "callback_data": "sub:on"},
-            {"text": "🔎 Share in Chat", "switch_inline_query": ""},
-        ])
+        share_target = bot_url or site_url or channel_link
+        row2: list[dict[str, str]] = [{"text": "🔔 Get Cycle Reminders", "callback_data": "sub:on"}]
+        if share_target:
+            row2.append({
+                "text": "📤 Share Bot",
+                "url": scraper.build_telegram_share_url(
+                    share_target,
+                    "🚀 Check out this free 24/7 Bot for Remote Tech Jobs, Web3 Roles & Fully Funded Scholarships!",
+                ),
+            })
+        start_rows.append(row2)
+        start_rows.append([{"text": "🔎 Share a Job / Scholarship in Chat", "switch_inline_query": ""}])
         return [(msg, {"inline_keyboard": start_rows})]
+
+    if cmd == "/share":
+        share_lines = [
+            "<b>📤 Share This Bot &amp; Live Board</b>",
+            "Know someone looking for <b>Remote Tech Jobs</b>, <b>Web3 Roles</b>, "
+            "or <b>Fully Funded Scholarships</b>? Forward this message or tap a button below!",
+        ]
+        if bot_url:
+            share_lines.append(f"🤖 <b>Bot:</b> {html.escape(bot_url)}")
+        if channel_link:
+            share_lines.append(f"📢 <b>Channel:</b> {html.escape(channel_link)}")
+        if site_url:
+            share_lines.append(f"🌐 <b>Live Web Board:</b> {html.escape(site_url)}")
+
+        share_rows: list[list[dict[str, str]]] = []
+        bot_share_url = bot_url or site_url or channel_link
+        if bot_share_url:
+            share_rows.append([{
+                "text": "📤 Share Bot with Friends",
+                "url": scraper.build_telegram_share_url(
+                    bot_share_url,
+                    "🚀 Free 24/7 Bot for Remote Tech Jobs, Web3 Roles & Fully Funded Scholarships!",
+                ),
+            }])
+        row_b: list[dict[str, str]] = []
+        if channel_link:
+            row_b.append({
+                "text": "📢 Share Channel",
+                "url": scraper.build_telegram_share_url(
+                    channel_link,
+                    "📢 Daily curated Remote Tech Jobs, Web3 Roles & Scholarships — zero spam!",
+                ),
+            })
+        if site_url:
+            row_b.append({
+                "text": "🌐 Share Web Board",
+                "url": scraper.build_telegram_share_url(
+                    site_url,
+                    "🌐 Live searchable board for Remote Jobs, Web3 & Funded Scholarships!",
+                ),
+            })
+        if row_b:
+            share_rows.append(row_b)
+        share_rows.append([{"text": "🔎 Share Any Opportunity Inline", "switch_inline_query": ""}])
+        return [("\n\n".join(share_lines), {"inline_keyboard": share_rows})]
 
     if cmd == "/digest":
         items = get_recent_opportunities(config, latest_path)
@@ -642,6 +714,8 @@ def build_command_responses(
                 page_size=page_size,
                 query=query,
                 channel_url=channel_link,
+                bot_url=bot_url,
+                site_url=site_url,
             )
             if total > 0
             else channel_markup
@@ -846,7 +920,9 @@ def process_webhook_update(
         return 0
 
     config = scraper.load_config(config_path)
-    responses = build_command_responses(chat_id, text, config, latest_path, subscribers_path)
+    responses = build_command_responses(
+        chat_id, text, config, latest_path, subscribers_path, bot_token=bot_token
+    )
     handled = 0
     for reply_text, markup in responses:
         scraper.send_telegram_message(
@@ -911,7 +987,9 @@ def process_updates_once(
         if not chat_id or not text.startswith("/"):
             continue
 
-        responses = build_command_responses(chat_id, text, config, latest_path, subscribers_path)
+        responses = build_command_responses(
+            chat_id, text, config, latest_path, subscribers_path, bot_token=bot_token
+        )
         for reply_text, markup in responses:
             try:
                 scraper.send_telegram_message(

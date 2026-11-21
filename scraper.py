@@ -18,7 +18,7 @@ from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any
-from urllib.parse import urljoin
+from urllib.parse import quote, urljoin
 
 import feedparser
 import requests
@@ -767,7 +767,7 @@ def get_bot_url(bot_token: str = "", config: dict[str, Any] | None = None) -> st
     username = os.environ.get("TELEGRAM_BOT_USERNAME", "").strip().lstrip("@")
     if not username and config:
         username = str(config.get("settings", {}).get("bot_username", "")).strip().lstrip("@")
-    if not username and bot_token:
+    if not username and bot_token and ":" in bot_token:
         if bot_token in _BOT_USERNAME_CACHE:
             username = _BOT_USERNAME_CACHE[bot_token]
         else:
@@ -814,6 +814,15 @@ def build_telegram_hashtags(item: Opportunity) -> str:
     return " ".join(tags[:6])
 
 
+def build_telegram_share_url(target_url: str, text: str) -> str:
+    """Build a one-tap Telegram share link (https://t.me/share/url?...)."""
+    return (
+        "https://t.me/share/url"
+        f"?url={quote(target_url, safe='')}"
+        f"&text={quote(text, safe='')}"
+    )
+
+
 def build_item_reply_markup(
     item: Opportunity,
     channel_url: str = "",
@@ -825,7 +834,17 @@ def build_item_reply_markup(
         row.append({"text": "Filter in Bot 🤖", "url": f"{bot_url}?start=latest"})
     elif channel_url:
         row.append({"text": "Join Channel 📢", "url": channel_url})
-    return {"inline_keyboard": [row]}
+    share_target = bot_url or channel_url
+    share_note = (
+        f"{item.title} — found via {share_target}"
+        if share_target
+        else item.title
+    )
+    rows = [
+        row,
+        [{"text": "📤 Share Opportunity", "url": build_telegram_share_url(item.link, share_note)}],
+    ]
+    return {"inline_keyboard": rows}
 
 
 def format_telegram_message(item: Opportunity, channel_tag: str = "") -> str:
@@ -918,6 +937,16 @@ def build_cycle_reminder_markup(
         rows.append(link_row)
     if include_unsubscribe:
         rows.append([{"text": "🔕 Pause Reminders", "callback_data": "sub:off"}])
+    else:
+        share_url = bot_url or site_url or channel_url
+        if share_url:
+            rows.append([{
+                "text": "📤 Share Bot with a Friend",
+                "url": build_telegram_share_url(
+                    share_url,
+                    "🚀 Check out this free 24/7 Bot & Live Board for Remote Tech Jobs, Web3 Roles & Fully Funded Scholarships!",
+                ),
+            }])
     return {"inline_keyboard": rows} if rows else None
 
 

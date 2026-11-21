@@ -319,6 +319,8 @@ class ScraperTests(unittest.TestCase):
             markup["inline_keyboard"][0][1]["url"],
             "https://t.me/JobAlertSampleBot?start=latest",
         )
+        self.assertEqual(markup["inline_keyboard"][1][0]["text"], "📤 Share Opportunity")
+        self.assertIn("https://t.me/share/url?", markup["inline_keyboard"][1][0]["url"])
 
         cycle_markup = scraper.build_cycle_reminder_markup(
             channel_url="https://t.me/latestjobsandscholarship",
@@ -328,6 +330,7 @@ class ScraperTests(unittest.TestCase):
         )
         cycle_btns = [b["text"] for b in cycle_markup["inline_keyboard"][0]]
         self.assertEqual(cycle_btns, ["🌐 Live Web Board", "Filter in Bot 🤖"])
+        self.assertEqual(cycle_markup["inline_keyboard"][1][0]["text"], "📤 Share Bot with a Friend")
 
 
 if __name__ == "__main__":
