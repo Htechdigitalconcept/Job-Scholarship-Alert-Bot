@@ -1,35 +1,36 @@
 [
   {
-    "item_id": "05f667baf386defb",
+    "item_id": "5b16518c35c5e4f4",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Patronus AI: Expert: Interactive Coding, Embedded Hardware (Contract, Remote)",
-    "link": "https://himalayas.app/companies/patronus-ai/jobs/expert-interactive-coding-embedded-hardware-contract-remote?utm_source=api",
-    "summary": "About Patronus AI Patronus AI is a frontier lab developing simulation research and infrastructure to accelerate progress toward human-aligned AGI.",
+    "title": "Castrol: Senior Account Manager",
+    "link": "https://himalayas.app/companies/castrol/jobs/senior-account-manager?utm_source=api",
+    "summary": "Castrol is one of the world\u2019s leading lubricant brands, serving customers and consumers in the automotive, marine, industrial and energy sectors.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Sat, 21 Nov 2026 08:58:19 +0000",
-    "published_iso": "2026-11-21T08:58:19+00:00",
+    "published": "Sat, 21 Nov 2026 13:04:09 +0000",
+    "published_iso": "2026-11-21T13:04:09+00:00",
     "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "13f77889e8fa03bf",
+    "item_id": "9a992022ab404d1e",
     "category": "scholarships",
     "category_label": "\ud83c\udf93 Scholarship & Fellowship",
-    "source_name": "Opportunity Desk",
-    "title": "Cambridge Africa Climate Collaborative Research Fund 2026/2027",
-    "link": "https://opportunitydesk.org/2026/11/20/cambridge-africa-climate-collaborative-research-fund-2026-2027/",
-    "summary": "Deadline: January 15, 2027 Applications for the Cambridge Africa Climate Collaborative Research Fund 2026/2027 are now open. Applications are invited from pairs of researchers (at post-doctoral level and above) from the University of Cambr\u2026",
+    "source_name": "Opportunities For Africans",
+    "title": "Deloitte Nigeria\u2019s 2026 Africa Consulting Services (ACS) Academy for young Nigerian graduates.",
+    "link": "https://www.opportunitiesforafricans.com/deloitte-nigerias-2026-africa-consulting-services-acs-academy-for-young-nigerian-graduates/",
+    "summary": "Application Deadline: November 27, 2026 Applications are now open for the 2026 Deloitte Nigeria\u2019s Africa Consulting Services (ACS) Academy. Through this skill development programme, we aim to equip and empower\u2026 The post Deloitte Nigeria\u2019s\u2026",
     "matched_keywords": [
-      "africa"
+      "africa",
+      "nigeria"
     ],
-    "published": "Fri, 20 Nov 2026 18:37:28 +0000",
-    "published_iso": "2026-11-20T18:37:28+00:00",
+    "published": "Sat, 21 Nov 2026 10:44:22 +0000",
+    "published_iso": "2026-11-21T10:44:22+00:00",
     "badges": [],
-    "deadline": "January 15, 2027"
+    "deadline": "November 27, 2026"
   },
   {
     "item_id": "fa1810bb9e01ed66",
@@ -51,18 +52,68 @@
     "deadline": ""
   },
   {
-    "item_id": "2e722066f2bac527",
+    "item_id": "95485afaa49532dc",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "iLogos Game Studios: 2D Slot Animator (Middle+ / Senior)",
-    "link": "https://himalayas.app/companies/ilogos-game-studios/jobs/2d-slot-animator-middle-senior?utm_source=api",
-    "summary": "iLogos Game Studios provides solutions for mobile game developers no matter how challenging the project or task is.",
+    "title": "Bright Vision Technologies: Cloud Network Engineer",
+    "link": "https://himalayas.app/companies/bright-vision-technologies/jobs/cloud-network-engineer-3346548417?utm_source=api",
+    "summary": "Bright Vision Technologies is a technology consulting and software development company delivering cloud, AI, data, and enterprise solutions across the United States.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Sat, 21 Nov 2026 08:58:01 +0000",
-    "published_iso": "2026-11-21T08:58:01+00:00",
+    "published": "Sat, 21 Nov 2026 13:03:39 +0000",
+    "published_iso": "2026-11-21T13:03:39+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "13f77889e8fa03bf",
+    "category": "scholarships",
+    "category_label": "\ud83c\udf93 Scholarship & Fellowship",
+    "source_name": "Opportunity Desk",
+    "title": "Cambridge Africa Climate Collaborative Research Fund 2026/2027",
+    "link": "https://opportunitydesk.org/2026/11/20/cambridge-africa-climate-collaborative-research-fund-2026-2027/",
+    "summary": "Deadline: January 15, 2027 Applications for the Cambridge Africa Climate Collaborative Research Fund 2026/2027 are now open. Applications are invited from pairs of researchers (at post-doctoral level and above) from the University of Cambr\u2026",
+    "matched_keywords": [
+      "africa"
+    ],
+    "published": "Fri, 20 Nov 2026 18:37:28 +0000",
+    "published_iso": "2026-11-20T18:37:28+00:00",
+    "badges": [],
+    "deadline": "January 15, 2027"
+  },
+  {
+    "item_id": "825e1fb6d09d2a66",
+    "category": "web3_jobs",
+    "category_label": "\u26d3\ufe0f Web3 Remote Job",
+    "source_name": "Cryptocurrency Jobs",
+    "title": "Staff Backend Engineer at Superstate",
+    "link": "https://cryptocurrencyjobs.co/engineering/superstate-staff-backend-engineer/",
+    "summary": "Superstate is looking to hire a Staff Backend Engineer to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "matched_keywords": [
+      "backend"
+    ],
+    "published": "Fri, 20 Nov 2026 08:00:00 +0200",
+    "published_iso": "2026-11-20T06:00:00+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "a8d4491affcc89cb",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "MGM Resorts International: Sr. Manager-Contracts & Entertainment Accounting",
+    "link": "https://himalayas.app/companies/mgm-resorts-international/jobs/sr-manager-contracts-entertainment-accounting?utm_source=api",
+    "summary": "US, NevadaThe SHOW comes alive at MGM Resorts International Have you ever wondered what it would be like to work in a place full of excitement, diversity, and entertainment?",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 13:03:00 +0000",
+    "published_iso": "2026-11-21T13:03:00+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -85,14 +136,15 @@
     "deadline": ""
   },
   {
-    "item_id": "825e1fb6d09d2a66",
+    "item_id": "ca8d92e13ebacd5b",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "Cryptocurrency Jobs",
-    "title": "Staff Backend Engineer at Superstate",
-    "link": "https://cryptocurrencyjobs.co/engineering/superstate-staff-backend-engineer/",
-    "summary": "Superstate is looking to hire a Staff Backend Engineer to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "title": "Software Engineer, Backend at Strike",
+    "link": "https://cryptocurrencyjobs.co/engineering/strike-software-engineer-backend/",
+    "summary": "Strike is looking to hire a Software Engineer, Backend to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
     "matched_keywords": [
+      "software engineer",
       "backend"
     ],
     "published": "Fri, 20 Nov 2026 08:00:00 +0200",
@@ -103,18 +155,18 @@
     "deadline": ""
   },
   {
-    "item_id": "acee48ce7cb54498",
+    "item_id": "c9a20d2fa0583488",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Acuity Brands: Senior Manager Enterprise Cyber Security (Conyers, GA, US, 30012)",
-    "link": "https://himalayas.app/companies/acuity-brands/jobs/senior-manager-enterprise-cyber-security-conyers-ga-us-30012?utm_source=api",
-    "summary": "Acuity Inc. (NYSE: AYI) is a market-leading industrial technology company.",
+    "title": "2U: Sr. Product Support Specialist",
+    "link": "https://himalayas.app/companies/2u/jobs/sr-product-support-specialist?utm_source=api",
+    "summary": "At 2U, we are all in on purpose. We are motivated by our mission \u2013 to eliminate the back row in education \u2013 and connected by our shared passion to deliver world-class digital education at scale.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Sat, 21 Nov 2026 08:56:53 +0000",
-    "published_iso": "2026-11-21T08:56:53+00:00",
+    "published": "Sat, 21 Nov 2026 13:01:54 +0000",
+    "published_iso": "2026-11-21T13:01:54+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -135,16 +187,15 @@
     "deadline": "January 31, 2027"
   },
   {
-    "item_id": "ca8d92e13ebacd5b",
+    "item_id": "91d9a71ba47f830b",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "Cryptocurrency Jobs",
-    "title": "Software Engineer, Backend at Strike",
-    "link": "https://cryptocurrencyjobs.co/engineering/strike-software-engineer-backend/",
-    "summary": "Strike is looking to hire a Software Engineer, Backend to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "title": "Senior Product Manager, Trading at 0x",
+    "link": "https://cryptocurrencyjobs.co/product/0x-senior-product-manager-trading/",
+    "summary": "0x is looking to hire a Senior Product Manager, Trading to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
     "matched_keywords": [
-      "software engineer",
-      "backend"
+      "product manager"
     ],
     "published": "Fri, 20 Nov 2026 08:00:00 +0200",
     "published_iso": "2026-11-20T06:00:00+00:00",
@@ -154,18 +205,20 @@
     "deadline": ""
   },
   {
-    "item_id": "8a93cdacf1c2bfa9",
+    "item_id": "8e906e403161cdc0",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Sequoia Connect: Tech Lead \u2013 AI Engineering",
-    "link": "https://himalayas.app/companies/sequoia-connect/jobs/tech-lead-ai-engineering?utm_source=api",
-    "summary": "Description At Sequoia Connect, we are a Talent-First Technology Ecosystem that redefines how elite professionals interact with the global digital landscape.",
+    "title": "Affirm: Senior Software Engineer, Backend (Identity International)",
+    "link": "https://himalayas.app/companies/affirm/jobs/senior-software-engineer-backend-identity-international?utm_source=api",
+    "summary": "At Affirm, we exist for the moments that matter\u2014giving people a clear, predictable way to pay over time, with no hidden fees, no surprises, and no tradeoffs on what matters most.",
     "matched_keywords": [
-      "remote"
+      "backend",
+      "remote",
+      "software engineer"
     ],
-    "published": "Sat, 21 Nov 2026 08:56:49 +0000",
-    "published_iso": "2026-11-21T08:56:49+00:00",
+    "published": "Sat, 21 Nov 2026 13:00:25 +0000",
+    "published_iso": "2026-11-21T13:00:25+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -186,15 +239,15 @@
     "deadline": "29 November 2026"
   },
   {
-    "item_id": "91d9a71ba47f830b",
+    "item_id": "43b6bc5fe04ee916",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "Cryptocurrency Jobs",
-    "title": "Senior Product Manager, Trading at 0x",
-    "link": "https://cryptocurrencyjobs.co/product/0x-senior-product-manager-trading/",
-    "summary": "0x is looking to hire a Senior Product Manager, Trading to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "title": "Senior IT Engineer at Blockchain.com",
+    "link": "https://cryptocurrencyjobs.co/engineering/blockchain-com-senior-it-engineer/",
+    "summary": "Blockchain.com is looking to hire a Senior IT Engineer to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
     "matched_keywords": [
-      "product manager"
+      "blockchain"
     ],
     "published": "Fri, 20 Nov 2026 08:00:00 +0200",
     "published_iso": "2026-11-20T06:00:00+00:00",
@@ -204,18 +257,18 @@
     "deadline": ""
   },
   {
-    "item_id": "a07c6309a78c13e2",
+    "item_id": "ba7387a6d577b9e9",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Taxwell: Director, Product Management - Shared Service",
-    "link": "https://himalayas.app/companies/taxwell/jobs/director-product-management-shared-service?utm_source=api",
-    "summary": "Taxwell helps everyday Americans get every tax advantage they deserve by finding credits and deductions they never even knew existed.",
+    "title": "micro1: Hematology Physician",
+    "link": "https://himalayas.app/companies/micro1/jobs/hematology-physician?utm_source=api",
+    "summary": "Role Title: Hematology Physician Role Type: Contractor Location: United States, Remote micro1 is engaging Hematology Physicians to participate in a high-impact customer project focused on advancing clinical AI solutions.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Sat, 21 Nov 2026 08:56:44 +0000",
-    "published_iso": "2026-11-21T08:56:44+00:00",
+    "published": "Sat, 21 Nov 2026 13:00:12 +0000",
+    "published_iso": "2026-11-21T13:00:12+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -238,15 +291,15 @@
     "deadline": "December 6, 2026"
   },
   {
-    "item_id": "43b6bc5fe04ee916",
+    "item_id": "f0b93ca9ec0dabf0",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "Cryptocurrency Jobs",
-    "title": "Senior IT Engineer at Blockchain.com",
-    "link": "https://cryptocurrencyjobs.co/engineering/blockchain-com-senior-it-engineer/",
-    "summary": "Blockchain.com is looking to hire a Senior IT Engineer to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "title": "Product Manager at Wynd Labs",
+    "link": "https://cryptocurrencyjobs.co/other/wynd-labs-product-manager/",
+    "summary": "Wynd Labs is looking to hire a Product Manager to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
     "matched_keywords": [
-      "blockchain"
+      "product manager"
     ],
     "published": "Fri, 20 Nov 2026 08:00:00 +0200",
     "published_iso": "2026-11-20T06:00:00+00:00",
@@ -256,22 +309,19 @@
     "deadline": ""
   },
   {
-    "item_id": "05daec9f0af5e4ea",
+    "item_id": "a424b3a1abdc1a89",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Reproductive Freedom for All: Spring 2027 Graphic Design Intern",
-    "link": "https://himalayas.app/companies/reproductive-freedom-for-all/jobs/spring-2027-graphic-design-intern?utm_source=api",
-    "summary": "About Reproductive Freedom for All (Formerly NARAL Pro-Choice America) For more than 55 years, Reproductive Freedom for All and its chapters have fought to protect and expand reproductive freedom \u2014including access to abortion and contracep\u2026",
+    "title": "micro1: Medical Oncologist",
+    "link": "https://himalayas.app/companies/micro1/jobs/medical-oncologist?utm_source=api",
+    "summary": "Role type: Contractor Location: Remote, United States only Commitment: Part-time, project-based Compensation: $160\u2013$180 USD per hour About the role micro1 is looking for experienced Medical Oncologists to support a customer project focused\u2026",
     "matched_keywords": [
-      "remote",
-      "intern"
+      "remote"
     ],
-    "published": "Sat, 21 Nov 2026 08:56:24 +0000",
-    "published_iso": "2026-11-21T08:56:24+00:00",
-    "badges": [
-      "\ud83d\udfe2 Entry / Intern"
-    ],
+    "published": "Sat, 21 Nov 2026 13:00:12 +0000",
+    "published_iso": "2026-11-21T13:00:12+00:00",
+    "badges": [],
     "deadline": ""
   },
   {
@@ -291,36 +341,35 @@
     "deadline": "December 15, 2026"
   },
   {
-    "item_id": "f0b93ca9ec0dabf0",
+    "item_id": "414417ff69de5099",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "Cryptocurrency Jobs",
-    "title": "Product Manager at Wynd Labs",
-    "link": "https://cryptocurrencyjobs.co/other/wynd-labs-product-manager/",
-    "summary": "Wynd Labs is looking to hire a Product Manager to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "title": "Backend Developer at RedStone",
+    "link": "https://cryptocurrencyjobs.co/engineering/redstone-backend-developer/",
+    "summary": "RedStone is looking to hire a Backend Developer to join their team. This is a full-time position that can be done remotely anywhere in Europe or on-site in Warsaw.",
     "matched_keywords": [
-      "product manager"
+      "backend",
+      "developer"
     ],
     "published": "Fri, 20 Nov 2026 08:00:00 +0200",
     "published_iso": "2026-11-20T06:00:00+00:00",
-    "badges": [
-      "\ud83c\udf0d Worldwide"
-    ],
+    "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "f3bb1f44b6638a3c",
+    "item_id": "7c9f3cc65cb3adc3",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Hunteed: Consultant en recrutement ind\u00e9pendant H/F - Annecy",
-    "link": "https://himalayas.app/companies/hunteed/jobs/consultant-en-recrutement-independant-h-f-annecy-9733607115?utm_source=api",
-    "summary": "Vous \u00eates Consultant(e) en recrutement, Charg\u00e9(e) de recherche, Charg\u00e9(e) de sourcing, Talent Acquisition Specialist, Charg\u00e9(e) de recrutement, Chasseur(se) de t\u00eates et vous souhaitez vous lancer dans une exp\u00e9rience entrepreneuriale ?",
+    "title": "micro1: Pediatric Hematology/Oncology Physician",
+    "link": "https://himalayas.app/companies/micro1/jobs/pediatric-hematology-oncology-physician?utm_source=api",
+    "summary": "Pediatric Hematology/Oncology Physician Role type: Contractor Location: Remote, United States only Commitment: Part-time, project-based Compensation: $160\u2013$180 USD per hour About the role micro1 is looking for experienced Pediatric Hematol\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Sat, 21 Nov 2026 08:55:58 +0000",
-    "published_iso": "2026-11-21T08:55:58+00:00",
+    "published": "Sat, 21 Nov 2026 13:00:12 +0000",
+    "published_iso": "2026-11-21T13:00:12+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -344,35 +393,18 @@
     "deadline": "20 January 2027"
   },
   {
-    "item_id": "414417ff69de5099",
-    "category": "web3_jobs",
-    "category_label": "\u26d3\ufe0f Web3 Remote Job",
-    "source_name": "Cryptocurrency Jobs",
-    "title": "Backend Developer at RedStone",
-    "link": "https://cryptocurrencyjobs.co/engineering/redstone-backend-developer/",
-    "summary": "RedStone is looking to hire a Backend Developer to join their team. This is a full-time position that can be done remotely anywhere in Europe or on-site in Warsaw.",
-    "matched_keywords": [
-      "backend",
-      "developer"
-    ],
-    "published": "Fri, 20 Nov 2026 08:00:00 +0200",
-    "published_iso": "2026-11-20T06:00:00+00:00",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "d9484046d44e63d4",
+    "item_id": "5dce4495a8efff21",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Hunteed: Consultant en recrutement freelance H/F - Luxembourg",
-    "link": "https://himalayas.app/companies/hunteed/jobs/consultant-en-recrutement-freelance-h-f-luxembourg-8758600731?utm_source=api",
-    "summary": "Vous \u00eates Consultant(e) en recrutement, Charg\u00e9(e) de recherche, Charg\u00e9(e) de sourcing, Talent Acquisition Specialist, Charg\u00e9(e) de recrutement, Chasseur(se) de t\u00eates et vous souhaitez vous lancer dans une exp\u00e9rience entrepreneuriale ?",
+    "title": "micro1: Hematologist",
+    "link": "https://himalayas.app/companies/micro1/jobs/hematologist?utm_source=api",
+    "summary": "Hematologist Role type: Contractor Location: Remote, United States only Commitment: Part-time, project-based Compensation: $160\u2013$180 USD per hour About the role micro1 is looking for experienced Hematologists to support a customer project\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Sat, 21 Nov 2026 08:55:51 +0000",
-    "published_iso": "2026-11-21T08:55:51+00:00",
+    "published": "Sat, 21 Nov 2026 13:00:12 +0000",
+    "published_iso": "2026-11-21T13:00:12+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -393,18 +425,18 @@
     "deadline": ""
   },
   {
-    "item_id": "575e3dce3ee35f48",
+    "item_id": "e714b2a57af9cc06",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "GoodLife Fitness Centres Inc.: Payroll & AIS Coordinator - Remote in Canada",
-    "link": "https://himalayas.app/companies/goodlife-fitness-centres-inc/jobs/payroll-ais-coordinator-remote-in-canada?utm_source=api",
-    "summary": "PAYROLL & AIS COORDINATOR Who is a Payroll & AIS Coordinator?",
+    "title": "micro1: Hematology/Oncology Physician",
+    "link": "https://himalayas.app/companies/micro1/jobs/hematology-oncology-physician?utm_source=api",
+    "summary": "Role Title: Hematology/Oncology Physician Role Type: Contractor Location: United States, Remote micro1 is engaging Hematology/Oncology Physicians to contribute expertise and insights to a forward-thinking customer project.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Sat, 21 Nov 2026 08:55:44 +0000",
-    "published_iso": "2026-11-21T08:55:44+00:00",
+    "published": "Sat, 21 Nov 2026 13:00:11 +0000",
+    "published_iso": "2026-11-21T13:00:11+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -429,21 +461,19 @@
     "deadline": "December 15th, 2026"
   },
   {
-    "item_id": "ff2952f4e47ddda5",
+    "item_id": "d696268f48183ef9",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "TransPerfect: Subject Matter Expert - Task Creator (Sales, Account Managers & Business Develop",
-    "link": "https://himalayas.app/companies/transperfect/jobs/subject-matter-expert-task-creator-sales-account-managers-business-develop-1497244191?utm_source=api",
-    "summary": "DataForce by TransPerfect is part of the TransPerfect family of companies, the world\u2019s largest provider of language and technology solutions for global business, with offices in more than 100 cities worldwide.",
+    "title": "Teradyne: SBM Lead (Supply Base Management Lead)  (Teradyne Robotics, N. Reading MA / US R",
+    "link": "https://himalayas.app/companies/teradyne/jobs/sbm-lead-supply-base-management-lead-teradyne-robotics-n-reading-ma-us-r?utm_source=api",
+    "summary": "Are you ready to make a real impact on the world of robotics?",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Sat, 21 Nov 2026 08:55:38 +0000",
-    "published_iso": "2026-11-21T08:55:38+00:00",
-    "badges": [
-      "\ud83c\udf0d Worldwide"
-    ],
+    "published": "Sat, 21 Nov 2026 12:59:30 +0000",
+    "published_iso": "2026-11-21T12:59:30+00:00",
+    "badges": [],
     "deadline": ""
   },
   {
@@ -467,18 +497,18 @@
     "deadline": "December 6, 2026"
   },
   {
-    "item_id": "d2b31b2ccb8114c6",
+    "item_id": "b05d47b85376ec54",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "ServiceTitan: Senior Director, Product - Data & AI",
-    "link": "https://himalayas.app/companies/servicetitan/jobs/senior-director-product-data-ai?utm_source=api",
-    "summary": "Ready to be a Titan? ServiceTitan is looking for an exceptional Senior Director of Product to lead our Data & AI product organization.",
+    "title": "General Dynamics Information Technology: ICAM Radiant Logic Identity Data Management Engineer",
+    "link": "https://himalayas.app/companies/general-dynamics-information-technology/jobs/icam-radiant-logic-identity-data-management-engineer?utm_source=api",
+    "summary": "Type of Requisition: RegularClearance Level Must Currently Possess: SecretClearance Level Must Be Able to Obtain: SecretPublic Trust/Other Required: NoneJob Family: Software EngineeringJob Qualifications: Skills: Agile Software Development\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Sat, 21 Nov 2026 08:55:14 +0000",
-    "published_iso": "2026-11-21T08:55:14+00:00",
+    "published": "Sat, 21 Nov 2026 12:58:49 +0000",
+    "published_iso": "2026-11-21T12:58:49+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -501,18 +531,18 @@
     "deadline": ""
   },
   {
-    "item_id": "0b5dc42e307e765f",
+    "item_id": "52dfb6678434969c",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "DLB Associates: Mechanical Engineer II",
-    "link": "https://himalayas.app/companies/dlb-associates/jobs/mechanical-engineer-ii?utm_source=api",
-    "summary": "DLB Associates is a premier engineering and consulting firm specializing in innovative, mission-critical solutions across hyperscale data centers, advanced infrastructure, and high-performance building systems.",
+    "title": "Sequoia Connect: Data Engineering Lead",
+    "link": "https://himalayas.app/companies/sequoia-connect/jobs/data-engineering-lead?utm_source=api",
+    "summary": "Description At Sequoia Connect, we are a Talent-First Technology Ecosystem that redefines how elite professionals interact with the global digital landscape.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Sat, 21 Nov 2026 08:54:48 +0000",
-    "published_iso": "2026-11-21T08:54:48+00:00",
+    "published": "Sat, 21 Nov 2026 12:58:33 +0000",
+    "published_iso": "2026-11-21T12:58:33+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -533,18 +563,18 @@
     "deadline": ""
   },
   {
-    "item_id": "4631a7ce7e72dfcb",
+    "item_id": "54e4c11491d7dd46",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Reinsurance Group of America: Tarificateur(rice) s\u00e9nior / Senior Underwriter",
-    "link": "https://himalayas.app/companies/reinsurance-group-of-america/jobs/tarificateur-rice-senior-senior-underwriter?utm_source=api",
-    "summary": "You desire impactful work. You\u2019reRGA ready RGA is a purpose-driven organization working to solve today\u2019s challenges through innovation and collaboration.",
+    "title": "Databricks: Industry Executive, Intel Community (AI Transformation)",
+    "link": "https://himalayas.app/companies/databricks/jobs/industry-executive-intel-community-ai-transformation?utm_source=api",
+    "summary": "SLSQ328R91 Databricks has the most complete data & AI platform on the market.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Sat, 21 Nov 2026 08:53:36 +0000",
-    "published_iso": "2026-11-21T08:53:36+00:00",
+    "published": "Sat, 21 Nov 2026 12:56:31 +0000",
+    "published_iso": "2026-11-21T12:56:31+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -565,19 +595,21 @@
     "deadline": ""
   },
   {
-    "item_id": "fb5203d0007f6b20",
+    "item_id": "2ae6893c4ed19f76",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Patronus AI: Expert: Interactive Coding, Embedded Firmware (Contract, Remote)",
-    "link": "https://himalayas.app/companies/patronus-ai/jobs/expert-interactive-coding-embedded-firmware-contract-remote?utm_source=api",
-    "summary": "About Patronus AI Patronus AI is a frontier lab developing simulation research and infrastructure to accelerate progress toward human-aligned AGI.",
+    "title": "Ardent Health Services: Care Advisor I",
+    "link": "https://himalayas.app/companies/ardent-health-services/jobs/care-advisor-i?utm_source=api",
+    "summary": "About Ardent At Ardent, we believe that the \"product\" in the BPO industry is our people and their time.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Sat, 21 Nov 2026 08:53:35 +0000",
-    "published_iso": "2026-11-21T08:53:35+00:00",
-    "badges": [],
+    "published": "Sat, 21 Nov 2026 12:55:24 +0000",
+    "published_iso": "2026-11-21T12:55:24+00:00",
+    "badges": [
+      "\ud83d\udfe2 Entry / Intern"
+    ],
     "deadline": ""
   },
   {
@@ -593,6 +625,369 @@
     ],
     "published": "Sun, 15 Nov 2026 16:42:00 +0000",
     "published_iso": "2026-11-15T16:42:00+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "32c7fda6052ee841",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "BioPhorum: Global Change Facilitator \u2013 Synthetic Molecule Process Innovation",
+    "link": "https://himalayas.app/companies/biophorum/jobs/global-change-facilitator-synthetic-molecule-process-innovation?utm_source=api",
+    "summary": "Global Change Facilitator \u2013 Synthetic Molecule Process Innovation Help shape the future of pharmaceutical manufacturing and accelerate the adoption of technologies that will transform how medicines are made.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 12:55:03 +0000",
+    "published_iso": "2026-11-21T12:55:03+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "4fff44fd4be2be1e",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Loyola University Maryland: Assistant Director Graduate Financial Aid",
+    "link": "https://himalayas.app/companies/loyola-university-maryland/jobs/assistant-director-graduate-financial-aid?utm_source=api",
+    "summary": "Position Title Assistant Director Graduate Financial AidEmployee Type RegularOffice/Department Admission-GraduateWork Environment Remote and hybrid positions are open to applicants based in states identified here: Work at Loyola | Loyola U\u2026",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 12:53:59 +0000",
+    "published_iso": "2026-11-21T12:53:59+00:00",
+    "badges": [
+      "\ud83d\udfe2 Entry / Intern"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "122ae95941e5695a",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "NinjaHoldings: AI-First Sr. Data Analyst",
+    "link": "https://himalayas.app/companies/ninjaholdings/jobs/ai-first-sr-data-analyst?utm_source=api",
+    "summary": "Founded in 2017, NinjaHoldings works to give everyday Americans better access to financial services than traditional institutions typically provide.",
+    "matched_keywords": [
+      "remote",
+      "data analyst"
+    ],
+    "published": "Sat, 21 Nov 2026 12:53:54 +0000",
+    "published_iso": "2026-11-21T12:53:54+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "36b9fcda63744899",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "AUTO1 Group: Vertriebsmitarbeiter/ Sales Consultant (d/m/w) - keine Kaltakquise, remote",
+    "link": "https://himalayas.app/companies/auto1-group/jobs/vertriebsmitarbeiter-sales-consultant-d-m-w-keine-kaltakquise-remote?utm_source=api",
+    "summary": "\u2022 Mach aus Kaufinteresse einen Abschluss: Berate private Interessenten telefonisch und per E-Mail und begeistere sie f\u00fcr ihr n\u00e4chstes Auto.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 12:53:33 +0000",
+    "published_iso": "2026-11-21T12:53:33+00:00",
+    "badges": [
+      "\ud83d\udfe2 Entry / Intern"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "418389989f35a869",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Mozilla: Staff Software Engineer, OS Integration",
+    "link": "https://himalayas.app/companies/mozilla/jobs/staff-software-engineer-os-integration-4897383463?utm_source=api",
+    "summary": "Why Mozilla? Mozilla Corporation is the non-profit-backed technology company that has shaped the internet for the better over the last 25 years.",
+    "matched_keywords": [
+      "remote",
+      "software engineer"
+    ],
+    "published": "Sat, 21 Nov 2026 12:53:05 +0000",
+    "published_iso": "2026-11-21T12:53:05+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "8baa4c856912b8b1",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Arbeitnow Remote & Visa",
+    "title": "Intetics 2: 1228 | IT Service Manager / Senior IT Service Manager",
+    "link": "https://www.arbeitnow.com/jobs/companies/intetics-2/remote-1228-it-service-manager-senior-it-service-manager-germany-183080",
+    "summary": "Intetics Inc., a leading American technology company specializing in custom software application development, distributed professional teams creation, software product quality assessment, and \u201call-things-digital\u201d solutions, is looking for\u2026",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 12:20:17 +0000",
+    "published_iso": "2026-11-21T12:20:17+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "455af116dbb9af57",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Arbeitnow Remote & Visa",
+    "title": "Intetics 2: 1227 | Back-end Developer",
+    "link": "https://www.arbeitnow.com/jobs/companies/intetics-2/remote-1227-back-end-developer-germany-388586",
+    "summary": "Intetics Inc., a leading American technology company specializing in custom software application development, distributed professional teams creation, software product quality assessment, and \u201call-things-digital\u201d solutions, is looking for\u2026",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 12:20:17 +0000",
+    "published_iso": "2026-11-21T12:20:17+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "87ec3163f4dbf6b2",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Arbeitnow Remote & Visa",
+    "title": "Intetics 2: 1226 | Front-end Developer",
+    "link": "https://www.arbeitnow.com/jobs/companies/intetics-2/remote-1226-front-end-developer-germany-84712",
+    "summary": "Intetics Inc., a leading American technology company specializing in custom software application development, distributed professional teams creation, software product quality assessment, and \u201call-things-digital\u201d solutions, is looking for\u2026",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 12:20:17 +0000",
+    "published_iso": "2026-11-21T12:20:17+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "05f667baf386defb",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Patronus AI: Expert: Interactive Coding, Embedded Hardware (Contract, Remote)",
+    "link": "https://himalayas.app/companies/patronus-ai/jobs/expert-interactive-coding-embedded-hardware-contract-remote?utm_source=api",
+    "summary": "About Patronus AI Patronus AI is a frontier lab developing simulation research and infrastructure to accelerate progress toward human-aligned AGI.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 08:58:19 +0000",
+    "published_iso": "2026-11-21T08:58:19+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "2e722066f2bac527",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "iLogos Game Studios: 2D Slot Animator (Middle+ / Senior)",
+    "link": "https://himalayas.app/companies/ilogos-game-studios/jobs/2d-slot-animator-middle-senior?utm_source=api",
+    "summary": "iLogos Game Studios provides solutions for mobile game developers no matter how challenging the project or task is.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 08:58:01 +0000",
+    "published_iso": "2026-11-21T08:58:01+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "acee48ce7cb54498",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Acuity Brands: Senior Manager Enterprise Cyber Security (Conyers, GA, US, 30012)",
+    "link": "https://himalayas.app/companies/acuity-brands/jobs/senior-manager-enterprise-cyber-security-conyers-ga-us-30012?utm_source=api",
+    "summary": "Acuity Inc. (NYSE: AYI) is a market-leading industrial technology company.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 08:56:53 +0000",
+    "published_iso": "2026-11-21T08:56:53+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "8a93cdacf1c2bfa9",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Sequoia Connect: Tech Lead \u2013 AI Engineering",
+    "link": "https://himalayas.app/companies/sequoia-connect/jobs/tech-lead-ai-engineering?utm_source=api",
+    "summary": "Description At Sequoia Connect, we are a Talent-First Technology Ecosystem that redefines how elite professionals interact with the global digital landscape.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 08:56:49 +0000",
+    "published_iso": "2026-11-21T08:56:49+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "a07c6309a78c13e2",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Taxwell: Director, Product Management - Shared Service",
+    "link": "https://himalayas.app/companies/taxwell/jobs/director-product-management-shared-service?utm_source=api",
+    "summary": "Taxwell helps everyday Americans get every tax advantage they deserve by finding credits and deductions they never even knew existed.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 08:56:44 +0000",
+    "published_iso": "2026-11-21T08:56:44+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "05daec9f0af5e4ea",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Reproductive Freedom for All: Spring 2027 Graphic Design Intern",
+    "link": "https://himalayas.app/companies/reproductive-freedom-for-all/jobs/spring-2027-graphic-design-intern?utm_source=api",
+    "summary": "About Reproductive Freedom for All (Formerly NARAL Pro-Choice America) For more than 55 years, Reproductive Freedom for All and its chapters have fought to protect and expand reproductive freedom \u2014including access to abortion and contracep\u2026",
+    "matched_keywords": [
+      "remote",
+      "intern"
+    ],
+    "published": "Sat, 21 Nov 2026 08:56:24 +0000",
+    "published_iso": "2026-11-21T08:56:24+00:00",
+    "badges": [
+      "\ud83d\udfe2 Entry / Intern"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "f3bb1f44b6638a3c",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Hunteed: Consultant en recrutement ind\u00e9pendant H/F - Annecy",
+    "link": "https://himalayas.app/companies/hunteed/jobs/consultant-en-recrutement-independant-h-f-annecy-9733607115?utm_source=api",
+    "summary": "Vous \u00eates Consultant(e) en recrutement, Charg\u00e9(e) de recherche, Charg\u00e9(e) de sourcing, Talent Acquisition Specialist, Charg\u00e9(e) de recrutement, Chasseur(se) de t\u00eates et vous souhaitez vous lancer dans une exp\u00e9rience entrepreneuriale ?",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 08:55:58 +0000",
+    "published_iso": "2026-11-21T08:55:58+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "d9484046d44e63d4",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Hunteed: Consultant en recrutement freelance H/F - Luxembourg",
+    "link": "https://himalayas.app/companies/hunteed/jobs/consultant-en-recrutement-freelance-h-f-luxembourg-8758600731?utm_source=api",
+    "summary": "Vous \u00eates Consultant(e) en recrutement, Charg\u00e9(e) de recherche, Charg\u00e9(e) de sourcing, Talent Acquisition Specialist, Charg\u00e9(e) de recrutement, Chasseur(se) de t\u00eates et vous souhaitez vous lancer dans une exp\u00e9rience entrepreneuriale ?",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 08:55:51 +0000",
+    "published_iso": "2026-11-21T08:55:51+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "575e3dce3ee35f48",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "GoodLife Fitness Centres Inc.: Payroll & AIS Coordinator - Remote in Canada",
+    "link": "https://himalayas.app/companies/goodlife-fitness-centres-inc/jobs/payroll-ais-coordinator-remote-in-canada?utm_source=api",
+    "summary": "PAYROLL & AIS COORDINATOR Who is a Payroll & AIS Coordinator?",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 08:55:44 +0000",
+    "published_iso": "2026-11-21T08:55:44+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "ff2952f4e47ddda5",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "TransPerfect: Subject Matter Expert - Task Creator (Sales, Account Managers & Business Develop",
+    "link": "https://himalayas.app/companies/transperfect/jobs/subject-matter-expert-task-creator-sales-account-managers-business-develop-1497244191?utm_source=api",
+    "summary": "DataForce by TransPerfect is part of the TransPerfect family of companies, the world\u2019s largest provider of language and technology solutions for global business, with offices in more than 100 cities worldwide.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 08:55:38 +0000",
+    "published_iso": "2026-11-21T08:55:38+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "d2b31b2ccb8114c6",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "ServiceTitan: Senior Director, Product - Data & AI",
+    "link": "https://himalayas.app/companies/servicetitan/jobs/senior-director-product-data-ai?utm_source=api",
+    "summary": "Ready to be a Titan? ServiceTitan is looking for an exceptional Senior Director of Product to lead our Data & AI product organization.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 08:55:14 +0000",
+    "published_iso": "2026-11-21T08:55:14+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "0b5dc42e307e765f",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "DLB Associates: Mechanical Engineer II",
+    "link": "https://himalayas.app/companies/dlb-associates/jobs/mechanical-engineer-ii?utm_source=api",
+    "summary": "DLB Associates is a premier engineering and consulting firm specializing in innovative, mission-critical solutions across hyperscale data centers, advanced infrastructure, and high-performance building systems.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 08:54:48 +0000",
+    "published_iso": "2026-11-21T08:54:48+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "4631a7ce7e72dfcb",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Reinsurance Group of America: Tarificateur(rice) s\u00e9nior / Senior Underwriter",
+    "link": "https://himalayas.app/companies/reinsurance-group-of-america/jobs/tarificateur-rice-senior-senior-underwriter?utm_source=api",
+    "summary": "You desire impactful work. You\u2019reRGA ready RGA is a purpose-driven organization working to solve today\u2019s challenges through innovation and collaboration.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 08:53:36 +0000",
+    "published_iso": "2026-11-21T08:53:36+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "fb5203d0007f6b20",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Patronus AI: Expert: Interactive Coding, Embedded Firmware (Contract, Remote)",
+    "link": "https://himalayas.app/companies/patronus-ai/jobs/expert-interactive-coding-embedded-firmware-contract-remote?utm_source=api",
+    "summary": "About Patronus AI Patronus AI is a frontier lab developing simulation research and infrastructure to accelerate progress toward human-aligned AGI.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Sat, 21 Nov 2026 08:53:35 +0000",
+    "published_iso": "2026-11-21T08:53:35+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2549,25 +2944,5 @@
     "published_iso": "2026-11-19T06:00:58+00:00",
     "badges": [],
     "deadline": ""
-  },
-  {
-    "item_id": "6d502bdfabc7a21a",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "SHIRVANO: Graphic Design Intern (Remote)",
-    "link": "https://weworkremotely.com/remote-jobs/shirvano-graphic-design-intern-remote",
-    "summary": "Headquarters: Yogyakarta, Special Region of Yogyakarta, Indonesia URL: http://www.shirvano.co.id Position Type Paid Internship Duration: 6 months Working Hours: 8 hours per day, Monday to Friday Work Arrangement: Flexible Remote Position O\u2026",
-    "matched_keywords": [
-      "remote",
-      "intern",
-      "internship"
-    ],
-    "published": "Wed, 18 Nov 2026 11:31:43 +0000",
-    "published_iso": "2026-11-18T11:31:43+00:00",
-    "badges": [
-      "\ud83d\udfe2 Entry / Intern"
-    ],
-    "deadline": "November 25th, 2026"
   }
 ]
