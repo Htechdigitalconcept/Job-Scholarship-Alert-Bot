@@ -13,7 +13,7 @@ settings:
   # Send individual item posts silently so subscribers get one clean notification buzz per cycle
   quiet_item_alerts: true
   # Max number of recent opportunities to cache in data/latest_items.json for /latest, /jobs, /scholarships
-  latest_cache_limit: 40
+  latest_cache_limit: 200
   # Only send posts published within this many days (can be overridden per category)
   max_post_age_days: 3
   # Keep posts that have no publish date (e.g. custom HTML pages without dates)

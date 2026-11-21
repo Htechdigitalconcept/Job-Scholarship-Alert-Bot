@@ -1129,7 +1129,7 @@ def render_web_board_html(
 
       <div class="hero-kpis" aria-label="Live category totals">
         <button type="button" class="kpi" data-jump-cat="all">
-          <span class="kpi-label">Total Cached</span>
+          <span class="kpi-label">Fresh Cache (≤200)</span>
           <span class="kpi-value">{total_count} Live</span>
         </button>
         <button type="button" class="kpi" data-jump-cat="jobs">
@@ -1150,7 +1150,7 @@ def render_web_board_html(
     <section id="board" class="controls" aria-label="Filter opportunities">
       <div class="search-row">
         <input id="searchInput" class="search-input" type="search" placeholder="Search roles, skills, countries (e.g. python, solidity, nigeria, fully funded)..." />
-        <div class="stats-pill"><strong id="shownCount">{total_count}</strong> of <strong id="totalCount">{total_count}</strong> recent posts</div>
+        <div class="stats-pill"><strong id="shownCount">{total_count}</strong> of <strong id="totalCount">{total_count}</strong> fresh posts (3–7d window · max 200)</div>
       </div>
       <div class="filters" id="catFilters">
         <button class="chip active" data-cat="all">All</button>
@@ -1175,8 +1175,8 @@ def render_web_board_html(
       <p class="seo-lead">Curated every 6 hours from {sources_count} trusted job boards &amp; scholarship portals — built for global builders, software engineers, and fellows.</p>
       <div class="seo-grid">
         <article class="seo-card">
-          <h3>Freshness-First Filtering</h3>
-          <p>Remote tech jobs and Web3 roles are strictly capped at 3 days old (7 days for scholarships) so you never waste time applying to expired listings.</p>
+          <h3>Freshness-First Filtering (Up to 200 Live)</h3>
+          <p>Why 200? We cap the live board at the 200 newest deduplicated opportunities—and expire remote tech/Web3 jobs after 3 days (7 days for scholarships)—so every listing stays fast to browse and never stale.</p>
         </article>
         <article class="seo-card">
           <h3>Cross-Source Deduplication</h3>

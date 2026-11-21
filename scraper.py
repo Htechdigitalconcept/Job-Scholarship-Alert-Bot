@@ -611,7 +611,7 @@ def save_latest_items(
     path: Path,
     new_items: list[Opportunity],
     config: dict[str, Any],
-    limit: int = 40,
+    limit: int = 200,
 ) -> list[Opportunity]:
     """Merge fresh opportunities into latest_items.json, pruning stale entries."""
     settings = config.get("settings", {})
@@ -1242,7 +1242,7 @@ def run(
     config = load_config(config_path)
     settings = config.get("settings", {})
     max_alerts = int(settings.get("max_alerts_per_run", 15))
-    latest_cache_limit = int(settings.get("latest_cache_limit", 40))
+    latest_cache_limit = int(settings.get("latest_cache_limit", 200))
     retention_days = int(settings.get("seen_retention_days", 90))
     seed_on_first_run = bool(settings.get("seed_only_on_first_run", False))
     cycle_reminder = bool(settings.get("cycle_reminder", True))

@@ -425,7 +425,7 @@ def get_recent_opportunities(
         _LIVE_CACHE["ts"] = now
         _LIVE_CACHE["items"] = live
 
-    limit = int(config.get("settings", {}).get("latest_cache_limit", 40))
+    limit = int(config.get("settings", {}).get("latest_cache_limit", 200))
     try:
         return scraper.save_latest_items(latest_path, live, config, limit=limit)
     except OSError:
