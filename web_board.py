@@ -660,8 +660,21 @@ def render_web_board_html(
       align-items: center;
       gap: 8px;
       margin-top: 14px;
-      font-size: 0.8rem;
+      padding: 11px 14px;
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 12px;
+      font-size: 0.82rem;
       color: var(--muted);
+    }}
+    .share-reason {{
+      flex: 1 1 100%;
+      color: var(--text);
+      font-weight: 500;
+      margin-bottom: 2px;
+    }}
+    .share-reason strong {{
+      color: var(--accent);
     }}
     .share-pill {{
       display: inline-flex;
@@ -1106,7 +1119,7 @@ def render_web_board_html(
       </div>
 
       <div class="share-strip" aria-label="Share this board">
-        <span>Share with friends:</span>
+        <span class="share-reason">🎁 <strong>Know someone job-hunting or applying for scholarships?</strong> Share this free 24/7 board — plus invite 3 friends in our Telegram bot to unlock unlimited <strong>One-Tap Application Pitches &amp; ATS Checklists</strong>:</span>
         <a class="share-pill" href="https://t.me/share/url?url={safe_canonical}&amp;text=Free%20Live%20Board%20for%20Remote%20Tech%20Jobs%2C%20Web3%20%26%20Funded%20Scholarships" target="_blank" rel="noopener noreferrer">Telegram</a>
         <a class="share-pill" href="https://wa.me/?text=Free%20Live%20Board%20for%20Remote%20Tech%20Jobs%2C%20Web3%20%26%20Funded%20Scholarships%20{safe_canonical}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
         <a class="share-pill" href="https://twitter.com/intent/tweet?text=Real-time%20radar%20for%20Remote%20Tech%20Jobs%2C%20Web3%20Roles%20%26%20Funded%20Scholarships&amp;url={safe_canonical}" target="_blank" rel="noopener noreferrer">X / Twitter</a>
