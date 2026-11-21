@@ -150,6 +150,30 @@ def app(
             start_response(STATUS_TEXT[200], headers)
             return [] if method == "HEAD" else [body]
 
+        if path == "/logo.png":
+            logo_file = BASE_DIR / "assets" / "logo.png"
+            if logo_file.is_file():
+                body = logo_file.read_bytes()
+                headers = [
+                    ("Content-Type", "image/png"),
+                    ("Content-Length", str(len(body))),
+                    ("Cache-Control", "public, max-age=86400"),
+                ]
+                start_response(STATUS_TEXT[200], headers)
+                return [] if method == "HEAD" else [body]
+
+        if path in {"/favicon.png", "/favicon.ico"}:
+            fav_file = BASE_DIR / "assets" / "favicon.png"
+            if fav_file.is_file():
+                body = fav_file.read_bytes()
+                headers = [
+                    ("Content-Type", "image/png"),
+                    ("Content-Length", str(len(body))),
+                    ("Cache-Control", "public, max-age=86400"),
+                ]
+                start_response(STATUS_TEXT[200], headers)
+                return [] if method == "HEAD" else [body]
+
         if re.fullmatch(r"/google[0-9a-f]+\.html", path):
             verify_file = BASE_DIR / path.lstrip("/")
             if verify_file.is_file():

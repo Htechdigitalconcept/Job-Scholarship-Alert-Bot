@@ -2,15 +2,27 @@
 
 from __future__ import annotations
 
+import base64
 import html
 import json
 import re
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any
 
 import scraper
 
 DEFAULT_SITE_URL = "https://job-scholarship-alert-bot-chi.vercel.app"
+ASSETS_DIR = Path(__file__).resolve().parent / "assets"
+
+
+def _load_logo_data_uri() -> str:
+    """Return an inline data URI for the navbar/footer logo icon, or '/logo.png' fallback."""
+    icon_path = ASSETS_DIR / "logo-icon.png"
+    if icon_path.is_file():
+        encoded = base64.b64encode(icon_path.read_bytes()).decode("ascii")
+        return f"data:image/png;base64,{encoded}"
+    return "/logo.png"
 
 
 def _strip_tz_suffix(published: str) -> str:
@@ -106,6 +118,7 @@ def build_structured_data(
                 "@type": "WebSite",
                 "name": "Jobs, Web3 & Scholarships Live Board",
                 "url": f"{clean_url}/",
+                "image": f"{clean_url}/logo.png",
                 "description": (
                     "Daily curated remote tech jobs, Web3 remote roles, and "
                     "funded international scholarships and fellowships."
@@ -240,6 +253,8 @@ def render_web_board_html(
     scholarships_count = sum(1 for i in items if i.category == "scholarships")
     sources_count = len({i.source_name for i in items if i.source_name}) or 9
     current_year = datetime.now(timezone.utc).year
+    logo_src = _load_logo_data_uri()
+    safe_logo_url = html.escape(f"{clean_site_url}/logo.png", quote=True)
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -250,14 +265,18 @@ def render_web_board_html(
   <meta name="description" content="{safe_desc}" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
   <link rel="canonical" href="{safe_canonical}" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/logo.png" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Jobs, Web3 &amp; Scholarships Live Board" />
   <meta property="og:description" content="{safe_desc}" />
   <meta property="og:url" content="{safe_canonical}" />
+  <meta property="og:image" content="{safe_logo_url}" />
   <meta property="og:site_name" content="Jobs, Web3 &amp; Scholarships Live Board" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Jobs, Web3 &amp; Scholarships Live Board" />
   <meta name="twitter:description" content="{safe_desc}" />
+  <meta name="twitter:image" content="{safe_logo_url}" />
   <script type="application/ld+json">{structured_json}</script>
   <style>
     :root {{
@@ -316,15 +335,23 @@ def render_web_board_html(
       letter-spacing: -0.01em;
     }}
     .brand-icon {{
-      width: 34px;
-      height: 34px;
+      width: 38px;
+      height: 38px;
       border-radius: 10px;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(129, 140, 248, 0.25));
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      color: var(--accent);
+      background: #ffffff;
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      box-shadow: 0 2px 10px rgba(56, 189, 248, 0.22);
+      padding: 2px;
+      overflow: hidden;
       flex-shrink: 0;
+    }}
+    .brand-logo {{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }}
     .nav-links {{
       display: flex;
@@ -773,10 +800,8 @@ def render_web_board_html(
   <nav class="topbar" aria-label="Primary navigation">
     <div class="topbar-inner">
       <a class="brand" href="#top">
-        <span class="brand-icon" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-          </svg>
+        <span class="brand-icon">
+          <img class="brand-logo" src="{logo_src}" alt="Jobs, Web3 &amp; Scholarships Live Board logo" width="34" height="34" />
         </span>
         <span>Jobs &amp; Scholarships Live Board</span>
       </a>
@@ -866,10 +891,8 @@ def render_web_board_html(
       <div class="footer-grid">
         <div class="footer-brand">
           <a class="brand" href="#top">
-            <span class="brand-icon" aria-hidden="true">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-              </svg>
+            <span class="brand-icon">
+              <img class="brand-logo" src="{logo_src}" alt="Jobs, Web3 &amp; Scholarships Live Board logo" width="34" height="34" />
             </span>
             <span>Jobs &amp; Scholarships Live Board</span>
           </a>

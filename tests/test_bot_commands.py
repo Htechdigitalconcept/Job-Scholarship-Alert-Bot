@@ -216,10 +216,24 @@ class BotCommandsTests(unittest.TestCase):
         self.assertIn("text/html", captured["content_type"])
         self.assertIn("Live Board", root_body)
         self.assertIn('class="topbar"', root_body)
+        self.assertIn('class="brand-logo"', root_body)
+        self.assertIn('rel="icon" type="image/png" href="/favicon.png"', root_body)
+        self.assertIn('property="og:image"', root_body)
         self.assertIn('class="hero-kpis"', root_body)
         self.assertIn('class="footer-grid"', root_body)
         self.assertIn('<article class="card">', root_body)
         self.assertIn('application/ld+json', root_body)
+
+        # /logo.png and /favicon.png serve PNG assets
+        logo_bytes = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/logo.png"}, start_response))
+        self.assertEqual(captured["status"], "200 OK")
+        self.assertEqual(captured["content_type"], "image/png")
+        self.assertTrue(logo_bytes.startswith(b"\x89PNG"))
+
+        fav_bytes = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/favicon.png"}, start_response))
+        self.assertEqual(captured["status"], "200 OK")
+        self.assertEqual(captured["content_type"], "image/png")
+        self.assertTrue(fav_bytes.startswith(b"\x89PNG"))
 
         # /robots.txt, /sitemap.xml, /llms.txt for Google & AI search crawlers
         robots = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/robots.txt"}, start_response)).decode("utf-8")

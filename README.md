@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="Jobs, Web3 &amp; Scholarships Live Board Logo" width="140" />
+</p>
+
 # Job, Web3 & Scholarship Alert Bot + Live Web Board
 
 A **100% free, zero-server** automation platform that tracks recent remote software/tech jobs, **Web3 remote jobs**, and **fully funded scholarships & fellowships**, broadcasts curated alerts to **[t.me/latestjobsandscholarship](https://t.me/latestjobsandscholarship)** (`@latestjobsandscholarship`), replies **instantly 24/7** to interactive Telegram bot commands via Vercel serverless functions, and publishes an SEO- and AI-Search-ready **Live Web Board** at **[job-scholarship-alert-bot-chi.vercel.app](https://job-scholarship-alert-bot-chi.vercel.app/)**.
