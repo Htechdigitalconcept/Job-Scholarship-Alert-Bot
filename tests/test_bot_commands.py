@@ -243,7 +243,15 @@ class BotCommandsTests(unittest.TestCase):
 
         sitemap = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/sitemap.xml"}, start_response)).decode("utf-8")
         self.assertIn("<urlset", sitemap)
+        self.assertIn("/feed.xml", sitemap)
         self.assertIn("/llms.txt", sitemap)
+
+        feed_xml = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/feed.xml"}, start_response)).decode("utf-8")
+        self.assertEqual(captured["status"], "200 OK")
+        self.assertIn("application/rss+xml", captured["content_type"])
+        self.assertIn("<rss version=\"2.0\"", feed_xml)
+        self.assertIn("FAQPage", root_body)
+        self.assertIn("SearchAction", root_body)
 
         llms = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/llms.txt"}, start_response)).decode("utf-8")
         self.assertIn("# Jobs, Web3 & Scholarships Live Board", llms)
@@ -373,6 +381,39 @@ class BotCommandsTests(unittest.TestCase):
             self.assertFalse(subs["555"]["subscribed"])
         self.assertEqual(mock_send.call_count, 2)
         self.assertEqual(mock_ack.call_count, 2)
+
+    def test_inline_query_and_profile_sync(self) -> None:
+        with patch("scraper.load_config", return_value=self.config), patch(
+            "bot_commands.requests.post"
+        ) as mock_post:
+            resp = MagicMock()
+            resp.raise_for_status.return_value = None
+            mock_post.return_value = resp
+
+            handled = bot_commands.process_webhook_update(
+                {
+                    "inline_query": {
+                        "id": "iq_123",
+                        "query": "python",
+                        "from": {"id": 42},
+                    }
+                },
+                bot_token="tok",
+                config_path=self.root / "config.yaml",
+                latest_path=self.latest_path,
+                subscribers_path=self.subs_path,
+            )
+            self.assertEqual(handled, 1)
+            api_url, kwargs = mock_post.call_args[0][0], mock_post.call_args[1]
+            self.assertIn("answerInlineQuery", api_url)
+            self.assertEqual(kwargs["json"]["results"][0]["title"].startswith("Python Backend Engineer"), True)
+
+            mock_post.reset_mock()
+            bot_commands.sync_telegram_profile("tok", self.config)
+            called_endpoints = [call[0][0] for call in mock_post.call_args_list]
+            self.assertTrue(any("setMyCommands" in u for u in called_endpoints))
+            self.assertTrue(any("setMyDescription" in u for u in called_endpoints))
+            self.assertTrue(any("setMyShortDescription" in u for u in called_endpoints))
 
 
 if __name__ == "__main__":

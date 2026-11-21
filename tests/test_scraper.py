@@ -301,7 +301,12 @@ class ScraperTests(unittest.TestCase):
             args, kwargs = mock_send.call_args
             self.assertEqual(args[1], "111")
             self.assertIn("New Cycle Alert", args[2])
+            self.assertIn("#RemoteJobs", args[2])
             self.assertEqual(kwargs["reply_markup"]["inline_keyboard"][1][0]["callback_data"], "sub:off")
+
+        tags = scraper.build_telegram_hashtags(items[0])
+        self.assertIn("#RemoteJobs", tags)
+        self.assertIn("#WorldwideRemote", tags)
 
 
 if __name__ == "__main__":

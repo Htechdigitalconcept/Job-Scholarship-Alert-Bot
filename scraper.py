@@ -755,6 +755,35 @@ def get_public_channel_url(config: dict[str, Any] | None = None) -> str:
     return ""
 
 
+def build_telegram_hashtags(item: Opportunity) -> str:
+    """Build clickable Telegram search hashtags from category, badges, and keywords."""
+    tags: list[str] = []
+    if item.category == "jobs":
+        tags.extend(["#RemoteJobs", "#TechJobs"])
+    elif item.category == "web3_jobs":
+        tags.extend(["#Web3Jobs", "#CryptoJobs", "#RemoteJobs"])
+    elif item.category == "scholarships":
+        tags.extend(["#Scholarships", "#Fellowships"])
+
+    badge_map = {
+        "🌍 Worldwide": "#WorldwideRemote",
+        "🛂 Visa Sponsored": "#VisaSponsored",
+        "💰 Fully Funded": "#FullyFunded",
+        "🟢 Entry / Intern": "#EntryLevel",
+    }
+    for badge in item.badges:
+        if badge in badge_map and badge_map[badge] not in tags:
+            tags.append(badge_map[badge])
+
+    for kw in item.matched_keywords[:3]:
+        clean = re.sub(r"[^A-Za-z0-9]+", "", kw.title())
+        if clean and len(clean) >= 2:
+            ht = f"#{clean}"
+            if ht not in tags:
+                tags.append(ht)
+    return " ".join(tags[:6])
+
+
 def build_item_reply_markup(item: Opportunity, channel_url: str = "") -> dict[str, Any]:
     """Build inline Telegram buttons under an individual opportunity alert."""
     row: list[dict[str, str]] = [{"text": "Apply Now 🔗", "url": item.link}]
@@ -770,6 +799,7 @@ def format_telegram_message(item: Opportunity, channel_tag: str = "") -> str:
     title = html.escape(item.title)
     link = html.escape(item.link, quote=True)
     keywords = html.escape(", ".join(item.matched_keywords))
+    hashtags = build_telegram_hashtags(item)
 
     lines = [
         f"<b>{label}</b> · <i>{source}</i>",
@@ -784,8 +814,9 @@ def format_telegram_message(item: Opportunity, channel_tag: str = "") -> str:
         lines.append(f"⏳ <b>Deadline:</b> {html.escape(item.deadline)}")
     if item.published:
         lines.append(f"🗓 {html.escape(item.published)}")
-    if channel_tag:
-        lines.append(f"📢 {html.escape(channel_tag)}")
+    footer_parts = [p for p in [f"📢 {html.escape(channel_tag)}" if channel_tag else "", html.escape(hashtags)] if p]
+    if footer_parts:
+        lines.append(" · ".join(footer_parts))
     return "\n\n".join(lines)
 
 
@@ -898,6 +929,7 @@ def format_cycle_reminder(
         footer_bits.append(f"📢 Channel: {html.escape(channel_tag)}")
     if site_url:
         footer_bits.append(f"🌐 Web: {html.escape(site_url)}")
+    footer_bits.append("#RemoteJobs #Web3Jobs #Scholarships #WorldwideRemote #FullyFunded")
     lines.append("\n".join(footer_bits))
     return "\n\n".join(lines)
 

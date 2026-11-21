@@ -82,13 +82,48 @@ def register_bot_commands(bot_token: str) -> None:
         logger.warning("Could not register Telegram command menu: %s", exc)
 
 
+def sync_telegram_profile(bot_token: str, config: dict[str, Any] | None = None) -> None:
+    """Sync commands, search-optimized description, and short bio to Telegram Bot API."""
+    register_bot_commands(bot_token)
+    site_url = scraper.get_public_site_url(config)
+    channel_id = str((config or {}).get("settings", {}).get("channel_id", "@latestjobsandscholarship")).strip()
+
+    description = (
+        "🚀 Real-time radar for Remote Tech Jobs, Web3 Remote Roles, Visa-Sponsored Openings "
+        "& Fully Funded Scholarships!\n\n"
+        "• Updated every 6 hours from 9 curated feeds\n"
+        "• Zero duplicates · Fresh listings only\n"
+        "• Smart tags: 🌍 Worldwide · 🛂 Visa Sponsored · 💰 Fully Funded · 🟢 Entry/Intern\n\n"
+        f"📢 Channel: {channel_id}\n"
+        f"🌐 Live Web Board: {site_url}"
+    )
+    short_description = (
+        f"Remote Tech Jobs, Web3 Roles, Visa-Sponsored & Funded Scholarships | "
+        f"{channel_id} | {site_url}"
+    )[:120]
+
+    for endpoint, payload in [
+        ("setMyDescription", {"description": description[:512]}),
+        ("setMyShortDescription", {"short_description": short_description}),
+    ]:
+        try:
+            resp = requests.post(
+                f"https://api.telegram.org/bot{bot_token}/{endpoint}",
+                json=payload,
+                timeout=15,
+            )
+            resp.raise_for_status()
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("Could not sync Telegram %s: %s", endpoint, exc)
+
+
 def get_updates(bot_token: str, offset: int, timeout: int = 0) -> list[dict[str, Any]]:
     """Fetch pending updates from Telegram Bot API."""
     url = f"https://api.telegram.org/bot{bot_token}/getUpdates"
     params: dict[str, Any] = {
         "offset": offset,
         "timeout": timeout,
-        "allowed_updates": json.dumps(["message", "callback_query"]),
+        "allowed_updates": json.dumps(["message", "callback_query", "inline_query"]),
     }
     resp = requests.get(url, params=params, timeout=timeout + 15)
     if resp.status_code == 409:
@@ -102,12 +137,12 @@ def get_updates(bot_token: str, offset: int, timeout: int = 0) -> list[dict[str,
 
 
 def set_webhook(bot_token: str, webhook_url: str, secret_token: str = "") -> dict[str, Any]:
-    """Configure Telegram webhook URL and register bot slash commands."""
-    register_bot_commands(bot_token)
+    """Configure Telegram webhook URL and sync bot search profile + commands."""
+    sync_telegram_profile(bot_token)
     url = f"https://api.telegram.org/bot{bot_token}/setWebhook"
     payload: dict[str, Any] = {
         "url": webhook_url,
-        "allowed_updates": ["message", "callback_query"],
+        "allowed_updates": ["message", "callback_query", "inline_query"],
     }
     if secret_token:
         payload["secret_token"] = secret_token
@@ -477,10 +512,19 @@ def build_command_responses(
             "• /keywords — View tracked keywords\n"
             "• /sources — Monitored feeds & recency window"
         )
+        site_url = scraper.get_public_site_url(config)
         start_rows: list[list[dict[str, str]]] = []
+        top_row: list[dict[str, str]] = []
         if channel_link:
-            start_rows.append([{"text": "Join Channel 📢", "url": channel_link}])
-        start_rows.append([{"text": "🔔 Get Cycle Reminders", "callback_data": "sub:on"}])
+            top_row.append({"text": "Join Channel 📢", "url": channel_link})
+        if site_url:
+            top_row.append({"text": "🌐 Live Web Board", "url": site_url})
+        if top_row:
+            start_rows.append(top_row)
+        start_rows.append([
+            {"text": "🔔 Get Cycle Reminders", "callback_data": "sub:on"},
+            {"text": "🔎 Share in Chat", "switch_inline_query": ""},
+        ])
         return [(msg, {"inline_keyboard": start_rows})]
 
     if cmd == "/digest":
@@ -686,6 +730,91 @@ def _handle_callback_query(
     return 1
 
 
+def build_inline_results(
+    query: str,
+    config: dict[str, Any],
+    latest_path: Path,
+    limit: int = 20,
+) -> list[dict[str, Any]]:
+    """Build Telegram InlineQueryResultArticle objects for viral in-chat sharing."""
+    items = scraper.interleave_by_category(get_recent_opportunities(config, latest_path))
+    q = query.strip()
+    if q:
+        terms = [t.strip() for t in q.replace(",", " ").split() if t.strip()]
+        items = [
+            i
+            for i in items
+            if scraper.match_keywords(
+                f"{i.title} {i.summary} {i.source_name} {' '.join(i.matched_keywords)} {' '.join(i.badges)}",
+                terms,
+                [],
+            )
+        ]
+
+    channel_link = get_channel_display(config)
+    channel_tag = str(config.get("settings", {}).get("channel_id", "")).strip()
+    site_url = scraper.get_public_site_url(config)
+
+    results: list[dict[str, Any]] = []
+    for item in items[:limit]:
+        badges_str = f" · {' '.join(item.badges)}" if item.badges else ""
+        desc_parts = [f"{item.category_label} · {item.source_name}"]
+        if item.badges:
+            desc_parts.append(" ".join(item.badges))
+        if item.deadline:
+            desc_parts.append(f"⏳ {item.deadline}")
+
+        row1: list[dict[str, str]] = [{"text": "Apply Now 🔗", "url": item.link}]
+        if channel_link:
+            row1.append({"text": "Join Channel 📢", "url": channel_link})
+        row2: list[dict[str, str]] = []
+        if site_url:
+            row2.append({"text": "🌐 Live Web Board", "url": site_url})
+        keyboard = [row1] + ([row2] if row2 else [])
+
+        results.append({
+            "type": "article",
+            "id": item.item_id[:60],
+            "title": f"{item.title}{badges_str}"[:120],
+            "description": " | ".join(desc_parts)[:180],
+            "url": item.link,
+            "input_message_content": {
+                "message_text": scraper.format_telegram_message(item, channel_tag=channel_tag),
+                "parse_mode": "HTML",
+                "disable_web_page_preview": False,
+            },
+            "reply_markup": {"inline_keyboard": keyboard},
+        })
+    return results
+
+
+def _handle_inline_query(
+    inline_query: dict[str, Any],
+    bot_token: str,
+    config: dict[str, Any],
+    latest_path: Path,
+) -> int:
+    """Answer an inline query (@bot <search>) so users can share jobs/scholarships in any chat."""
+    iq_id = str(inline_query.get("id", "")).strip()
+    query = str(inline_query.get("query", "")).strip()
+    if not iq_id:
+        return 0
+    results = build_inline_results(query, config, latest_path)
+    payload = {
+        "inline_query_id": iq_id,
+        "results": results,
+        "cache_time": 120,
+        "is_personal": False,
+    }
+    resp = requests.post(
+        f"https://api.telegram.org/bot{bot_token}/answerInlineQuery",
+        json=payload,
+        timeout=15,
+    )
+    resp.raise_for_status()
+    return 1
+
+
 def process_webhook_update(
     update: dict[str, Any],
     bot_token: str,
@@ -694,6 +823,10 @@ def process_webhook_update(
     subscribers_path: Path,
 ) -> int:
     """Process a single Telegram webhook update dict and send replies immediately."""
+    if "inline_query" in update and isinstance(update["inline_query"], dict):
+        config = scraper.load_config(config_path)
+        return _handle_inline_query(update["inline_query"], bot_token, config, latest_path)
+
     if "callback_query" in update and isinstance(update["callback_query"], dict):
         config = scraper.load_config(config_path)
         return _handle_callback_query(
@@ -747,6 +880,15 @@ def process_updates_once(
         update_id = int(update.get("update_id", 0))
         if update_id > max_update_id:
             max_update_id = update_id
+
+        if "inline_query" in update and isinstance(update["inline_query"], dict):
+            try:
+                handled += _handle_inline_query(
+                    update["inline_query"], bot_token, config, latest_path
+                )
+            except Exception as exc:  # noqa: BLE001
+                logger.error("Failed handling inline query: %s", exc)
+            continue
 
         if "callback_query" in update and isinstance(update["callback_query"], dict):
             try:
@@ -803,6 +945,11 @@ def main() -> None:
         default="",
         help="Register a Telegram webhook URL (e.g. https://your-app.vercel.app/api/webhook) and exit.",
     )
+    parser.add_argument(
+        "--sync-profile",
+        action="store_true",
+        help="Sync search-optimized bot description, short bio, and commands to Telegram and exit.",
+    )
     args = parser.parse_args()
 
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
@@ -810,13 +957,20 @@ def main() -> None:
         logger.error("Missing TELEGRAM_BOT_TOKEN environment variable.")
         sys.exit(1)
 
+    config = scraper.load_config(args.config) if args.config.exists() else {}
+
+    if args.sync_profile:
+        sync_telegram_profile(bot_token, config)
+        logger.info("Telegram bot profile and commands synced.")
+        return
+
     if args.set_webhook:
         secret = os.environ.get("TELEGRAM_WEBHOOK_SECRET", "").strip()
         result = set_webhook(bot_token, args.set_webhook.strip(), secret_token=secret)
         logger.info("Webhook set: %s", result)
         return
 
-    register_bot_commands(bot_token)
+    sync_telegram_profile(bot_token, config)
 
     if args.once:
         count = process_updates_once(

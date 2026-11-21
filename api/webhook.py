@@ -136,6 +136,19 @@ def app(
             start_response(STATUS_TEXT[200], headers)
             return [] if method == "HEAD" else [body]
 
+        if path in {"/feed.xml", "/rss.xml"}:
+            import web_board
+
+            items, _url, _handle = _load_board_data()
+            body = web_board.render_rss_feed(site_url, items).encode("utf-8")
+            headers = [
+                ("Content-Type", "application/rss+xml; charset=utf-8"),
+                ("Content-Length", str(len(body))),
+                ("Cache-Control", "public, max-age=1800"),
+            ]
+            start_response(STATUS_TEXT[200], headers)
+            return [] if method == "HEAD" else [body]
+
         if path == "/llms.txt":
             import web_board
 

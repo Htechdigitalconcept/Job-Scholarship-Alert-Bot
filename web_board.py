@@ -77,6 +77,7 @@ def _render_ssr_cards(items: list[scraper.Opportunity]) -> str:
 def build_structured_data(
     site_url: str,
     items: list[scraper.Opportunity],
+    channel_url: str = "https://t.me/latestjobsandscholarship",
 ) -> dict[str, Any]:
     """Build Schema.org JSON-LD graph for Google Search & AI Search engines."""
     clean_url = site_url.rstrip("/")
@@ -115,20 +116,71 @@ def build_structured_data(
         "@context": "https://schema.org",
         "@graph": [
             {
+                "@type": "Organization",
+                "name": "Jobs, Web3 & Scholarships Live Board",
+                "url": f"{clean_url}/",
+                "logo": f"{clean_url}/logo.png",
+                "sameAs": [channel_url] if channel_url else [],
+            },
+            {
                 "@type": "WebSite",
                 "name": "Jobs, Web3 & Scholarships Live Board",
                 "url": f"{clean_url}/",
                 "image": f"{clean_url}/logo.png",
                 "description": (
-                    "Daily curated remote tech jobs, Web3 remote roles, and "
-                    "funded international scholarships and fellowships."
+                    "Daily curated remote tech jobs, Web3 remote roles, "
+                    "visa-sponsored jobs, and funded international scholarships and fellowships."
                 ),
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": f"{clean_url}/?q={{search_term_string}}",
+                    "query-input": "required name=search_term_string",
+                },
             },
             {
                 "@type": "ItemList",
                 "name": "Latest Remote Jobs, Web3 Roles & Scholarships",
                 "numberOfItems": len(list_elements),
                 "itemListElement": list_elements,
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "How often are remote jobs, Web3 roles, and scholarships updated?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": (
+                                "Our automated radar scans 9 verified feeds every 6 hours, "
+                                "keeping only recent jobs (up to 3 days old) and scholarships "
+                                "(up to 7 days old) while removing cross-source duplicates."
+                            ),
+                        },
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How can I find worldwide remote or visa-sponsored jobs?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": (
+                                "Click the Worldwide or Visa Sponsored filter chips on the Live Web Board, "
+                                "or send /worldwide or /visa to our 24/7 Telegram bot."
+                            ),
+                        },
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How do I get free Telegram alerts when new jobs or scholarships are posted?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": (
+                                f"Join {channel_url} on Telegram for 6-hour alerts, cycle update reminders, "
+                                "and a daily 06:00 UTC digest, or message the bot with /subscribe."
+                            ),
+                        },
+                    },
+                ],
             },
         ],
     }
@@ -141,6 +193,7 @@ def render_robots_txt(site_url: str = DEFAULT_SITE_URL) -> str:
         "User-agent: *\n"
         "Allow: /\n"
         "Allow: /api/opportunities\n"
+        "Allow: /feed.xml\n"
         "Allow: /llms.txt\n"
         "Disallow: /api/webhook\n\n"
         "User-agent: Googlebot\n"
@@ -181,6 +234,12 @@ def render_sitemap_xml(
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>{html.escape(clean_url)}/feed.xml</loc>
+    <lastmod>{lastmod}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>{html.escape(clean_url)}/llms.txt</loc>
     <lastmod>{lastmod}</lastmod>
     <changefreq>daily</changefreq>
@@ -196,6 +255,53 @@ def render_sitemap_xml(
 """
 
 
+def render_rss_feed(
+    site_url: str,
+    items: list[scraper.Opportunity],
+) -> str:
+    """Generate an RSS 2.0 XML feed for aggregators, readers, and search syndication."""
+    clean_url = site_url.rstrip("/")
+    now_rfc = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S +0000")
+    item_blocks: list[str] = []
+    for item in items[:40]:
+        pub_rfc = (
+            item.published_dt.astimezone(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S +0000")
+            if item.published_dt
+            else now_rfc
+        )
+        desc_parts = [item.category_label, f"Source: {item.source_name}"]
+        if item.badges:
+            desc_parts.append(" | ".join(item.badges))
+        if item.deadline:
+            desc_parts.append(f"Deadline: {item.deadline}")
+        if item.summary:
+            desc_parts.append(item.summary)
+        item_blocks.append(
+            f"""    <item>
+      <title>{html.escape(item.title)}</title>
+      <link>{html.escape(item.link)}</link>
+      <guid isPermaLink="false">{html.escape(item.item_id)}</guid>
+      <category>{html.escape(item.category_label)}</category>
+      <pubDate>{pub_rfc}</pubDate>
+      <description>{html.escape(" — ".join(desc_parts))}</description>
+    </item>"""
+        )
+    joined_items = "\n".join(item_blocks)
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jobs, Web3 &amp; Scholarships Live Board</title>
+    <link>{html.escape(clean_url)}/</link>
+    <atom:link href="{html.escape(clean_url)}/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Recent remote tech jobs, Web3 remote roles, visa-sponsored openings, and fully funded scholarships updated every 6 hours.</description>
+    <language>en-us</language>
+    <lastBuildDate>{now_rfc}</lastBuildDate>
+{joined_items}
+  </channel>
+</rss>
+"""
+
+
 def render_llms_txt(
     site_url: str,
     items: list[scraper.Opportunity],
@@ -207,11 +313,21 @@ def render_llms_txt(
     lines = [
         "# Jobs, Web3 & Scholarships Live Board",
         "",
-        "> Curated recent remote software/tech jobs, Web3 remote roles, and funded international scholarships & fellowships, synced automatically every 6 hours.",
+        "> Real-time radar for remote tech jobs, Web3 remote roles, visa-sponsored openings, and fully funded international scholarships & fellowships — filtered for freshness (jobs <=3 days, scholarships <=7 days), deduplicated across 9 verified sources, and synced every 6 hours.",
         "",
-        f"- Web Board: {clean_url}/",
+        f"- Live Web Board: {clean_url}/",
+        f"- RSS 2.0 Feed: {clean_url}/feed.xml",
         f"- JSON Feed: {clean_url}/api/opportunities",
         f"- Telegram Channel ({channel_handle}): {channel_url}",
+        "",
+        "## Interactive Telegram Bot Commands",
+        "- `/latest` — 5 newest opportunities with inline pagination",
+        "- `/jobs [keyword]` — Filter recent remote software/tech jobs",
+        "- `/web3 [keyword]` — Filter recent Web3 & blockchain remote roles",
+        "- `/scholarships [keyword]` — Filter recent funded scholarships & fellowships",
+        "- `/worldwide` — Filter Worldwide remote roles",
+        "- `/visa` — Filter Visa-sponsored roles",
+        "- `/digest` — Daily top opportunities summary",
         "",
         "## Recent Opportunities",
         "",
@@ -237,7 +353,9 @@ def render_web_board_html(
     clean_site_url = site_url.rstrip("/")
     payload = [item.to_dict() for item in items]
     safe_json = json.dumps(payload).replace("</", "<\\/")
-    structured_json = json.dumps(build_structured_data(clean_site_url, items)).replace("</", "<\\/")
+    structured_json = json.dumps(
+        build_structured_data(clean_site_url, items, channel_url=channel_url or "https://t.me/latestjobsandscholarship")
+    ).replace("</", "<\\/")
     safe_channel_url = html.escape(channel_url or "https://t.me/latestjobsandscholarship", quote=True)
     safe_handle = html.escape(channel_handle or "@latestjobsandscholarship")
     safe_canonical = html.escape(f"{clean_site_url}/", quote=True)
@@ -261,20 +379,22 @@ def render_web_board_html(
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jobs, Web3 &amp; Scholarships Live Board | Remote Roles &amp; Funded Fellowships</title>
+  <title>Remote Tech Jobs, Web3 Roles &amp; Funded Scholarships | Live Board</title>
   <meta name="description" content="{safe_desc}" />
+  <meta name="keywords" content="remote tech jobs, web3 remote jobs, solidity developer jobs, visa sponsored remote jobs, worldwide remote work, fully funded scholarships, international fellowships, tech internships" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
   <link rel="canonical" href="{safe_canonical}" />
+  <link rel="alternate" type="application/rss+xml" title="Jobs, Web3 &amp; Scholarships RSS Feed" href="/feed.xml" />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/logo.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Jobs, Web3 &amp; Scholarships Live Board" />
+  <meta property="og:title" content="Remote Tech Jobs, Web3 Roles &amp; Funded Scholarships | Live Board" />
   <meta property="og:description" content="{safe_desc}" />
   <meta property="og:url" content="{safe_canonical}" />
   <meta property="og:image" content="{safe_logo_url}" />
   <meta property="og:site_name" content="Jobs, Web3 &amp; Scholarships Live Board" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Jobs, Web3 &amp; Scholarships Live Board" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Remote Tech Jobs, Web3 Roles &amp; Funded Scholarships | Live Board" />
   <meta name="twitter:description" content="{safe_desc}" />
   <meta name="twitter:image" content="{safe_logo_url}" />
   <script type="application/ld+json">{structured_json}</script>
@@ -788,6 +908,43 @@ def render_web_board_html(
       font-weight: 600;
     }}
     .back-top:hover {{ text-decoration: underline; }}
+    .seo-section {{
+      margin-top: 34px;
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+    }}
+    .seo-section h2 {{
+      margin: 0 0 6px;
+      font-size: 1.2rem;
+    }}
+    .seo-lead {{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }}
+    .seo-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+    }}
+    .seo-card {{
+      background: rgba(7, 11, 20, 0.52);
+      border: 1px solid rgba(36, 50, 74, 0.85);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }}
+    .seo-card h3 {{
+      margin: 0 0 6px;
+      font-size: 0.94rem;
+      color: var(--text);
+    }}
+    .seo-card p {{
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }}
     @media (max-width: 780px) {{
       .nav-links .hide-sm {{ display: none; }}
       .hero {{ padding: 20px 18px; }}
@@ -884,6 +1041,29 @@ def render_web_board_html(
     <main class="grid" id="cardsGrid">
 {ssr_cards}
     </main>
+
+    <section class="seo-section" aria-label="About and frequently asked questions">
+      <h2>How Our Automated Job, Web3 &amp; Scholarship Radar Works</h2>
+      <p class="seo-lead">Curated every 6 hours from {sources_count} trusted job boards &amp; scholarship portals — built for global builders, software engineers, and fellows.</p>
+      <div class="seo-grid">
+        <article class="seo-card">
+          <h3>Freshness-First Filtering</h3>
+          <p>Remote tech jobs and Web3 roles are strictly capped at 3 days old (7 days for scholarships) so you never waste time applying to expired listings.</p>
+        </article>
+        <article class="seo-card">
+          <h3>Cross-Source Deduplication</h3>
+          <p>Identical roles reposted across multiple boards are automatically merged by normalized title, leaving a clean, zero-spam feed.</p>
+        </article>
+        <article class="seo-card">
+          <h3>Smart Triage Badges</h3>
+          <p>Spot 🌍 Worldwide remote roles, 🛂 Visa Sponsored openings, 💰 Fully Funded fellowships, 🟢 Entry/Intern roles, and ⏳ extracted deadlines in seconds.</p>
+        </article>
+        <article class="seo-card">
+          <h3>24/7 Telegram Channel &amp; Bot</h3>
+          <p>Join {safe_handle} on Telegram for 6-hour alerts, cycle reminders, and daily 06:00 UTC digests — or message the bot with /latest, /web3, /scholarships, /worldwide, and /visa.</p>
+        </article>
+      </div>
+    </section>
   </div>
 
   <footer class="site-footer">
@@ -918,6 +1098,7 @@ def render_web_board_html(
           <h3>Channels &amp; Feeds</h3>
           <ul class="footer-links">
             <li><a href="{safe_channel_url}" target="_blank" rel="noopener noreferrer">📢 Telegram ({safe_handle})</a></li>
+            <li><a href="/feed.xml">📡 RSS Feed (/feed.xml)</a></li>
             <li><a href="/api/opportunities">⚡ JSON API (/api/opportunities)</a></li>
             <li><a href="/llms.txt">🤖 AI Index (/llms.txt)</a></li>
             <li><a href="/sitemap.xml">🗺️ XML Sitemap</a></li>
@@ -1046,6 +1227,31 @@ def render_web_board_html(
         document.getElementById("board")?.scrollIntoView({{ behavior: "smooth" }});
       }}
     }});
+
+    (() => {{
+      const params = new URLSearchParams(window.location.search);
+      const qParam = params.get("q");
+      const catParam = params.get("cat");
+      const badgeParam = params.get("badge");
+      if (qParam) {{
+        searchTerm = qParam;
+        const input = document.getElementById("searchInput");
+        if (input) input.value = qParam;
+      }}
+      if (catParam && ["all", "jobs", "web3_jobs", "scholarships"].includes(catParam)) {{
+        activeCat = catParam;
+      }}
+      if (badgeParam) {{
+        const match = Array.from(document.querySelectorAll("#badgeFilters .chip"))
+          .map((c) => c.dataset.badge)
+          .find((b) => b && b.toLowerCase().includes(badgeParam.toLowerCase()));
+        if (match) activeBadge = match;
+      }}
+      if (qParam || catParam || badgeParam) {{
+        syncFilterButtons();
+        render();
+      }}
+    }})();
   </script>
 </body>
 </html>
