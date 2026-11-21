@@ -308,6 +308,27 @@ class ScraperTests(unittest.TestCase):
         self.assertIn("#RemoteJobs", tags)
         self.assertIn("#WorldwideRemote", tags)
 
+        markup = scraper.build_item_reply_markup(
+            items[0],
+            channel_url="https://t.me/latestjobsandscholarship",
+            bot_url="https://t.me/JobAlertSampleBot",
+        )
+        btn_texts = [b["text"] for b in markup["inline_keyboard"][0]]
+        self.assertEqual(btn_texts, ["Apply Now 🔗", "Filter in Bot 🤖"])
+        self.assertEqual(
+            markup["inline_keyboard"][0][1]["url"],
+            "https://t.me/JobAlertSampleBot?start=latest",
+        )
+
+        cycle_markup = scraper.build_cycle_reminder_markup(
+            channel_url="https://t.me/latestjobsandscholarship",
+            site_url="https://job-scholarship-alert-bot-chi.vercel.app",
+            bot_url="https://t.me/JobAlertSampleBot",
+            include_unsubscribe=False,
+        )
+        cycle_btns = [b["text"] for b in cycle_markup["inline_keyboard"][0]]
+        self.assertEqual(cycle_btns, ["🌐 Live Web Board", "Filter in Bot 🤖"])
+
 
 if __name__ == "__main__":
     unittest.main()

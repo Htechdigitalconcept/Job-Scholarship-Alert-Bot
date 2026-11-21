@@ -488,6 +488,10 @@ def build_command_responses(
     )
 
     if cmd in {"/start", "/help"}:
+        if cmd == "/start" and arg.lower() == "latest":
+            return build_command_responses(
+                chat_id, "/latest", config, latest_path, subscribers_path, page=page
+            )
         channel_line = (
             f"\n\n📢 <b>Public Alert Channel:</b> {html.escape(channel_link)}"
             if channel_link

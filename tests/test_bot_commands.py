@@ -110,6 +110,9 @@ class BotCommandsTests(unittest.TestCase):
         self.assertIn("/latest", start_reply[0])
         self.assertIn("https://t.me/latestjobsandscholarship", start_reply[0])
 
+        start_latest = bot_commands.handle_command("123", "/start latest", self.config, self.latest_path, self.subs_path)
+        self.assertIn("Python Backend Engineer", start_latest[0])
+
         kw_reply = bot_commands.handle_command("123", "/keywords", self.config, self.latest_path, self.subs_path)
         self.assertIn("python, backend", kw_reply[0])
 

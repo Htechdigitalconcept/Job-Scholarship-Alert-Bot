@@ -755,6 +755,36 @@ def get_public_channel_url(config: dict[str, Any] | None = None) -> str:
     return ""
 
 
+_BOT_USERNAME_CACHE: dict[str, str] = {}
+
+
+def get_bot_url(bot_token: str = "", config: dict[str, Any] | None = None) -> str:
+    """Return the public Telegram bot URL (https://t.me/<bot_username>) for channel buttons."""
+    direct_url = os.environ.get("PUBLIC_BOT_URL", "").strip()
+    if direct_url:
+        return direct_url.rstrip("/")
+
+    username = os.environ.get("TELEGRAM_BOT_USERNAME", "").strip().lstrip("@")
+    if not username and config:
+        username = str(config.get("settings", {}).get("bot_username", "")).strip().lstrip("@")
+    if not username and bot_token:
+        if bot_token in _BOT_USERNAME_CACHE:
+            username = _BOT_USERNAME_CACHE[bot_token]
+        else:
+            try:
+                resp = requests.get(
+                    f"https://api.telegram.org/bot{bot_token}/getMe",
+                    timeout=10,
+                )
+                resp.raise_for_status()
+                username = str((resp.json().get("result") or {}).get("username", "")).strip()
+                if username:
+                    _BOT_USERNAME_CACHE[bot_token] = username
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("Could not fetch bot username via getMe: %s", exc)
+    return f"https://t.me/{username}" if username else ""
+
+
 def build_telegram_hashtags(item: Opportunity) -> str:
     """Build clickable Telegram search hashtags from category, badges, and keywords."""
     tags: list[str] = []
@@ -784,10 +814,16 @@ def build_telegram_hashtags(item: Opportunity) -> str:
     return " ".join(tags[:6])
 
 
-def build_item_reply_markup(item: Opportunity, channel_url: str = "") -> dict[str, Any]:
+def build_item_reply_markup(
+    item: Opportunity,
+    channel_url: str = "",
+    bot_url: str = "",
+) -> dict[str, Any]:
     """Build inline Telegram buttons under an individual opportunity alert."""
     row: list[dict[str, str]] = [{"text": "Apply Now 🔗", "url": item.link}]
-    if channel_url:
+    if bot_url:
+        row.append({"text": "Filter in Bot 🤖", "url": f"{bot_url}?start=latest"})
+    elif channel_url:
         row.append({"text": "Join Channel 📢", "url": channel_url})
     return {"inline_keyboard": [row]}
 
@@ -862,6 +898,7 @@ def _post_telegram_api(bot_token: str, method: str, payload: dict[str, Any]) -> 
 def build_cycle_reminder_markup(
     channel_url: str = "",
     site_url: str = "",
+    bot_url: str = "",
     include_unsubscribe: bool = False,
 ) -> dict[str, Any] | None:
     """Build inline buttons for cycle summary reminder notifications."""
@@ -869,8 +906,14 @@ def build_cycle_reminder_markup(
     link_row: list[dict[str, str]] = []
     if site_url:
         link_row.append({"text": "🌐 Live Web Board", "url": site_url})
-    if channel_url:
-        link_row.append({"text": "📢 Open Channel", "url": channel_url})
+    if include_unsubscribe:
+        if channel_url:
+            link_row.append({"text": "📢 Open Channel", "url": channel_url})
+    else:
+        if bot_url:
+            link_row.append({"text": "Filter in Bot 🤖", "url": f"{bot_url}?start=latest"})
+        elif channel_url:
+            link_row.append({"text": "📢 Open Channel", "url": channel_url})
     if link_row:
         rows.append(link_row)
     if include_unsubscribe:
@@ -1181,6 +1224,7 @@ def run(
     channel_tag = target_id if target_id.startswith("@") else os.environ.get("PUBLIC_CHANNEL_HANDLE", "").strip()
     channel_url = get_public_channel_url(config)
     site_url = get_public_site_url(config)
+    bot_url = get_bot_url(bot_token if not dry_run else "", config)
 
     if not dry_run and (not bot_token or not target_id):
         logger.error(
@@ -1248,7 +1292,9 @@ def run(
             sent_count += 1
         else:
             try:
-                reply_markup = build_item_reply_markup(item, channel_url=channel_url)
+                reply_markup = build_item_reply_markup(
+                    item, channel_url=channel_url, bot_url=bot_url
+                )
                 send_telegram_message(
                     bot_token,
                     target_id,
@@ -1282,6 +1328,7 @@ def run(
                 reminder_markup = build_cycle_reminder_markup(
                     channel_url=channel_url,
                     site_url=site_url,
+                    bot_url=bot_url,
                     include_unsubscribe=False,
                 )
                 send_telegram_message(
@@ -1303,7 +1350,14 @@ def run(
             print(digest_text)
         else:
             try:
-                markup = {"inline_keyboard": [[{"text": "Join Channel 📢", "url": channel_url}]]} if channel_url else None
+                digest_row: list[dict[str, str]] = []
+                if site_url:
+                    digest_row.append({"text": "🌐 Live Web Board", "url": site_url})
+                if bot_url:
+                    digest_row.append({"text": "Filter in Bot 🤖", "url": f"{bot_url}?start=latest"})
+                elif channel_url:
+                    digest_row.append({"text": "Join Channel 📢", "url": channel_url})
+                markup = {"inline_keyboard": [digest_row]} if digest_row else None
                 send_telegram_message(
                     bot_token,
                     target_id,
