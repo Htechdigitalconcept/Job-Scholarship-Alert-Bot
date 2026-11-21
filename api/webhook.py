@@ -59,7 +59,8 @@ def handle_webhook_request(
         return 200, {"ok": True, "handled": handled}
     except Exception as exc:  # noqa: BLE001
         logger.exception("Webhook error: %s", exc)
-        return 200, {"ok": False, "error": str(exc)}
+        safe_err = re.sub(r"bot[^/]+/", "bot[REDACTED]/", str(exc))
+        return 200, {"ok": False, "error": safe_err}
 
 
 def _detect_site_url(environ: dict[str, Any]) -> str:
