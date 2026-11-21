@@ -2,8 +2,9 @@
 # Edit keywords and sources below to match what you're looking for.
 
 settings:
-  # Public Telegram channel username (overridden if TELEGRAM_CHANNEL_ID secret is set)
+  # Public Telegram channel & bot usernames (overridden if env vars/secrets are set)
   channel_id: "@latestjobsandscholarship"
+  bot_username: "Scholar_job_bot"
   public_channel_url: "https://t.me/latestjobsandscholarship"
   public_site_url: "https://job-scholarship-alert-bot-chi.vercel.app"
   # Max number of new alerts to broadcast to the channel per run

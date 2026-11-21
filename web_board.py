@@ -363,8 +363,8 @@ def render_web_board_html(
     safe_handle = html.escape(channel_handle or "@latestjobsandscholarship")
     safe_canonical = html.escape(f"{clean_site_url}/", quote=True)
     meta_desc = (
-        f"Browse {len(items)} recent remote tech jobs, Web3 remote opportunities, "
-        "visa-sponsored roles, and fully funded scholarships & fellowships updated daily."
+        "Browse up to 200 fresh remote tech jobs, Web3 remote roles, "
+        "visa-sponsored openings, and fully funded scholarships & fellowships — with one-tap application pitches."
     )
     safe_desc = html.escape(meta_desc, quote=True)
     ssr_cards = _render_ssr_cards(items[:24])
@@ -401,6 +401,7 @@ def render_web_board_html(
   <meta name="twitter:description" content="{safe_desc}" />
   <meta name="twitter:image" content="{safe_logo_url}" />
   <script type="application/ld+json">{structured_json}</script>
+  <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
   <style>
     :root {{
       --bg: #070b14;
@@ -1730,6 +1731,14 @@ def render_web_board_html(
         setTimeout(() => {{ btn.textContent = "📋 Copy Pitch"; }}, 2000);
       }} catch (_err) {{
         document.getElementById("pitchTextarea")?.select();
+      }}
+    }});
+
+    window.addEventListener("DOMContentLoaded", () => {{
+      const tgApp = window.Telegram && window.Telegram.WebApp;
+      if (tgApp) {{
+        tgApp.ready();
+        tgApp.expand();
       }}
     }});
   </script>

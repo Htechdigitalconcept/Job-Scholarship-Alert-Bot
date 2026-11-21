@@ -387,6 +387,8 @@ class BotCommandsTests(unittest.TestCase):
         self.assertEqual(api_paged_json["items"][0]["category"], "web3_jobs")
         self.assertIn('id="pitchModal"', root_body)
         self.assertIn('data-pitch-id=', root_body)
+        self.assertIn('Browse up to 200 fresh remote tech jobs', root_body)
+        self.assertIn('telegram-web-app.js', root_body)
 
         llms = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/llms.txt"}, start_response)).decode("utf-8")
         self.assertIn("# Jobs, Web3 & Scholarships Live Board", llms)
