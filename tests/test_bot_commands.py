@@ -212,6 +212,11 @@ class BotCommandsTests(unittest.TestCase):
         )
         self.assertIn("Copy &amp; Customize Pitch", pitch_num[0])
 
+        pitch_cat = bot_commands.handle_command(
+            "999", "/pitch scholarship", self.config, self.latest_path, self.subs_path
+        )
+        self.assertIn("One-Tap Scholarship Pitch", pitch_cat[0])
+
         unsub = bot_commands.handle_command(
             "999", "/unsubscribe", self.config, self.latest_path, self.subs_path
         )

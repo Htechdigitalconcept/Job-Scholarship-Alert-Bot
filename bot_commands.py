@@ -1004,11 +1004,18 @@ def build_command_responses(
                 i
                 for i in items
                 if scraper.match_keywords(
-                    f"{i.title} {i.summary} {i.source_name} {' '.join(i.matched_keywords)}",
+                    f"{i.title} {i.summary} {i.source_name} {i.category} {i.category_label} {' '.join(i.matched_keywords)} {' '.join(i.badges)}",
                     search_terms,
                     [],
                 )
             ]
+            if not matched:
+                q_low = arg.strip().lower()
+                matched = [
+                    i
+                    for i in items
+                    if q_low in f"{i.title} {i.summary} {i.source_name} {i.category} {i.category_label} {' '.join(i.matched_keywords)} {' '.join(i.badges)}".lower()
+                ]
             target = matched[0] if matched else None
         else:
             target = items[0] if items else None
@@ -1123,6 +1130,16 @@ def handle_command(
     ]
 
 
+def _safe_answer_callback(bot_token: str, cq_id: str, text: str = "") -> None:
+    """Acknowledge a callback query without letting an expired query block message delivery."""
+    if not cq_id:
+        return
+    try:
+        scraper.answer_callback_query(bot_token, cq_id, text=text)
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("answerCallbackQuery failed (%s); continuing.", exc)
+
+
 def _handle_callback_query(
     callback_query: dict[str, Any],
     bot_token: str,
@@ -1139,8 +1156,7 @@ def _handle_callback_query(
     message_id = message.get("message_id")
 
     if not cq_id or not chat_id:
-        if cq_id:
-            scraper.answer_callback_query(bot_token, cq_id)
+        _safe_answer_callback(bot_token, cq_id)
         return 0
 
     if data.startswith("pitch:"):
@@ -1153,7 +1169,7 @@ def _handle_callback_query(
         site_url = scraper.get_public_site_url(config)
         bot_url = scraper.get_bot_url(bot_token, config)
         if not allowed:
-            scraper.answer_callback_query(bot_token, cq_id, text="🔒 Invite 3 friends for unlimited Pitch!")
+            _safe_answer_callback(bot_token, cq_id, text="🔒 Invite 3 friends for unlimited Pitch!")
             lock_msg, lock_markup = format_vip_lock_message(
                 "One-Tap Application Pitch",
                 chat_id,
@@ -1172,7 +1188,7 @@ def _handle_callback_query(
             )
             return 1
 
-        scraper.answer_callback_query(bot_token, cq_id, text="📝 Generating pitch...")
+        _safe_answer_callback(bot_token, cq_id, text="📝 Generating pitch...")
         items = get_recent_opportunities(config, latest_path)
         target = next((i for i in items if i.item_id.startswith(target_id)), items[0] if items else None)
         if target:
@@ -1222,16 +1238,16 @@ def _handle_callback_query(
                 disable_web_page_preview=True,
             )
         ack_msg = "🔔 Cycle reminders enabled!" if data == "sub:on" else "🔕 Cycle reminders paused."
-        scraper.answer_callback_query(bot_token, cq_id, text=ack_msg)
+        _safe_answer_callback(bot_token, cq_id, text=ack_msg)
         return 1
 
     if not data.startswith("pg:") or not message_id:
-        scraper.answer_callback_query(bot_token, cq_id)
+        _safe_answer_callback(bot_token, cq_id)
         return 0
 
     parts = data.split(":", 3)
     if len(parts) < 3:
-        scraper.answer_callback_query(bot_token, cq_id)
+        _safe_answer_callback(bot_token, cq_id)
         return 0
 
     cmd_name = parts[1]
@@ -1250,7 +1266,7 @@ def _handle_callback_query(
         scraper.edit_telegram_message(
             bot_token, chat_id, int(message_id), reply_text, reply_markup=markup
         )
-    scraper.answer_callback_query(bot_token, cq_id)
+    _safe_answer_callback(bot_token, cq_id)
     return 1
 
 
