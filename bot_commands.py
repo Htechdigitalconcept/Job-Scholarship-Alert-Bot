@@ -75,6 +75,9 @@ def get_referral_progress(
 ) -> tuple[int, int, bool]:
     """Return (referrals_count, goal, vip_unlocked) for a user."""
     goal = get_referral_goal(config)
+    owner_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+    if owner_id and str(chat_id) == owner_id:
+        return goal, goal, True
     prefs = subscribers.get(chat_id) or {}
     referred_list = prefs.get("referred_users")
     if isinstance(referred_list, list):
@@ -991,7 +994,11 @@ def build_command_responses(
                 )
             ]
         items = scraper.interleave_by_category(get_recent_opportunities(config, latest_path))
-        if arg:
+        clean_arg = arg.strip().lstrip("#")
+        if clean_arg.isdigit():
+            idx = int(clean_arg) - 1
+            target = items[idx] if 0 <= idx < len(items) else (items[0] if items else None)
+        elif arg:
             search_terms = [t.strip() for t in arg.replace(",", " ").split() if t.strip()]
             matched = [
                 i
@@ -1146,6 +1153,7 @@ def _handle_callback_query(
         site_url = scraper.get_public_site_url(config)
         bot_url = scraper.get_bot_url(bot_token, config)
         if not allowed:
+            scraper.answer_callback_query(bot_token, cq_id, text="🔒 Invite 3 friends for unlimited Pitch!")
             lock_msg, lock_markup = format_vip_lock_message(
                 "One-Tap Application Pitch",
                 chat_id,
@@ -1162,9 +1170,9 @@ def _handle_callback_query(
                 reply_markup=lock_markup,
                 disable_web_page_preview=True,
             )
-            scraper.answer_callback_query(bot_token, cq_id, text="🔒 Invite 3 friends for unlimited Pitch!")
             return 1
 
+        scraper.answer_callback_query(bot_token, cq_id, text="📝 Generating pitch...")
         items = get_recent_opportunities(config, latest_path)
         target = next((i for i in items if i.item_id.startswith(target_id)), items[0] if items else None)
         if target:
@@ -1174,14 +1182,29 @@ def _handle_callback_query(
             pitch_text = build_application_pitch(target)
             if used_trial:
                 pitch_text += "\n\n🎁 <i>Free preview used (1/1) — invite 3 friends via /share to unlock unlimited pitches!</i>"
+            try:
+                scraper.send_telegram_message(
+                    bot_token,
+                    chat_id,
+                    pitch_text,
+                    reply_markup=pitch_markup,
+                    disable_web_page_preview=True,
+                )
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("Pitch message send failed (%s); retrying without markup.", exc)
+                scraper.send_telegram_message(
+                    bot_token,
+                    chat_id,
+                    pitch_text,
+                    disable_web_page_preview=True,
+                )
+        else:
             scraper.send_telegram_message(
                 bot_token,
                 chat_id,
-                pitch_text,
-                reply_markup=pitch_markup,
+                "No cached opportunities found right now. Send /latest to refresh.",
                 disable_web_page_preview=True,
             )
-        scraper.answer_callback_query(bot_token, cq_id, text="📝 Pitch generated!")
         return 1
 
     if data in {"sub:on", "sub:off"}:
