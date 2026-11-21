@@ -114,7 +114,7 @@ class BotCommandsTests(unittest.TestCase):
         self.assertIn("Python Backend Engineer", start_latest[0])
 
         share_responses = bot_commands.build_command_responses("123", "/share", self.config, self.latest_path, self.subs_path)
-        self.assertIn("Share This Bot", share_responses[0][0])
+        self.assertIn("Invite 3 Friends", share_responses[0][0])
         self.assertIn("https://t.me/share/url?", share_responses[0][1]["inline_keyboard"][0][0]["url"])
 
         kw_reply = bot_commands.handle_command("123", "/keywords", self.config, self.latest_path, self.subs_path)
@@ -140,7 +140,49 @@ class BotCommandsTests(unittest.TestCase):
         sch = bot_commands.handle_command("123", "/scholarships@MyTestBot africa", self.config, self.latest_path, self.subs_path)
         self.assertIn("Fully Funded Africa STEM Fellowship", sch[0])
 
-    def test_setkeywords_subscribe_and_unsubscribe(self) -> None:
+    @patch("scraper.send_telegram_message")
+    def test_setkeywords_subscribe_and_unsubscribe(self, mock_send) -> None:
+        # Locked before 3 referrals
+        locked_kw = bot_commands.handle_command(
+            "999", "/setkeywords python, remote", self.config, self.latest_path, self.subs_path
+        )
+        self.assertIn("0/3", locked_kw[0])
+        locked_pitch = bot_commands.handle_command(
+            "999", "/pitch python", self.config, self.latest_path, self.subs_path
+        )
+        self.assertIn("Unlock by Inviting 3 Friends", locked_pitch[0])
+        locked_exp = bot_commands.handle_command(
+            "999", "/expiring", self.config, self.latest_path, self.subs_path
+        )
+        self.assertIn("Unlock by Inviting 3 Friends", locked_exp[0])
+
+        # Self-referral & duplicate referral must not count
+        bot_commands.build_command_responses(
+            "999", "/start ref_999", self.config, self.latest_path, self.subs_path, bot_token="tok"
+        )
+        bot_commands.build_command_responses(
+            "1001", "/start ref_999", self.config, self.latest_path, self.subs_path, bot_token="tok"
+        )
+        bot_commands.build_command_responses(
+            "1001", "/start ref_999", self.config, self.latest_path, self.subs_path, bot_token="tok"
+        )
+        bot_commands.build_command_responses(
+            "1002", "/start ref_999", self.config, self.latest_path, self.subs_path, bot_token="tok"
+        )
+        subs = json.loads(self.subs_path.read_text(encoding="utf-8"))
+        self.assertEqual(subs["999"]["referrals"], 2)
+        self.assertFalse(subs["999"].get("vip_unlocked", False))
+
+        # 3rd unique friend unlocks VIP & sends congrats DM
+        bot_commands.build_command_responses(
+            "1003", "/start ref_999", self.config, self.latest_path, self.subs_path, bot_token="tok"
+        )
+        subs = json.loads(self.subs_path.read_text(encoding="utf-8"))
+        self.assertEqual(subs["999"]["referrals"], 3)
+        self.assertTrue(subs["999"]["vip_unlocked"])
+        self.assertTrue(any("VIP Unlocked!" in call.args[2] for call in mock_send.call_args_list))
+
+        # Now /setkeywords, /pitch, and /expiring work!
         set_reply = bot_commands.handle_command(
             "999", "/setkeywords python, remote", self.config, self.latest_path, self.subs_path
         )
@@ -149,12 +191,54 @@ class BotCommandsTests(unittest.TestCase):
         self.assertTrue(subs["999"]["subscribed"])
         self.assertEqual(subs["999"]["keywords"], ["python", "remote"])
 
+        pitch_job = bot_commands.handle_command(
+            "999", "/pitch python", self.config, self.latest_path, self.subs_path
+        )
+        self.assertIn("One-Tap Job Pitch", pitch_job[0])
+        self.assertIn("Python Backend Engineer", pitch_job[0])
+
+        pitch_sch = bot_commands.handle_command(
+            "999", "/pitch fellowship", self.config, self.latest_path, self.subs_path
+        )
+        self.assertIn("One-Tap Scholarship Pitch", pitch_sch[0])
+        self.assertIn("Selection Committee", pitch_sch[0])
+
         unsub = bot_commands.handle_command(
             "999", "/unsubscribe", self.config, self.latest_path, self.subs_path
         )
         self.assertIn("paused", unsub[0].lower())
         subs = json.loads(self.subs_path.read_text(encoding="utf-8"))
         self.assertFalse(subs["999"]["subscribed"])
+
+    @patch("scraper.answer_callback_query")
+    @patch("scraper.send_telegram_message")
+    def test_pitch_inline_callback_respects_vip_lock(self, mock_send, mock_ack) -> None:
+        self.config["settings"]["bot_username"] = "MyTestBot"
+        # Locked user tapping 📝 #1 receives lock card
+        bot_commands._handle_callback_query(
+            {"id": "cq1", "data": "pitch:j1", "message": {"message_id": 1, "chat": {"id": 555}}},
+            "tok",
+            self.config,
+            self.latest_path,
+            self.subs_path,
+        )
+        self.assertIn("Unlock by Inviting 3 Friends", mock_send.call_args.args[2])
+        self.assertIn("start=ref_555", mock_send.call_args.args[2])
+
+        # Unlock user 555 and tap 📝 #1 again
+        subs = scraper.load_subscribers(self.subs_path)
+        subs["555"] = {"subscribed": False, "keywords": [], "referrals": 3, "vip_unlocked": True}
+        self.subs_path.write_text(json.dumps(subs), encoding="utf-8")
+
+        bot_commands._handle_callback_query(
+            {"id": "cq2", "data": "pitch:j1", "message": {"message_id": 1, "chat": {"id": 555}}},
+            "tok",
+            self.config,
+            self.latest_path,
+            self.subs_path,
+        )
+        self.assertIn("Python Backend Engineer", mock_send.call_args.args[2])
+        self.assertIn("Prep Checklist", mock_send.call_args.args[2])
 
     @patch("bot_commands.get_updates")
     @patch("scraper.send_telegram_message")

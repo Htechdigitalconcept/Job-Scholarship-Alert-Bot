@@ -13,8 +13,10 @@ import html
 import json
 import logging
 import os
+import re
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -41,7 +43,9 @@ BOT_COMMANDS_MENU = [
     {"command": "visa", "description": "Filter 🛂 Visa-sponsored opportunities"},
     {"command": "digest", "description": "Today's top opportunities summary"},
     {"command": "stats", "description": "Bot & opportunity counts"},
-    {"command": "share", "description": "Share this bot, channel & web board"},
+    {"command": "share", "description": "Invite 3 friends & unlock VIP features"},
+    {"command": "expiring", "description": "VIP: Deadlines closing soon"},
+    {"command": "pitch", "description": "VIP: One-tap application pitch & checklist"},
     {"command": "subscribe", "description": "Get cycle reminder DMs when new posts drop"},
     {"command": "unsubscribe", "description": "Pause cycle reminder DMs"},
     {"command": "keywords", "description": "View tracked keywords"},
@@ -50,6 +54,205 @@ BOT_COMMANDS_MENU = [
 ]
 
 PAGE_SIZE = 5
+REFERRAL_GOAL = 3
+
+
+def get_referral_goal(config: dict[str, Any] | None = None) -> int:
+    if config:
+        try:
+            val = int(config.get("settings", {}).get("referral_goal", REFERRAL_GOAL))
+            if val > 0:
+                return val
+        except (TypeError, ValueError):
+            pass
+    return REFERRAL_GOAL
+
+
+def get_referral_progress(
+    subscribers: dict[str, Any],
+    chat_id: str,
+    config: dict[str, Any] | None = None,
+) -> tuple[int, int, bool]:
+    """Return (referrals_count, goal, vip_unlocked) for a user."""
+    goal = get_referral_goal(config)
+    prefs = subscribers.get(chat_id) or {}
+    referred_list = prefs.get("referred_users")
+    if isinstance(referred_list, list):
+        count = max(int(prefs.get("referrals", 0) or 0), len(referred_list))
+    else:
+        count = int(prefs.get("referrals", 0) or 0)
+    unlocked = bool(prefs.get("vip_unlocked")) or count >= goal
+    return count, goal, unlocked
+
+
+def build_referral_progress_bar(count: int, goal: int = REFERRAL_GOAL) -> str:
+    filled = min(max(0, count), goal)
+    empty = max(0, goal - filled)
+    return f"[{'█' * filled}{'░' * empty}] {min(count, goal)}/{goal}"
+
+
+def build_referral_link(
+    chat_id: str,
+    bot_url: str = "",
+    site_url: str = "",
+    channel_url: str = "",
+) -> str:
+    if bot_url:
+        return f"{bot_url}?start=ref_{chat_id}"
+    return site_url or channel_url
+
+
+def register_referral(
+    subscribers: dict[str, Any],
+    new_chat_id: str,
+    referrer_id: str,
+    goal: int = REFERRAL_GOAL,
+) -> tuple[bool, bool, int]:
+    """Record a unique referral if valid. Returns (counted, just_unlocked, new_count)."""
+    clean_new = str(new_chat_id).strip()
+    clean_ref = str(referrer_id).strip()
+    if not clean_new or not clean_ref or clean_new == clean_ref:
+        return False, False, 0
+    if not re.fullmatch(r"-?\d+", clean_ref):
+        return False, False, 0
+
+    new_prefs = subscribers.get(clean_new)
+    if not isinstance(new_prefs, dict):
+        new_prefs = {"subscribed": False, "keywords": []}
+    if new_prefs.get("referred_by"):
+        return False, False, 0
+
+    ref_prefs = subscribers.get(clean_ref)
+    if not isinstance(ref_prefs, dict):
+        ref_prefs = {"subscribed": False, "keywords": []}
+
+    referred_users = list(ref_prefs.get("referred_users") or [])
+    if clean_new in referred_users:
+        return False, False, len(referred_users)
+
+    was_unlocked = bool(ref_prefs.get("vip_unlocked")) or len(referred_users) >= goal
+    referred_users.append(clean_new)
+    new_count = len(referred_users)
+    just_unlocked = (not was_unlocked) and new_count >= goal
+
+    ref_prefs["referred_users"] = referred_users
+    ref_prefs["referrals"] = new_count
+    if new_count >= goal:
+        ref_prefs["vip_unlocked"] = True
+
+    new_prefs["referred_by"] = clean_ref
+    subscribers[clean_new] = new_prefs
+    subscribers[clean_ref] = ref_prefs
+    return True, just_unlocked, new_count
+
+
+def format_vip_lock_message(
+    feature_name: str,
+    chat_id: str,
+    subscribers: dict[str, Any],
+    config: dict[str, Any],
+    bot_url: str = "",
+    site_url: str = "",
+    channel_link: str = "",
+) -> tuple[str, dict[str, Any] | None]:
+    """Build a friendly 3-friend referral unlock card + one-tap share button."""
+    count, goal, _ = get_referral_progress(subscribers, chat_id, config)
+    remaining = max(0, goal - count)
+    bar = build_referral_progress_bar(count, goal)
+    ref_link = build_referral_link(chat_id, bot_url=bot_url, site_url=site_url, channel_url=channel_link)
+
+    lines = [
+        f"🔒 <b>{html.escape(feature_name)} — Unlock by Inviting {goal} Friends</b>",
+        f"📊 <b>Your Progress:</b> <code>{html.escape(bar)}</code> ({remaining} more needed)",
+        "<b>What unlocks permanently at 3/3 friends:</b>\n"
+        "• 🎯 <b>/setkeywords</b> — Custom keyword DM alerts\n"
+        "• ⏳ <b>/expiring</b> — Closing-soon deadline radar\n"
+        "• 📝 <b>/pitch</b> + <b>#1..#5</b> buttons — Tailored application pitch &amp; ATS checklist",
+    ]
+    if ref_link:
+        lines.append(f"🔗 <b>Your Personal Invite Link:</b>\n<code>{html.escape(ref_link)}</code>")
+
+    rows: list[list[dict[str, str]]] = []
+    if ref_link:
+        rows.append([{
+            "text": f"📤 Invite Friends ({count}/{goal})",
+            "url": scraper.build_telegram_share_url(
+                ref_link,
+                "🚀 Join this free 24/7 Bot for Remote Tech Jobs, Web3 Roles & Fully Funded Scholarships!",
+            ),
+        }])
+    if channel_link:
+        rows.append([{"text": "Join Channel 📢", "url": channel_link}])
+    return "\n\n".join(lines), ({"inline_keyboard": rows} if rows else None)
+
+
+def _deadline_sort_key(item: scraper.Opportunity) -> tuple[int, float, float]:
+    """Sort items with explicit near-term deadlines first, then newest published."""
+    dl = (item.deadline or "").strip()
+    pub_ts = -(item.published_dt.timestamp() if item.published_dt else 0.0)
+    if dl:
+        for fmt in ("%b %d, %Y", "%B %d, %Y", "%d %b %Y", "%d %B %Y", "%Y-%m-%d"):
+            try:
+                dt = datetime.strptime(dl, fmt).replace(tzinfo=timezone.utc)
+                return (0, dt.timestamp(), pub_ts)
+            except ValueError:
+                continue
+        return (1, 0.0, pub_ts)
+    return (2, 0.0, pub_ts)
+
+
+def build_application_pitch(item: scraper.Opportunity) -> str:
+    """Generate a tailored copy-paste outreach/SOP pitch + ATS checklist for an opportunity."""
+    title = html.escape(item.title)
+    source = html.escape(item.source_name)
+    link = html.escape(item.link, quote=True)
+    kws = item.matched_keywords or ["relevant experience"]
+    kw_text = ", ".join(kws[:5])
+    safe_kws = html.escape(kw_text)
+    badges_text = " · ".join(item.badges) if item.badges else "Recent Opportunity"
+    deadline_line = f"\n⏳ <b>Deadline:</b> {html.escape(item.deadline)}" if item.deadline else ""
+
+    if item.category == "scholarships":
+        pitch_body = (
+            f"Dear {source} Selection Committee,\n\n"
+            f"I am writing to express my strong interest in the {item.title}. "
+            f"With a background aligned with {kw_text}, my academic and community work focuses on [Your Field / Research Focus], "
+            f"including [Key Project, Publication, or Measurable Impact].\n\n"
+            f"Receiving this opportunity would enable me to [Specific Goal / Contribution], and I have prepared my academic transcripts, "
+            f"CV, and references for your review.\n\n"
+            f"Best regards,\n[Your Full Name] | [LinkedIn / Portfolio Link]"
+        )
+        checklist = (
+            "• ✅ Tailor your Statement of Purpose around: <code>" + safe_kws + "</code>\n"
+            "• ✅ Prepare official transcripts, updated CV &amp; 2 referee contacts\n"
+            "• ✅ Confirm eligibility &amp; deadline before submitting"
+        )
+        header = "🎓 <b>One-Tap Scholarship Pitch &amp; Checklist</b>"
+    else:
+        pitch_body = (
+            f"Subject: Application for {item.title} — [Your Name]\n\n"
+            f"Hi Hiring Team at {source},\n\n"
+            f"I saw your opening for {item.title} and wanted to reach out directly. "
+            f"I bring [X] years of hands-on experience with {kw_text}, most recently [1-line achievement with metric or shipped project].\n\n"
+            f"Portfolio / GitHub: [Your Link]\n"
+            f"Would love to connect if my background fits what you're looking for.\n\n"
+            f"Best,\n[Your Name]"
+        )
+        checklist = (
+            "• ✅ Mirror these ATS keywords in your CV summary: <code>" + safe_kws + "</code>\n"
+            "• ✅ Attach 1–2 live links (GitHub, portfolio, or shipped product)\n"
+            "• ✅ Send the short DM above to the hiring manager on LinkedIn/X after applying"
+        )
+        header = "📝 <b>One-Tap Job Pitch &amp; ATS Checklist</b>"
+
+    return (
+        f"{header}\n\n"
+        f"<b><a href=\"{link}\">{title}</a></b>\n"
+        f"<i>{source}</i> · {html.escape(badges_text)}{deadline_line}\n\n"
+        f"<b>📋 Copy &amp; Customize Pitch:</b>\n"
+        f"<pre>{html.escape(pitch_body)}</pre>\n\n"
+        f"<b>🎯 Prep Checklist:</b>\n{checklist}"
+    )
 
 
 def load_state(path: Path) -> dict[str, Any]:
@@ -253,8 +456,10 @@ def build_list_markup(
     channel_url: str = "",
     bot_url: str = "",
     site_url: str = "",
+    page_items: list[scraper.Opportunity] | None = None,
+    start_index: int = 1,
 ) -> dict[str, Any] | None:
-    """Build inline Prev/Next pagination + Join Channel + Share buttons."""
+    """Build inline Prev/Next pagination + Pitch #1..5 + Join Channel + Share buttons."""
     rows: list[list[dict[str, str]]] = []
     nav_row: list[dict[str, str]] = []
     if page > 0:
@@ -269,6 +474,17 @@ def build_list_markup(
         })
     if nav_row:
         rows.append(nav_row)
+
+    if page_items:
+        pitch_row = [
+            {
+                "text": f"📝 #{idx}",
+                "callback_data": f"pitch:{item.item_id[:56]}",
+            }
+            for idx, item in enumerate(page_items[:5], start=start_index)
+        ]
+        if pitch_row:
+            rows.append(pitch_row)
 
     action_row: list[dict[str, str]] = []
     if channel_url:
@@ -447,6 +663,35 @@ def _filter_opportunities_for_command(
         )
         return heading, filtered, f"No recent {target_badge} opportunities matched right now."
 
+    if cmd == "/expiring":
+        items = get_recent_opportunities(config, latest_path)
+        expiring = [
+            i
+            for i in items
+            if i.deadline
+            or any(
+                kw in f"{i.title} {i.summary}".lower()
+                for kw in ("deadline", "apply by", "closing soon", "closes ", "expires")
+            )
+        ]
+        if arg:
+            search_terms = [t.strip() for t in arg.replace(",", " ").split() if t.strip()]
+            expiring = [
+                i
+                for i in expiring
+                if scraper.match_keywords(
+                    f"{i.title} {i.summary} {' '.join(i.matched_keywords)}",
+                    search_terms,
+                    [],
+                )
+            ]
+        expiring.sort(key=_deadline_sort_key)
+        return (
+            f"⏳ Closing-Soon Deadlines{f' ({arg})' if arg else ''}",
+            expiring,
+            "No extracted deadlines matched right now. Check /latest or /scholarships.",
+        )
+
     if cmd == "/jobs":
         target_cats = {"jobs", "web3_jobs"}
         label_name = "jobs"
@@ -511,6 +756,47 @@ def build_command_responses(
             return build_command_responses(
                 chat_id, "/latest", config, latest_path, subscribers_path, page=page, bot_token=bot_token
             )
+
+        referral_note = ""
+        if cmd == "/start" and arg.lower().startswith("ref_"):
+            referrer_id = arg[4:].strip()
+            subscribers = scraper.load_subscribers(subscribers_path)
+            goal = get_referral_goal(config)
+            counted, just_unlocked, new_count = register_referral(
+                subscribers, chat_id, referrer_id, goal=goal
+            )
+            if counted:
+                try:
+                    save_subscribers(subscribers_path, subscribers)
+                except Exception as exc:  # noqa: BLE001
+                    logger.warning("Could not persist referral update: %s", exc)
+                referral_note = "\n🎁 <i>Invited by a friend — welcome aboard!</i>"
+                if bot_token:
+                    try:
+                        if just_unlocked:
+                            notify_text = (
+                                f"🎉 <b>VIP Unlocked! ({new_count}/{goal} Friends Joined)</b>\n\n"
+                                "You just unlocked all VIP tools:\n"
+                                "• 🎯 /setkeywords — Personal keyword DM alerts\n"
+                                "• ⏳ /expiring — Closing-soon deadline radar\n"
+                                "• 📝 /pitch &amp; <b>#1..#5</b> buttons — One-tap application pitch &amp; ATS checklist"
+                            )
+                        else:
+                            left = max(0, goal - new_count)
+                            notify_text = (
+                                f"🎁 <b>+1 Friend Joined via Your Link!</b>\n"
+                                f"📊 Progress: <code>{html.escape(build_referral_progress_bar(new_count, goal))}</code>\n"
+                                f"Invite <b>{left}</b> more friend(s) with /share to unlock VIP tools!"
+                            )
+                        scraper.send_telegram_message(
+                            bot_token,
+                            referrer_id,
+                            notify_text,
+                            disable_web_page_preview=True,
+                        )
+                    except Exception as exc:  # noqa: BLE001
+                        logger.warning("Failed notifying referrer %s: %s", referrer_id, exc)
+
         channel_line = (
             f"\n\n📢 <b>Public Alert Channel:</b> {html.escape(channel_link)}"
             if channel_link
@@ -519,7 +805,7 @@ def build_command_responses(
         msg = (
             "<b>👋 Job & Scholarship Alert Bot</b>\n"
             "Get fresh remote jobs, Web3 roles, fellowships, and funded scholarships."
-            f"{channel_line}\n\n"
+            f"{referral_note}{channel_line}\n\n"
             "<b>Available Commands:</b>\n"
             "• /latest — Newest jobs, Web3 & scholarships\n"
             "• /jobs [keyword] — Latest remote jobs (e.g. <code>/jobs python</code>)\n"
@@ -530,7 +816,10 @@ def build_command_responses(
             "• /visa [word] — 🛂 Visa-sponsored roles\n"
             "• /digest — ☀️ Top opportunities summary\n"
             "• /stats — 📊 Counts by category & highlights\n"
-            "• /share — 📤 Share this bot with friends & groups\n"
+            "• /share — 🎁 Invite 3 friends &amp; unlock VIP features\n"
+            "• /expiring — ⏳ VIP: Closing-soon deadlines\n"
+            "• /pitch [word] — 📝 VIP: One-tap application pitch &amp; checklist\n"
+            "• /setkeywords — 🎯 VIP: Custom keyword DM alerts\n"
             "• /subscribe — 🔔 Get cycle reminder DMs on new posts\n"
             "• /unsubscribe — 🔕 Pause cycle reminder DMs\n"
             "• /keywords — View tracked keywords\n"
@@ -544,13 +833,13 @@ def build_command_responses(
             top_row.append({"text": "🌐 Live Web Board", "url": site_url})
         if top_row:
             start_rows.append(top_row)
-        share_target = bot_url or site_url or channel_link
+        ref_link = build_referral_link(chat_id, bot_url=bot_url, site_url=site_url, channel_url=channel_link)
         row2: list[dict[str, str]] = [{"text": "🔔 Get Cycle Reminders", "callback_data": "sub:on"}]
-        if share_target:
+        if ref_link:
             row2.append({
-                "text": "📤 Share Bot",
+                "text": "🎁 Invite 3 Friends",
                 "url": scraper.build_telegram_share_url(
-                    share_target,
+                    ref_link,
                     "🚀 Check out this free 24/7 Bot for Remote Tech Jobs, Web3 Roles & Fully Funded Scholarships!",
                 ),
             })
@@ -559,25 +848,35 @@ def build_command_responses(
         return [(msg, {"inline_keyboard": start_rows})]
 
     if cmd == "/share":
+        subscribers = scraper.load_subscribers(subscribers_path)
+        count, goal, unlocked = get_referral_progress(subscribers, chat_id, config)
+        bar = build_referral_progress_bar(count, goal)
+        ref_link = build_referral_link(chat_id, bot_url=bot_url, site_url=site_url, channel_url=channel_link)
+        status_line = (
+            "✅ <b>VIP Status: UNLOCKED!</b> (/setkeywords, /expiring &amp; /pitch active)"
+            if unlocked
+            else f"🔒 <b>VIP Progress:</b> <code>{html.escape(bar)}</code> — invite <b>{max(0, goal - count)}</b> more friend(s) to unlock:\n"
+            "• 🎯 <b>/setkeywords</b> (Personal keyword DM alerts)\n"
+            "• ⏳ <b>/expiring</b> (Closing-soon deadline radar)\n"
+            "• 📝 <b>/pitch</b> &amp; <b>#1..#5</b> buttons (One-tap application pitch &amp; ATS checklist)"
+        )
         share_lines = [
-            "<b>📤 Share This Bot &amp; Live Board</b>",
-            "Know someone looking for <b>Remote Tech Jobs</b>, <b>Web3 Roles</b>, "
-            "or <b>Fully Funded Scholarships</b>? Forward this message or tap a button below!",
+            "<b>🎁 Invite 3 Friends &amp; Unlock VIP Tools</b>",
+            status_line,
         ]
-        if bot_url:
-            share_lines.append(f"🤖 <b>Bot:</b> {html.escape(bot_url)}")
+        if ref_link:
+            share_lines.append(f"🔗 <b>Your Personal Invite Link:</b>\n<code>{html.escape(ref_link)}</code>")
         if channel_link:
             share_lines.append(f"📢 <b>Channel:</b> {html.escape(channel_link)}")
         if site_url:
             share_lines.append(f"🌐 <b>Live Web Board:</b> {html.escape(site_url)}")
 
         share_rows: list[list[dict[str, str]]] = []
-        bot_share_url = bot_url or site_url or channel_link
-        if bot_share_url:
+        if ref_link:
             share_rows.append([{
-                "text": "📤 Share Bot with Friends",
+                "text": f"📤 Share My Invite Link ({min(count, goal)}/{goal})",
                 "url": scraper.build_telegram_share_url(
-                    bot_share_url,
+                    ref_link,
                     "🚀 Free 24/7 Bot for Remote Tech Jobs, Web3 Roles & Fully Funded Scholarships!",
                 ),
             }])
@@ -621,6 +920,20 @@ def build_command_responses(
         return [(format_sources_message(config), None)]
 
     if cmd == "/setkeywords":
+        subscribers = scraper.load_subscribers(subscribers_path)
+        _, _, unlocked = get_referral_progress(subscribers, chat_id, config)
+        if not unlocked:
+            return [
+                format_vip_lock_message(
+                    "Personal Keyword DM Alerts (/setkeywords)",
+                    chat_id,
+                    subscribers,
+                    config,
+                    bot_url=bot_url,
+                    site_url=site_url,
+                    channel_link=channel_link,
+                )
+            ]
         keywords = [kw.strip() for kw in arg.split(",") if kw.strip()]
         if not keywords:
             return [(
@@ -628,11 +941,10 @@ def build_command_responses(
                 "<code>/setkeywords python, backend, fully funded</code>",
                 None,
             )]
-        subscribers = scraper.load_subscribers(subscribers_path)
-        subscribers[chat_id] = {
-            "subscribed": True,
-            "keywords": keywords,
-        }
+        existing = subscribers.get(chat_id, {})
+        existing["subscribed"] = True
+        existing["keywords"] = keywords
+        subscribers[chat_id] = existing
         try:
             save_subscribers(subscribers_path, subscribers)
         except Exception:  # noqa: BLE001
@@ -648,6 +960,46 @@ def build_command_responses(
             "Send /unsubscribe anytime to pause personal DMs.",
             None,
         )]
+
+    if cmd == "/pitch":
+        subscribers = scraper.load_subscribers(subscribers_path)
+        _, _, unlocked = get_referral_progress(subscribers, chat_id, config)
+        if not unlocked:
+            return [
+                format_vip_lock_message(
+                    "One-Tap Application Pitch (/pitch)",
+                    chat_id,
+                    subscribers,
+                    config,
+                    bot_url=bot_url,
+                    site_url=site_url,
+                    channel_link=channel_link,
+                )
+            ]
+        items = scraper.interleave_by_category(get_recent_opportunities(config, latest_path))
+        if arg:
+            search_terms = [t.strip() for t in arg.replace(",", " ").split() if t.strip()]
+            matched = [
+                i
+                for i in items
+                if scraper.match_keywords(
+                    f"{i.title} {i.summary} {i.source_name} {' '.join(i.matched_keywords)}",
+                    search_terms,
+                    [],
+                )
+            ]
+            target = matched[0] if matched else None
+        else:
+            target = items[0] if items else None
+        if not target:
+            return [(
+                f"No cached opportunity matched <code>{html.escape(arg)}</code>. Try /latest and tap any <b>📝 #1..#5</b> button!",
+                channel_markup,
+            )]
+        pitch_markup = scraper.build_item_reply_markup(
+            target, channel_url=channel_link, bot_url=bot_url
+        )
+        return [(build_application_pitch(target), pitch_markup)]
 
     if cmd == "/subscribe":
         subscribers = scraper.load_subscribers(subscribers_path)
@@ -680,7 +1032,22 @@ def build_command_responses(
                 pass
         return [("🔕 <b>Cycle reminder DMs paused.</b> Send /subscribe anytime to resume.", None)]
 
-    if cmd in {"/latest", "/jobs", "/web3", "/scholarships", "/search", "/worldwide", "/visa"}:
+    if cmd in {"/latest", "/jobs", "/web3", "/scholarships", "/search", "/worldwide", "/visa", "/expiring"}:
+        if cmd == "/expiring":
+            subscribers = scraper.load_subscribers(subscribers_path)
+            _, _, unlocked = get_referral_progress(subscribers, chat_id, config)
+            if not unlocked:
+                return [
+                    format_vip_lock_message(
+                        "Closing-Soon Deadline Radar (/expiring)",
+                        chat_id,
+                        subscribers,
+                        config,
+                        bot_url=bot_url,
+                        site_url=site_url,
+                        channel_link=channel_link,
+                    )
+                ]
         page_size = PAGE_SIZE
         if cmd == "/latest" and arg.isdigit():
             page_size = max(1, min(10, int(arg)))
@@ -716,6 +1083,8 @@ def build_command_responses(
                 channel_url=channel_link,
                 bot_url=bot_url,
                 site_url=site_url,
+                page_items=page_items,
+                start_index=start + 1,
             )
             if total > 0
             else channel_markup
@@ -761,10 +1130,53 @@ def _handle_callback_query(
             scraper.answer_callback_query(bot_token, cq_id)
         return 0
 
+    if data.startswith("pitch:"):
+        target_id = data.split(":", 1)[1].strip()
+        subscribers = scraper.load_subscribers(subscribers_path)
+        _, _, unlocked = get_referral_progress(subscribers, chat_id, config)
+        channel_link = get_channel_display(config)
+        site_url = scraper.get_public_site_url(config)
+        bot_url = scraper.get_bot_url(bot_token, config)
+        if not unlocked:
+            lock_msg, lock_markup = format_vip_lock_message(
+                "One-Tap Application Pitch",
+                chat_id,
+                subscribers,
+                config,
+                bot_url=bot_url,
+                site_url=site_url,
+                channel_link=channel_link,
+            )
+            scraper.send_telegram_message(
+                bot_token,
+                chat_id,
+                lock_msg,
+                reply_markup=lock_markup,
+                disable_web_page_preview=True,
+            )
+            scraper.answer_callback_query(bot_token, cq_id, text="🔒 Invite 3 friends to unlock Pitch!")
+            return 1
+
+        items = get_recent_opportunities(config, latest_path)
+        target = next((i for i in items if i.item_id.startswith(target_id)), items[0] if items else None)
+        if target:
+            pitch_markup = scraper.build_item_reply_markup(
+                target, channel_url=channel_link, bot_url=bot_url
+            )
+            scraper.send_telegram_message(
+                bot_token,
+                chat_id,
+                build_application_pitch(target),
+                reply_markup=pitch_markup,
+                disable_web_page_preview=True,
+            )
+        scraper.answer_callback_query(bot_token, cq_id, text="📝 Pitch generated!")
+        return 1
+
     if data in {"sub:on", "sub:off"}:
         cmd_text = "/subscribe" if data == "sub:on" else "/unsubscribe"
         responses = build_command_responses(
-            chat_id, cmd_text, config, latest_path, subscribers_path
+            chat_id, cmd_text, config, latest_path, subscribers_path, bot_token=bot_token
         )
         if responses:
             reply_text, markup = responses[0]
@@ -797,7 +1209,7 @@ def _handle_callback_query(
 
     cmd_text = f"/{cmd_name}" + (f" {query}" if query else "")
     responses = build_command_responses(
-        chat_id, cmd_text, config, latest_path, subscribers_path, page=page
+        chat_id, cmd_text, config, latest_path, subscribers_path, page=page, bot_token=bot_token
     )
     if responses:
         reply_text, markup = responses[0]
