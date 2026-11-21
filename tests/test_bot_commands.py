@@ -392,6 +392,9 @@ class BotCommandsTests(unittest.TestCase):
         self.assertIn('data-pitch-id=', root_body)
         self.assertIn('Browse up to 200 fresh remote tech jobs', root_body)
         self.assertIn('telegram-web-app.js', root_body)
+        self.assertIn('setHeaderColor', root_body)
+        self.assertIn('openTelegramLink', root_body)
+        self.assertIn('BackButton', root_body)
 
         llms = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/llms.txt"}, start_response)).decode("utf-8")
         self.assertIn("# Jobs, Web3 & Scholarships Live Board", llms)
@@ -554,6 +557,7 @@ class BotCommandsTests(unittest.TestCase):
             self.assertTrue(any("setMyCommands" in u for u in called_endpoints))
             self.assertTrue(any("setMyDescription" in u for u in called_endpoints))
             self.assertTrue(any("setMyShortDescription" in u for u in called_endpoints))
+            self.assertTrue(any("setChatMenuButton" in u for u in called_endpoints))
 
 
 if __name__ == "__main__":

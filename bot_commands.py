@@ -1372,8 +1372,11 @@ def _handle_inline_query(
 _VERIFIED_WEBHOOK_TOKENS: set[str] = set()
 
 
-def ensure_webhook_callbacks(bot_token: str) -> None:
-    """Ensure active Telegram webhook receives callback_query and inline_query updates."""
+def ensure_webhook_callbacks(
+    bot_token: str,
+    config: dict[str, Any] | None = None,
+) -> None:
+    """Ensure active Telegram webhook receives callback_query and Mini App menu button is synced."""
     if not bot_token or ":" not in bot_token or bot_token in _VERIFIED_WEBHOOK_TOKENS:
         return
     _VERIFIED_WEBHOOK_TOKENS.add(bot_token)
@@ -1393,6 +1396,17 @@ def ensure_webhook_callbacks(bot_token: str) -> None:
     except Exception as exc:  # noqa: BLE001
         logger.debug("Webhook callback check skipped: %s", exc)
 
+    site_url = scraper.get_public_site_url(config)
+    if site_url:
+        try:
+            requests.post(
+                f"https://api.telegram.org/bot{bot_token}/setChatMenuButton",
+                json={"menu_button": {"type": "web_app", "text": "Open Board", "web_app": {"url": site_url}}},
+                timeout=5,
+            )
+        except Exception as exc:  # noqa: BLE001
+            logger.debug("Chat menu button sync skipped: %s", exc)
+
 
 def process_webhook_update(
     update: dict[str, Any],
@@ -1402,13 +1416,12 @@ def process_webhook_update(
     subscribers_path: Path,
 ) -> int:
     """Process a single Telegram webhook update dict and send replies immediately."""
-    ensure_webhook_callbacks(bot_token)
+    config = scraper.load_config(config_path)
+    ensure_webhook_callbacks(bot_token, config)
     if "inline_query" in update and isinstance(update["inline_query"], dict):
-        config = scraper.load_config(config_path)
         return _handle_inline_query(update["inline_query"], bot_token, config, latest_path)
 
     if "callback_query" in update and isinstance(update["callback_query"], dict):
-        config = scraper.load_config(config_path)
         return _handle_callback_query(
             update["callback_query"], bot_token, config, latest_path, subscribers_path
         )
@@ -1421,7 +1434,6 @@ def process_webhook_update(
     if not chat_id or not text.startswith("/"):
         return 0
 
-    config = scraper.load_config(config_path)
     responses = build_command_responses(
         chat_id, text, config, latest_path, subscribers_path, bot_token=bot_token
     )

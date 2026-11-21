@@ -1700,10 +1700,12 @@ def render_web_board_html(
       const applyLink = document.getElementById("pitchApplyLink");
       if (applyLink) applyLink.href = item.link;
       modal.classList.add("open");
+      try {{ window.Telegram?.WebApp?.BackButton?.show(); }} catch (_e) {{}}
     }};
 
     const closePitchModal = () => {{
       document.getElementById("pitchModal")?.classList.remove("open");
+      try {{ window.Telegram?.WebApp?.BackButton?.hide(); }} catch (_e) {{}}
     }};
 
     document.addEventListener("click", (e) => {{
@@ -1739,6 +1741,17 @@ def render_web_board_html(
       if (tgApp) {{
         tgApp.ready();
         tgApp.expand();
+        try {{ tgApp.setHeaderColor("#0b1120"); }} catch (_e) {{}}
+        try {{ tgApp.setBackgroundColor("#070b14"); }} catch (_e) {{}}
+        try {{ tgApp.BackButton?.onClick(closePitchModal); }} catch (_e) {{}}
+
+        document.addEventListener("click", (e) => {{
+          const tgLink = e.target.closest('a[href^="https://t.me/"]');
+          if (tgLink && typeof tgApp.openTelegramLink === "function") {{
+            e.preventDefault();
+            tgApp.openTelegramLink(tgLink.href);
+          }}
+        }});
       }}
     }});
   </script>
