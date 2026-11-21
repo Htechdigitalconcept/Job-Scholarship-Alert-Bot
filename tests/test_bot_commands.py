@@ -207,6 +207,11 @@ class BotCommandsTests(unittest.TestCase):
         self.assertIn("One-Tap Scholarship Pitch", pitch_sch[0])
         self.assertIn("Selection Committee", pitch_sch[0])
 
+        pitch_cmd_idx = bot_commands.handle_command(
+            "999", "/pitch_1", self.config, self.latest_path, self.subs_path
+        )
+        self.assertIn("Copy &amp; Customize Pitch", pitch_cmd_idx[0])
+
         pitch_num = bot_commands.handle_command(
             "999", "/pitch #2", self.config, self.latest_path, self.subs_path
         )
@@ -380,6 +385,8 @@ class BotCommandsTests(unittest.TestCase):
         api_paged_json = json.loads(api_paged.decode("utf-8"))
         self.assertEqual(len(api_paged_json["items"]), 1)
         self.assertEqual(api_paged_json["items"][0]["category"], "web3_jobs")
+        self.assertIn('id="pitchModal"', root_body)
+        self.assertIn('data-pitch-id=', root_body)
 
         llms = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/llms.txt"}, start_response)).decode("utf-8")
         self.assertIn("# Jobs, Web3 & Scholarships Live Board", llms)

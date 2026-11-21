@@ -458,10 +458,10 @@ def format_compact_list(
         lines.append(
             f"{idx}. <b><a href=\"{link}\">{title}</a></b>\n"
             f"   <i>{source}</i>{date_line}{meta_line}\n"
-            f"   🏷 <code>{tags}</code>"
+            f"   🏷 <code>{tags}</code> · 📝 /pitch_{idx}"
         )
     lines.append(
-        "💡 <i>Tap <b>📝 Pitch #1–#5</b> below to generate a tailored application email &amp; ATS checklist.</i>"
+        "💡 <i>Tap any <b>/pitch_1</b> link or <b>📝 Pitch #1–#5</b> button below for a tailored application pitch &amp; ATS checklist.</i>"
     )
     return "\n\n".join(lines)
 
@@ -976,6 +976,10 @@ def build_command_responses(
             None,
         )]
 
+    if re.fullmatch(r"/pitch_\d+", cmd):
+        arg = cmd.split("_", 1)[1]
+        cmd = "/pitch"
+
     if cmd == "/pitch":
         subscribers = scraper.load_subscribers(subscribers_path)
         allowed, used_trial = check_and_consume_pitch_access(
@@ -1355,6 +1359,31 @@ def _handle_inline_query(
     return 1
 
 
+_VERIFIED_WEBHOOK_TOKENS: set[str] = set()
+
+
+def ensure_webhook_callbacks(bot_token: str) -> None:
+    """Ensure active Telegram webhook receives callback_query and inline_query updates."""
+    if not bot_token or ":" not in bot_token or bot_token in _VERIFIED_WEBHOOK_TOKENS:
+        return
+    _VERIFIED_WEBHOOK_TOKENS.add(bot_token)
+    try:
+        info_resp = requests.get(
+            f"https://api.telegram.org/bot{bot_token}/getWebhookInfo",
+            timeout=5,
+        )
+        info_resp.raise_for_status()
+        info = info_resp.json().get("result") or {}
+        url = str(info.get("url", "")).strip()
+        allowed = info.get("allowed_updates")
+        if url and isinstance(allowed, list) and "callback_query" not in allowed:
+            secret = os.environ.get("TELEGRAM_WEBHOOK_SECRET", "").strip()
+            set_webhook(bot_token, url, secret_token=secret)
+            logger.info("Updated Telegram webhook allowed_updates to include callback_query.")
+    except Exception as exc:  # noqa: BLE001
+        logger.debug("Webhook callback check skipped: %s", exc)
+
+
 def process_webhook_update(
     update: dict[str, Any],
     bot_token: str,
@@ -1363,6 +1392,7 @@ def process_webhook_update(
     subscribers_path: Path,
 ) -> int:
     """Process a single Telegram webhook update dict and send replies immediately."""
+    ensure_webhook_callbacks(bot_token)
     if "inline_query" in update and isinstance(update["inline_query"], dict):
         config = scraper.load_config(config_path)
         return _handle_inline_query(update["inline_query"], bot_token, config, latest_path)

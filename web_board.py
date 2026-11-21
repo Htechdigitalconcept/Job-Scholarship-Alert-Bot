@@ -67,7 +67,10 @@ def _render_ssr_cards(items: list[scraper.Opportunity]) -> str:
   {summary_html}
   <div class="card-footer">
     <span class="kw-list">{date_prefix}🏷 {kws}</span>
-    <a class="apply-btn" href="{html.escape(item.link, quote=True)}" target="_blank" rel="noopener noreferrer">Apply ↗</a>
+    <div class="card-actions">
+      <button type="button" class="pitch-btn" data-pitch-id="{html.escape(item.item_id, quote=True)}">📝 Pitch</button>
+      <a class="apply-btn" href="{html.escape(item.link, quote=True)}" target="_blank" rel="noopener noreferrer">Apply ↗</a>
+    </div>
   </div>
 </article>"""
         )
@@ -878,6 +881,29 @@ def render_web_board_html(
       text-overflow: ellipsis;
       white-space: nowrap;
     }}
+    .card-actions {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }}
+    .pitch-btn {{
+      background: rgba(129, 140, 248, 0.14);
+      border: 1px solid rgba(129, 140, 248, 0.38);
+      color: #c7d2fe;
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 7px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }}
+    .pitch-btn:hover {{
+      border-color: var(--accent-2);
+      background: rgba(129, 140, 248, 0.24);
+    }}
     .apply-btn {{
       background: var(--surface-2);
       border: 1px solid var(--border);
@@ -890,6 +916,100 @@ def render_web_board_html(
       flex-shrink: 0;
     }}
     .apply-btn:hover {{ border-color: var(--accent); }}
+    .modal-backdrop {{
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(2, 6, 23, 0.78);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }}
+    .modal-backdrop.open {{ display: flex; }}
+    .modal-card {{
+      width: 100%;
+      max-width: 620px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+    }}
+    .modal-head {{
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }}
+    .modal-head h2 {{
+      margin: 0;
+      font-size: 1.08rem;
+      line-height: 1.35;
+    }}
+    .modal-close {{
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }}
+    .modal-meta {{
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }}
+    .pitch-box {{
+      width: 100%;
+      min-height: 185px;
+      background: rgba(7, 11, 20, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.84rem;
+      line-height: 1.5;
+      resize: vertical;
+      outline: none;
+    }}
+    .pitch-box:focus {{ border-color: var(--accent); }}
+    .checklist-box {{
+      margin: 12px 0 16px;
+      padding: 12px 14px;
+      background: rgba(30, 41, 59, 0.55);
+      border: 1px solid rgba(52, 211, 153, 0.28);
+      border-radius: 12px;
+      font-size: 0.84rem;
+    }}
+    .checklist-box h3 {{
+      margin: 0 0 6px;
+      font-size: 0.84rem;
+      color: var(--green);
+    }}
+    .checklist-box ul {{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }}
+    .modal-actions {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }}
+    .modal-actions .tg-btn,
+    .modal-actions .ghost-btn {{
+      min-height: 44px;
+      padding: 10px 16px;
+    }}
     .empty {{
       grid-column: 1 / -1;
       text-align: center;
@@ -1284,6 +1404,29 @@ def render_web_board_html(
     </div>
   </footer>
 
+  <div id="pitchModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="pitchModalTitle">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <span id="pitchBadgeLabel" class="cat-tag">📝 One-Tap Pitch &amp; ATS Checklist</span>
+          <h2 id="pitchModalTitle" style="margin-top:8px;">Application Pitch</h2>
+        </div>
+        <button type="button" id="closePitchBtn" class="modal-close" aria-label="Close pitch modal">✕</button>
+      </div>
+      <div id="pitchMeta" class="modal-meta"></div>
+      <textarea id="pitchTextarea" class="pitch-box" aria-label="Editable application pitch"></textarea>
+      <div class="checklist-box">
+        <h3>🎯 Prep &amp; ATS Checklist</h3>
+        <ul id="pitchChecklist"></ul>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="copyPitchBtn" class="tg-btn" style="border:none;cursor:pointer;font-family:inherit;">📋 Copy Pitch</button>
+        <a id="pitchApplyLink" class="ghost-btn" href="#" target="_blank" rel="noopener noreferrer">Apply Now ↗</a>
+        <a class="ghost-btn" href="{safe_channel_url}" target="_blank" rel="noopener noreferrer">📢 Join Telegram</a>
+      </div>
+    </div>
+  </div>
+
   <script>
     const ITEMS = {safe_json};
     const PAGE_SIZE = 24;
@@ -1392,7 +1535,10 @@ def render_web_board_html(
             ${{item.summary ? `<p class="summary">${{esc(item.summary)}}</p>` : ""}}
             <div class="card-footer">
               <span class="kw-list">${{shortDate ? shortDate + " · " : ""}}🏷 ${{kws}}</span>
-              <a class="apply-btn" href="${{esc(item.link)}}" target="_blank" rel="noopener noreferrer">Apply ↗</a>
+              <div class="card-actions">
+                <button type="button" class="pitch-btn" data-pitch-id="${{esc(item.item_id)}}">📝 Pitch</button>
+                <a class="apply-btn" href="${{esc(item.link)}}" target="_blank" rel="noopener noreferrer">Apply ↗</a>
+              </div>
             </div>
           </article>
         `;
@@ -1515,6 +1661,76 @@ def render_web_board_html(
 
     document.getElementById("copyLinkBtn")?.addEventListener("click", (e) => {{
       copyBoardUrl(e.currentTarget, "🔗 Copy Link");
+    }});
+
+    const openPitchModal = (item) => {{
+      const modal = document.getElementById("pitchModal");
+      if (!modal || !item) return;
+      const kws = (item.matched_keywords && item.matched_keywords.length) ? item.matched_keywords.slice(0, 5).join(", ") : "relevant experience";
+      const isSch = item.category === "scholarships";
+      document.getElementById("pitchBadgeLabel").textContent = isSch
+        ? "🎓 One-Tap Scholarship Pitch & Checklist"
+        : "📝 One-Tap Job Pitch & ATS Checklist";
+      document.getElementById("pitchModalTitle").textContent = item.title;
+      document.getElementById("pitchMeta").textContent = [
+        item.source_name,
+        ...(item.badges || []),
+        item.deadline ? `⏳ Deadline: ${{item.deadline}}` : "",
+      ].filter(Boolean).join(" · ");
+
+      const pitchText = isSch
+        ? `Dear ${{item.source_name}} Selection Committee,\n\nI am writing to express my strong interest in the ${{item.title}}. With a background aligned with ${{kws}}, my academic and community work focuses on [Your Field / Research Focus], including [Key Project, Publication, or Measurable Impact].\n\nReceiving this opportunity would enable me to [Specific Goal / Contribution], and I have prepared my academic transcripts, CV, and references for your review.\n\nBest regards,\n[Your Full Name] | [LinkedIn / Portfolio Link]`
+        : `Subject: Application for ${{item.title}} — [Your Name]\n\nHi Hiring Team at ${{item.source_name}},\n\nI saw your opening for ${{item.title}} and wanted to reach out directly. I bring [X] years of hands-on experience with ${{kws}}, most recently [1-line achievement with metric or shipped project].\n\nPortfolio / GitHub: [Your Link]\nWould love to connect if my background fits what you're looking for.\n\nBest,\n[Your Name]`;
+
+      document.getElementById("pitchTextarea").value = pitchText;
+      const listEl = document.getElementById("pitchChecklist");
+      const bullets = isSch
+        ? [
+            `Tailor your Statement of Purpose around: ${{kws}}`,
+            "Prepare official transcripts, updated CV & 2 referee contacts",
+            "Confirm eligibility criteria & deadline before submitting",
+          ]
+        : [
+            `Mirror these ATS keywords in your CV summary: ${{kws}}`,
+            "Attach 1–2 live proof links (GitHub, portfolio, or shipped product)",
+            "Send the short DM above to the hiring manager on LinkedIn/X after applying",
+          ];
+      listEl.innerHTML = bullets.map((b) => `<li>${{esc(b)}}</li>`).join("");
+      const applyLink = document.getElementById("pitchApplyLink");
+      if (applyLink) applyLink.href = item.link;
+      modal.classList.add("open");
+    }};
+
+    const closePitchModal = () => {{
+      document.getElementById("pitchModal")?.classList.remove("open");
+    }};
+
+    document.addEventListener("click", (e) => {{
+      const pBtn = e.target.closest("[data-pitch-id]");
+      if (pBtn) {{
+        const id = pBtn.dataset.pitchId;
+        const found = ITEMS.find((i) => i.item_id === id);
+        if (found) openPitchModal(found);
+      }}
+    }});
+
+    document.getElementById("closePitchBtn")?.addEventListener("click", closePitchModal);
+    document.getElementById("pitchModal")?.addEventListener("click", (e) => {{
+      if (e.target.id === "pitchModal") closePitchModal();
+    }});
+    document.addEventListener("keydown", (e) => {{
+      if (e.key === "Escape") closePitchModal();
+    }});
+    document.getElementById("copyPitchBtn")?.addEventListener("click", async (e) => {{
+      const btn = e.currentTarget;
+      const txt = document.getElementById("pitchTextarea")?.value || "";
+      try {{
+        await navigator.clipboard.writeText(txt);
+        btn.textContent = "✅ Pitch Copied!";
+        setTimeout(() => {{ btn.textContent = "📋 Copy Pitch"; }}, 2000);
+      }} catch (_err) {{
+        document.getElementById("pitchTextarea")?.select();
+      }}
     }});
   </script>
 </body>
