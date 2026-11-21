@@ -412,9 +412,14 @@ def render_web_board_html(
       --amber: #fbbf24;
     }}
     * {{ box-sizing: border-box; }}
-    html {{ scroll-behavior: smooth; }}
+    html {{
+      scroll-behavior: smooth;
+      overflow-x: clip;
+      -webkit-text-size-adjust: 100%;
+    }}
     body {{
       margin: 0;
+      overflow-x: clip;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
       background:
         radial-gradient(ellipse 80% 50% at 50% -10%, rgba(56, 189, 248, 0.18), transparent),
@@ -448,11 +453,17 @@ def render_web_board_html(
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      min-width: 0;
       text-decoration: none;
       color: var(--text);
       font-weight: 700;
       font-size: 0.96rem;
       letter-spacing: -0.01em;
+    }}
+    .brand-title {{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }}
     .brand-icon {{
       width: 38px;
@@ -549,11 +560,14 @@ def render_web_board_html(
     }}
     .hero-copy {{
       max-width: 650px;
+      min-width: 0;
     }}
     .live-pill {{
       display: inline-flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
+      max-width: 100%;
       font-size: 0.78rem;
       font-weight: 600;
       color: var(--green);
@@ -684,14 +698,15 @@ def render_web_board_html(
       align-items: center;
     }}
     .search-input {{
-      flex: 1;
-      min-width: 240px;
+      flex: 1 1 220px;
+      min-width: 0;
+      width: 100%;
       background: var(--surface);
       border: 1px solid var(--border);
       color: var(--text);
       border-radius: 10px;
       padding: 11px 14px;
-      font-size: 0.95rem;
+      font-size: 16px;
       outline: none;
     }}
     .search-input:focus {{ border-color: var(--accent); }}
@@ -702,6 +717,7 @@ def render_web_board_html(
       border-radius: 10px;
       padding: 10px 14px;
       font-size: 0.88rem;
+      white-space: nowrap;
     }}
     .stats-pill strong {{ color: var(--text); }}
     .filters {{
@@ -709,6 +725,7 @@ def render_web_board_html(
       flex-wrap: wrap;
       gap: 8px;
     }}
+    .filters::-webkit-scrollbar {{ display: none; }}
     .chip {{
       background: var(--surface);
       border: 1px solid var(--border);
@@ -717,6 +734,8 @@ def render_web_board_html(
       padding: 7px 13px;
       font-size: 0.84rem;
       cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
       transition: all 0.15s ease;
     }}
     .chip:hover {{ border-color: var(--accent); color: var(--text); }}
@@ -728,10 +747,11 @@ def render_web_board_html(
     }}
     .grid {{
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
       gap: 14px;
     }}
     .card {{
+      min-width: 0;
       background: rgba(15, 23, 42, 0.92);
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -746,6 +766,7 @@ def render_web_board_html(
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
       font-size: 0.78rem;
       color: var(--muted);
@@ -761,6 +782,7 @@ def render_web_board_html(
       margin: 0;
       font-size: 1.03rem;
       line-height: 1.35;
+      overflow-wrap: anywhere;
     }}
     .card h2 a {{
       color: var(--text);
@@ -790,18 +812,21 @@ def render_web_board_html(
       color: var(--muted);
       font-size: 0.86rem;
       flex-grow: 1;
+      overflow-wrap: anywhere;
     }}
     .card-footer {{
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
+      min-width: 0;
       padding-top: 8px;
       border-top: 1px solid rgba(36, 50, 74, 0.7);
       font-size: 0.78rem;
       color: var(--muted);
     }}
     .kw-list {{
+      min-width: 0;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -812,9 +837,10 @@ def render_web_board_html(
       color: var(--accent);
       text-decoration: none;
       font-weight: 600;
-      padding: 6px 11px;
+      padding: 7px 12px;
       border-radius: 8px;
       white-space: nowrap;
+      flex-shrink: 0;
     }}
     .apply-btn:hover {{ border-color: var(--accent); }}
     .empty {{
@@ -926,10 +952,11 @@ def render_web_board_html(
     }}
     .seo-grid {{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
       gap: 14px;
     }}
     .seo-card {{
+      min-width: 0;
       background: rgba(7, 11, 20, 0.52);
       border: 1px solid rgba(36, 50, 74, 0.85);
       border-radius: 12px;
@@ -944,12 +971,56 @@ def render_web_board_html(
       margin: 0;
       color: var(--muted);
       font-size: 0.84rem;
+      overflow-wrap: anywhere;
     }}
     @media (max-width: 780px) {{
       .nav-links .hide-sm {{ display: none; }}
       .hero {{ padding: 20px 18px; }}
       .hero-kpis {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
       .footer-grid {{ grid-template-columns: 1fr; gap: 22px; }}
+    }}
+    @media (max-width: 640px) {{
+      .topbar-inner {{ padding: 10px 14px; gap: 10px; }}
+      .brand {{ font-size: 0.88rem; gap: 8px; }}
+      .brand-icon {{ width: 32px; height: 32px; border-radius: 8px; }}
+      .nav-cta {{ padding: 6px 11px; font-size: 0.8rem; }}
+      .nav-cta-handle {{ display: none; }}
+      .container {{ padding: 14px 12px 36px; }}
+      .hero {{ padding: 18px 15px 16px; border-radius: 16px; margin-bottom: 16px; }}
+      .hero h1 {{ font-size: 1.42rem; }}
+      .hero p {{ font-size: 0.88rem; }}
+      .hero-actions {{ width: 100%; }}
+      .tg-btn, .ghost-btn {{
+        flex: 1 1 140px;
+        justify-content: center;
+        min-height: 44px;
+        padding: 10px 14px;
+        font-size: 0.86rem;
+      }}
+      .hero-kpis {{ gap: 8px; margin-top: 16px; padding-top: 14px; }}
+      .kpi {{ padding: 9px 11px; }}
+      .kpi-value {{ font-size: 1.05rem; }}
+      .search-row {{ flex-direction: column; align-items: stretch; }}
+      .stats-pill {{ text-align: center; padding: 8px 12px; font-size: 0.82rem; }}
+      .filters {{
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 2px;
+      }}
+      .chip {{ min-height: 38px; padding: 8px 14px; }}
+      .grid {{ grid-template-columns: 1fr; gap: 12px; }}
+      .card {{ padding: 14px 15px; }}
+      .apply-btn {{ min-height: 38px; display: inline-flex; align-items: center; }}
+      .seo-section {{ padding: 18px 14px; border-radius: 14px; margin-top: 24px; }}
+      .seo-grid {{ grid-template-columns: 1fr; }}
+      .footer-inner {{ padding: 26px 14px 20px; }}
+      .footer-links a, .footer-links button {{
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+      }}
     }}
   </style>
 </head>
@@ -960,7 +1031,7 @@ def render_web_board_html(
         <span class="brand-icon">
           <img class="brand-logo" src="{logo_src}" alt="Jobs, Web3 &amp; Scholarships Live Board logo" width="34" height="34" />
         </span>
-        <span>Jobs &amp; Scholarships Live Board</span>
+        <span class="brand-title">Jobs &amp; Scholarships Live Board</span>
       </a>
       <div class="nav-links">
         <a class="nav-link hide-sm" href="#board" data-jump-cat="jobs">Remote Jobs</a>
@@ -971,7 +1042,7 @@ def render_web_board_html(
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
           </svg>
-          <span>Telegram {safe_handle}</span>
+          <span>Telegram<span class="nav-cta-handle"> {safe_handle}</span></span>
         </a>
       </div>
     </div>
