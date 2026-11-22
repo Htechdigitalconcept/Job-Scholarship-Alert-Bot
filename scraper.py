@@ -999,6 +999,60 @@ def format_daily_digest(
     return "\n\n".join(lines)
 
 
+DEFAULT_INDEXNOW_KEY = "e4c9a8d2f1b740369c5d8e2a1f7b3094"
+
+
+def get_indexnow_key() -> str:
+    """Return the active IndexNow public verification key."""
+    env_key = os.environ.get("INDEXNOW_KEY", "").strip()
+    if re.fullmatch(r"[A-Za-z0-9-]{8,128}", env_key):
+        return env_key
+    return DEFAULT_INDEXNOW_KEY
+
+
+def ping_indexnow(
+    site_url: str,
+    urls: list[str],
+    key: str = "",
+    timeout: int = 10,
+) -> bool:
+    """Notify Bing / Yandex / DuckDuckGo via IndexNow when new items publish."""
+    clean_site = sanitize_http_url(site_url)
+    active_key = key or get_indexnow_key()
+    if not clean_site or not active_key or not urls:
+        return False
+    parsed = urlparse(clean_site)
+    host = (parsed.hostname or "").strip().lower()
+    if not host:
+        return False
+    clean_urls: list[str] = []
+    seen_u: set[str] = set()
+    for u in urls:
+        safe_u = sanitize_http_url(u)
+        if safe_u and (urlparse(safe_u).hostname or "").lower() == host and safe_u not in seen_u:
+            seen_u.add(safe_u)
+            clean_urls.append(safe_u)
+        if len(clean_urls) >= 50:
+            break
+    if not clean_urls:
+        return False
+    payload = {
+        "host": host,
+        "key": active_key,
+        "keyLocation": f"{clean_site.rstrip('/')}/{active_key}.txt",
+        "urlList": clean_urls,
+    }
+    try:
+        resp = requests.post("https://api.indexnow.org/indexnow", json=payload, timeout=timeout)
+        if resp.status_code in {200, 202}:
+            logger.info("IndexNow ping accepted (%s): %d URL(s)", resp.status_code, len(clean_urls))
+            return True
+        logger.warning("IndexNow ping returned HTTP %s", resp.status_code)
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("IndexNow ping skipped: %s", exc)
+    return False
+
+
 def _post_telegram_api(bot_token: str, method: str, payload: dict[str, Any]) -> dict[str, Any]:
     """POST to Telegram Bot API with 429 retry handling and redacted error diagnostics."""
     api_url = f"https://api.telegram.org/bot{bot_token}/{method}"
@@ -1520,6 +1574,15 @@ def run(
         )
         if dm_count:
             logger.info("Personal DM cycle reminders sent: %d", dm_count)
+        if site_url and posted_items:
+            clean_site = site_url.rstrip("/")
+            index_urls = [
+                f"{clean_site}/",
+                f"{clean_site}/feed.xml",
+                f"{clean_site}/sitemap.xml",
+                f"{clean_site}/llms.txt",
+            ] + [f"{clean_site}/?item={it.item_id}" for it in posted_items[:20]]
+            ping_indexnow(clean_site, index_urls)
 
     logger.info("Done. Alerts processed: %d", sent_count)
     return sent_count

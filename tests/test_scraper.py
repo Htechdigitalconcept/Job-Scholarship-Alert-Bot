@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import scraper
 
@@ -331,6 +331,35 @@ class ScraperTests(unittest.TestCase):
         cycle_btns = [b["text"] for b in cycle_markup["inline_keyboard"][0]]
         self.assertEqual(cycle_btns, ["🌐 Live Web Board", "Filter in Bot 🤖"])
         self.assertEqual(cycle_markup["inline_keyboard"][1][0]["text"], "📤 Share Bot with a Friend")
+
+    def test_ping_indexnow_posts_valid_payload(self) -> None:
+        mock_resp = Mock(status_code=202)
+        with patch("scraper.requests.post", return_value=mock_resp) as post_mock:
+            ok = scraper.ping_indexnow(
+                "https://job-scholarship-alert-bot-chi.vercel.app",
+                [
+                    "https://job-scholarship-alert-bot-chi.vercel.app/",
+                    "https://job-scholarship-alert-bot-chi.vercel.app/feed.xml",
+                    "https://evil.example.com/ignored",
+                ],
+                key="e4c9a8d2f1b740369c5d8e2a1f7b3094",
+            )
+            self.assertTrue(ok)
+            _, kwargs = post_mock.call_args
+            sent = kwargs["json"]
+            self.assertEqual(sent["host"], "job-scholarship-alert-bot-chi.vercel.app")
+            self.assertEqual(sent["key"], "e4c9a8d2f1b740369c5d8e2a1f7b3094")
+            self.assertEqual(
+                sent["keyLocation"],
+                "https://job-scholarship-alert-bot-chi.vercel.app/e4c9a8d2f1b740369c5d8e2a1f7b3094.txt",
+            )
+            self.assertEqual(
+                sent["urlList"],
+                [
+                    "https://job-scholarship-alert-bot-chi.vercel.app/",
+                    "https://job-scholarship-alert-bot-chi.vercel.app/feed.xml",
+                ],
+            )
 
 
 if __name__ == "__main__":

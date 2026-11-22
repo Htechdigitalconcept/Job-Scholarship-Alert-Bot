@@ -383,6 +383,12 @@ class BotCommandsTests(unittest.TestCase):
         self.assertEqual(captured["status"], "200 OK")
         self.assertIn("5B4141F721D05180171CE232C1041F0C", bing_xml)
 
+        indexnow_txt = b"".join(
+            webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/e4c9a8d2f1b740369c5d8e2a1f7b3094.txt"}, start_response)
+        ).decode("utf-8")
+        self.assertEqual(captured["status"], "200 OK")
+        self.assertEqual(indexnow_txt, "e4c9a8d2f1b740369c5d8e2a1f7b3094")
+
         feed_xml = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/feed.xml"}, start_response)).decode("utf-8")
         self.assertEqual(captured["status"], "200 OK")
         self.assertIn("application/rss+xml", captured["content_type"])

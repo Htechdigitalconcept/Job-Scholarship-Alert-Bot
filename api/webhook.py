@@ -307,6 +307,18 @@ def app(
                 start_response(STATUS_TEXT[200], headers)
                 return [] if method == "HEAD" else [body]
 
+        import scraper as _scraper
+        indexnow_key = _scraper.get_indexnow_key()
+        if path == f"/{indexnow_key}.txt":
+            body = indexnow_key.encode("utf-8")
+            headers = [
+                ("Content-Type", "text/plain; charset=utf-8"),
+                ("Content-Length", str(len(body))),
+                *SECURITY_HEADERS,
+            ]
+            start_response(STATUS_TEXT[200], headers)
+            return [] if method == "HEAD" else [body]
+
         if path == "/api/opportunities":
             if _is_rate_limited(_get_client_ip(environ), "api", _API_RATE_LIMIT):
                 status = 429
