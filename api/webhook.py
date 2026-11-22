@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hmac
 import json
 import logging
 import os
@@ -9,19 +10,45 @@ import re
 import sys
 from pathlib import Path
 from typing import Any, Callable, Iterable
-from urllib.parse import parse_qs
+from urllib.parse import parse_qs, urlparse
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
+import scraper
+
+logging.getLogger().addFilter(scraper.SecretRedactingFilter())
 logger = logging.getLogger(__name__)
+
+MAX_WEBHOOK_BYTES = 1_048_576  # 1 MiB cap against payload DoS
+DEFAULT_PUBLIC_SITE = "https://job-scholarship-alert-bot-chi.vercel.app"
+
+SECURITY_HEADERS: list[tuple[str, str]] = [
+    ("X-Content-Type-Options", "nosniff"),
+    ("Referrer-Policy", "strict-origin-when-cross-origin"),
+    ("Permissions-Policy", "geolocation=(), microphone=(), camera=()"),
+    ("Strict-Transport-Security", "max-age=31536000; includeSubDomains"),
+]
+
+HTML_CSP_HEADER = (
+    "Content-Security-Policy",
+    "default-src 'self'; "
+    "script-src 'self' 'unsafe-inline' https://telegram.org; "
+    "style-src 'self' 'unsafe-inline'; "
+    "img-src 'self' data: https:; "
+    "connect-src 'self'; "
+    "frame-ancestors 'self' https://web.telegram.org https://*.telegram.org; "
+    "base-uri 'self'; "
+    "form-action 'self'",
+)
 
 STATUS_TEXT = {
     200: "200 OK",
     400: "400 Bad Request",
     403: "403 Forbidden",
     405: "405 Method Not Allowed",
+    413: "413 Payload Too Large",
     500: "500 Internal Server Error",
 }
 
@@ -31,9 +58,19 @@ def handle_webhook_request(
     secret_header: str = "",
 ) -> tuple[int, dict[str, Any]]:
     """Process a raw webhook POST payload and return (status_code, json_body)."""
+    if len(raw_body) > MAX_WEBHOOK_BYTES:
+        return 413, {"ok": False, "error": "Payload too large"}
+
     expected_secret = os.environ.get("TELEGRAM_WEBHOOK_SECRET", "").strip()
-    if expected_secret and secret_header != expected_secret:
-        return 403, {"ok": False, "error": "Invalid secret token"}
+    require_secret = os.environ.get("REQUIRE_WEBHOOK_SECRET", "").strip().lower() in {"1", "true", "yes"}
+    if require_secret and not expected_secret:
+        return 500, {"ok": False, "error": "Webhook secret not configured"}
+    if expected_secret:
+        if not secret_header or not hmac.compare_digest(
+            secret_header.encode("utf-8"),
+            expected_secret.encode("utf-8"),
+        ):
+            return 403, {"ok": False, "error": "Invalid secret token"}
 
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     if not bot_token:
@@ -59,20 +96,27 @@ def handle_webhook_request(
         )
         return 200, {"ok": True, "handled": handled}
     except Exception as exc:  # noqa: BLE001
-        logger.exception("Webhook error: %s", exc)
-        safe_err = re.sub(r"bot[^/]+/", "bot[REDACTED]/", str(exc))
-        return 200, {"ok": False, "error": safe_err}
+        logger.error("Webhook error: %s", scraper.redact_secrets(str(exc)))
+        return 200, {"ok": False, "error": "Webhook processing error"}
 
 
 def _detect_site_url(environ: dict[str, Any]) -> str:
-    env_url = os.environ.get("PUBLIC_SITE_URL", "").strip()
+    env_url = scraper.sanitize_http_url(os.environ.get("PUBLIC_SITE_URL", "").strip())
     if env_url:
         return env_url.rstrip("/")
-    host = str(environ.get("HTTP_X_FORWARDED_HOST") or environ.get("HTTP_HOST") or "").strip()
-    if host:
-        proto = str(environ.get("HTTP_X_FORWARDED_PROTO") or "https").strip()
-        return f"{proto}://{host}".rstrip("/")
-    return "https://job-scholarship-alert-bot-chi.vercel.app"
+
+    raw_host = str(environ.get("HTTP_X_FORWARDED_HOST") or environ.get("HTTP_HOST") or "").strip()
+    host_only = raw_host.split(",", 1)[0].strip().split(":", 1)[0].lower()
+    allowed_default_host = (urlparse(DEFAULT_PUBLIC_SITE).hostname or "").lower()
+    if host_only and (
+        host_only == allowed_default_host
+        or re.fullmatch(r"[a-z0-9-]{1,63}\.vercel\.app", host_only)
+    ):
+        proto = str(environ.get("HTTP_X_FORWARDED_PROTO") or "https").strip().lower()
+        if proto not in {"http", "https"}:
+            proto = "https"
+        return f"{proto}://{host_only}".rstrip("/")
+    return DEFAULT_PUBLIC_SITE
 
 
 def _load_board_data() -> tuple[list[Any], str, str, list[dict[str, str]]]:
@@ -113,6 +157,8 @@ def app(
                 ("Content-Type", "text/html; charset=utf-8"),
                 ("Content-Length", str(len(body))),
                 ("X-Robots-Tag", "index, follow"),
+                HTML_CSP_HEADER,
+                *SECURITY_HEADERS,
             ]
             start_response(STATUS_TEXT[200], headers)
             return [] if method == "HEAD" else [body]
@@ -124,6 +170,7 @@ def app(
             headers = [
                 ("Content-Type", "text/plain; charset=utf-8"),
                 ("Content-Length", str(len(body))),
+                *SECURITY_HEADERS,
             ]
             start_response(STATUS_TEXT[200], headers)
             return [] if method == "HEAD" else [body]
@@ -136,6 +183,7 @@ def app(
             headers = [
                 ("Content-Type", "application/xml; charset=utf-8"),
                 ("Content-Length", str(len(body))),
+                *SECURITY_HEADERS,
             ]
             start_response(STATUS_TEXT[200], headers)
             return [] if method == "HEAD" else [body]
@@ -149,6 +197,7 @@ def app(
                 ("Content-Type", "application/rss+xml; charset=utf-8"),
                 ("Content-Length", str(len(body))),
                 ("Cache-Control", "public, max-age=1800"),
+                *SECURITY_HEADERS,
             ]
             start_response(STATUS_TEXT[200], headers)
             return [] if method == "HEAD" else [body]
@@ -163,6 +212,7 @@ def app(
             headers = [
                 ("Content-Type", "text/plain; charset=utf-8"),
                 ("Content-Length", str(len(body))),
+                *SECURITY_HEADERS,
             ]
             start_response(STATUS_TEXT[200], headers)
             return [] if method == "HEAD" else [body]
@@ -175,6 +225,7 @@ def app(
                     ("Content-Type", "image/png"),
                     ("Content-Length", str(len(body))),
                     ("Cache-Control", "public, max-age=86400"),
+                    *SECURITY_HEADERS,
                 ]
                 start_response(STATUS_TEXT[200], headers)
                 return [] if method == "HEAD" else [body]
@@ -187,6 +238,7 @@ def app(
                     ("Content-Type", "image/png"),
                     ("Content-Length", str(len(body))),
                     ("Cache-Control", "public, max-age=86400"),
+                    *SECURITY_HEADERS,
                 ]
                 start_response(STATUS_TEXT[200], headers)
                 return [] if method == "HEAD" else [body]
@@ -198,6 +250,7 @@ def app(
                 headers = [
                     ("Content-Type", "text/html; charset=utf-8"),
                     ("Content-Length", str(len(body))),
+                    *SECURITY_HEADERS,
                 ]
                 start_response(STATUS_TEXT[200], headers)
                 return [] if method == "HEAD" else [body]
@@ -247,11 +300,16 @@ def app(
         try:
             length = int(environ.get("CONTENT_LENGTH") or 0)
         except (TypeError, ValueError):
-            length = 0
-        wsgi_input = environ.get("wsgi.input")
-        raw_body = wsgi_input.read(length) if (wsgi_input and length > 0) else b"{}"
-        secret_header = str(environ.get("HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN", ""))
-        status, payload = handle_webhook_request(raw_body, secret_header=secret_header)
+            length = -1
+        if length < 0:
+            status, payload = 400, {"ok": False, "error": "Invalid Content-Length"}
+        elif length > MAX_WEBHOOK_BYTES:
+            status, payload = 413, {"ok": False, "error": "Payload too large"}
+        else:
+            wsgi_input = environ.get("wsgi.input")
+            raw_body = wsgi_input.read(length) if (wsgi_input and length > 0) else b"{}"
+            secret_header = str(environ.get("HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN", ""))
+            status, payload = handle_webhook_request(raw_body, secret_header=secret_header)
     else:
         status = 405
         payload = {"ok": False, "error": f"Method {method} not allowed"}
@@ -260,6 +318,8 @@ def app(
     headers = [
         ("Content-Type", "application/json; charset=utf-8"),
         ("Content-Length", str(len(body))),
+        ("Cache-Control", "no-store"),
+        *SECURITY_HEADERS,
     ]
     start_response(STATUS_TEXT.get(status, f"{status} Error"), headers)
     return [] if method == "HEAD" else [body]

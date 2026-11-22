@@ -29,6 +29,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s",
 )
 logger = logging.getLogger(__name__)
+logging.getLogger().addFilter(scraper.SecretRedactingFilter())
 
 DEFAULT_STATE_PATH = Path("data/bot_state.json")
 
@@ -117,7 +118,7 @@ def register_referral(
     clean_ref = str(referrer_id).strip()
     if not clean_new or not clean_ref or clean_new == clean_ref:
         return False, False, 0
-    if not re.fullmatch(r"-?\d+", clean_ref):
+    if not re.fullmatch(r"-?\d+", clean_new) or not re.fullmatch(r"-?\d+", clean_ref):
         return False, False, 0
 
     new_prefs = subscribers.get(clean_new)
@@ -414,8 +415,9 @@ def set_webhook(bot_token: str, webhook_url: str, secret_token: str = "") -> dic
         "url": webhook_url,
         "allowed_updates": ["message", "callback_query", "inline_query"],
     }
-    if secret_token:
-        payload["secret_token"] = secret_token
+    effective_secret = secret_token.strip() or os.environ.get("TELEGRAM_WEBHOOK_SECRET", "").strip()
+    if effective_secret:
+        payload["secret_token"] = effective_secret
     resp = requests.post(url, json=payload, timeout=15)
     resp.raise_for_status()
     return resp.json()
@@ -994,7 +996,7 @@ def build_command_responses(
 
     if cmd == "/setkeywords":
         subscribers = scraper.load_subscribers(subscribers_path)
-        keywords = [kw.strip() for kw in arg.split(",") if kw.strip()]
+        keywords = [kw.strip()[:40] for kw in arg[:200].split(",") if kw.strip()][:15]
         if not keywords:
             return [(
                 "Please provide comma-separated keywords, for example:\n"

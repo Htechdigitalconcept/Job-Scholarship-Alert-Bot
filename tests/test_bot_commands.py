@@ -587,6 +587,79 @@ class BotCommandsTests(unittest.TestCase):
             self.assertTrue(any("setMyShortDescription" in u for u in called_endpoints))
             self.assertTrue(any("setChatMenuButton" in u for u in called_endpoints))
 
+    def test_security_hardening(self) -> None:
+        import web_board
+
+        with patch.dict(
+            "os.environ",
+            {
+                "TELEGRAM_BOT_TOKEN": "123456789:AAFakeSecretTokenValue12345",
+                "TELEGRAM_WEBHOOK_SECRET": "super-secret-webhook-hdr",
+            },
+        ):
+            scrubbed = scraper.redact_secrets(
+                "Error calling https://api.telegram.org/bot123456789:AAFakeSecretTokenValue12345/sendMessage with github_pat_11ABC_xyz"
+            )
+            self.assertNotIn("AAFakeSecretTokenValue12345", scrubbed)
+            self.assertNotIn("github_pat_11ABC_xyz", scrubbed)
+
+            # Webhook oversized payload rejected
+            code_big, _ = webhook.handle_webhook_request(b"x" * (webhook.MAX_WEBHOOK_BYTES + 1))
+            self.assertEqual(code_big, 413)
+
+            # Webhook exception never leaks token to caller
+            with patch("bot_commands.process_webhook_update", side_effect=RuntimeError("https://api.telegram.org/bot123456789:AAFakeSecretTokenValue12345/sendMessage")):
+                code_err, body_err = webhook.handle_webhook_request(
+                    b'{"message":{"chat":{"id":1},"text":"/latest"}}',
+                    secret_header="super-secret-webhook-hdr",
+                )
+                self.assertEqual(code_err, 200)
+                self.assertNotIn("AAFakeSecretTokenValue12345", body_err["error"])
+                self.assertEqual(body_err["error"], "Webhook processing error")
+
+        # Require webhook secret flag rejects unconfigured secrets
+        with patch.dict("os.environ", {"REQUIRE_WEBHOOK_SECRET": "true", "TELEGRAM_WEBHOOK_SECRET": ""}):
+            code_req, _ = webhook.handle_webhook_request(b"{}")
+            self.assertEqual(code_req, 500)
+
+        # Host header injection is blocked & security headers are emitted
+        captured_headers: dict[str, str] = {}
+
+        def start_resp(_status: str, headers: list[tuple[str, str]]) -> None:
+            for k, v in headers:
+                captured_headers[k] = v
+
+        with patch("api.webhook._load_board_data", return_value=([], "https://t.me/latestjobsandscholarship", "@latestjobsandscholarship", [])):
+            evil_html = b"".join(
+                webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/", "HTTP_HOST": "evil.attacker.com"}, start_resp)
+            ).decode("utf-8")
+        self.assertNotIn("evil.attacker.com", evil_html)
+        self.assertEqual(captured_headers.get("X-Content-Type-Options"), "nosniff")
+        self.assertIn("Content-Security-Policy", captured_headers)
+        self.assertEqual(captured_headers.get("Referrer-Policy"), "strict-origin-when-cross-origin")
+
+        # javascript: URLs are neutralized in SSR cards & JSON-LD
+        xss_item = scraper.Opportunity(
+            item_id="xss1",
+            category="jobs",
+            category_label="💼 Job Alert",
+            source_name="EvilFeed",
+            title="Test Role",
+            link="javascript:alert(1)",
+            summary="Summary",
+            matched_keywords=["python"],
+        )
+        board_html = web_board.render_web_board_html([xss_item], recommended_tools=[])
+        self.assertNotIn('href="javascript:alert(1)"', board_html)
+        self.assertNotIn('"url": "javascript:alert(1)"', board_html)
+
+        # SSRF private/local targets blocked
+        with self.assertRaises(ValueError):
+            scraper.fetch_url("http://127.0.0.1:8080/secret")
+        with self.assertRaises(ValueError):
+            scraper.fetch_url("http://169.254.169.254/latest/meta-data/")
+
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -16,20 +16,80 @@ import time
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
+import ipaddress
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote, urljoin
+from urllib.parse import quote, urljoin, urlparse
 
 import feedparser
 import requests
 import yaml
 from bs4 import BeautifulSoup
 
+_SECRET_ENV_VARS = (
+    "TELEGRAM_BOT_TOKEN",
+    "TELEGRAM_WEBHOOK_SECRET",
+    "SUBSCRIBERS_GITHUB_TOKEN",
+    "GITHUB_TOKEN",
+)
+
+
+def redact_secrets(text: str) -> str:
+    """Scrub Telegram bot tokens, GitHub PATs, bearer tokens, and secret env values."""
+    if not text:
+        return ""
+    out = str(text)
+    out = re.sub(r"bot\d+:[A-Za-z0-9_-]+", "bot[REDACTED]", out)
+    out = re.sub(r"bot[^/\s?]+/", "bot[REDACTED]/", out)
+    out = re.sub(r"\b(?:github_pat_[A-Za-z0-9_]+|ghp_[A-Za-z0-9]+|gho_[A-Za-z0-9]+)\b", "[REDACTED_TOKEN]", out)
+    out = re.sub(r"(Bearer\s+)[A-Za-z0-9._-]+", r"\1[REDACTED]", out, flags=re.IGNORECASE)
+    for var_name in _SECRET_ENV_VARS:
+        val = os.environ.get(var_name, "").strip()
+        if val and len(val) >= 6:
+            out = out.replace(val, "[REDACTED]")
+    return out
+
+
+class SecretRedactingFilter(logging.Filter):
+    """Logging filter that ensures tokens/secrets never appear in log output."""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        try:
+            rendered = record.getMessage()
+            redacted = redact_secrets(rendered)
+            if redacted != rendered:
+                record.msg = redacted
+                record.args = ()
+            if record.exc_info:
+                record.exc_text = redact_secrets(
+                    logging.Formatter().formatException(record.exc_info)
+                )
+                record.exc_info = None
+        except Exception:  # noqa: BLE001
+            pass
+        return True
+
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
 )
 logger = logging.getLogger(__name__)
+logging.getLogger().addFilter(SecretRedactingFilter())
+
+
+def sanitize_http_url(url: str, fallback: str = "") -> str:
+    """Allow only http:// or https:// URLs with a valid host (prevents javascript:/data: XSS)."""
+    raw = str(url or "").strip()
+    if not raw:
+        return fallback
+    try:
+        parsed = urlparse(raw)
+    except ValueError:
+        return fallback
+    if parsed.scheme.lower() not in {"http", "https"} or not parsed.netloc:
+        return fallback
+    return raw
 
 USER_AGENT = (
     "Mozilla/5.0 (compatible; JobScholarshipAlertBot/1.0; "
@@ -174,9 +234,22 @@ def match_keywords(
 
 
 def fetch_url(url: str, timeout: int = 15) -> str:
-    """Fetch URL content with a browser-like User-Agent."""
+    """Fetch URL content with a browser-like User-Agent (http/https public hosts only)."""
+    clean_url = sanitize_http_url(url)
+    if not clean_url:
+        raise ValueError("Refused non-HTTP(S) URL")
+    host = (urlparse(clean_url).hostname or "").strip().lower()
+    if host in {"localhost", "127.0.0.1", "::1", "0.0.0.0"} or host.endswith(".local"):
+        raise ValueError("Refused local/internal host URL")
+    try:
+        ip_obj = ipaddress.ip_address(host)
+        if ip_obj.is_private or ip_obj.is_loopback or ip_obj.is_link_local or ip_obj.is_reserved:
+            raise ValueError("Refused non-public IP address")
+    except ValueError as exc:
+        if "Refused" in str(exc):
+            raise
     response = requests.get(
-        url,
+        clean_url,
         headers={"User-Agent": USER_AGENT},
         timeout=timeout,
     )

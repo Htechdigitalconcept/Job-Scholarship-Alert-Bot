@@ -55,13 +55,14 @@ def _render_ssr_cards(items: list[scraper.Opportunity]) -> str:
         short_date = html.escape(_strip_tz_suffix(item.published)) if item.published else ""
         kws = html.escape(", ".join(item.matched_keywords))
         date_prefix = f"{short_date} · " if short_date else ""
+        safe_link = html.escape(scraper.sanitize_http_url(item.link, fallback="#"), quote=True)
         cards.append(
             f"""<article class="card">
   <div class="card-top">
     <span class="cat-tag">{html.escape(item.category_label)}</span>
     <span>{html.escape(item.source_name)}</span>
   </div>
-  <h2><a href="{html.escape(item.link, quote=True)}" target="_blank" rel="noopener noreferrer">{html.escape(item.title)}</a></h2>
+  <h2><a href="{safe_link}" target="_blank" rel="noopener noreferrer">{html.escape(item.title)}</a></h2>
   {f'<div class="badges">{badges_html}</div>' if badges_html else ''}
   {deadline_html}
   {summary_html}
@@ -69,7 +70,7 @@ def _render_ssr_cards(items: list[scraper.Opportunity]) -> str:
     <span class="kw-list">{date_prefix}🏷 {kws}</span>
     <div class="card-actions">
       <button type="button" class="pitch-btn" data-pitch-id="{html.escape(item.item_id, quote=True)}">📝 Pitch</button>
-      <a class="apply-btn" href="{html.escape(item.link, quote=True)}" target="_blank" rel="noopener noreferrer">Apply ↗</a>
+      <a class="apply-btn" href="{safe_link}" target="_blank" rel="noopener noreferrer">Apply ↗</a>
     </div>
   </div>
 </article>"""
@@ -86,11 +87,12 @@ def build_structured_data(
     clean_url = site_url.rstrip("/")
     list_elements: list[dict[str, Any]] = []
     for idx, item in enumerate(items[:25], start=1):
+        safe_item_url = scraper.sanitize_http_url(item.link, fallback=f"{clean_url}/")
         if item.category in {"jobs", "web3_jobs"}:
             node: dict[str, Any] = {
                 "@type": "JobPosting",
                 "title": item.title,
-                "url": item.link,
+                "url": safe_item_url,
                 "description": item.summary or item.title,
                 "hiringOrganization": {
                     "@type": "Organization",
@@ -104,7 +106,7 @@ def build_structured_data(
             node = {
                 "@type": "CreativeWork",
                 "name": item.title,
-                "url": item.link,
+                "url": safe_item_url,
                 "description": item.summary or item.title,
                 "publisher": {
                     "@type": "Organization",
@@ -1602,6 +1604,11 @@ def render_web_board_html(
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
 
+    const safeHref = (u) => {{
+      const s = String(u || "").trim();
+      return /^https?:\\/\\//i.test(s) ? s : "#";
+    }};
+
     const syncFilterButtons = () => {{
       document.querySelectorAll("#catFilters .chip").forEach((c) => {{
         c.classList.toggle("active", c.dataset.cat === activeCat);
@@ -1690,7 +1697,7 @@ def render_web_board_html(
               <span class="cat-tag">${{esc(item.category_label)}}</span>
               <span>${{esc(item.source_name)}}</span>
             </div>
-            <h2><a href="${{esc(item.link)}}" target="_blank" rel="noopener noreferrer">${{esc(item.title)}}</a></h2>
+            <h2><a href="${{esc(safeHref(item.link))}}" target="_blank" rel="noopener noreferrer">${{esc(item.title)}}</a></h2>
             ${{badgesHtml ? `<div class="badges">${{badgesHtml}}</div>` : ""}}
             ${{deadlineHtml}}
             ${{item.summary ? `<p class="summary">${{esc(item.summary)}}</p>` : ""}}
@@ -1698,7 +1705,7 @@ def render_web_board_html(
               <span class="kw-list">${{shortDate ? shortDate + " · " : ""}}🏷 ${{kws}}</span>
               <div class="card-actions">
                 <button type="button" class="pitch-btn" data-pitch-id="${{esc(item.item_id)}}">📝 Pitch</button>
-                <a class="apply-btn" href="${{esc(item.link)}}" target="_blank" rel="noopener noreferrer">Apply ↗</a>
+                <a class="apply-btn" href="${{esc(safeHref(item.link))}}" target="_blank" rel="noopener noreferrer">Apply ↗</a>
               </div>
             </div>
           </article>
@@ -1858,7 +1865,7 @@ def render_web_board_html(
           ];
       listEl.innerHTML = bullets.map((b) => `<li>${{esc(b)}}</li>`).join("");
       const applyLink = document.getElementById("pitchApplyLink");
-      if (applyLink) applyLink.href = item.link;
+      if (applyLink) applyLink.href = safeHref(item.link);
       modal.classList.add("open");
       try {{ window.Telegram?.WebApp?.BackButton?.show(); }} catch (_e) {{}}
     }};
