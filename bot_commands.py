@@ -46,6 +46,7 @@ BOT_COMMANDS_MENU = [
     {"command": "share", "description": "Invite 3 friends for unlimited /pitch"},
     {"command": "expiring", "description": "Deadlines closing soon (Free)"},
     {"command": "pitch", "description": "One-tap application pitch & checklist"},
+    {"command": "tools", "description": "Remote USD/EUR/GBP payout & career tools"},
     {"command": "subscribe", "description": "Get cycle reminder DMs when new posts drop"},
     {"command": "unsubscribe", "description": "Pause cycle reminder DMs"},
     {"command": "keywords", "description": "View tracked keywords"},
@@ -278,6 +279,39 @@ def build_application_pitch(item: scraper.Opportunity) -> str:
         f"<pre>{html.escape(pitch_body)}</pre>\n\n"
         f"<b>🎯 Prep Checklist:</b>\n{checklist}"
     )
+
+
+def build_pitch_response(
+    target: scraper.Opportunity,
+    config: dict[str, Any],
+    channel_link: str = "",
+    bot_url: str = "",
+    used_trial: bool = False,
+) -> tuple[str, dict[str, Any] | None]:
+    """Build complete /pitch HTML reply + inline markup (including recommended payout tools)."""
+    pitch_markup = scraper.build_item_reply_markup(
+        target, channel_url=channel_link, bot_url=bot_url
+    )
+    pitch_text = build_application_pitch(target)
+
+    tools = scraper.get_recommended_tools(config)
+    if tools:
+        first = tools[0]
+        tool_url = html.escape(first["url"], quote=True)
+        tool_name = html.escape(first["name"])
+        pitch_text += (
+            f"\n\n💳 <b>Remote Payout Tip:</b> Need a free USD/EUR/GBP account for international salaries or stipends? "
+            f"<a href=\"{tool_url}\">{tool_name} ↗</a>"
+        )
+        btn_label = first.get("button_label") or first.get("cta") or first["name"]
+        if isinstance(pitch_markup, dict) and isinstance(pitch_markup.get("inline_keyboard"), list):
+            pitch_markup["inline_keyboard"].append([{"text": btn_label, "url": first["url"]}])
+        else:
+            pitch_markup = {"inline_keyboard": [[{"text": btn_label, "url": first["url"]}]]}
+
+    if used_trial:
+        pitch_text += "\n\n🎁 <i>Free preview used (1/1) — invite 3 friends via /share to unlock unlimited pitches!</i>"
+    return pitch_text, pitch_markup
 
 
 def load_state(path: Path) -> dict[str, Any]:
@@ -855,6 +889,7 @@ def build_command_responses(
             "• /share — 🎁 Invite 3 friends for unlimited /pitch\n"
             "• /expiring — ⏳ Closing-soon deadlines\n"
             "• /pitch [word] — 📝 One-tap application pitch &amp; checklist\n"
+            "• /tools — 💳 Recommended USD/EUR/GBP payout &amp; career tools\n"
             "• /setkeywords — 🎯 Custom keyword DM alerts\n"
             "• /subscribe — 🔔 Get cycle reminder DMs on new posts\n"
             "• /unsubscribe — 🔕 Pause cycle reminder DMs\n"
@@ -1038,13 +1073,24 @@ def build_command_responses(
                 f"No cached opportunity matched <code>{html.escape(arg)}</code>. Try /latest and tap any <b>📝 Pitch #1–#5</b> button!",
                 channel_markup,
             )]
-        pitch_markup = scraper.build_item_reply_markup(
-            target, channel_url=channel_link, bot_url=bot_url
-        )
-        pitch_text = build_application_pitch(target)
-        if used_trial:
-            pitch_text += "\n\n🎁 <i>Free preview used (1/1) — invite 3 friends via /share to unlock unlimited pitches!</i>"
-        return [(pitch_text, pitch_markup)]
+        return [build_pitch_response(target, config, channel_link=channel_link, bot_url=bot_url, used_trial=used_trial)]
+
+    if cmd == "/tools":
+        tools = scraper.get_recommended_tools(config)
+        if not tools:
+            return [("🧰 No recommended tools configured yet.", channel_markup)]
+        lines = ["<b>🧰 Recommended Tools for Global Earners &amp; Fellows</b>"]
+        rows: list[list[dict[str, str]]] = []
+        for tool in tools:
+            lines.append(
+                f"• <b>{html.escape(tool['name'])}</b>\n"
+                f"  {html.escape(tool['description'])}\n"
+                f"  👉 <a href=\"{html.escape(tool['url'], quote=True)}\">{html.escape(tool['cta'])}</a>"
+            )
+            rows.append([{"text": tool.get("button_label") or tool["cta"], "url": tool["url"]}])
+        if channel_link:
+            rows.append([{"text": "Join Channel 📢", "url": channel_link}])
+        return [("\n\n".join(lines), {"inline_keyboard": rows})]
 
     if cmd == "/subscribe":
         subscribers = scraper.load_subscribers(subscribers_path)
@@ -1206,12 +1252,9 @@ def _handle_callback_query(
         items = get_recent_opportunities(config, latest_path)
         target = next((i for i in items if i.item_id.startswith(target_id)), items[0] if items else None)
         if target:
-            pitch_markup = scraper.build_item_reply_markup(
-                target, channel_url=channel_link, bot_url=bot_url
+            pitch_text, pitch_markup = build_pitch_response(
+                target, config, channel_link=channel_link, bot_url=bot_url, used_trial=used_trial
             )
-            pitch_text = build_application_pitch(target)
-            if used_trial:
-                pitch_text += "\n\n🎁 <i>Free preview used (1/1) — invite 3 friends via /share to unlock unlimited pitches!</i>"
             try:
                 scraper.send_telegram_message(
                     bot_token,

@@ -18,6 +18,17 @@ def make_sample_config() -> dict:
             "latest_cache_limit": 20,
             "max_post_age_days": 3,
             "allow_undated_posts": True,
+            "recommended_tools": [
+                {
+                    "id": "raenest",
+                    "badge": "💳 Remote USD / EUR / GBP Payouts",
+                    "name": "Raenest — Global Foreign Bank Accounts",
+                    "description": "Receive remote salaries & stipends globally.",
+                    "cta": "Open Free Raenest Account ↗",
+                    "button_label": "💳 Get USD/GBP Account (Raenest)",
+                    "url": "https://referral.raenest.com/WzbV/i?referral_code=adehab359122",
+                }
+            ],
         },
         "categories": {
             "jobs": {
@@ -377,6 +388,23 @@ class BotCommandsTests(unittest.TestCase):
         self.assertIn('id="shareBoardBtn"', root_body)
         self.assertIn('class="share-strip"', root_body)
         self.assertIn('id="paginationBar"', root_body)
+        self.assertIn('id="tools"', root_body)
+        self.assertIn("https://referral.raenest.com/WzbV/i?referral_code=adehab359122", root_body)
+
+        tools_resps = bot_commands.build_command_responses(
+            "42", "/tools", self.config, self.latest_path, self.subs_path
+        )
+        self.assertIn("Raenest", tools_resps[0][0])
+        self.assertIn("adehab359122", tools_resps[0][0])
+        tool_btns = [b["url"] for row in tools_resps[0][1]["inline_keyboard"] for b in row if "url" in b]
+        self.assertIn("https://referral.raenest.com/WzbV/i?referral_code=adehab359122", tool_btns)
+
+        pitch_resps = bot_commands.build_command_responses(
+            "42", "/pitch python", self.config, self.latest_path, self.subs_path
+        )
+        self.assertIn("Remote Payout Tip", pitch_resps[0][0])
+        pitch_urls = [b["url"] for row in pitch_resps[0][1]["inline_keyboard"] for b in row if "url" in b]
+        self.assertIn("https://referral.raenest.com/WzbV/i?referral_code=adehab359122", pitch_urls)
         self.assertIn("const PAGE_SIZE = 24;", root_body)
 
         # /api/opportunities supports ?cat= and ?limit=&page=

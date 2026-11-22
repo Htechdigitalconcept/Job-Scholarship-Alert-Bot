@@ -8,6 +8,15 @@ settings:
   mini_app_url: "https://t.me/Scholar_job_bot/RJS"
   public_channel_url: "https://t.me/latestjobsandscholarship"
   public_site_url: "https://job-scholarship-alert-bot-chi.vercel.app"
+  # Recommended affiliate / referral tools shown on the Web Board, Pitch modal, and /tools
+  recommended_tools:
+    - id: "raenest"
+      badge: "💳 Remote USD / EUR / GBP Payouts"
+      name: "Raenest — Global Foreign Bank Accounts"
+      description: "Receive remote tech & Web3 salaries, freelance payouts, or scholarship stipends globally with USD, EUR & GBP accounts."
+      cta: "Open Free Raenest Account ↗"
+      button_label: "💳 Get USD/GBP Account (Raenest)"
+      url: "https://referral.raenest.com/WzbV/i?referral_code=adehab359122"
   # Max number of new alerts to broadcast to the channel per run
   max_alerts_per_run: 15
   # Post one summary cycle reminder notification at the end of every cycle with new posts

@@ -346,14 +346,75 @@ def render_llms_txt(
     return "\n".join(lines)
 
 
+DEFAULT_RECOMMENDED_TOOLS: list[dict[str, str]] = [
+    {
+        "id": "raenest",
+        "badge": "💳 Remote USD / EUR / GBP Payouts",
+        "name": "Raenest — Global Foreign Bank Accounts",
+        "description": "Receive remote tech & Web3 salaries, freelance payouts, or scholarship stipends globally with USD, EUR & GBP accounts.",
+        "cta": "Open Free Raenest Account ↗",
+        "url": "https://referral.raenest.com/WzbV/i?referral_code=adehab359122",
+    }
+]
+
+
+def _render_recommended_tools(tools: list[dict[str, str]]) -> tuple[str, str]:
+    """Render (tools_section_html, modal_partner_tip_html) for configured referral tools."""
+    if not tools:
+        return "", ""
+    cards_html = []
+    for tool in tools:
+        badge = html.escape(tool.get("badge") or "🧰 Recommended Tool")
+        name = html.escape(tool.get("name") or "")
+        desc = html.escape(tool.get("description") or "")
+        cta = html.escape(tool.get("cta") or "Open Tool ↗")
+        url = html.escape(tool.get("url") or "#", quote=True)
+        cards_html.append(
+            f"""        <article class="tool-card">
+          <div class="tool-top">
+            <span class="tool-badge">{badge}</span>
+            <span class="partner-tag">Partner Link</span>
+          </div>
+          <h3>{name}</h3>
+          <p>{desc}</p>
+          <a class="tool-cta" href="{url}" target="_blank" rel="noopener noreferrer sponsored">{cta}</a>
+        </article>"""
+        )
+
+    tools_section = f"""    <section id="tools" class="tools-section" aria-label="Recommended tools for remote workers and fellows">
+      <div class="tools-head">
+        <div>
+          <h2>🧰 Recommended Tools for Global Earners &amp; Fellows</h2>
+          <p class="seo-lead" style="margin-bottom:0;">Essential accounts &amp; resources for receiving remote salaries, Web3 payouts, and international stipends.</p>
+        </div>
+      </div>
+      <div class="tools-grid">
+{chr(10).join(cards_html)}
+      </div>
+    </section>"""
+
+    first = tools[0]
+    first_url = html.escape(first.get("url") or "#", quote=True)
+    first_name = html.escape(first.get("name") or "Raenest")
+    modal_tip = (
+        f'<div class="modal-partner-tip">'
+        f'<span>💳 <strong>Getting paid remotely in USD/EUR/GBP?</strong> Set up a free global payout account via <a href="{first_url}" target="_blank" rel="noopener noreferrer sponsored">{first_name} ↗</a></span>'
+        f"</div>"
+    )
+    return tools_section, modal_tip
+
+
 def render_web_board_html(
     items: list[scraper.Opportunity],
     channel_url: str = "https://t.me/latestjobsandscholarship",
     channel_handle: str = "@latestjobsandscholarship",
     site_url: str = DEFAULT_SITE_URL,
+    recommended_tools: list[dict[str, str]] | None = None,
 ) -> str:
     """Render a responsive, SEO + AI-Search-ready web board."""
     clean_site_url = site_url.rstrip("/")
+    tools_list = DEFAULT_RECOMMENDED_TOOLS if recommended_tools is None else recommended_tools
+    tools_section_html, modal_partner_tip_html = _render_recommended_tools(tools_list)
     payload = [item.to_dict() for item in items]
     safe_json = json.dumps(payload).replace("</", "<\\/")
     structured_json = json.dumps(
@@ -1060,6 +1121,100 @@ def render_web_board_html(
       padding: 0 4px;
       font-size: 0.86rem;
     }}
+    .tools-section {{
+      margin-top: 30px;
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.10), rgba(15, 23, 42, 0.88));
+      border: 1px solid rgba(52, 211, 153, 0.30);
+      border-radius: 18px;
+      padding: 22px 24px;
+    }}
+    .tools-head {{
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+      margin-bottom: 16px;
+    }}
+    .tools-head h2 {{
+      margin: 0 0 6px;
+      font-size: 1.15rem;
+    }}
+    .tools-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 14px;
+    }}
+    .tool-card {{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(7, 11, 20, 0.62);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      border-radius: 14px;
+      padding: 16px 18px;
+    }}
+    .tool-top {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }}
+    .tool-badge {{
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--green);
+      background: rgba(52, 211, 153, 0.14);
+      border: 1px solid rgba(52, 211, 153, 0.32);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }}
+    .partner-tag {{
+      font-size: 0.72rem;
+      color: var(--muted);
+    }}
+    .tool-card h3 {{
+      margin: 0;
+      font-size: 0.98rem;
+      color: var(--text);
+    }}
+    .tool-card p {{
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }}
+    .tool-cta {{
+      align-self: flex-start;
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      background: linear-gradient(135deg, #059669, #0284c7);
+      color: #fff;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 9px 14px;
+      border-radius: 10px;
+    }}
+    .tool-cta:hover {{ filter: brightness(1.08); }}
+    .modal-partner-tip {{
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(16, 185, 129, 0.10);
+      border: 1px solid rgba(52, 211, 153, 0.28);
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }}
+    .modal-partner-tip a {{
+      color: var(--green);
+      font-weight: 700;
+      text-decoration: none;
+    }}
+    .modal-partner-tip a:hover {{ text-decoration: underline; }}
     .site-footer {{
       margin-top: auto;
       background: rgba(11, 17, 32, 0.95);
@@ -1245,6 +1400,7 @@ def render_web_board_html(
         <a class="nav-link hide-sm" href="#board" data-jump-cat="jobs">Remote Jobs</a>
         <a class="nav-link hide-sm" href="#board" data-jump-cat="web3_jobs">Web3</a>
         <a class="nav-link hide-sm" href="#board" data-jump-cat="scholarships">Scholarships</a>
+        <a class="nav-link hide-sm" href="#tools">Tools</a>
         <a class="nav-link hide-sm" href="/api/opportunities">API</a>
         <a class="nav-cta" href="{safe_channel_url}" target="_blank" rel="noopener noreferrer">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -1333,6 +1489,8 @@ def render_web_board_html(
 
     <nav id="paginationBar" class="pagination" aria-label="Opportunity pages"></nav>
 
+{tools_section_html}
+
     <section class="seo-section" aria-label="About and frequently asked questions">
       <h2>How Our Automated Job, Web3 &amp; Scholarship Radar Works</h2>
       <p class="seo-lead">Curated every 6 hours from {sources_count} trusted job boards &amp; scholarship portals — built for global builders, software engineers, and fellows.</p>
@@ -1389,6 +1547,7 @@ def render_web_board_html(
           <h3>Channels &amp; Feeds</h3>
           <ul class="footer-links">
             <li><a href="{safe_channel_url}" target="_blank" rel="noopener noreferrer">📢 Telegram ({safe_handle})</a></li>
+            <li><a href="#tools">💳 Payout &amp; Career Tools</a></li>
             <li><a href="/feed.xml">📡 RSS Feed (/feed.xml)</a></li>
             <li><a href="/api/opportunities">⚡ JSON API (/api/opportunities)</a></li>
             <li><a href="/llms.txt">🤖 AI Index (/llms.txt)</a></li>
@@ -1420,6 +1579,7 @@ def render_web_board_html(
         <h3>🎯 Prep &amp; ATS Checklist</h3>
         <ul id="pitchChecklist"></ul>
       </div>
+      {modal_partner_tip_html}
       <div class="modal-actions">
         <button type="button" id="copyPitchBtn" class="tg-btn" style="border:none;cursor:pointer;font-family:inherit;">📋 Copy Pitch</button>
         <a id="pitchApplyLink" class="ghost-btn" href="#" target="_blank" rel="noopener noreferrer">Apply Now ↗</a>

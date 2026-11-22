@@ -75,7 +75,7 @@ def _detect_site_url(environ: dict[str, Any]) -> str:
     return "https://job-scholarship-alert-bot-chi.vercel.app"
 
 
-def _load_board_data() -> tuple[list[Any], str, str]:
+def _load_board_data() -> tuple[list[Any], str, str, list[dict[str, str]]]:
     import bot_commands
     import scraper
 
@@ -83,7 +83,8 @@ def _load_board_data() -> tuple[list[Any], str, str]:
     items = bot_commands.get_recent_opportunities(config, BASE_DIR / "data" / "latest_items.json")
     channel_url = scraper.get_public_channel_url(config) or "https://t.me/latestjobsandscholarship"
     channel_handle = str(config.get("settings", {}).get("channel_id", "@latestjobsandscholarship")).strip()
-    return items, channel_url, channel_handle
+    tools = scraper.get_recommended_tools(config)
+    return items, channel_url, channel_handle, tools
 
 
 def app(
@@ -99,12 +100,13 @@ def app(
         if path in {"/", "/index.html"}:
             import web_board
 
-            items, channel_url, channel_handle = _load_board_data()
+            items, channel_url, channel_handle, tools = _load_board_data()
             html_doc = web_board.render_web_board_html(
                 items,
                 channel_url=channel_url,
                 channel_handle=channel_handle,
                 site_url=site_url,
+                recommended_tools=tools,
             )
             body = html_doc.encode("utf-8")
             headers = [
@@ -129,7 +131,7 @@ def app(
         if path == "/sitemap.xml":
             import web_board
 
-            items, _url, _handle = _load_board_data()
+            items, _url, _handle, _tools = _load_board_data()
             body = web_board.render_sitemap_xml(site_url, items).encode("utf-8")
             headers = [
                 ("Content-Type", "application/xml; charset=utf-8"),
@@ -141,7 +143,7 @@ def app(
         if path in {"/feed.xml", "/rss.xml"}:
             import web_board
 
-            items, _url, _handle = _load_board_data()
+            items, _url, _handle, _tools = _load_board_data()
             body = web_board.render_rss_feed(site_url, items).encode("utf-8")
             headers = [
                 ("Content-Type", "application/rss+xml; charset=utf-8"),
@@ -154,7 +156,7 @@ def app(
         if path == "/llms.txt":
             import web_board
 
-            items, channel_url, channel_handle = _load_board_data()
+            items, channel_url, channel_handle, _tools = _load_board_data()
             body = web_board.render_llms_txt(
                 site_url, items, channel_url=channel_url, channel_handle=channel_handle
             ).encode("utf-8")
@@ -201,7 +203,7 @@ def app(
                 return [] if method == "HEAD" else [body]
 
         if path == "/api/opportunities":
-            items, _url, _handle = _load_board_data()
+            items, _url, _handle, _tools = _load_board_data()
             qs = parse_qs(str(environ.get("QUERY_STRING", "")))
             q_val = (qs.get("q") or [""])[0].strip().lower()
             cat_val = (qs.get("cat") or [""])[0].strip()

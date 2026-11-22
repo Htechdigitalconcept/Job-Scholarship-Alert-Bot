@@ -728,6 +728,31 @@ def get_public_site_url(config: dict[str, Any] | None = None) -> str:
     return "https://job-scholarship-alert-bot-chi.vercel.app"
 
 
+def get_recommended_tools(config: dict[str, Any] | None = None) -> list[dict[str, str]]:
+    """Return configured recommended partner/referral tools from config.yaml."""
+    raw = (config or {}).get("settings", {}).get("recommended_tools")
+    if not isinstance(raw, list):
+        return []
+    tools: list[dict[str, str]] = []
+    for entry in raw:
+        if not isinstance(entry, dict):
+            continue
+        url = str(entry.get("url", "")).strip()
+        name = str(entry.get("name", "")).strip()
+        if not url or not name:
+            continue
+        tools.append({
+            "id": str(entry.get("id", "")).strip(),
+            "badge": str(entry.get("badge", "🧰 Recommended Tool")).strip(),
+            "name": name,
+            "description": str(entry.get("description", "")).strip(),
+            "cta": str(entry.get("cta", "Open Tool ↗")).strip(),
+            "button_label": str(entry.get("button_label", entry.get("cta", name))).strip(),
+            "url": url,
+        })
+    return tools
+
+
 def get_broadcast_target(config: dict[str, Any] | None = None) -> str:
     """Return channel/chat target from env vars or config.yaml."""
     channel_id = os.environ.get("TELEGRAM_CHANNEL_ID", "").strip()
