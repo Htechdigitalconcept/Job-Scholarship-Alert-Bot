@@ -1,16 +1,16 @@
-# Marketing & Growth Kit — Jobs, Web3 & Scholarships Live Board
+# Marketing, Directory & Monetization Kit — Jobs, Web3 & Scholarships Live Board
 
-Ready-to-use positioning, social launch copy, Telegram channel templates, SEO highlights, and distribution checklists for promoting **Jobs, Web3 & Scholarships Live Board** and **[@latestjobsandscholarship](https://t.me/latestjobsandscholarship)**.
+Ready-to-use positioning, social launch copy, Telegram channel & `@BotFather` templates, Mini App directory listings, and a 30-day monetization playbook for **Jobs, Web3 & Scholarships Live Board**, **[@latestjobsandscholarship](https://t.me/latestjobsandscholarship)**, **[@Scholar_job_bot](https://t.me/Scholar_job_bot)**, and **[t.me/Scholar_job_bot/RJS](https://t.me/Scholar_job_bot/RJS)**.
 
 ---
 
 ## 1. Core Positioning & Value Proposition
 
 ### One-Liner
-> **Real-time radar for remote tech jobs, Web3 remote roles, and fully funded scholarships—filtered for freshness, deduplicated across 9 sources, and delivered free on Web & Telegram.**
+> **Real-time radar for remote tech jobs, Web3 remote roles, and fully funded scholarships—filtered for freshness, deduplicated across 9 sources, and delivered free on Web, Telegram Channel & Mini App.**
 
 ### Elevator Pitch (Short)
-Finding legitimate remote roles, Web3 jobs, and funded scholarships shouldn't mean checking 10+ websites every day and wading through expired listings. Our automated board scans 9 verified feeds every 6 hours, removes cross-source duplicates and stale posts, tags opportunities with **🌍 Worldwide**, **🛂 Visa Sponsored**, **💰 Fully Funded**, and **🟢 Entry / Intern** badges, extracts application deadlines, and delivers everything free via our **[Live Web Board](https://job-scholarship-alert-bot-chi.vercel.app/)**, **[Telegram Channel](https://t.me/latestjobsandscholarship)**, and **24/7 instant Telegram bot**.
+Finding legitimate remote roles, Web3 jobs, and funded scholarships shouldn't mean checking 10+ websites every day and wading through expired listings. Our automated platform scans 9 verified feeds every 6 hours, removes cross-source duplicates and stale posts, tags up to **200** fresh opportunities with **🌍 Worldwide**, **🛂 Visa Sponsored**, **💰 Fully Funded**, and **🟢 Entry / Intern** badges, extracts deadlines, generates **One-Tap Application Pitches & ATS Checklists**, and delivers everything free via our **[Live Web Board](https://job-scholarship-alert-bot-chi.vercel.app/)**, **[Telegram Mini App](https://t.me/Scholar_job_bot/RJS)**, **[Telegram Channel](https://t.me/latestjobsandscholarship)**, and **24/7 bot (`@Scholar_job_bot`)**.
 
 ### Target Audiences
 1. **Remote Software Engineers & Tech Talent (Junior to Mid-Level)** — Looking for Python, backend, frontend, full-stack, data analyst, and entry/intern remote roles without "10+ years" noise.
@@ -18,14 +18,12 @@ Finding legitimate remote roles, Web3 jobs, and funded scholarships shouldn't me
 3. **Students, Graduates & African / Global Fellows** — Tracking MSc, undergraduate, STEM, and fully funded fellowships with clear application deadlines.
 4. **Global Talent Seeking Mobility** — Filtering specifically for **🌍 Worldwide** remote roles and **🛂 Visa Sponsored** opportunities.
 
-### Key Differentiators (Why Users Stay)
-- **Zero Fluff & Freshness-First**: Jobs older than 3 days (7 days for scholarships) are automatically dropped.
-- **No Duplicate Spam**: Cross-source title normalization prevents identical reposts from flooding your feed.
-- **Smart Instant Triage**: Badges (`🌍 Worldwide`, `🛂 Visa Sponsored`, `💰 Fully Funded`, `🟢 Entry / Intern`) and `⏳ Deadline` callouts let users qualify an opportunity in 2 seconds.
-- **Two Ways to Browse**:
-  - **Web Board**: Instant keyword search + category/badge filters + direct Apply links (`https://job-scholarship-alert-bot-chi.vercel.app/`).
-  - **Telegram Channel + Bot**: Passive 6-hour alerts + daily `06:00 UTC` digest in `@latestjobsandscholarship`, plus instant interactive commands (`/latest`, `/web3`, `/scholarships`, `/worldwide`, `/visa`, `/search`).
-- **100% Free & Open**: No paywall, no sign-up wall, plus a public JSON feed (`/api/opportunities`) and AI-readable index (`/llms.txt`).
+### Key Differentiators (Why Users Stay & Share)
+- **Zero Fluff & Freshness-First**: Jobs older than 3 days (7 days for scholarships) are automatically dropped, keeping up to 200 fresh opportunities paginated cleanly at 24 per page.
+- **No Duplicate Spam**: Cross-source title normalization prevents identical reposts from flooding the feed.
+- **One-Tap `📝 Pitch` & ATS Checklist**: Available directly on every Web Board card (`#pitchModal`) and inside `@Scholar_job_bot` (`/pitch` & `📝 Pitch #1–#5` buttons), giving applicants a ready-to-edit cold email or Scholarship SOP opener in seconds.
+- **Viral 3-Friend Referral Loop**: Feeds, `/expiring`, and `/setkeywords` stay **100% free**; users get 1 free `/pitch` preview in Telegram and unlock unlimited `/pitch` after inviting 3 friends via `/share`.
+- **Native Telegram Mini App + Channel + Web**: Browse in Telegram (`t.me/Scholar_job_bot/RJS`), search inline in any chat (`@Scholar_job_bot <query>`), or receive 6-hour cycle reminders + daily `06:00 UTC` digests in `@latestjobsandscholarship`.
 
 ---
 
@@ -42,75 +40,94 @@ What you get here:
 ⛓️ Web3 & Blockchain Remote Roles
 🎓 Fully Funded Scholarships & Fellowships (with ⏳ deadlines)
 🏷 Smart Tags: 🌍 Worldwide · 🛂 Visa Sponsored · 💰 Fully Funded · 🟢 Entry / Intern
-🌅 Daily Top Digest every morning at 06:00 UTC
+🔔 Clean Cycle Reminders whenever new posts drop + Daily Digest at 06:00 UTC
 
-🌐 Browse & Search Live on the Web:
+📱 Open Native Mini App inside Telegram:
+https://t.me/Scholar_job_bot/RJS
+
+🌐 Browse & Search Live on the Web (up to 200 fresh posts + One-Tap Pitch):
 https://job-scholarship-alert-bot-chi.vercel.app/
 
-🤖 Want instant custom filters? Message our bot:
-/latest — 5 newest opportunities
+🤖 Want instant custom filters & One-Tap Application Pitches? Message @Scholar_job_bot:
+/latest — 5 newest opportunities + 📝 Pitch #1–#5
 /jobs python — Filter remote tech jobs
 /web3 solidity — Filter Web3 remote roles
 /scholarships africa — Filter scholarships
+/expiring — Closing-soon deadlines
 /worldwide — Worldwide remote only
 /visa — Visa-sponsored roles only
 /search <keyword> — Search everything
+/tools — Recommended USD/EUR/GBP payout tools
 
 📢 Share this channel with friends hunting for remote roles or funded scholarships!
 https://t.me/latestjobsandscholarship
 ```
 
-### BotFather `/setdescription` (Shown Before Users Start the Bot)
+### BotFather `/setdescription` (Auto-Synced by `--sync-profile`)
 ```text
-Instant 24/7 search for recent remote tech jobs, Web3 remote roles, visa-sponsored openings, and fully funded scholarships. Synced with @latestjobsandscholarship and our Live Web Board.
+Instant 24/7 search for fresh remote tech jobs, Web3 remote roles, visa-sponsored openings & fully funded scholarships — with One-Tap Application Pitches. Synced with @latestjobsandscholarship & our Live Web Board.
 ```
 
-### BotFather `/setabouttext`
+### BotFather `/setabouttext` (Auto-Synced by `--sync-profile`)
 ```text
-Automated Remote Jobs, Web3 & Scholarships Bot | Live Board: https://job-scholarship-alert-bot-chi.vercel.app/ | Channel: @latestjobsandscholarship
+Remote Jobs, Web3 & Scholarships Bot | Mini App: t.me/Scholar_job_bot/RJS | Channel: @latestjobsandscholarship
 ```
 
-### BotFather `/setcommands` (Paste Directly into `@BotFather`)
+### BotFather `/setcommands` (Auto-Synced by `--sync-profile`, or Paste into `@BotFather`)
 ```text
-latest - Browse 5 newest opportunities with pagination
-jobs - Filter recent remote tech jobs (e.g. /jobs python)
-web3 - Filter recent Web3 remote roles (e.g. /web3 solidity)
-scholarships - Filter recent scholarships & fellowships
-search - Search across all categories by keyword
-worldwide - Filter Worldwide remote opportunities
+start - Welcome, Mini App & public channel link
+latest - Latest jobs, Web3 & scholarships
+jobs - Latest remote jobs (optional: /jobs python)
+web3 - Latest Web3 remote jobs (optional: /web3 solidity)
+scholarships - Latest scholarships (optional: /scholarships africa)
+search - Search all categories (e.g. /search python)
+worldwide - Filter Worldwide opportunities
 visa - Filter Visa-sponsored opportunities
-digest - Get today's top opportunities digest
-stats - View live board counts and badge totals
+digest - Today's top opportunities summary
+stats - Bot & opportunity counts
+share - Invite 3 friends for unlimited /pitch
+expiring - Deadlines closing soon (Free)
+pitch - One-tap application pitch & checklist
+tools - Remote USD/EUR/GBP payout & career tools
+subscribe - Get cycle reminder DMs when new posts drop
+unsubscribe - Pause cycle reminder DMs
 keywords - View tracked keywords
-setkeywords - Set personal DM alert keywords
-subscribe - Enable personal DM alerts
-unsubscribe - Pause personal DM alerts
-sources - View monitored feeds & recency limits
-help - Show commands and links
+sources - View monitored feeds & age limit
+help - Show command guide
 ```
+
+> **Note:** Enable `/setinline` in `@BotFather` for `@Scholar_job_bot` so users can search and share opportunities inside any Telegram chat, and upload `assets/logo.png` via `/setuserpic`.
 
 ---
 
-## 3. Social Media Launch Templates
+## 3. Telegram Mini App & Directory Submission Checklist
+
+- **Telegram Apps Center (`@tapps_bot`):** Open `https://t.me/tapps_bot` from the bot-owner Telegram account and submit inside its Mini App (`@app_moderation_bot` was replaced by `@tapps_bot`).
+- **FindMini.app:** Submit `https://t.me/Scholar_job_bot/RJS` + `@Scholar_job_bot` via `+ Add your app` on `https://www.findmini.app/`.
+- **Web Bot & Channel Directories:** Submit `@latestjobsandscholarship`, `@Scholar_job_bot`, and `https://job-scholarship-alert-bot-chi.vercel.app/` to `telegramchannels.me`, `telegram-store.com`, `botostore.com`, and `storebot.me`.
+
+---
+
+## 4. Social Media Launch Templates
 
 ### Twitter / X Launch Thread (5 Posts)
 
 **Tweet 1 (Hook):**
-> I built a 100% free, zero-server radar for **Remote Tech Jobs, Web3 Roles & Fully Funded Scholarships** 🚀
+> I built a 100% free radar for **Remote Tech Jobs, Web3 Roles & Fully Funded Scholarships** 🚀
 >
-> No stale listings. No cross-board duplicate spam. No paywall.
+> ✅ Fresh listings only (up to 200 live, 24/page)
+> ✅ One-Tap Application Pitch & ATS Checklist on every card
+> ✅ Works on Web + Telegram Mini App (`t.me/Scholar_job_bot/RJS`)
 >
-> Live Web Board: https://job-scholarship-alert-bot-chi.vercel.app/
-> Telegram Channel: https://t.me/latestjobsandscholarship
->
-> Here's what it tracks automatically 🧵👇
+> Live Board: https://job-scholarship-alert-bot-chi.vercel.app/
+> Channel: https://t.me/latestjobsandscholarship 🧵👇
 
 **Tweet 2 (Sources & Freshness):**
 > Most job boards bury you in expired posts from weeks ago.
 >
-> This tracker pulls from 9 curated sources (Remotive, We Work Remotely, Himalayas, Arbeitnow, Cryptocurrency Jobs, Opportunity Desk, Scholars4Dev & more) every 6 hours—keeping jobs ≤3 days old and scholarships ≤7 days old.
+> This tracker pulls from 9 curated sources (Remotive, We Work Remotely, Himalayas, Arbeitnow, Cryptocurrency Jobs, Opportunity Desk, Scholars4Dev & more) every 6 hours—keeping jobs ≤3 days old and scholarships ≤7 days old, with cross-source duplicate removal.
 
-**Tweet 3 (Smart Filtering):**
+**Tweet 3 (Smart Filtering & One-Tap Pitch):**
 > Every listing is auto-tagged so you can qualify it in 2 seconds:
 > 🌍 Worldwide Remote
 > 🛂 Visa Sponsored
@@ -118,24 +135,21 @@ help - Show commands and links
 > 🟢 Entry / Intern
 > ⏳ Extracted application deadlines
 >
-> Filter instantly on the web board or search directly inside Telegram.
+> Tap **📝 Pitch** on any card (or inside `@Scholar_job_bot`) to generate an editable cold outreach email / SOP opener + ATS keyword checklist.
 
-**Tweet 4 (Telegram Bot Power):**
-> Need custom alerts in Telegram? The bot replies 24/7 in <1s:
-> • `/jobs python`
-> • `/web3 solidity`
-> • `/scholarships africa`
-> • `/worldwide`
-> • `/visa`
-> • `/digest`
->
-> Plus a clean daily digest at 06:00 UTC in @latestjobsandscholarship.
+**Tweet 4 (Telegram Bot + Mini App Power):**
+> Need custom alerts in Telegram? `@Scholar_job_bot` replies 24/7 in <1s:
+> • `/jobs python` · `/web3 solidity` · `/scholarships africa`
+> • `/worldwide` · `/visa` · `/expiring`
+> • `/pitch` + `/tools`
+> • Native Mini App (`Open Board` button) + 6h cycle reminders in `@latestjobsandscholarship`.
 
 **Tweet 5 (CTA + Open API):**
-> Built for builders, students, and job seekers—even includes a public JSON API (`/api/opportunities`) and `/llms.txt` for AI search tools.
+> Built for builders, students, and job seekers—also includes a public JSON API (`/api/opportunities`), RSS (`/feed.xml`), and `/llms.txt`.
 >
-> Bookmark the Live Board or join the Telegram channel today:
+> Bookmark the Live Board or launch the Mini App today:
 > 🌐 https://job-scholarship-alert-bot-chi.vercel.app/
+> 📱 https://t.me/Scholar_job_bot/RJS
 > 📢 https://t.me/latestjobsandscholarship
 
 ---
@@ -144,48 +158,66 @@ help - Show commands and links
 ```text
 Job hunting and scholarship searching shouldn't feel like a full-time job—especially when half the links you click are expired or reposted across five different boards.
 
-I've launched the Jobs, Web3 & Scholarships Live Board + Telegram Alert Bot—a free, automated feed updated every 6 hours across 9 verified sources.
+I've launched the Jobs, Web3 & Scholarships Live Board + Telegram Mini App (@Scholar_job_bot)—a free, automated feed updated every 6 hours across 9 verified sources.
 
 What makes it useful:
-✅ Freshness-first: Remote jobs & Web3 roles are strictly capped at 3 days old (7 days for scholarships).
-✅ Zero duplicate clutter: Cross-source title deduplication filters out identical reposts.
+✅ Freshness-first: Remote jobs & Web3 roles are strictly capped at 3 days old (7 days for scholarships), serving up to 200 fresh deduplicated opportunities (24 per page).
 ✅ Smart triage badges: Quickly spot 🌍 Worldwide remote, 🛂 Visa Sponsored, 💰 Fully Funded, and 🟢 Entry / Intern opportunities—plus extracted ⏳ deadlines.
-✅ Two ways to use it: Browse and filter live on the web, or get instant alerts & run commands (/jobs, /web3, /scholarships, /visa, /worldwide) on Telegram.
+✅ One-Tap Pitch & ATS Checklist: Generate an editable outreach pitch or scholarship SOP starter right on each card or inside Telegram.
+✅ Three ways to use it: Browse on the web, launch the native Telegram Mini App, or run instant commands (/jobs, /web3, /scholarships, /expiring, /visa, /worldwide) in @Scholar_job_bot.
 
 🔗 Live Web Board: https://job-scholarship-alert-bot-chi.vercel.app/
+📱 Telegram Mini App: https://t.me/Scholar_job_bot/RJS
 📢 Telegram Channel: https://t.me/latestjobsandscholarship
 
 Share this with someone actively applying for remote roles, Web3 engineering jobs, or funded fellowships!
 
-#RemoteWork #Web3Jobs #Scholarships #TechCareers #Python #OpenSource
+#RemoteWork #Web3Jobs #Scholarships #TechCareers #Python #TelegramMiniApp
 ```
 
 ---
 
 ### WhatsApp / Discord / Community Group Blurb
 ```text
-Hey everyone! Sharing a free resource for anyone hunting for **remote tech jobs, Web3 remote roles, or fully funded scholarships**:
+Hey everyone! Sharing a free tool for anyone hunting for **remote tech jobs, Web3 remote roles, or fully funded scholarships**:
 
-🌐 **Live Web Board** (search + filter by Worldwide, Visa Sponsored, Fully Funded, Entry-level):
+🌐 **Live Web Board** (search, filter + One-Tap Application Pitch):
 https://job-scholarship-alert-bot-chi.vercel.app/
+
+📱 **Telegram Mini App & Bot** (open right inside Telegram):
+https://t.me/Scholar_job_bot/RJS
 
 📢 **Telegram Channel** (auto-updated every 6 hours + daily 6 AM UTC digest):
 https://t.me/latestjobsandscholarship
 
-Only recent posts are kept (no weeks-old expired listings), and duplicate reposts are filtered out automatically. Feel free to bookmark & share!
+Only fresh posts are kept (no weeks-old expired listings), and duplicate reposts are removed automatically. Feel free to bookmark & share!
 ```
 
 ---
 
-## 4. SEO & AI Search Distribution Checklist
+## 5. Monetization Integration & 30-Day Playbook
 
-The web board is already engineered for organic discovery in both traditional search engines and AI answer engines:
+### Built-In Partner & Referral Wiring (`config.yaml` → `settings.recommended_tools`)
+Recommended career/payout tools are configured in `config.yaml` and automatically rendered across four high-intent touchpoints:
+1. **`#tools` Card Strip** on the Live Web Board & Telegram Mini App (tagged `Partner Link`).
+2. **Inside `#pitchModal`** on the Web Board right when applicants copy their pitch.
+3. **`/tools` Command** in `@Scholar_job_bot`.
+4. **Inside `/pitch` & `📝 Pitch #1–#5` Bot Replies** as a payout tip + inline CTA button.
 
-- **Google Search Console**: Verified via `googlefee6033bceb7f78c.html`. Submit `sitemap.xml` inside Search Console to index `/`, `/llms.txt`, and `/api/opportunities`.
+Currently active partner link:
+- **Raenest (Global USD/EUR/GBP Bank Accounts):** `https://referral.raenest.com/WzbV/i?referral_code=adehab359122`
+
+### 30-Day Revenue Stack (High-Intent Channels)
+1. **Remote Payout & Career Affiliates (Active — Raenest):** Add additional high-fit links (Payoneer, Wise, Coursera, IELTS prep) under `settings.recommended_tools` in `config.yaml`.
+2. **Paid CV / Cover Letter / Scholarship SOP Reviews ($10–$25):** Link a Selar, Paystack, or Gumroad checkout inside `recommended_tools` and pinned channel posts.
+3. **Sponsored / Featured Job & Bootcamp Pins ($20–$75/post):** Offer 1 channel broadcast + cycle reminder mention + top-of-board Featured placement to Web3 teams, bootcamps, and study-abroad agencies.
+4. **Telegram Mini App Ads & Channel Ad Share:** Enable Mini App ads (e.g., Adsgram) once daily opens grow, and Telegram Channel 50% TON ad-revenue share once `@latestjobsandscholarship` crosses 1,000+ subscribers.
+5. **Digital Notion Tracker / VIP Fast-Track ($5–$9):** Curated database of recurring fully funded scholarships, visa-sponsoring remote employers, and outreach templates.
+
+---
+
+## 6. SEO & AI Search Distribution Checklist
+
+- **Google Search Console**: Verified via `googlefee6033bceb7f78c.html`. Submit `/sitemap.xml` inside Search Console to index `/`, `/feed.xml`, `/llms.txt`, and `/api/opportunities`.
 - **Schema.org JSON-LD**: Automatically embeds structured `WebSite` + `ItemList` (`JobPosting` & `CreativeWork`) metadata for rich search understanding.
-- **AI Search Visibility (`/llms.txt` + `robots.txt`)**: Explicitly welcomes `Googlebot`, `Google-Extended`, `OAI-SearchBot`, `GPTBot`, `ChatGPT-User`, `PerplexityBot`, and `ClaudeBot`.
-
-### Suggested Growth Channels & Directories
-- Submit the Live Web Board URL to free remote-work / student-resource / AI-tool directories and university tech clubs.
-- Cross-promote weekly top picks from `/digest` on X/Twitter and LinkedIn linking back to `https://job-scholarship-alert-bot-chi.vercel.app/` and `https://t.me/latestjobsandscholarship`.
-- Keep **Telegram Channel + BotFather commands** configured so new visitors arriving from Google Search can join `@latestjobsandscholarship` in one click from the sticky header or hero CTA.
+- **AI Search Visibility (`/llms.txt` + `robots.txt` + `/feed.xml`)**: Explicitly welcomes `Googlebot`, `Google-Extended`, `OAI-SearchBot`, `GPTBot`, `ChatGPT-User`, `PerplexityBot`, and `ClaudeBot`.
