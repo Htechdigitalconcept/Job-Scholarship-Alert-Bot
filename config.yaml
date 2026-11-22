@@ -84,7 +84,7 @@ categories:
 
   web3_jobs:
     label: "⛓️ Web3 Remote Job"
-    max_post_age_days: 3
+    max_post_age_days: 5
     require_keywords:
       - "remote"
       - "remotely"
@@ -117,10 +117,14 @@ categories:
         type: "rss"
         url: "https://cryptocurrencyjobs.co/index.xml"
         enabled: true
+      - name: "CryptoJobsList"
+        type: "rss"
+        url: "https://cryptojobslist.com/rss"
+        enabled: true
 
   scholarships:
     label: "🎓 Scholarship & Fellowship"
-    max_post_age_days: 7
+    max_post_age_days: 14
     include_keywords:
       - "fully funded"
       - "scholarship"
@@ -147,6 +151,14 @@ categories:
       - name: "Scholars4Dev"
         type: "rss"
         url: "https://www.scholars4dev.com/feed/"
+        enabled: true
+      - name: "Bright Scholarship"
+        type: "rss"
+        url: "https://brightscholarship.com/feed/"
+        enabled: true
+      - name: "Opportunities Corners"
+        type: "rss"
+        url: "https://opportunitiescorners.com/feed/"
         enabled: true
       - name: "AfterSchoolAfrica"
         type: "rss"
