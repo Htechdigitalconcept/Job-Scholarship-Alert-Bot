@@ -221,3 +221,8 @@ Currently active partner link:
 - **Google Search Console**: Verified via `googlefee6033bceb7f78c.html`. Submit `/sitemap.xml` inside Search Console to index `/`, `/feed.xml`, `/llms.txt`, and `/api/opportunities`.
 - **Schema.org JSON-LD**: Automatically embeds structured `WebSite` + `ItemList` (`JobPosting` & `CreativeWork`) metadata for rich search understanding.
 - **AI Search Visibility (`/llms.txt` + `robots.txt` + `/feed.xml`)**: Explicitly welcomes `Googlebot`, `Google-Extended`, `OAI-SearchBot`, `GPTBot`, `ChatGPT-User`, `PerplexityBot`, and `ClaudeBot`.
+
+### Suggested Growth Channels & Directories
+- Submit the Live Web Board URL to free remote-work, student-resource, and AI-tool directories and university tech clubs.
+- Cross-promote weekly top picks from `/digest` on X/Twitter and LinkedIn linking back to `https://job-scholarship-alert-bot-chi.vercel.app/`, `https://t.me/Scholar_job_bot/RJS`, and `https://t.me/latestjobsandscholarship`.
+- Keep **Telegram Channel + BotFather commands** configured so new visitors arriving from Google Search can join `@latestjobsandscholarship` or open the Mini App in one click from the sticky header or hero CTA.
