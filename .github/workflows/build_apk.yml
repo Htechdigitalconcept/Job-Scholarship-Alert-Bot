@@ -1,0 +1,84 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "android/**"
+      - ".github/workflows/build_apk.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle 8.7
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.7"
+
+      - name: Prepare release signing keystore
+        run: |
+          if [ -n "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]; then
+            echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > "${{ runner.temp }}/release.keystore"
+            echo "SIGNING_STORE_FILE=${{ runner.temp }}/release.keystore" >> "$GITHUB_ENV"
+            echo "SIGNING_STORE_PASSWORD=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> "$GITHUB_ENV"
+            echo "SIGNING_KEY_ALIAS=${{ secrets.ANDROID_KEY_ALIAS }}" >> "$GITHUB_ENV"
+            echo "SIGNING_KEY_PASSWORD=${{ secrets.ANDROID_KEY_PASSWORD }}" >> "$GITHUB_ENV"
+          else
+            keytool -genkeypair -v \
+              -keystore "${{ runner.temp }}/release.keystore" \
+              -alias globalradar \
+              -keyalg RSA -keysize 2048 -validity 10000 \
+              -storepass "GlobalRadarFree2026" \
+              -keypass "GlobalRadarFree2026" \
+              -dname "CN=Global Radar, O=Htechdigitalconcept, C=NG"
+            echo "SIGNING_STORE_FILE=${{ runner.temp }}/release.keystore" >> "$GITHUB_ENV"
+            echo "SIGNING_STORE_PASSWORD=GlobalRadarFree2026" >> "$GITHUB_ENV"
+            echo "SIGNING_KEY_ALIAS=globalradar" >> "$GITHUB_ENV"
+            echo "SIGNING_KEY_PASSWORD=GlobalRadarFree2026" >> "$GITHUB_ENV"
+          fi
+
+      - name: Build signed release APK
+        working-directory: android
+        env:
+          APK_VERSION_CODE: ${{ github.run_number }}
+        run: gradle assembleRelease --no-daemon
+
+      - name: Package final APK
+        run: |
+          mkdir -p dist
+          cp android/app/build/outputs/apk/release/app-release.apk dist/Global-Opportunities-Radar.apk
+          ls -lh dist/Global-Opportunities-Radar.apk
+
+      - name: Upload APK workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Global-Opportunities-Radar-APK
+          path: dist/Global-Opportunities-Radar.apk
+          retention-days: 90
+
+      - name: Publish APK to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: android-latest
+          name: "Global Opportunities Radar — Android APK"
+          body: |
+            Zero-cost Android WebView APK for **Jobs, Web3 & Scholarships Live Board**.
+            - Always loads live listings (up to 200 fresh opportunities, 24/page)
+            - Includes One-Tap Application Pitch & ATS Checklist
+            - Direct links open cleanly in Chrome & Telegram (`@Scholar_job_bot`)
+          files: dist/Global-Opportunities-Radar.apk
+          make_latest: true

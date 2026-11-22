@@ -389,6 +389,20 @@ class BotCommandsTests(unittest.TestCase):
         self.assertEqual(captured["status"], "200 OK")
         self.assertEqual(indexnow_txt, "e4c9a8d2f1b740369c5d8e2a1f7b3094")
 
+        manifest_raw = b"".join(
+            webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/manifest.webmanifest"}, start_response)
+        ).decode("utf-8")
+        self.assertEqual(captured["status"], "200 OK")
+        self.assertIn("application/manifest+json", captured["content_type"])
+        self.assertIn('"display": "standalone"', manifest_raw)
+
+        sw_js = b"".join(
+            webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/sw.js"}, start_response)
+        ).decode("utf-8")
+        self.assertEqual(captured["status"], "200 OK")
+        self.assertIn("application/javascript", captured["content_type"])
+        self.assertIn("global-radar-v1", sw_js)
+
         feed_xml = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/feed.xml"}, start_response)).decode("utf-8")
         self.assertEqual(captured["status"], "200 OK")
         self.assertIn("application/rss+xml", captured["content_type"])

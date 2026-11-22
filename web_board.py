@@ -13,7 +13,84 @@ from typing import Any
 import scraper
 
 DEFAULT_SITE_URL = "https://job-scholarship-alert-bot-chi.vercel.app"
+DEFAULT_APK_URL = "https://github.com/Htechdigitalconcept/Job-Scholarship-Alert-Bot/releases/latest/download/Global-Opportunities-Radar.apk"
 ASSETS_DIR = Path(__file__).resolve().parent / "assets"
+
+
+def render_web_manifest() -> str:
+    """Generate PWA Web App Manifest so Android & iOS can install the board."""
+    manifest = {
+        "name": "Jobs, Web3 & Scholarships Live Board",
+        "short_name": "Global Radar",
+        "description": (
+            "Fresh remote tech jobs, Web3 remote roles, visa-sponsored openings, "
+            "and fully funded scholarships updated every 6 hours."
+        ),
+        "start_url": "/",
+        "scope": "/",
+        "display": "standalone",
+        "orientation": "portrait-primary",
+        "background_color": "#070b14",
+        "theme_color": "#0b1120",
+        "icons": [
+            {
+                "src": "/logo.png",
+                "sizes": "512x512",
+                "type": "image/png",
+                "purpose": "any maskable",
+            },
+            {
+                "src": "/favicon.png",
+                "sizes": "64x64",
+                "type": "image/png",
+                "purpose": "any",
+            },
+        ],
+    }
+    return json.dumps(manifest, indent=2)
+
+
+def render_service_worker_js() -> str:
+    """Generate lightweight offline-resilient Service Worker for the PWA."""
+    return """const CACHE_NAME = "global-radar-v1";
+const SHELL_URLS = ["/", "/logo.png", "/favicon.png", "/manifest.webmanifest"];
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(SHELL_URLS)).catch(() => undefined)
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+    )
+  );
+  self.clients.claim();
+});
+
+self.addEventListener("fetch", (event) => {
+  const req = event.request;
+  if (req.method !== "GET") return;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;
+  if (url.pathname.startsWith("/api/webhook")) return;
+
+  event.respondWith(
+    fetch(req)
+      .then((res) => {
+        if (res && res.status === 200 && (url.pathname === "/" || url.pathname === "/api/opportunities")) {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy)).catch(() => undefined);
+        }
+        return res;
+      })
+      .catch(() => caches.match(req).then((cached) => cached || caches.match("/")))
+  );
+});
+"""
 
 
 def _load_logo_data_uri() -> str:
@@ -515,6 +592,8 @@ def render_web_board_html(
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
   <link rel="canonical" href="{safe_canonical}" />
   <link rel="alternate" type="application/rss+xml" title="Jobs, Web3 &amp; Scholarships RSS Feed" href="/feed.xml" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="theme-color" content="#0b1120" />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/logo.png" />
   <meta property="og:type" content="website" />
@@ -1613,6 +1692,7 @@ def render_web_board_html(
           <h3>Channels &amp; Feeds</h3>
           <ul class="footer-links">
             <li><a href="{safe_channel_url}" target="_blank" rel="noopener noreferrer">📢 Telegram ({safe_handle})</a></li>
+            <li><a href="{DEFAULT_APK_URL}" target="_blank" rel="noopener noreferrer">📱 Android APK Download</a></li>
             <li><a href="#tools">💳 Payout &amp; Career Tools</a></li>
             <li><a href="/feed.xml">📡 RSS Feed (/feed.xml)</a></li>
             <li><a href="/api/opportunities">⚡ JSON API (/api/opportunities)</a></li>
@@ -1990,6 +2070,8 @@ def render_web_board_html(
             tgApp.openTelegramLink(tgLink.href);
           }}
         }});
+      }} else if ("serviceWorker" in navigator) {{
+        navigator.serviceWorker.register("/sw.js").catch(() => undefined);
       }}
     }});
   </script>

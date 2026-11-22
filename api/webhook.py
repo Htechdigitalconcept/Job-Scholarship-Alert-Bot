@@ -215,6 +215,33 @@ def app(
             start_response(STATUS_TEXT[200], headers)
             return [] if method == "HEAD" else [body]
 
+        if path == "/manifest.webmanifest":
+            import web_board
+
+            body = web_board.render_web_manifest().encode("utf-8")
+            headers = [
+                ("Content-Type", "application/manifest+json; charset=utf-8"),
+                ("Content-Length", str(len(body))),
+                ("Cache-Control", "public, max-age=3600"),
+                *SECURITY_HEADERS,
+            ]
+            start_response(STATUS_TEXT[200], headers)
+            return [] if method == "HEAD" else [body]
+
+        if path == "/sw.js":
+            import web_board
+
+            body = web_board.render_service_worker_js().encode("utf-8")
+            headers = [
+                ("Content-Type", "application/javascript; charset=utf-8"),
+                ("Content-Length", str(len(body))),
+                ("Service-Worker-Allowed", "/"),
+                ("Cache-Control", "no-cache"),
+                *SECURITY_HEADERS,
+            ]
+            start_response(STATUS_TEXT[200], headers)
+            return [] if method == "HEAD" else [body]
+
         if path == "/sitemap.xml":
             import web_board
 
