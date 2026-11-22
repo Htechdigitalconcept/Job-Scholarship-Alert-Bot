@@ -6,7 +6,7 @@ import base64
 import html
 import json
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -78,6 +78,55 @@ def _render_ssr_cards(items: list[scraper.Opportunity]) -> str:
     return "\n".join(cards)
 
 
+def _infer_applicant_location_requirements(item: scraper.Opportunity) -> list[dict[str, str]]:
+    """Infer valid Schema.org Country entries for remote JobPosting markup."""
+    blob = f"{item.title} {item.summary}".lower()
+    country_rules = [
+        (r"\b(?:usa|u\.s\.a\.|united states|us remote|remote us|north america)\b", "USA"),
+        (r"\b(?:uk|u\.k\.|united kingdom|london|england)\b", "United Kingdom"),
+        (r"\b(?:germany|deutschland|berlin|munich|\(w/m/d\)|\(m/w/d\))\b", "Germany"),
+        (r"\b(?:canada|toronto|vancouver)\b", "Canada"),
+        (r"\b(?:australia|sydney|melbourne)\b", "Australia"),
+        (r"\b(?:nigeria|lagos|abuja)\b", "Nigeria"),
+        (r"\b(?:india|bangalore|bengaluru)\b", "India"),
+        (r"\b(?:france|paris)\b", "France"),
+        (r"\b(?:netherlands|amsterdam)\b", "Netherlands"),
+    ]
+    matched: list[str] = []
+    for pattern, country in country_rules:
+        if re.search(pattern, blob) and country not in matched:
+            matched.append(country)
+    if not matched and re.search(r"\b(?:europe|eu|emea)\b", blob):
+        matched = ["Germany", "United Kingdom", "France", "Netherlands"]
+    if not matched and re.search(r"\b(?:apac|asia)\b", blob):
+        matched = ["Singapore", "Australia", "India", "Japan"]
+    if not matched:
+        matched = ["USA", "United Kingdom", "Canada", "Germany", "Nigeria"]
+    return [{"@type": "Country", "name": c} for c in matched]
+
+
+def _infer_employment_type(item: scraper.Opportunity) -> str:
+    blob = f"{item.title} {item.summary} {' '.join(item.badges)}".lower()
+    if re.search(r"\b(?:intern|internship)\b", blob):
+        return "INTERN"
+    if re.search(r"\b(?:contractor|contract|freelance)\b", blob):
+        return "CONTRACTOR"
+    if re.search(r"\b(?:part[- ]?time)\b", blob):
+        return "PART_TIME"
+    return "FULL_TIME"
+
+
+def _infer_valid_through(item: scraper.Opportunity) -> str:
+    base_dt = item.published_dt or datetime.now(timezone.utc)
+    if item.deadline:
+        for fmt in ("%Y-%m-%d", "%B %d, %Y", "%b %d, %Y", "%d %B %Y", "%d %b %Y"):
+            try:
+                return datetime.strptime(item.deadline.strip(), fmt).date().isoformat()
+            except ValueError:
+                continue
+    return (base_dt + timedelta(days=30)).date().isoformat()
+
+
 def build_structured_data(
     site_url: str,
     items: list[scraper.Opportunity],
@@ -94,14 +143,16 @@ def build_structured_data(
                 "title": item.title,
                 "url": safe_item_url,
                 "description": item.summary or item.title,
+                "datePosted": (item.published_dt or datetime.now(timezone.utc)).date().isoformat(),
+                "validThrough": _infer_valid_through(item),
+                "employmentType": _infer_employment_type(item),
                 "hiringOrganization": {
                     "@type": "Organization",
                     "name": item.source_name,
                 },
                 "jobLocationType": "TELECOMMUTE",
+                "applicantLocationRequirements": _infer_applicant_location_requirements(item),
             }
-            if item.published_dt:
-                node["datePosted"] = item.published_dt.date().isoformat()
         else:
             node = {
                 "@type": "CreativeWork",
