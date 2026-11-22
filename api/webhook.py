@@ -295,6 +295,18 @@ def app(
                 start_response(STATUS_TEXT[200], headers)
                 return [] if method == "HEAD" else [body]
 
+        if path == "/BingSiteAuth.xml":
+            bing_file = BASE_DIR / "BingSiteAuth.xml"
+            if bing_file.is_file():
+                body = bing_file.read_bytes()
+                headers = [
+                    ("Content-Type", "application/xml; charset=utf-8"),
+                    ("Content-Length", str(len(body))),
+                    *SECURITY_HEADERS,
+                ]
+                start_response(STATUS_TEXT[200], headers)
+                return [] if method == "HEAD" else [body]
+
         if path == "/api/opportunities":
             if _is_rate_limited(_get_client_ip(environ), "api", _API_RATE_LIMIT):
                 status = 429

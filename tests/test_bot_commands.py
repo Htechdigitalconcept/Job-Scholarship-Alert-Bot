@@ -379,6 +379,10 @@ class BotCommandsTests(unittest.TestCase):
         self.assertIn("/feed.xml", sitemap)
         self.assertIn("/llms.txt", sitemap)
 
+        bing_xml = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/BingSiteAuth.xml"}, start_response)).decode("utf-8")
+        self.assertEqual(captured["status"], "200 OK")
+        self.assertIn("5B4141F721D05180171CE232C1041F0C", bing_xml)
+
         feed_xml = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/feed.xml"}, start_response)).decode("utf-8")
         self.assertEqual(captured["status"], "200 OK")
         self.assertIn("application/rss+xml", captured["content_type"])
