@@ -383,6 +383,13 @@ class BotCommandsTests(unittest.TestCase):
         self.assertEqual(captured["status"], "200 OK")
         self.assertIn("application/rss+xml", captured["content_type"])
         self.assertIn("<rss version=\"2.0\"", feed_xml)
+        self.assertIn("https://job-scholarship-alert-bot-chi.vercel.app/?item=", feed_xml)
+        self.assertIn("Apply: https://", feed_xml)
+        import re as _re
+        item_links = _re.findall(r"<item>.*?<link>(.*?)</link>", feed_xml, flags=_re.DOTALL)
+        self.assertTrue(item_links)
+        for lnk in item_links:
+            self.assertTrue(lnk.startswith("https://job-scholarship-alert-bot-chi.vercel.app/?item="))
         self.assertIn("FAQPage", root_body)
         self.assertIn("SearchAction", root_body)
         self.assertIn('id="shareBoardBtn"', root_body)

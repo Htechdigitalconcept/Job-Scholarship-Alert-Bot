@@ -182,12 +182,15 @@ def app(
             import web_board
 
             items, channel_url, channel_handle, tools = _load_board_data()
+            qs = parse_qs(str(environ.get("QUERY_STRING", "")), keep_blank_values=False)
+            focus_item_id = (qs.get("item") or [""])[0].strip()[:32]
             html_doc = web_board.render_web_board_html(
                 items,
                 channel_url=channel_url,
                 channel_handle=channel_handle,
                 site_url=site_url,
                 recommended_tools=tools,
+                focus_item_id=focus_item_id,
             )
             body = html_doc.encode("utf-8")
             headers = [

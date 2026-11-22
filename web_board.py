@@ -274,6 +274,8 @@ def render_rss_feed(
             if item.published_dt
             else now_rfc
         )
+        safe_orig_link = scraper.sanitize_http_url(item.link)
+        item_board_url = f"{clean_url}/?item={item.item_id}"
         desc_parts = [item.category_label, f"Source: {item.source_name}"]
         if item.badges:
             desc_parts.append(" | ".join(item.badges))
@@ -281,11 +283,13 @@ def render_rss_feed(
             desc_parts.append(f"Deadline: {item.deadline}")
         if item.summary:
             desc_parts.append(item.summary)
+        if safe_orig_link:
+            desc_parts.append(f"Apply: {safe_orig_link}")
         item_blocks.append(
             f"""    <item>
       <title>{html.escape(item.title)}</title>
-      <link>{html.escape(item.link)}</link>
-      <guid isPermaLink="false">{html.escape(item.item_id)}</guid>
+      <link>{html.escape(item_board_url)}</link>
+      <guid isPermaLink="true">{html.escape(item_board_url)}</guid>
       <category>{html.escape(item.category_label)}</category>
       <pubDate>{pub_rfc}</pubDate>
       <description>{html.escape(" — ".join(desc_parts))}</description>
@@ -412,9 +416,18 @@ def render_web_board_html(
     channel_handle: str = "@latestjobsandscholarship",
     site_url: str = DEFAULT_SITE_URL,
     recommended_tools: list[dict[str, str]] | None = None,
+    focus_item_id: str = "",
 ) -> str:
     """Render a responsive, SEO + AI-Search-ready web board."""
     clean_site_url = site_url.rstrip("/")
+    ordered_items = list(items)
+    if focus_item_id:
+        for idx, it in enumerate(ordered_items):
+            if it.item_id == focus_item_id:
+                if idx > 0:
+                    ordered_items.insert(0, ordered_items.pop(idx))
+                break
+    items = ordered_items
     tools_list = DEFAULT_RECOMMENDED_TOOLS if recommended_tools is None else recommended_tools
     tools_section_html, modal_partner_tip_html = _render_recommended_tools(tools_list)
     payload = [item.to_dict() for item in items]
@@ -1775,10 +1788,17 @@ def render_web_board_html(
 
     (() => {{
       const params = new URLSearchParams(window.location.search);
+      const itemParam = params.get("item");
       const qParam = params.get("q");
       const catParam = params.get("cat");
       const badgeParam = params.get("badge");
       const pageParam = parseInt(params.get("page") || "1", 10);
+      if (itemParam) {{
+        const idx = ITEMS.findIndex((it) => it.item_id === itemParam);
+        if (idx > 0) {{
+          ITEMS.unshift(ITEMS.splice(idx, 1)[0]);
+        }}
+      }}
       if (qParam) {{
         searchTerm = qParam;
         const input = document.getElementById("searchInput");
