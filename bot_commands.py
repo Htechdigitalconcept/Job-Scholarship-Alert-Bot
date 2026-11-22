@@ -899,12 +899,16 @@ def build_command_responses(
             "• /sources — Monitored feeds & recency window"
         )
         mini_app_url = str(config.get("settings", {}).get("mini_app_url", "")).strip()
+        is_private_chat = not str(chat_id).startswith("-")
         start_rows: list[list[dict[str, Any]]] = []
         top_row: list[dict[str, Any]] = []
         if channel_link:
             top_row.append({"text": "Join Channel 📢", "url": channel_link})
         if site_url:
-            top_row.append({"text": "📱 Open Mini App", "web_app": {"url": site_url}})
+            if is_private_chat:
+                top_row.append({"text": "📱 Open Mini App", "web_app": {"url": site_url}})
+            else:
+                top_row.append({"text": "📱 Open Mini App", "url": mini_app_url or site_url})
         if top_row:
             start_rows.append(top_row)
         ref_link = build_referral_link(chat_id, bot_url=bot_url, site_url=site_url, channel_url=channel_link)
@@ -1484,13 +1488,25 @@ def process_webhook_update(
     )
     handled = 0
     for reply_text, markup in responses:
-        scraper.send_telegram_message(
-            bot_token,
-            chat_id,
-            reply_text,
-            reply_markup=markup,
-            disable_web_page_preview=True,
-        )
+        try:
+            scraper.send_telegram_message(
+                bot_token,
+                chat_id,
+                reply_text,
+                reply_markup=markup,
+                disable_web_page_preview=True,
+            )
+        except Exception as exc:  # noqa: BLE001
+            if markup:
+                logger.warning("Webhook send with markup failed (%s); retrying plain text.", exc)
+                scraper.send_telegram_message(
+                    bot_token,
+                    chat_id,
+                    reply_text,
+                    disable_web_page_preview=True,
+                )
+            else:
+                raise
         handled += 1
     return handled
 

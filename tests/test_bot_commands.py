@@ -439,10 +439,10 @@ class BotCommandsTests(unittest.TestCase):
         self.assertTrue(api_json["ok"])
         self.assertGreater(api_json["count"], 0)
 
-        # /api/webhook serves healthcheck JSON
+        # GET /api/webhook returns 404 to hide the webhook endpoint from scanners
         get_body = b"".join(webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/api/webhook"}, start_response))
-        self.assertEqual(captured["status"], "200 OK")
-        self.assertTrue(json.loads(get_body.decode("utf-8"))["ok"])
+        self.assertEqual(captured["status"], "404 Not Found")
+        self.assertFalse(json.loads(get_body.decode("utf-8"))["ok"])
 
         post_bytes = json.dumps({
             "update_id": 778,
@@ -658,6 +658,28 @@ class BotCommandsTests(unittest.TestCase):
             scraper.fetch_url("http://127.0.0.1:8080/secret")
         with self.assertRaises(ValueError):
             scraper.fetch_url("http://169.254.169.254/latest/meta-data/")
+
+        # Group chats receive URL button instead of web_app button on /start
+        grp_resps = bot_commands.build_command_responses(
+            "-100999888", "/start", self.config, self.latest_path, self.subs_path
+        )
+        grp_btns = [b for row in grp_resps[0][1]["inline_keyboard"] for b in row]
+        self.assertFalse(any("web_app" in b for b in grp_btns))
+
+        # Rate limiter triggers 429 on rapid bursts from same IP
+        webhook._RATE_BUCKETS.clear()
+        rate_status = {"code": ""}
+
+        def rate_start(status: str, headers: list[tuple[str, str]]) -> None:
+            rate_status["code"] = status
+
+        with patch("api.webhook._load_board_data", return_value=([], "https://t.me/latestjobsandscholarship", "@latestjobsandscholarship", [])):
+            for _ in range(webhook._API_RATE_LIMIT):
+                webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/api/opportunities", "REMOTE_ADDR": "203.0.113.55"}, rate_start)
+                self.assertEqual(rate_status["code"], "200 OK")
+            webhook.app({"REQUEST_METHOD": "GET", "PATH_INFO": "/api/opportunities", "REMOTE_ADDR": "203.0.113.55"}, rate_start)
+            self.assertEqual(rate_status["code"], "429 Too Many Requests")
+        webhook._RATE_BUCKETS.clear()
 
 
 

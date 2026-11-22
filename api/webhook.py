@@ -8,6 +8,8 @@ import logging
 import os
 import re
 import sys
+import time
+from collections import deque
 from pathlib import Path
 from typing import Any, Callable, Iterable
 from urllib.parse import parse_qs, urlparse
@@ -23,6 +25,39 @@ logger = logging.getLogger(__name__)
 
 MAX_WEBHOOK_BYTES = 1_048_576  # 1 MiB cap against payload DoS
 DEFAULT_PUBLIC_SITE = "https://job-scholarship-alert-bot-chi.vercel.app"
+_RATE_BUCKETS: dict[tuple[str, str], deque[float]] = {}
+_RATE_WINDOW_SECONDS = 60.0
+_API_RATE_LIMIT = 60
+_WEBHOOK_RATE_LIMIT = 120
+
+
+def _get_client_ip(environ: dict[str, Any]) -> str:
+    fwd = str(environ.get("HTTP_X_FORWARDED_FOR") or "").strip()
+    if fwd:
+        return fwd.split(",", 1)[0].strip()
+    return str(environ.get("REMOTE_ADDR") or "unknown").strip()
+
+
+def _is_rate_limited(client_ip: str, bucket: str, limit: int) -> bool:
+    if not client_ip or client_ip == "unknown":
+        return False
+    now = time.monotonic()
+    key = (bucket, client_ip)
+    q = _RATE_BUCKETS.get(key)
+    if q is None:
+        q = deque()
+        _RATE_BUCKETS[key] = q
+    cutoff = now - _RATE_WINDOW_SECONDS
+    while q and q[0] < cutoff:
+        q.popleft()
+    if len(q) >= limit:
+        return True
+    q.append(now)
+    if len(_RATE_BUCKETS) > 1000:
+        stale = [k for k, dq in _RATE_BUCKETS.items() if not dq or dq[-1] < cutoff]
+        for k in stale:
+            _RATE_BUCKETS.pop(k, None)
+    return False
 
 SECURITY_HEADERS: list[tuple[str, str]] = [
     ("X-Content-Type-Options", "nosniff"),
@@ -47,8 +82,10 @@ STATUS_TEXT = {
     200: "200 OK",
     400: "400 Bad Request",
     403: "403 Forbidden",
+    404: "404 Not Found",
     405: "405 Method Not Allowed",
     413: "413 Payload Too Large",
+    429: "429 Too Many Requests",
     500: "500 Internal Server Error",
 }
 
@@ -256,60 +293,64 @@ def app(
                 return [] if method == "HEAD" else [body]
 
         if path == "/api/opportunities":
-            items, _url, _handle, _tools = _load_board_data()
-            qs = parse_qs(str(environ.get("QUERY_STRING", "")))
-            q_val = (qs.get("q") or [""])[0].strip().lower()
-            cat_val = (qs.get("cat") or [""])[0].strip()
-            badge_val = (qs.get("badge") or [""])[0].strip().lower()
-            if cat_val and cat_val != "all":
-                items = [i for i in items if i.category == cat_val]
-            if badge_val:
-                items = [i for i in items if any(badge_val in b.lower() for b in i.badges)]
-            if q_val:
-                terms = q_val.split()
-                items = [
-                    i
-                    for i in items
-                    if all(
-                        t
-                        in f"{i.title} {i.summary} {i.source_name} {' '.join(i.matched_keywords)} {' '.join(i.badges)}".lower()
-                        for t in terms
-                    )
-                ]
-            total_filtered = len(items)
-            limit_raw = (qs.get("limit") or [""])[0].strip()
-            page_raw = (qs.get("page") or ["1"])[0].strip()
-            if limit_raw.isdigit() and int(limit_raw) > 0:
-                limit_n = min(200, int(limit_raw))
-                page_n = max(1, int(page_raw) if page_raw.isdigit() else 1)
-                start_i = (page_n - 1) * limit_n
-                items = items[start_i : start_i + limit_n]
-            status = 200
-            payload: dict[str, Any] = {
-                "ok": True,
-                "count": total_filtered,
-                "items": [item.to_dict() for item in items],
-            }
+            if _is_rate_limited(_get_client_ip(environ), "api", _API_RATE_LIMIT):
+                status = 429
+                payload = {"ok": False, "error": "Rate limit exceeded"}
+            else:
+                items, _url, _handle, _tools = _load_board_data()
+                qs = parse_qs(str(environ.get("QUERY_STRING", "")))
+                q_val = (qs.get("q") or [""])[0].strip().lower()
+                cat_val = (qs.get("cat") or [""])[0].strip()
+                badge_val = (qs.get("badge") or [""])[0].strip().lower()
+                if cat_val and cat_val != "all":
+                    items = [i for i in items if i.category == cat_val]
+                if badge_val:
+                    items = [i for i in items if any(badge_val in b.lower() for b in i.badges)]
+                if q_val:
+                    terms = q_val.split()
+                    items = [
+                        i
+                        for i in items
+                        if all(
+                            t
+                            in f"{i.title} {i.summary} {i.source_name} {' '.join(i.matched_keywords)} {' '.join(i.badges)}".lower()
+                            for t in terms
+                        )
+                    ]
+                total_filtered = len(items)
+                limit_raw = (qs.get("limit") or [""])[0].strip()
+                page_raw = (qs.get("page") or ["1"])[0].strip()
+                if limit_raw.isdigit() and int(limit_raw) > 0:
+                    limit_n = min(200, int(limit_raw))
+                    page_n = max(1, int(page_raw) if page_raw.isdigit() else 1)
+                    start_i = (page_n - 1) * limit_n
+                    items = items[start_i : start_i + limit_n]
+                status = 200
+                payload: dict[str, Any] = {
+                    "ok": True,
+                    "count": total_filtered,
+                    "items": [item.to_dict() for item in items],
+                }
         else:
-            status = 200
-            payload = {
-                "ok": True,
-                "service": "Job & Scholarship Alert Bot Webhook",
-            }
+            status = 404
+            payload = {"ok": False, "error": "Not found"}
     elif method == "POST":
-        try:
-            length = int(environ.get("CONTENT_LENGTH") or 0)
-        except (TypeError, ValueError):
-            length = -1
-        if length < 0:
-            status, payload = 400, {"ok": False, "error": "Invalid Content-Length"}
-        elif length > MAX_WEBHOOK_BYTES:
-            status, payload = 413, {"ok": False, "error": "Payload too large"}
+        if _is_rate_limited(_get_client_ip(environ), "webhook", _WEBHOOK_RATE_LIMIT):
+            status, payload = 429, {"ok": False, "error": "Rate limit exceeded"}
         else:
-            wsgi_input = environ.get("wsgi.input")
-            raw_body = wsgi_input.read(length) if (wsgi_input and length > 0) else b"{}"
-            secret_header = str(environ.get("HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN", ""))
-            status, payload = handle_webhook_request(raw_body, secret_header=secret_header)
+            try:
+                length = int(environ.get("CONTENT_LENGTH") or 0)
+            except (TypeError, ValueError):
+                length = -1
+            if length < 0:
+                status, payload = 400, {"ok": False, "error": "Invalid Content-Length"}
+            elif length > MAX_WEBHOOK_BYTES:
+                status, payload = 413, {"ok": False, "error": "Payload too large"}
+            else:
+                wsgi_input = environ.get("wsgi.input")
+                raw_body = wsgi_input.read(length) if (wsgi_input and length > 0) else b"{}"
+                secret_header = str(environ.get("HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN", ""))
+                status, payload = handle_webhook_request(raw_body, secret_header=secret_header)
     else:
         status = 405
         payload = {"ok": False, "error": f"Method {method} not allowed"}
@@ -321,5 +362,7 @@ def app(
         ("Cache-Control", "no-store"),
         *SECURITY_HEADERS,
     ]
+    if status == 429:
+        headers.append(("Retry-After", str(int(_RATE_WINDOW_SECONDS))))
     start_response(STATUS_TEXT.get(status, f"{status} Error"), headers)
     return [] if method == "HEAD" else [body]

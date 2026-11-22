@@ -1000,7 +1000,7 @@ def format_daily_digest(
 
 
 def _post_telegram_api(bot_token: str, method: str, payload: dict[str, Any]) -> dict[str, Any]:
-    """POST to Telegram Bot API with basic 429 retry handling."""
+    """POST to Telegram Bot API with 429 retry handling and redacted error diagnostics."""
     api_url = f"https://api.telegram.org/bot{bot_token}/{method}"
     response = requests.post(api_url, json=payload, timeout=15)
     if response.status_code == 429:
@@ -1008,6 +1008,18 @@ def _post_telegram_api(bot_token: str, method: str, payload: dict[str, Any]) -> 
         logger.warning("Telegram rate limit hit; sleeping %ss", retry_after)
         time.sleep(float(retry_after) + 0.5)
         response = requests.post(api_url, json=payload, timeout=15)
+    if response.status_code >= 400:
+        desc = ""
+        try:
+            desc = str((response.json() or {}).get("description", "")).strip()
+        except Exception:  # noqa: BLE001
+            desc = (response.text or "")[:200].strip()
+        logger.error(
+            "Telegram API %s HTTP %s: %s",
+            method,
+            response.status_code,
+            redact_secrets(desc or response.reason or "Unknown error"),
+        )
     response.raise_for_status()
     return response.json()
 
