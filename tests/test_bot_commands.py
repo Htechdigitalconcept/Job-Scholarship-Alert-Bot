@@ -440,6 +440,8 @@ class BotCommandsTests(unittest.TestCase):
         pitch_urls = [b["url"] for row in pitch_resps[0][1]["inline_keyboard"] for b in row if "url" in b]
         self.assertIn("https://referral.raenest.com/WzbV/i?referral_code=adehab359122", pitch_urls)
         self.assertIn("const PAGE_SIZE = 24;", root_body)
+        self.assertIn("tg.openLink(", root_body)
+        self.assertIn("tg.openTelegramLink(", root_body)
 
         # /api/opportunities supports ?cat= and ?limit=&page=
         api_paged = b"".join(webhook.app({

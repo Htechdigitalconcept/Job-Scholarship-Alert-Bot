@@ -1951,13 +1951,40 @@ def render_web_board_html(
       render();
     }})();
 
+    const getTgApp = () => (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp : null;
+    const isTelegramMiniApp = () => {{
+      const tg = getTgApp();
+      return Boolean(tg && (tg.initData || (tg.platform && tg.platform !== "unknown")));
+    }};
+
+    const copyTextSafely = async (text) => {{
+      try {{
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {{
+          await navigator.clipboard.writeText(text);
+          return true;
+        }}
+      }} catch (_err) {{}}
+      try {{
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.top = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        if (ok) return true;
+      }} catch (_err2) {{}}
+      return false;
+    }};
+
     const copyBoardUrl = async (btn, originalLabel) => {{
       const url = window.location.href.split("#")[0];
-      try {{
-        await navigator.clipboard.writeText(url);
+      if (await copyTextSafely(url)) {{
         btn.textContent = "✅ Link Copied!";
         setTimeout(() => {{ btn.textContent = originalLabel; }}, 2000);
-      }} catch (_err) {{
+      }} else if (!isTelegramMiniApp()) {{
         window.prompt("Copy link to share:", url);
       }}
     }};
@@ -1965,6 +1992,14 @@ def render_web_board_html(
     document.getElementById("shareBoardBtn")?.addEventListener("click", async (e) => {{
       const btn = e.currentTarget;
       const url = window.location.href.split("#")[0];
+      const tg = getTgApp();
+      if (isTelegramMiniApp() && tg && typeof tg.openTelegramLink === "function") {{
+        const shareLink = `https://t.me/share/url?url=${{encodeURIComponent(url)}}&text=${{encodeURIComponent("Free Live Board for Remote Tech Jobs, Web3 & Funded Scholarships")}}`;
+        try {{
+          tg.openTelegramLink(shareLink);
+          return;
+        }} catch (_err) {{}}
+      }}
       if (navigator.share) {{
         try {{
           await navigator.share({{
@@ -2045,31 +2080,61 @@ def render_web_board_html(
     document.getElementById("copyPitchBtn")?.addEventListener("click", async (e) => {{
       const btn = e.currentTarget;
       const txt = document.getElementById("pitchTextarea")?.value || "";
-      try {{
-        await navigator.clipboard.writeText(txt);
+      if (await copyTextSafely(txt)) {{
         btn.textContent = "✅ Pitch Copied!";
         setTimeout(() => {{ btn.textContent = "📋 Copy Pitch"; }}, 2000);
-      }} catch (_err) {{
+      }} else {{
         document.getElementById("pitchTextarea")?.select();
       }}
     }});
 
+    document.addEventListener("click", (e) => {{
+      const anchor = e.target.closest("a[href]");
+      if (!anchor) return;
+      const rawHref = anchor.getAttribute("href") || "";
+      if (!rawHref || rawHref.startsWith("#")) return;
+      if (!isTelegramMiniApp()) return;
+      const tg = getTgApp();
+      if (!tg) return;
+      let parsed;
+      try {{
+        parsed = new URL(anchor.href, window.location.href);
+      }} catch (_err) {{
+        return;
+      }}
+      if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return;
+      const host = parsed.hostname.toLowerCase();
+      if (host === "t.me" || host === "telegram.me" || host.endsWith(".t.me")) {{
+        if (typeof tg.openTelegramLink === "function") {{
+          e.preventDefault();
+          try {{
+            tg.openTelegramLink(parsed.href);
+          }} catch (_err) {{
+            window.open(parsed.href, "_blank", "noopener,noreferrer");
+          }}
+        }}
+        return;
+      }}
+      if (parsed.origin !== window.location.origin || parsed.pathname === "/feed.xml" || parsed.pathname === "/api/opportunities") {{
+        if (typeof tg.openLink === "function") {{
+          e.preventDefault();
+          try {{
+            tg.openLink(parsed.href);
+          }} catch (_err) {{
+            window.open(parsed.href, "_blank", "noopener,noreferrer");
+          }}
+        }}
+      }}
+    }});
+
     window.addEventListener("DOMContentLoaded", () => {{
-      const tgApp = window.Telegram && window.Telegram.WebApp;
-      if (tgApp) {{
+      const tgApp = getTgApp();
+      if (isTelegramMiniApp() && tgApp) {{
         tgApp.ready();
         tgApp.expand();
         try {{ tgApp.setHeaderColor("#0b1120"); }} catch (_e) {{}}
         try {{ tgApp.setBackgroundColor("#070b14"); }} catch (_e) {{}}
         try {{ tgApp.BackButton?.onClick(closePitchModal); }} catch (_e) {{}}
-
-        document.addEventListener("click", (e) => {{
-          const tgLink = e.target.closest('a[href^="https://t.me/"]');
-          if (tgLink && typeof tgApp.openTelegramLink === "function") {{
-            e.preventDefault();
-            tgApp.openTelegramLink(tgLink.href);
-          }}
-        }});
       }} else if ("serviceWorker" in navigator) {{
         navigator.serviceWorker.register("/sw.js").catch(() => undefined);
       }}
