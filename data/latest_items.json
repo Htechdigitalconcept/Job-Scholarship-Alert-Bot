@@ -1,35 +1,35 @@
 [
   {
-    "item_id": "773dd416e2daafa1",
+    "item_id": "8eb8fdf98551c943",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "Himalayas Remote Jobs",
-    "title": "Vuori, Inc: Community Manager",
-    "link": "https://himalayas.app/companies/vuori-inc/jobs/community-manager?utm_source=api",
-    "summary": "The Retail Community Manager at Vuori is a people connector who actively collaborates with our retail stores, local studios, influencers and businesses to spread brand awareness and create extraordinary experiences.",
+    "source_name": "We Work Remotely",
+    "title": "Saviynt: Contracts Manager",
+    "link": "https://weworkremotely.com/remote-jobs/saviynt-contracts-manager",
+    "summary": "Headquarters: Remote US Saviynt's AI-powered identity platform manages and governs human and non-human access to all of an organization's applications, data, and business processes. Customers trust Saviynt to safeguard their digital assets\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:43:46 +0000",
-    "published_iso": "2026-11-26T00:43:46+00:00",
+    "published": "Thu, 26 Nov 2026 15:40:28 +0000",
+    "published_iso": "2026-11-26T15:40:28+00:00",
     "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "be46f2a4b1cff0e4",
+    "item_id": "f6c5dcc84b6f5295",
     "category": "scholarships",
     "category_label": "\ud83c\udf93 Scholarship & Fellowship",
-    "source_name": "Opportunity Desk",
-    "title": "10 Global Scholarship Opportunities Currently Open \u2013 November 25, 2026",
-    "link": "https://opportunitydesk.org/2026/11/25/10-global-scholarship-opportunities-currently-open-november-25-2026/",
-    "summary": "1. ANSO-CAS-TWAS/UNESCO PhD Scholarship 2026-2027 (Funded)The ANSO-CAS-TWAS/UNESCO PhD Scholarship supports outstanding students from developing countries to pursue full-time doctoral study at the University of Science and Technology of Ch\u2026",
+    "source_name": "Opportunities For Africans",
+    "title": "The JICA-BCG NINJA Innovation Bridge Program 2027 for growth-stage startups in Kenya and Nigeria (USD 50,000 in funding)",
+    "link": "https://www.opportunitiesforafricans.com/the-jica-bcg-ninja-innovation-bridge-program-2027-for-growth-stage-startups/",
+    "summary": "Application Deadline: December 2nd, 2026 Applications are now open for the 2027 JICA-BCG NINJA Innovation Bridge Program. The NINJA Innovation Bridge, an initiative by JICA implemented by BCG, is inviting\u2026 The post The JICA-BCG NINJA Innov\u2026",
     "matched_keywords": [
-      "scholarship"
+      "nigeria"
     ],
-    "published": "Wed, 25 Nov 2026 21:55:55 +0000",
-    "published_iso": "2026-11-25T21:55:55+00:00",
+    "published": "Thu, 26 Nov 2026 14:59:37 +0000",
+    "published_iso": "2026-11-26T14:59:37+00:00",
     "badges": [],
-    "deadline": ""
+    "deadline": "December 2nd, 2026"
   },
   {
     "item_id": "710a94255028e1e4",
@@ -50,18 +50,277 @@
     "deadline": ""
   },
   {
-    "item_id": "bdb868d286deb979",
+    "item_id": "7fdc6984ce138f68",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Frame Security: Channel Marketing Manager",
-    "link": "https://himalayas.app/companies/frame-security/jobs/channel-marketing-manager?utm_source=api",
-    "summary": "Description Location: Remote (U. S) \ufeffAbout frame: Frame is on a mission to build the future of Human Security in the AI era.",
+    "title": "CommonSpirit Health: Mkt Manager Revenue Cycle Inpatient Coding",
+    "link": "https://himalayas.app/companies/commonspirit-health/jobs/mkt-manager-revenue-cycle-inpatient-coding?utm_source=api",
+    "summary": "Job Summary and Responsibilities As our Market Manager, Revenue Cycle Input Coding, you will provide strategic oversight of coding teams, holding them accountable to enterprise-established Key Performance Indicators (KPIs), including criti\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:43:08 +0000",
-    "published_iso": "2026-11-26T00:43:08+00:00",
+    "published": "Thu, 26 Nov 2026 15:04:41 +0000",
+    "published_iso": "2026-11-26T15:04:41+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "5a26f7397849534a",
+    "category": "scholarships",
+    "category_label": "\ud83c\udf93 Scholarship & Fellowship",
+    "source_name": "Opportunities For Africans",
+    "title": "The KPMG Nigeria University Scholarship Programme 2026 for young Nigerian students.",
+    "link": "https://www.opportunitiesforafricans.com/the-kpmg-nigeria-university-scholarship-programme-2026/",
+    "summary": "Application Deadline: December 10th, 2026 Applications are now open for the 2026 KPMG Nigeria University Scholarship Programme. Empowering the next generation of leaders, the KPMG University Scholarship Programme (KUSP) supports\u2026 The post\u2026",
+    "matched_keywords": [
+      "scholarship",
+      "nigeria"
+    ],
+    "published": "Thu, 26 Nov 2026 14:26:46 +0000",
+    "published_iso": "2026-11-26T14:26:46+00:00",
+    "badges": [],
+    "deadline": "December 10th, 2026"
+  },
+  {
+    "item_id": "b276bcfd26b32644",
+    "category": "web3_jobs",
+    "category_label": "\u26d3\ufe0f Web3 Remote Job",
+    "source_name": "Cryptocurrency Jobs",
+    "title": "Blockchain Security Expert - Chain Security Evaluation Track at CertiK",
+    "link": "https://cryptocurrencyjobs.co/engineering/certik-blockchain-security-expert-chain-security-evaluation-track/",
+    "summary": "CertiK is looking to hire a Blockchain Security Expert - Chain Security Evaluation Track to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "matched_keywords": [
+      "blockchain"
+    ],
+    "published": "Wed, 25 Nov 2026 08:00:00 +0200",
+    "published_iso": "2026-11-25T06:00:00+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "6c39264379cdc983",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Smartways: Aplikacja og\u00f3lna",
+    "link": "https://himalayas.app/companies/smartways/jobs/aplikacja-ogolna?utm_source=api",
+    "summary": "Sometimes all we need is a little extra push. Here at SmartWays, an open application has the potential to open our minds to the unexpected.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Thu, 26 Nov 2026 15:03:44 +0000",
+    "published_iso": "2026-11-26T15:03:44+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "88e14698a6875045",
+    "category": "scholarships",
+    "category_label": "\ud83c\udf93 Scholarship & Fellowship",
+    "source_name": "Opportunity Desk",
+    "title": "Friends of Pakistan Fellowship 2027 (Funded)",
+    "link": "https://opportunitydesk.org/2026/11/26/friends-of-pakistan-fellowship-2027/",
+    "summary": "Deadline: December 11, 2026 Applications are open for the Friends of Pakistan Fellowship 2027. Pakistan has extraordinary leaders working on big social problems. Scale is the next frontier. Each year, a small cohort of Pakistani leaders sp\u2026",
+    "matched_keywords": [
+      "fellowship"
+    ],
+    "published": "Thu, 26 Nov 2026 11:22:13 +0000",
+    "published_iso": "2026-11-26T11:22:13+00:00",
+    "badges": [],
+    "deadline": "December 11, 2026"
+  },
+  {
+    "item_id": "1e27c9982794f71b",
+    "category": "web3_jobs",
+    "category_label": "\u26d3\ufe0f Web3 Remote Job",
+    "source_name": "CryptoJobsList",
+    "title": "Risk & Monitoring Analyst III",
+    "link": "https://cryptojobslist.com/jobs/risk-monitoring-analyst-iii-remote-usa-at-coinbase",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Quality Assurance Jobs \u2022 Web3 Compliance Jobs \u2022 Blockchain Aml Jobs \u2022 Blockchain Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Web3 Web3 Jobs Risk & Monitoring Analyst III As a Risk & Monitoring Analyst III, you'll j\u2026",
+    "matched_keywords": [
+      "web3",
+      "blockchain",
+      "analyst"
+    ],
+    "published": "",
+    "published_iso": "",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "38926fe415638321",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "BigHand: Customer Operations & Support Analyst",
+    "link": "https://himalayas.app/companies/bighand/jobs/customer-operations-support-analyst?utm_source=api",
+    "summary": "About BigHand BigHand offers technology solutions for busy legal professionals that provide data and insights to increase value and profits.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Thu, 26 Nov 2026 15:02:21 +0000",
+    "published_iso": "2026-11-26T15:02:21+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "e28bcf629f6da527",
+    "category": "scholarships",
+    "category_label": "\ud83c\udf93 Scholarship & Fellowship",
+    "source_name": "Opportunities For Africans",
+    "title": "The African Research Universities Alliance (ARUA) Early Career Research Fellowship Programme 2027 for early-career African researchers (Fully Funded, plus US$2,000 monthly stipend)",
+    "link": "https://www.opportunitiesforafricans.com/the-african-research-universities-alliance-arua-early-career-research-fellowship-programme-2027/",
+    "summary": "Application Deadline: 15 February 2027. Applications are now open for the 2027 African Research Universities Alliance (ARUA) Early Career Research Fellowship Programme. The African Research Universities Alliance (ARUA), with support\u2026 The p\u2026",
+    "matched_keywords": [
+      "fully funded",
+      "fellowship"
+    ],
+    "published": "Thu, 26 Nov 2026 09:59:38 +0000",
+    "published_iso": "2026-11-26T09:59:38+00:00",
+    "badges": [
+      "\ud83d\udcb0 Fully Funded"
+    ],
+    "deadline": "15 February 2027"
+  },
+  {
+    "item_id": "6e772603b2e27658",
+    "category": "web3_jobs",
+    "category_label": "\u26d3\ufe0f Web3 Remote Job",
+    "source_name": "CryptoJobsList",
+    "title": "Social Marketing Analyst Intern",
+    "link": "https://cryptojobslist.com/jobs/social-marketing-analyst-intern-new-york-ny-at-true-markets",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Marketing Jobs \u2022 Cryptocurrency Analyst Jobs \u2022 Cryptocurrency Content Jobs \u2022 Blockchain Part Time Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Cryptocurrency Stablecoin Jobs Who We Are True Ma\u2026",
+    "matched_keywords": [
+      "web3",
+      "blockchain",
+      "analyst",
+      "intern"
+    ],
+    "published": "",
+    "published_iso": "",
+    "badges": [
+      "\ud83d\udfe2 Entry / Intern"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "5e2c0e883b4951e4",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Boogie Consulting & Projects: General Administrative Assistant \u2014 Remote | Pacific Time",
+    "link": "https://himalayas.app/companies/boogie-consulting-projects/jobs/general-administrative-assistant-remote-pacific-time?utm_source=api",
+    "summary": "About the Role Boogie Team is building a general Administrative Assistant pool for professionals who help managers, business owners, and teams stay organized and keep daily work moving.",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Thu, 26 Nov 2026 15:02:17 +0000",
+    "published_iso": "2026-11-26T15:02:17+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "56263421d49f0bbb",
+    "category": "scholarships",
+    "category_label": "\ud83c\udf93 Scholarship & Fellowship",
+    "source_name": "Opportunities For Africans",
+    "title": "The Aradel Undergraduate and Graduate Internship Program 2027 for young Nigerians.",
+    "link": "https://www.opportunitiesforafricans.com/the-aradel-undergraduate-and-graduate-internship-program-2027-for-young-nigerians/",
+    "summary": "Application Deadline: Unspecified. Applications are now open for the Aradel Undergraduate and Graduate Internship Program. Join the 2027 Internship Program, designed to equip you with valuable on-the-job experience, provide coaching\u2026 The p\u2026",
+    "matched_keywords": [
+      "undergraduate"
+    ],
+    "published": "Thu, 26 Nov 2026 02:29:00 +0000",
+    "published_iso": "2026-11-26T02:29:00+00:00",
+    "badges": [
+      "\ud83d\udfe2 Entry / Intern"
+    ],
+    "deadline": ""
+  },
+  {
+    "item_id": "ae9fc24e264d93fd",
+    "category": "web3_jobs",
+    "category_label": "\u26d3\ufe0f Web3 Remote Job",
+    "source_name": "CryptoJobsList",
+    "title": "Trading Engineer",
+    "link": "https://cryptojobslist.com/jobs/trading-engineer-new-york-ny-at-true-markets",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Trading Jobs \u2022 Web3 C++ Jobs \u2022 Blockchain Backend Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Web3 Web3 Jobs \u2022 Cryptocurrency Stablecoin Jobs Who We Are True Markets is building the next generatio\u2026",
+    "matched_keywords": [
+      "web3",
+      "blockchain",
+      "backend"
+    ],
+    "published": "",
+    "published_iso": "",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "2e24bfa56e716b13",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "Lockheed Martin Corporation: Data Analyst Sr - E3",
+    "link": "https://himalayas.app/companies/lockheed-martin-corporation/jobs/data-analyst-sr-e3?utm_source=api",
+    "summary": "Standard Job Description Responsible for collecting, processing, and analyzing data to develop immersive stories that answer business questions.",
+    "matched_keywords": [
+      "remote",
+      "data analyst"
+    ],
+    "published": "Thu, 26 Nov 2026 15:01:59 +0000",
+    "published_iso": "2026-11-26T15:01:59+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "be46f2a4b1cff0e4",
+    "category": "scholarships",
+    "category_label": "\ud83c\udf93 Scholarship & Fellowship",
+    "source_name": "Opportunity Desk",
+    "title": "10 Global Scholarship Opportunities Currently Open \u2013 November 25, 2026",
+    "link": "https://opportunitydesk.org/2026/11/25/10-global-scholarship-opportunities-currently-open-november-25-2026/",
+    "summary": "1. ANSO-CAS-TWAS/UNESCO PhD Scholarship 2026-2027 (Funded)The ANSO-CAS-TWAS/UNESCO PhD Scholarship supports outstanding students from developing countries to pursue full-time doctoral study at the University of Science and Technology of Ch\u2026",
+    "matched_keywords": [
+      "scholarship"
+    ],
+    "published": "Wed, 25 Nov 2026 21:55:55 +0000",
+    "published_iso": "2026-11-25T21:55:55+00:00",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "e3fede1e160b3c32",
+    "category": "web3_jobs",
+    "category_label": "\u26d3\ufe0f Web3 Remote Job",
+    "source_name": "CryptoJobsList",
+    "title": "Controller",
+    "link": "https://cryptojobslist.com/jobs/controller-remote-at-ritual",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Web3 Jobs \u2022 Web3 Non Tech Jobs \u2022 Cryptocurrency KYC Jobs \u2022 Cryptocurrency Legal Jobs \u2022 Web3 Compliance Jobs \u2022 Blockchain Operations Jobs \u2022 Cryptocurrency Aml Jobs \u2022 Web3 Accounting Jobs \u2022 Blockchai\u2026",
+    "matched_keywords": [
+      "web3",
+      "blockchain"
+    ],
+    "published": "",
+    "published_iso": "",
+    "badges": [],
+    "deadline": ""
+  },
+  {
+    "item_id": "0c638aa5653f52f7",
+    "category": "jobs",
+    "category_label": "\ud83d\udcbc Job Alert",
+    "source_name": "Himalayas Remote Jobs",
+    "title": "knowmad mood: Solutions Architect - Java/AWS/APIs  (100% remoto. Solo residentes Espa\u00f1a)",
+    "link": "https://himalayas.app/companies/buzzmn/jobs/solutions-architect-java-aws-apis-100-remoto-solo-residentes-espana?utm_source=api",
+    "summary": "We are knowmad mood! Solutions Architect - Java/AWS/APIs \ud83d\udccd Remoto (presencialidad puntual en Madrid) |knowmad mood Buscamos un/aSolutions Architect - Java/AWS/APIs para dise\u00f1ar soluciones tecnol\u00f3gicas end-to-end que respondan a las necesid\u2026",
+    "matched_keywords": [
+      "remote"
+    ],
+    "published": "Thu, 26 Nov 2026 15:01:30 +0000",
+    "published_iso": "2026-11-26T15:01:30+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -85,36 +344,35 @@
     "deadline": "15 February 2027"
   },
   {
-    "item_id": "b276bcfd26b32644",
+    "item_id": "3b20a305787064c8",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
-    "source_name": "Cryptocurrency Jobs",
-    "title": "Blockchain Security Expert - Chain Security Evaluation Track at CertiK",
-    "link": "https://cryptocurrencyjobs.co/engineering/certik-blockchain-security-expert-chain-security-evaluation-track/",
-    "summary": "CertiK is looking to hire a Blockchain Security Expert - Chain Security Evaluation Track to join their team. This is a full-time position that is 100% remote with no geographical restrictions. Work remotely from anywhere.",
+    "source_name": "CryptoJobsList",
+    "title": "Tech Recruiter",
+    "link": "https://cryptojobslist.com/jobs/tech-recruiter-london-united-kingdom-brazil-ireland-at-kraken",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Talent Acquisition Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Blockchain Web3 Jobs Building the Future of Open Finance Payward - the parent company behind Kraken, NinjaTrader, Breakout, xStoc\u2026",
     "matched_keywords": [
+      "web3",
       "blockchain"
     ],
-    "published": "Wed, 25 Nov 2026 08:00:00 +0200",
-    "published_iso": "2026-11-25T06:00:00+00:00",
-    "badges": [
-      "\ud83c\udf0d Worldwide"
-    ],
+    "published": "",
+    "published_iso": "",
+    "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "94b0a6c8e60c1dcd",
+    "item_id": "e652fd2a5747f63a",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Premier Foods: Head of Continuous Improvement - Supply Chain (Homebased, GB)",
-    "link": "https://himalayas.app/companies/premier-foods/jobs/head-of-continuous-improvement-supply-chain-homebased-gb?utm_source=api",
-    "summary": "Head of Continuous Improvement \u2013 Supply Chain Location: Flexible \u2013 based at any of our UK manufacturing sites Permanent, Full Time We\u2019re looking for an experienced Continuous Improvement leader to drive Operational Excellence across the Pr\u2026",
+    "title": "Combo: Senior Fullstack Engineer - Payroll (front-end oriented) - Paris - F/M/X",
+    "link": "https://himalayas.app/companies/combo/jobs/senior-fullstack-engineer-payroll-front-end-oriented-paris-f-m-x?utm_source=api",
+    "summary": "In a context of growth, we\u2019ve got ambitious objectives, especially in our Tech & Product Team.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:42:46 +0000",
-    "published_iso": "2026-11-26T00:42:46+00:00",
+    "published": "Thu, 26 Nov 2026 15:01:16 +0000",
+    "published_iso": "2026-11-26T15:01:16+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -136,13 +394,13 @@
     "deadline": "January 15, 2027"
   },
   {
-    "item_id": "e3fede1e160b3c32",
+    "item_id": "6743b7ae61f5fc92",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Controller",
-    "link": "https://cryptojobslist.com/jobs/controller-remote-at-ritual",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Blockchain Non Tech Jobs \u2022 Web3 KYC Jobs \u2022 Blockchain Legal Jobs \u2022 Web3 Compliance Jobs \u2022 Web3 Operations Jobs \u2022 Web3 Aml Jobs \u2022 Cryptocurrency Accounting Jobs \u2022 Web3 Startu\u2026",
+    "title": "Capital Formation lead",
+    "link": "https://cryptojobslist.com/jobs/capital-formation-lead-united-states-at-kraken",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Finance Jobs \u2022 Web3 Business Development Jobs \u2022 Web3 Executive Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Web3 Web3 Jobs Building the Future of Open Finance Payward - the parent company\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
@@ -153,18 +411,18 @@
     "deadline": ""
   },
   {
-    "item_id": "af8c676b6c8add3c",
+    "item_id": "6042a45f4e2bd405",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Astelia: Senior Sales Engineer",
-    "link": "https://himalayas.app/companies/astelia/jobs/senior-sales-engineer?utm_source=api",
-    "summary": "Description About the Role: We are looking for a highly skilled and strategic Senior Sales Engineer to join our growing US commercial team.",
+    "title": "Hitss Brasil: Hitss | Desenvolvedor Fullstack (JAVA + Angular)",
+    "link": "https://himalayas.app/companies/hitss-brasil/jobs/hitss-desenvolvedor-fullstack-java-angular?utm_source=api",
+    "summary": "Na Hitss, a inova\u00e7\u00e3o \u00e9 o nosso combust\u00edvel, a curiosidade \u00e9 o nosso motor e o respeito pelo cliente \u00e9 o nosso guia.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:42:15 +0000",
-    "published_iso": "2026-11-26T00:42:15+00:00",
+    "published": "Thu, 26 Nov 2026 15:00:38 +0000",
+    "published_iso": "2026-11-26T15:00:38+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -188,13 +446,13 @@
     "deadline": "December 22, 2026"
   },
   {
-    "item_id": "3b20a305787064c8",
+    "item_id": "401bdcee33954113",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Tech Recruiter",
-    "link": "https://cryptojobslist.com/jobs/tech-recruiter-london-united-kingdom-brazil-ireland-at-kraken",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Talent Acquisition Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Web3 Web3 Jobs Building the Future of Open Finance Payward - the parent company behind Kraken, NinjaTrader, Breakout, xStocks, Payward Se\u2026",
+    "title": "Mobile Engineer",
+    "link": "https://cryptojobslist.com/jobs/mobile-engineer-new-york-ny-usa-at-true-markets",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Mobile Jobs \u2022 Web3 Ios Jobs \u2022 Cryptocurrency Android Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Cryptocurrency Stablecoin Jobs Who We Are True Markets is building the next genera\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
@@ -205,18 +463,18 @@
     "deadline": ""
   },
   {
-    "item_id": "c665c81b888621c7",
+    "item_id": "c7460cf860f33fd7",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Centene Corporation: Program Manager III - SIU Intelligence & Innovation",
-    "link": "https://himalayas.app/companies/centene-corporation/jobs/program-manager-iii-siu-intelligence-innovation?utm_source=api",
-    "summary": "Position Purpose: This role is critical to advancing SIU\u2019s Intelligence & Innovation strategy through the design, development, and execution of proactive fraud detection, analytics, and investigative intelligence programs.",
+    "title": "USAA: Commercial Insurance Sales Agent II (Intermediate)",
+    "link": "https://himalayas.app/companies/usaa/jobs/commercial-insurance-sales-agent-ii-intermediate?utm_source=api",
+    "summary": "Why USAA? At USAA, our mission is to empower our members to achieve financial security through highly competitive products, exceptional service and trusted advice.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:42:06 +0000",
-    "published_iso": "2026-11-26T00:42:06+00:00",
+    "published": "Thu, 26 Nov 2026 15:00:28 +0000",
+    "published_iso": "2026-11-26T15:00:28+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -237,13 +495,13 @@
     "deadline": "December 15, 2026"
   },
   {
-    "item_id": "6743b7ae61f5fc92",
+    "item_id": "118bb66f113dfe09",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Capital Formation lead",
-    "link": "https://cryptojobslist.com/jobs/capital-formation-lead-united-states-at-kraken",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Finance Jobs \u2022 Blockchain Business Development Jobs \u2022 Web3 Executive Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Web3 Web3 Jobs Building the Future of Open Finance Payward - the parent compa\u2026",
+    "title": "Chief of Staff, CTO",
+    "link": "https://cryptojobslist.com/jobs/chief-of-staff-cto-remote-usa-at-coinbase",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Manager Jobs \u2022 Cryptocurrency Cto Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Blockchain Web3 Jobs The CTO organization spans 700+ people across Platform, AI, Engineering, Enterprise Enginee\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
@@ -254,18 +512,18 @@
     "deadline": ""
   },
   {
-    "item_id": "ffdf2fe3155685fb",
+    "item_id": "56ce7863830b3503",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Pavago: Short-Form Video Editor",
-    "link": "https://himalayas.app/companies/pavago/jobs/short-form-video-editor-6585264364?utm_source=api",
-    "summary": "Short-Form Video Editor \u2013 Reels & Premium Brand Content | Remote Position Type: Fractional, Remote Function: Creative / Video Production About the Role At Pavago, one of our clients is hiring a Short-Form Video / Reels Editor to transform\u2026",
+    "title": "Enovis: Product Marketing Manager",
+    "link": "https://himalayas.app/companies/enovis/jobs/product-marketing-manager?utm_source=api",
+    "summary": "Who We Are ABOUT ENOVIS\u2122 Enovis Corporation (NYSE: ENOV) is an innovation-driven medical technology growth company dedicated to developing clinically differentiated solutions that generate measurably better patient outcomes and transform w\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:41:59 +0000",
-    "published_iso": "2026-11-26T00:41:59+00:00",
+    "published": "Thu, 26 Nov 2026 15:00:27 +0000",
+    "published_iso": "2026-11-26T15:00:27+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -286,13 +544,13 @@
     "deadline": "November 27, 2026"
   },
   {
-    "item_id": "401bdcee33954113",
+    "item_id": "dc8be6c5cdb28a11",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Mobile Engineer",
-    "link": "https://cryptojobslist.com/jobs/mobile-engineer-new-york-ny-usa-at-true-markets",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Mobile Jobs \u2022 Blockchain Ios Jobs \u2022 Cryptocurrency Android Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Blockchain Web3 Jobs \u2022 Cryptocurrency Stablecoin Jobs Who We Are True Markets is building the nex\u2026",
+    "title": "Communications Generalist",
+    "link": "https://cryptojobslist.com/jobs/communications-generalist-remote-usa-at-coinbase-1",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Public Relations Jobs \u2022 Blockchain Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Cryptocurrency Web3 Jobs As a Communications Generalist on the Communications team, you'll plan and execute proactive and reactive communic\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
@@ -303,18 +561,18 @@
     "deadline": ""
   },
   {
-    "item_id": "1da6b3007d77d113",
+    "item_id": "f164c45bf17fcc2c",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "RYZE Superfoods: Landing Page Designer",
-    "link": "https://himalayas.app/companies/ryze-superfoods/jobs/landing-page-designer?utm_source=api",
-    "summary": "COMPANY \ud83c\udf31 WHAT YOU'LL DO \ud83c\udfaf RYZE is a fast-growing DTC brand built on mushroom coffee.",
+    "title": "Foundant Technologies: Technical Community Support - Spain",
+    "link": "https://himalayas.app/companies/foundant-technologies/jobs/technical-community-support-spain?utm_source=api",
+    "summary": "A NOTE ON HOW TO REACH US We're truly grateful that so many people have Foundant on their radar \u2014 it means a lot that our work resonates with others.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:41:47 +0000",
-    "published_iso": "2026-11-26T00:41:47+00:00",
+    "published": "Thu, 26 Nov 2026 15:00:00 +0000",
+    "published_iso": "2026-11-26T15:00:00+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -335,13 +593,13 @@
     "deadline": "December 6, 2026"
   },
   {
-    "item_id": "118bb66f113dfe09",
+    "item_id": "2385f43453a07ce7",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Chief of Staff, CTO",
-    "link": "https://cryptojobslist.com/jobs/chief-of-staff-cto-remote-usa-at-coinbase",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Manager Jobs \u2022 Cryptocurrency Cto Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Blockchain Web3 Jobs The CTO organization spans 700+ people across Platform, AI, Engineering, Enterprise Engineering a\u2026",
+    "title": "Institutional Sales Manager, Hedge Funds",
+    "link": "https://cryptojobslist.com/jobs/institutional-sales-manager-hedge-funds-remote-usa-at-coinbase",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Sales Jobs \u2022 Web3 Hedge Fund Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Web3 Web3 Jobs As an Institutional Sales Manager on the US Hedge Fund sales team within Coinbase Institutional, you'll own\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
@@ -352,19 +610,21 @@
     "deadline": ""
   },
   {
-    "item_id": "7d05c0ce19e849c5",
+    "item_id": "f99b8f4ea183211c",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Delta Faucet Company: Director, e-Commerce Channel Marketing Amazon & Wayfair",
-    "link": "https://himalayas.app/companies/delta-faucet-company/jobs/director-e-commerce-channel-marketing-amazon-wayfair?utm_source=api",
-    "summary": "At Delta Faucet, we are committed to transforming everyday experiences with water through innovative products and exceptional service.",
+    "title": "Soundsnap: Senior Full-Stack Engineer / Technical Lead",
+    "link": "https://himalayas.app/companies/soundsnap/jobs/senior-full-stack-engineer-technical-lead?utm_source=api",
+    "summary": "Senior Full-Stack Engineer / Technical Lead (Remote) Remote- in Europe and nearby time zones | Full-time | \u20ac6,500 - \u20ac8,500 / month, depending on experience About Soundsnap Soundsnap is a professional sound effects platform used by filmmake\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:41:13 +0000",
-    "published_iso": "2026-11-26T00:41:13+00:00",
-    "badges": [],
+    "published": "Thu, 26 Nov 2026 14:57:55 +0000",
+    "published_iso": "2026-11-26T14:57:55+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
     "deadline": ""
   },
   {
@@ -384,16 +644,15 @@
     "deadline": "December 20, 2026"
   },
   {
-    "item_id": "dc8be6c5cdb28a11",
+    "item_id": "856e6477196a427a",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Communications Generalist",
-    "link": "https://cryptojobslist.com/jobs/communications-generalist-remote-usa-at-coinbase-1",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Public Relations Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Cryptocurrency Web3 Jobs As a Communications Generalist on the Communications team, you'll plan and execute proactive and reactive communic\u2026",
+    "title": "People & Culture Partner",
+    "link": "https://cryptojobslist.com/jobs/people-culture-partner-remote-at-ckba",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs Location: Remote(Asia or Europe time zones) About CKBA CKBA is a Swiss non-profit association supporting the development and growth of the CKB ecosystem. We are a small, gl\u2026",
     "matched_keywords": [
-      "web3",
-      "blockchain"
+      "web3"
     ],
     "published": "",
     "published_iso": "",
@@ -401,18 +660,18 @@
     "deadline": ""
   },
   {
-    "item_id": "16e312c8a2f8bfef",
+    "item_id": "d052f73e51c2f961",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "AECOM: Mineral Economist",
-    "link": "https://himalayas.app/companies/aecom/jobs/mineral-economist?utm_source=api",
-    "summary": "AECOM is seeking a Mineral Economist to join our West Region and support the economic evaluation and financial analysis of mining projects across a range of commodities and development stages.",
+    "title": "Teleperformance: Interpreter - Arabic - Work-From-Home",
+    "link": "https://himalayas.app/companies/teleperformanceusa/jobs/interpreter-arabic-work-from-home?utm_source=api",
+    "summary": "Overview Qualifications \u2022 Excellent listening, retention and note taking skills to maintain a high level of accuracy \u2022 Ability to concentrate, stay detached from the conversation, and always remain neutral and objective \u2022 Ability to quickl\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:40:35 +0000",
-    "published_iso": "2026-11-26T00:40:35+00:00",
+    "published": "Thu, 26 Nov 2026 14:57:47 +0000",
+    "published_iso": "2026-11-26T14:57:47+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -435,16 +694,17 @@
     "deadline": "January 8th, 2027"
   },
   {
-    "item_id": "2385f43453a07ce7",
+    "item_id": "c9dffebaf503578e",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Institutional Sales Manager, Hedge Funds",
-    "link": "https://cryptojobslist.com/jobs/institutional-sales-manager-hedge-funds-remote-usa-at-coinbase",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Sales Jobs \u2022 Cryptocurrency Hedge Fund Jobs \u2022 Blockchain Remote Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Blockchain Web3 Jobs As an Institutional Sales Manager on the US Hedge Fund sales team within Coinbase\u2026",
+    "title": "Senior Software Engineer, Native Mobile - International",
+    "link": "https://cryptojobslist.com/jobs/senior-software-engineer-native-mobile-remote-singapore-at-coinbase",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Senior Jobs \u2022 Blockchain Mobile Jobs \u2022 Cryptocurrency Swift Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Cryptocurrency Web3 Jobs We're hiring a Senior Software Engineer, Native Mobile to join\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain"
+      "blockchain",
+      "software engineer"
     ],
     "published": "",
     "published_iso": "",
@@ -452,18 +712,18 @@
     "deadline": ""
   },
   {
-    "item_id": "761cd5f1e185422f",
+    "item_id": "160f05fa316722c6",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Cin7: Staff Accountant",
-    "link": "https://himalayas.app/companies/cin7/jobs/staff-accountant?utm_source=api",
-    "summary": "Cin7 is a fast-growing global software company that provides solutions for modern-day product sellers.",
+    "title": "EverTrue: Billing Specialist",
+    "link": "https://himalayas.app/companies/evertrueliving/jobs/billing-specialist?utm_source=api",
+    "summary": "Job Description: Summary Responsible for handling initial third-party payer billing (Medicare and managed care) for the purpose of reimbursement of services, cash receipts posting and other month-end charge entry duties; Upholds the philos\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:38:42 +0000",
-    "published_iso": "2026-11-26T00:38:42+00:00",
+    "published": "Thu, 26 Nov 2026 14:57:17 +0000",
+    "published_iso": "2026-11-26T14:57:17+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -484,13 +744,13 @@
     "deadline": "27 November 2026"
   },
   {
-    "item_id": "856e6477196a427a",
+    "item_id": "666689a2694fdf86",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "People & Culture Partner",
-    "link": "https://cryptojobslist.com/jobs/people-culture-partner-remote-at-ckba",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Full Time Jobs Location: Remote(Asia or Europe time zones) About CKBA CKBA is a Swiss non-profit association supporting the development and growth of the CKB ecosystem. We are a sma\u2026",
+    "title": "Specialist, Market Operations",
+    "link": "https://cryptojobslist.com/jobs/specialist-market-operations-remote-usa-at-coinbase",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Operations Jobs \u2022 Blockchain Exchange Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Web3 Web3 Jobs \u2022 Cryptocurrency Stablecoin Jobs As a Specialist, Market Operations, you'll provide frontline opera\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
@@ -501,20 +761,20 @@
     "deadline": ""
   },
   {
-    "item_id": "0eece3fbb84a4bfa",
+    "item_id": "8f13682ece8c384e",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Clicks Talent: NEW INFLUENCER TALENT AGENT TEMPLATE - 2026",
-    "link": "https://himalayas.app/companies/clicks-talent/jobs/new-influencer-talent-agent-template-2026-2149958251?utm_source=api",
-    "summary": "Title: Influencer & Talent Agent Location: \ud83d\udccd Remote (Work from Anywhere) Job Type: \u23f0 Full-Time Freelance Contract (Flexible Hours) Compensation: \ud83d\udcb0 COMMISION ONLY \u2013 Earn between $1,000\u2013$10,000 monthly based on performance (on average) About\u2026",
+    "title": "SupportNinja: Wholesale Support Specialist",
+    "link": "https://himalayas.app/companies/supportninja/jobs/wholesale-support-specialist?utm_source=api",
+    "summary": "Work Setup:Remote - Philippines Equipment:Bring Your Own Device (BYOD) Schedule:12:00PM - 9:00PM EST (Monday to Sunday) Type of Contract:Full-Time TheWholesale Support Specialistis responsible for supporting a growing B2B customer base by\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:37:40 +0000",
-    "published_iso": "2026-11-26T00:37:40+00:00",
+    "published": "Thu, 26 Nov 2026 14:57:05 +0000",
+    "published_iso": "2026-11-26T14:57:05+00:00",
     "badges": [
-      "\ud83c\udf0d Worldwide"
+      "\ud83d\udfe2 Entry / Intern"
     ],
     "deadline": ""
   },
@@ -535,17 +795,16 @@
     "deadline": "February 28, 2027"
   },
   {
-    "item_id": "c9dffebaf503578e",
+    "item_id": "315d1ded15332d8b",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Software Engineer, Native Mobile - International",
-    "link": "https://cryptojobslist.com/jobs/senior-software-engineer-native-mobile-remote-singapore-at-coinbase",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Senior Jobs \u2022 Blockchain Mobile Jobs \u2022 Blockchain Swift Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Web3 Web3 Jobs We're hiring a Senior Software Engineer, Native Mobile to join the International team w\u2026",
+    "title": "Turkish Community Specialist",
+    "link": "https://cryptojobslist.com/jobs/turkish-community-specialist-remote-at-kcex",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Non Tech Jobs \u2022 Blockchain Community Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Full Time Jobs Responsibilities: Engage with Turkish users on Telegram Answer questions on accounts, trading, deposits, wi\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain",
-      "software engineer"
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
@@ -553,18 +812,18 @@
     "deadline": ""
   },
   {
-    "item_id": "e0fd93182bd899bc",
+    "item_id": "b57e9d340b109f9d",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "knowmad mood: Desarrollador/a IA Senior en entorno Microsoft | 100% Remoto",
-    "link": "https://himalayas.app/companies/buzzmn/jobs/desarrollador-a-ia-senior-en-entorno-microsoft-100-remoto?utm_source=api",
-    "summary": "We are knowmad mood! Somos una compa\u00f1\u00eda l\u00edder en transformaci\u00f3n digital, en constante evoluci\u00f3n y a la vanguardia de la tecnolog\u00eda.",
+    "title": "Palomar: Sr. Underwriter - Miscellaneous E&O and Manufacturers E&O",
+    "link": "https://himalayas.app/companies/palomar/jobs/sr-underwriter-miscellaneous-e-o-and-manufacturers-e-o?utm_source=api",
+    "summary": "Why choose Palomar? Palomar is a rapidly growing and innovative insurer focused on providing specialty insurance to residential and commercial customers.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:36:53 +0000",
-    "published_iso": "2026-11-26T00:36:53+00:00",
+    "published": "Thu, 26 Nov 2026 14:55:15 +0000",
+    "published_iso": "2026-11-26T14:55:15+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -589,13 +848,13 @@
     "deadline": "December 22nd, 2026"
   },
   {
-    "item_id": "666689a2694fdf86",
+    "item_id": "380bfbf6ee9419c1",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Specialist, Market Operations",
-    "link": "https://cryptojobslist.com/jobs/specialist-market-operations-remote-usa-at-coinbase",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Operations Jobs \u2022 Web3 Exchange Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Blockchain Stablecoin Jobs As a Specialist, Market Operations, you'll provide frontline opera\u2026",
+    "title": "Contract Recruiter (3+ months)",
+    "link": "https://cryptojobslist.com/jobs/contract-recruiter-3-months-remote-at-figure-lending",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Recruiter Jobs \u2022 Web3 Remote Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Web3 Web3 Jobs About Figure We\u2019re Figure (Nasdaq: FIGR), and we\u2019re building the future of capital markets with blockchain and AI. We make lend\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
@@ -606,18 +865,18 @@
     "deadline": ""
   },
   {
-    "item_id": "00a5f750132f125a",
+    "item_id": "7774a905913172fa",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Armstrong World Industries: AS Design Estimator Job (Remote,  Remote, US)",
-    "link": "https://himalayas.app/companies/armstrong-world-industries/jobs/as-design-estimator-job-remote-remote-us?utm_source=api",
-    "summary": "\u200b\u200b Primary location: Remote, Remote Relocation offered: No Employment status: Full-Time Travel: No Non-compete: No The estimated base salary range for this role is $70,000 to $100,000 per year.",
+    "title": "Gate City Bank: SVP of Enterprise Payments",
+    "link": "https://himalayas.app/companies/gate-city-bank/jobs/svp-of-enterprise-payments?utm_source=api",
+    "summary": "Location Fargo Corporate Office - RemoteJob Description: Work Location: Fargo Corporate Office (Remote Capable in Midwest States) Work Location Type: On-Site, Hybrid, or Remote Capable in Midwest States Work Hours: 8-5 M-F The SVP of Enter\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:36:38 +0000",
-    "published_iso": "2026-11-26T00:36:38+00:00",
+    "published": "Thu, 26 Nov 2026 14:55:12 +0000",
+    "published_iso": "2026-11-26T14:55:12+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -640,13 +899,13 @@
     "deadline": "January 8, 2027"
   },
   {
-    "item_id": "315d1ded15332d8b",
+    "item_id": "dc982443a00b05ed",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Turkish Community Specialist",
-    "link": "https://cryptojobslist.com/jobs/turkish-community-specialist-remote-at-kcex",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Non Tech Jobs \u2022 Cryptocurrency Community Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Full Time Jobs Responsibilities: Engage with Turkish users on Telegram Answer questions on accounts, trading, deposits, wi\u2026",
+    "title": "Marketing Operations Specialist, SEO/AEO",
+    "link": "https://cryptojobslist.com/jobs/marketing-operations-specialist-seo-aeo-united-states-at-kraken",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Seo Jobs \u2022 Blockchain Content Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Blockchain Web3 Jobs Building the Future of Open Finance Payward - the parent company behind Kraken, NinjaTrader, Breakout, xStocks, Paywa\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
@@ -657,18 +916,18 @@
     "deadline": ""
   },
   {
-    "item_id": "32478e78d99c7ea3",
+    "item_id": "e6fa82d142269ab3",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "Nordic Investin Group: Professor, Advisory Board (EU Regulation, AI and Data Protection), Lawgent",
-    "link": "https://himalayas.app/companies/nordic-investin-group/jobs/professor-advisory-board-eu-regulation-ai-and-data-protection-lawgent?utm_source=api",
-    "summary": "About Lawgent Lawgent is a law firm focused on EU regulation, artificial intelligence and data protection.",
+    "title": "SYSTRA: PMO Cost Controller - Alto Project",
+    "link": "https://himalayas.app/companies/systra/jobs/pmo-cost-controller-alto-project?utm_source=api",
+    "summary": "SYSTRA Canada is part of the SYSTRA group, an international consulting and engineering group, a world leader in the design of transport infrastructures.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:36:37 +0000",
-    "published_iso": "2026-11-26T00:36:37+00:00",
+    "published": "Thu, 26 Nov 2026 14:53:35 +0000",
+    "published_iso": "2026-11-26T14:53:35+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -691,16 +950,18 @@
     "deadline": ""
   },
   {
-    "item_id": "380bfbf6ee9419c1",
+    "item_id": "6c0f2143683594c4",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Contract Recruiter (3+ months)",
-    "link": "https://cryptojobslist.com/jobs/contract-recruiter-3-months-remote-at-figure-lending",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Recruiter Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Web3 Web3 Jobs About Figure We\u2019re Figure (Nasdaq: FIGR), and we\u2019re building the future of capital markets with blockchain and AI. We make lending faster\u2026",
+    "title": "DeFi Engineer",
+    "link": "https://cryptojobslist.com/jobs/defi-engineer-new-york-ny-usa-at-true-markets",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Backend Jobs \u2022 Web3 DeFi Jobs \u2022 Web3 Solana Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Web3 Web3 Jobs \u2022 Blockchain Stablecoin Jobs Who We Are True Markets is building the next generation of digit\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain"
+      "blockchain",
+      "defi",
+      "backend"
     ],
     "published": "",
     "published_iso": "",
@@ -708,18 +969,18 @@
     "deadline": ""
   },
   {
-    "item_id": "fd2bae963ee08408",
+    "item_id": "0fdca93c3e457ee0",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Himalayas Remote Jobs",
-    "title": "indigoChart Technologies India Pvt Ltd: Sr. Data Engineer \\ Associate Architect",
-    "link": "https://himalayas.app/companies/indigochart-technologies-india-pvt-ltd/jobs/sr-data-engineer-associate-architect?utm_source=api",
-    "summary": "This is a remote position. Senior Data Engineer \\ Associate Architect \u2013 Microsoft Fabric Location: Remote (India) Experience: 6-8 Years Employment Type: Full Time Company: indigoChart Technologies India Pvt.",
+    "title": "Vira Games: AI Game Architect",
+    "link": "https://himalayas.app/companies/vira-games/jobs/ai-game-architect?utm_source=api",
+    "summary": "Vira Games \u2014 \u043d\u0435\u0437\u0430\u043b\u0435\u0436\u043d\u0430 \u0456\u0433\u0440\u043e\u0432\u0430 \u043a\u043e\u043c\u043f\u0430\u043d\u0456\u044f, \u0449\u043e \u0441\u043f\u0435\u0446\u0456\u0430\u043b\u0456\u0437\u0443\u0454\u0442\u044c\u0441\u044f \u043d\u0430 \u0440\u043e\u0437\u0440\u043e\u0431\u0446\u0456 \u0442\u0430 \u0432\u0438\u0434\u0430\u0432\u043d\u0438\u0446\u0442\u0432\u0456 \u043c\u043e\u0431\u0456\u043b\u044c\u043d\u0438\u0445 \u0456\u0433\u043e\u0440.",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:36:25 +0000",
-    "published_iso": "2026-11-26T00:36:25+00:00",
+    "published": "Thu, 26 Nov 2026 14:52:58 +0000",
+    "published_iso": "2026-11-26T14:52:58+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -742,15 +1003,16 @@
     "deadline": ""
   },
   {
-    "item_id": "88a36192af9d6481",
+    "item_id": "0e8fe195ac84b7eb",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Community Lead - Kraken Pro",
-    "link": "https://cryptojobslist.com/jobs/community-lead-kraken-pro-london-united-kingdom-brazil-united-at-kraken",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Community Manager Jobs \u2022 Cryptocurrency Trading Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Web3 Web3 Jobs Building the Future of Open Finance Payward - the parent company behind Kraken, Ninja\u2026",
+    "title": "Consultant, Solutions & Implementation",
+    "link": "https://cryptojobslist.com/jobs/consultant-solutions-implementation-united-states-remote-any-location-at-bitwave",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Accounting Jobs \u2022 Cryptocurrency Project Manager Jobs \u2022 Blockchain Customer Support Jobs \u2022 Web3 Data Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Cryptocurrency Stablecoin Jobs Context Bitwave is an enterpr\u2026",
     "matched_keywords": [
-      "web3"
+      "web3",
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
@@ -758,18 +1020,18 @@
     "deadline": ""
   },
   {
-    "item_id": "0c700436b10aa548",
+    "item_id": "44876a505fa2d4d4",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "Himalayas Remote Jobs",
-    "title": "Diebold Nixdorf: Technicien(ne) de maintenance itin\u00e9rant(e) - (H/F)- Mont-de-Marsan - CDD",
-    "link": "https://himalayas.app/companies/diebold-nixdorf/jobs/technicien-ne-de-maintenance-itinerant-e-h-f-mont-de-marsan-cdd?utm_source=api",
-    "summary": "Attendre plus. Connectez-vous davantage. Soyez plus avec Diebold Nixdorf.",
+    "source_name": "We Work Remotely",
+    "title": "Synapticure: Care Team Intake Specialist",
+    "link": "https://weworkremotely.com/remote-jobs/synapticure-care-team-intake-specialist",
+    "summary": "Headquarters: Remote About Synapticure Synapticure is the largest, most comprehensive specialty care and life sciences company in the country for those living with neurodegenerative diseases. Founded by patients and caregivers living with\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:36:11 +0000",
-    "published_iso": "2026-11-26T00:36:11+00:00",
+    "published": "Thu, 26 Nov 2026 14:40:18 +0000",
+    "published_iso": "2026-11-26T14:40:18+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -794,16 +1056,19 @@
     "deadline": ""
   },
   {
-    "item_id": "dc982443a00b05ed",
+    "item_id": "e739c7ab6cf06a1d",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Marketing Operations Specialist, SEO/AEO",
-    "link": "https://cryptojobslist.com/jobs/marketing-operations-specialist-seo-aeo-united-states-at-kraken",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Seo Jobs \u2022 Cryptocurrency Content Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Blockchain Web3 Jobs Building the Future of Open Finance Payward - the parent company behind Kraken, NinjaTrader, Brea\u2026",
+    "title": "Solutions Engineer",
+    "link": "https://cryptojobslist.com/jobs/solutions-engineer-new-york-usa-at-rain",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Blockchain Developer Jobs \u2022 Blockchain Engineering Jobs \u2022 Web3 Sales Jobs \u2022 Web3 KYC Jobs \u2022 Web3 Legal Jobs \u2022 Blockchain Typescript Jobs \u2022 Blockchain Rust Jobs \u2022 Blockchain Py\u2026",
     "matched_keywords": [
+      "rust",
       "web3",
-      "blockchain"
+      "blockchain",
+      "typescript",
+      "developer"
     ],
     "published": "",
     "published_iso": "",
@@ -811,18 +1076,18 @@
     "deadline": ""
   },
   {
-    "item_id": "3b6eae2c0334257a",
+    "item_id": "2664a8b535ca5ff6",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "Himalayas Remote Jobs",
-    "title": "Revolution Medicines: Executive Director, Chief Global Commercialization Officer Operations",
-    "link": "https://himalayas.app/companies/revolution-medicines/jobs/executive-director-chief-global-commercialization-officer-operations?utm_source=api",
-    "summary": "Revolution Medicines is a global, commercial-state oncology company dedicated to discovering, developing and delivering innovative medicines for patients with RAS-addicted cancers.",
+    "source_name": "Arbeitnow Remote & Visa",
+    "title": "Sidekick Network GmbH & Co. KG: Senior SAP Fiori Lead Developer / Technical Lead \u2013 Freelance (m/f/d)",
+    "link": "https://www.arbeitnow.com/jobs/companies/sidekick-network-gmbh-co-kg/senior-sap-fiori-lead-developer-technical-lead-freelance-berlin-286936",
+    "summary": "For a large-scale SAP S/4HANA transformation programme in the railway and transportation industry, we are looking for an experienced Senior SAP Fiori Lead Developer / Technical Lead . The successful candidate will combine strong hands-on S\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:35:35 +0000",
-    "published_iso": "2026-11-26T00:35:35+00:00",
+    "published": "Thu, 26 Nov 2026 14:31:22 +0000",
+    "published_iso": "2026-11-26T14:31:22+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -846,18 +1111,16 @@
     "deadline": ""
   },
   {
-    "item_id": "6c0f2143683594c4",
+    "item_id": "0b927479d42ac77f",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "DeFi Engineer",
-    "link": "https://cryptojobslist.com/jobs/defi-engineer-new-york-ny-usa-at-true-markets",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Backend Jobs \u2022 Blockchain DeFi Jobs \u2022 Web3 Solana Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Web3 Web3 Jobs \u2022 Web3 Stablecoin Jobs Who We Are True Markets is building the next generatio\u2026",
+    "title": "Infrastructure Engineer",
+    "link": "https://cryptojobslist.com/jobs/infrastructure-engineer-remote-us-at-ondo-finance",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Infrastructure Jobs \u2022 Blockchain DevOps Jobs \u2022 Cryptocurrency Linux Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Web3 Web3 Jobs Infrastructure Engineer About the company Hi, we're Ondo Fi\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain",
-      "defi",
-      "backend"
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
@@ -865,18 +1128,18 @@
     "deadline": ""
   },
   {
-    "item_id": "7a973d632c80f205",
+    "item_id": "d2cc6cdad98700cd",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "Himalayas Remote Jobs",
-    "title": "albo: Cybersecurity Lead",
-    "link": "https://himalayas.app/companies/albo-com/jobs/cybersecurity-lead?utm_source=api",
-    "summary": "albo is a leading fintech company offering financial products to individuals and SMBs with the mission to bring financial freedom to everyone everywhere.",
+    "source_name": "Arbeitnow Remote & Visa",
+    "title": "Weflow: Senior Platform Engineer (w/m/d) (remote within the EU)",
+    "link": "https://www.arbeitnow.com/jobs/companies/weflow/senior-platform-engineer-remote-within-the-eu-berlin-387492",
+    "summary": "About Weflow Weflow is the Salesforce-native revenue intelligence platform for B2B sales teams. We capture sales activity, analyze conversations, run AI playbooks, and power forecasting and pipeline analytics, all inside Salesforce. We're\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:35:21 +0000",
-    "published_iso": "2026-11-26T00:35:21+00:00",
+    "published": "Thu, 26 Nov 2026 14:31:21 +0000",
+    "published_iso": "2026-11-26T14:31:21+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -900,16 +1163,18 @@
     "deadline": ""
   },
   {
-    "item_id": "0e8fe195ac84b7eb",
+    "item_id": "fa4349cf35e0be21",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Consultant, Solutions & Implementation",
-    "link": "https://cryptojobslist.com/jobs/consultant-solutions-implementation-united-states-remote-any-location-at-bitwave",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Accounting Jobs \u2022 Web3 Project Manager Jobs \u2022 Blockchain Customer Support Jobs \u2022 Web3 Data Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Web3 Jobs \u2022 Web3 Stablecoin Jobs Context Bitwave is an enterprise software and servi\u2026",
+    "title": "Sr. Data Analyst, Compliance",
+    "link": "https://cryptojobslist.com/jobs/sr-data-analyst-compliance-canada-brazil-canada-at-kraken",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Data Analyst Jobs \u2022 Web3 Compliance Jobs \u2022 Web3 Python Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Cryptocurrency Web3 Jobs Building the Future of Open Finance Payward - the parent company behind\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain"
+      "blockchain",
+      "python",
+      "analyst"
     ],
     "published": "",
     "published_iso": "",
@@ -917,18 +1182,18 @@
     "deadline": ""
   },
   {
-    "item_id": "3034e52986c9c3ec",
+    "item_id": "ee693d2289c916bb",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "Himalayas Remote Jobs",
-    "title": "Forbes: Financial Services Operations Associate",
-    "link": "https://himalayas.app/companies/forbes/jobs/financial-services-operations-associate?utm_source=api",
-    "summary": "Forbes Advisoris a new initiative for consumers under the Forbes Marketplace umbrella that provides journalist- and expert-written insights, news and reviews on all things personal finance, health, business, and everyday life decisions.",
+    "source_name": "We Work Remotely",
+    "title": "Arcadia: Senior Analyst / Manager, APM Modeling & Analytics",
+    "link": "https://weworkremotely.com/remote-jobs/arcadia-senior-analyst-manager-apm-modeling-analytics",
+    "summary": "Headquarters: Boston, DC, Remote Arcadia is the most trusted healthcare platform powering outcomes. We transform complex healthcare data into trusted intelligence, helping providers, payers, and life sciences organizations act with clarity\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Thu, 26 Nov 2026 00:35:18 +0000",
-    "published_iso": "2026-11-26T00:35:18+00:00",
+    "published": "Thu, 26 Nov 2026 14:20:43 +0000",
+    "published_iso": "2026-11-26T14:20:43+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -949,19 +1214,17 @@
     "deadline": "28 February 2027"
   },
   {
-    "item_id": "e739c7ab6cf06a1d",
+    "item_id": "3b2c078dc3aec1a2",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Solutions Engineer",
-    "link": "https://cryptojobslist.com/jobs/solutions-engineer-new-york-usa-at-rain",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Web3 Jobs \u2022 Cryptocurrency Developer Jobs \u2022 Blockchain Engineering Jobs \u2022 Web3 Sales Jobs \u2022 Cryptocurrency KYC Jobs \u2022 Blockchain Legal Jobs \u2022 Cryptocurrency Typescript Jobs \u2022 Cryptocurrency Rust Jo\u2026",
+    "title": "Senior Software Engineer - React Native - Consumer",
+    "link": "https://cryptojobslist.com/jobs/senior-software-engineer-react-native-poland-brazil-peru-sweden-colombia-at-kraken",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Senior Jobs \u2022 Cryptocurrency React Native Jobs \u2022 Blockchain Mobile Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Cryptocurrency Web3 Jobs Building the Future of Open Finance Payward - the parent com\u2026",
     "matched_keywords": [
-      "rust",
       "web3",
       "blockchain",
-      "typescript",
-      "developer"
+      "software engineer"
     ],
     "published": "",
     "published_iso": "",
@@ -969,21 +1232,19 @@
     "deadline": ""
   },
   {
-    "item_id": "09044bddc9bc6257",
+    "item_id": "a27b952b0d067e1f",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Arbeitnow Remote & Visa",
-    "title": "Junto Education GmbH: Senior Consultant AI Enablement (m/w/d)",
-    "link": "https://www.arbeitnow.com/jobs/companies/junto-education-gmbh/senior-consultant-ai-enablement-berlin-242966",
-    "summary": "Hey, wir sind Junto! \ud83d\ude0a Wir machen Leadership Development f\u00fcr das KI-Zeitalter: Wir bef\u00e4higen F\u00fchrungskr\u00e4fte, KI in ihren Teams wirksam einzusetzen, und begleiten Unternehmen wie AOK PLUS, Henkel, Ottobock und diva-e mit blended Lernreisen.\u2026",
+    "title": "Start To Finish Consulting GmbH: Amazon Growth Lead (m/w/d)",
+    "link": "https://www.arbeitnow.com/jobs/companies/start-to-finish-consulting-gmbh/amazon-growth-lead-hamburg-380362",
+    "summary": "Wir sind Start to Finish. Kein Startup kann wachsen ohne das richtige Team. Aus diesem Grund unterst\u00fctzen wir aufstrebende Startups und Growth Companies wie Snocks, SellerX, Formary, Schema M und viele weitere dabei, ihre Schl\u00fcsselposition\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 23:00:38 +0000",
-    "published_iso": "2026-11-25T23:00:38+00:00",
-    "badges": [
-      "\ud83d\udfe2 Entry / Intern"
-    ],
+    "published": "Thu, 26 Nov 2026 14:01:07 +0000",
+    "published_iso": "2026-11-26T14:01:07+00:00",
+    "badges": [],
     "deadline": ""
   },
   {
@@ -1003,15 +1264,16 @@
     "deadline": "December 31, 2026"
   },
   {
-    "item_id": "0b927479d42ac77f",
+    "item_id": "038f669b28414cf2",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Infrastructure Engineer",
-    "link": "https://cryptojobslist.com/jobs/infrastructure-engineer-remote-us-at-ondo-finance",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Infrastructure Jobs \u2022 Cryptocurrency DevOps Jobs \u2022 Cryptocurrency Linux Jobs \u2022 Web3 Remote Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Cryptocurrency Web3 Jobs Infrastructure Engineer About the company Hi, we're Ondo Fina\u2026",
+    "title": "Senior Solutions Architect, Tokenisation",
+    "link": "https://cryptojobslist.com/jobs/senior-solutions-architect-tokenisation-united-states-united-kingdom-brazil-at-chainlink-labs",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Full Stack Jobs \u2022 Web3 Web3 Jobs \u2022 Web3 Solana Jobs \u2022 Blockchain Remote Jobs \u2022 Web3 Full Time Jobs About Chainlink Chainlink is the industry-standard oracle platform bringing the capital markets onchain and pow\u2026",
     "matched_keywords": [
-      "web3"
+      "web3",
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
@@ -1019,18 +1281,18 @@
     "deadline": ""
   },
   {
-    "item_id": "0d81c04d585ce41c",
+    "item_id": "d5695b18f138515a",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Arbeitnow Remote & Visa",
-    "title": "ProviPanda GmbH: Founder\u2019s Associate (m/w/d)",
-    "link": "https://www.arbeitnow.com/jobs/companies/provipanda-gmbh/founders-associate-hamburg-204338",
-    "summary": "Hamburg (vor Ort) oder remote mit mind. 1\u00d7 pro Monat Hamburg-Pr\u00e4senz \u00dcber ProviPanda ProviPanda ist ein wachsendes HR-Tech-Startup aus Hamburg und die gr\u00f6\u00dfte Sales-Job-Plattform im DACH-Raum. Unser Team aus 15+ Mitarbeitenden arbeitet dara\u2026",
+    "title": "Momentum Games GmbH: E-Commerce-Talent (m/w/d)",
+    "link": "https://www.arbeitnow.com/jobs/companies/momentum-games-gmbh/e-commerce-talent-nuremberg-352150",
+    "summary": "E-COMMERCE-TALENT GESUCHT Amazon, Shopify und Markenaufbau direkt an der Seite der Gr\u00fcnder Wir sind Momentum Games und entwickeln innovative, app-unterst\u00fctzte Gesellschaftsspiele. Unsere Marken Crime Cases und Toleva verkaufen wir auf Amaz\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 22:47:30 +0000",
-    "published_iso": "2026-11-25T22:47:30+00:00",
+    "published": "Thu, 26 Nov 2026 14:01:07 +0000",
+    "published_iso": "2026-11-26T14:01:07+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -1051,18 +1313,16 @@
     "deadline": "December 17, 2026"
   },
   {
-    "item_id": "fa4349cf35e0be21",
+    "item_id": "920b83b96cc6eede",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Sr. Data Analyst, Compliance",
-    "link": "https://cryptojobslist.com/jobs/sr-data-analyst-compliance-canada-brazil-canada-at-kraken",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Data Analyst Jobs \u2022 Cryptocurrency Compliance Jobs \u2022 Cryptocurrency Python Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Blockchain Web3 Jobs Building the Future of Open Finance Payward - the pa\u2026",
+    "title": "Senior Compliance Associate, KYC",
+    "link": "https://cryptojobslist.com/jobs/senior-compliance-associate-kyc-united-states-at-paxos",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Compliance Jobs \u2022 Cryptocurrency KYC Jobs \u2022 Web3 Senior Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Blockchain Web3 Jobs Applying to Paxos? Our only careers site is paxos.com/careers , and we only recruit v\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain",
-      "python",
-      "analyst"
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
@@ -1070,18 +1330,18 @@
     "deadline": ""
   },
   {
-    "item_id": "cb4ce8255ea34c59",
+    "item_id": "999efd6ca2eca719",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "GitLab: Renewals Manager - Italy/ Spain",
-    "link": "https://weworkremotely.com/remote-jobs/gitlab-renewals-manager-italy-spain",
-    "summary": "Headquarters: Remote Ireland; Remote, France; Remote, Germany; Remote, Italy; Remote, Spain; Remote, United Kingdom GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer producti\u2026",
+    "title": "Foodsmart: Food Operations Manager",
+    "link": "https://weworkremotely.com/remote-jobs/foodsmart-food-operations-manager",
+    "summary": "Headquarters: Remote (US) About Foodsmart: Foodsmart is the leading Foodcare platform in the U.S., built to deliver nutrition-driven healthcare at scale. Powered by a national network of Registered Dietitians, Foodsmart combines personaliz\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 22:40:10 +0000",
-    "published_iso": "2026-11-25T22:40:10+00:00",
+    "published": "Thu, 26 Nov 2026 14:00:16 +0000",
+    "published_iso": "2026-11-26T14:00:16+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -1102,17 +1362,17 @@
     "deadline": "December 17, 2026"
   },
   {
-    "item_id": "3b2c078dc3aec1a2",
+    "item_id": "deb36c25ad25127b",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Software Engineer - React Native - Consumer",
-    "link": "https://cryptojobslist.com/jobs/senior-software-engineer-react-native-poland-brazil-peru-sweden-colombia-at-kraken",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Senior Jobs \u2022 Web3 React Native Jobs \u2022 Cryptocurrency Mobile Jobs \u2022 Blockchain Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Blockchain Web3 Jobs Building the Future of Open Finance Payward - the parent company behind Kr\u2026",
+    "title": "Compliance Analyst \u2014 KYC/AML Monitoring and Screening",
+    "link": "https://cryptojobslist.com/jobs/compliance-analyst-kyc-aml-monitoring-remote-at-1money-usa-inc",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Compliance Jobs \u2022 Web3 Aml Jobs \u2022 Blockchain KYC Jobs \u2022 Blockchain Analyst Jobs \u2022 Web3 Full Time Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Web3 Jobs \u2022 Cryptocurrency Stablecoin Jobs This role involves monitoring and scree\u2026",
     "matched_keywords": [
       "web3",
       "blockchain",
-      "software engineer"
+      "analyst"
     ],
     "published": "",
     "published_iso": "",
@@ -1120,18 +1380,18 @@
     "deadline": ""
   },
   {
-    "item_id": "d81a414df4a25703",
+    "item_id": "457d06a71d61928c",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "GitLab: Senior Engagement Manager - Professional Services Sales, EMEA",
-    "link": "https://weworkremotely.com/remote-jobs/gitlab-senior-engagement-manager-professional-services-sales-emea",
-    "summary": "Headquarters: Remote Ireland; Remote, France; Remote, Germany; Remote, Spain; Remote, United Kingdom GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve o\u2026",
+    "source_name": "Arbeitnow Remote & Visa",
+    "title": "Kigen IT-Systemhaus: M365 Engineer (m/w/d), 100 % remote",
+    "link": "https://www.arbeitnow.com/jobs/companies/kigen-it-systemhaus/m365-engineer-100-remote-berlin-364735",
+    "summary": "\u00dcber uns Kigen IT ist ein spezialisiertes IT-Systemhaus f\u00fcr Microsoft 365, Security und Compliance. Wir betreuen Kunden in ganz Deutschland, fast komplett remote, und suchen Verst\u00e4rkung f\u00fcr unser Technikteam. Deine Aufgaben Du betreust uns\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 22:20:10 +0000",
-    "published_iso": "2026-11-25T22:20:10+00:00",
+    "published": "Thu, 26 Nov 2026 13:31:11 +0000",
+    "published_iso": "2026-11-26T13:31:11+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -1154,15 +1414,17 @@
     "deadline": ""
   },
   {
-    "item_id": "038f669b28414cf2",
+    "item_id": "db88e39215c3bb23",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Solutions Architect, Tokenisation",
-    "link": "https://cryptojobslist.com/jobs/senior-solutions-architect-tokenisation-united-states-united-kingdom-brazil-at-chainlink-labs",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Full Stack Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Web3 Solana Jobs \u2022 Web3 Remote Jobs \u2022 Cryptocurrency Full Time Jobs About Chainlink Chainlink is the industry-standard oracle platform bringing the capital markets onchain\u2026",
+    "title": "Senior AML Analyst, Sanctions",
+    "link": "https://cryptojobslist.com/jobs/senior-aml-analyst-sanctions-bangalore-remote-first-in-india-at-circle",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Senior Jobs \u2022 Web3 Aml Jobs \u2022 Web3 Compliance Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Web3 Jobs \u2022 Web3 Stablecoin Jobs Circle is looking for a Senior Analyst, Sanctions to join its Compliance Operations team and conduct\u2026",
     "matched_keywords": [
-      "web3"
+      "web3",
+      "blockchain",
+      "analyst"
     ],
     "published": "",
     "published_iso": "",
@@ -1170,18 +1432,18 @@
     "deadline": ""
   },
   {
-    "item_id": "3874bc51b4d6c179",
+    "item_id": "5ce159973bdd1125",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "GitLab: Director, Professional Services Technical Architects",
-    "link": "https://weworkremotely.com/remote-jobs/gitlab-director-professional-services-technical-architects",
-    "summary": "Headquarters: Remote, United States GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and a\u2026",
+    "source_name": "Arbeitnow Remote & Visa",
+    "title": "Sidekick Network GmbH & Co. KG: Senior SAP Fiori / SAPUI5 Developer \u2013 Plant Maintenance (Freelance)",
+    "link": "https://www.arbeitnow.com/jobs/companies/sidekick-network-gmbh-co-kg/senior-sap-fiori-sapui5-developer-plant-maintenance-freelance-berlin-298397",
+    "summary": "Mandatory SAP Fiori / SAPUI5 Expertise \u2013 Please Read Before Applying For a large SAP S/4HANA transformation program at a major European infrastructure and transportation company, we are looking for five experienced Senior SAP Fiori / SAPUI\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 22:00:10 +0000",
-    "published_iso": "2026-11-25T22:00:10+00:00",
+    "published": "Thu, 26 Nov 2026 13:31:11 +0000",
+    "published_iso": "2026-11-26T13:31:11+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -1204,37 +1466,39 @@
     "deadline": "November 29, 2026"
   },
   {
-    "item_id": "920b83b96cc6eede",
+    "item_id": "10db35d12b95b586",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Compliance Associate, KYC",
-    "link": "https://cryptojobslist.com/jobs/senior-compliance-associate-kyc-united-states-at-paxos",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Compliance Jobs \u2022 Web3 KYC Jobs \u2022 Cryptocurrency Senior Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Web3 Web3 Jobs Applying to Paxos? Our only careers site is paxos.com/careers , and we only recru\u2026",
+    "title": "VP, Global Head of Product Security and Risk",
+    "link": "https://cryptojobslist.com/jobs/vp-global-head-of-product-security-and-san-francisco-remote-first-dallas-at-circle",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Executive Jobs \u2022 Cryptocurrency Security Jobs \u2022 Blockchain Compliance Jobs \u2022 Cryptocurrency Legal Jobs \u2022 Cryptocurrency Engineering Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Blockchain Stablecoin\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
     ],
     "published": "",
     "published_iso": "",
-    "badges": [],
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
     "deadline": ""
   },
   {
-    "item_id": "68319fa8b7004a66",
+    "item_id": "0ea7de8d4d79151c",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "Arbeitnow Remote & Visa",
-    "title": "Wayve: Application Software Engineer",
-    "link": "https://www.arbeitnow.com/jobs/companies/wayve/application-software-engineer-baden-wurttemberg-324758",
-    "summary": "Before the detail, here's the challenge you'd help us solve. We build the embodied intelligence that moves real vehicles safely, and the ecosystem a billion machines will run on in the future. Very few people in AI can say this. Every role\u2026",
+    "source_name": "We Work Remotely",
+    "title": "Welo Data: Brazilian Subject Matter Expert in Fashion & Style",
+    "link": "https://weworkremotely.com/remote-jobs/welo-data-brazilian-subject-matter-expert-in-fashion-style",
+    "summary": "Headquarters: Remote, Worldwide About Welo Global Welo Global is a leader in multilingual AI, technology, and content solutions serving over 2,000 clients in 300 languages. The company combines globally scaled multilingual infrastructure,\u2026",
     "matched_keywords": [
-      "software engineer"
+      "remote"
     ],
-    "published": "Wed, 25 Nov 2026 21:40:16 +0000",
-    "published_iso": "2026-11-25T21:40:16+00:00",
+    "published": "Thu, 26 Nov 2026 13:20:15 +0000",
+    "published_iso": "2026-11-26T13:20:15+00:00",
     "badges": [
-      "\ud83d\udec2 Visa Sponsored"
+      "\ud83c\udf0d Worldwide"
     ],
     "deadline": ""
   },
@@ -1257,17 +1521,16 @@
     "deadline": "31 December 2026"
   },
   {
-    "item_id": "deb36c25ad25127b",
+    "item_id": "c0e04de14d9a30e0",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Compliance Analyst \u2014 KYC/AML Monitoring and Screening",
-    "link": "https://cryptojobslist.com/jobs/compliance-analyst-kyc-aml-monitoring-remote-at-1money-usa-inc",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Compliance Jobs \u2022 Cryptocurrency Aml Jobs \u2022 Cryptocurrency KYC Jobs \u2022 Web3 Analyst Jobs \u2022 Blockchain Full Time Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Web3 Stablecoin Jobs This role involves monitoring and s\u2026",
+    "title": "Solutions Engineer (Americas)",
+    "link": "https://cryptojobslist.com/jobs/solutions-engineer-americas-remote-americas-at-ondo-finance",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Devrel Jobs \u2022 Web3 Engineering Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Web3 Full Time Jobs About the company Hi, we're Ondo Finance. Our mission is to provide institutional-grade, blockchain-\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain",
-      "analyst"
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
@@ -1275,21 +1538,19 @@
     "deadline": ""
   },
   {
-    "item_id": "0c4a66b32b803c85",
+    "item_id": "cb3902cd72c39fa8",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Arbeitnow Remote & Visa",
-    "title": "Wayve: Embedded Automotive Platforms, Senior Software Engineer",
-    "link": "https://www.arbeitnow.co.uk/jobs/companies/wayve/embedded-automotive-platforms-senior-software-engineer-london-29546",
-    "summary": "Before the detail, here's the challenge you'd help us solve. We build the embodied intelligence that moves real vehicles safely, and the ecosystem a billion machines will run on in the future. Very few people in AI can say this. Every role\u2026",
+    "title": "Project Bay Workation Hotel UG (haftungsbeschr\u00e4nkt): Marketing- & Kommunikations-Manager:in (d/w/m)",
+    "link": "https://www.arbeitnow.com/jobs/companies/project-bay-workation-hotel-ug-haftungsbeschrankt/marketing-kommunikations-managerin-berlin-299995",
+    "summary": "Project Bay ist der erste CoWorking-Living Space mit direktem Meerzugang und neuer Hotspot f\u00fcr Innovation im Norden. Die Themen \u201eDigitalisierung, K\u00fcnstliche Intelligenz und neue Mobilit\u00e4tsl\u00f6sungen\u201c werden hierbei mit regionaler Community,\u2026",
     "matched_keywords": [
-      "software engineer"
+      "remote"
     ],
-    "published": "Wed, 25 Nov 2026 21:40:16 +0000",
-    "published_iso": "2026-11-25T21:40:16+00:00",
-    "badges": [
-      "\ud83d\udec2 Visa Sponsored"
-    ],
+    "published": "Thu, 26 Nov 2026 13:01:00 +0000",
+    "published_iso": "2026-11-26T13:01:00+00:00",
+    "badges": [],
     "deadline": ""
   },
   {
@@ -1312,17 +1573,18 @@
     "deadline": ""
   },
   {
-    "item_id": "db88e39215c3bb23",
+    "item_id": "956fc82ecaea867f",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior AML Analyst, Sanctions",
-    "link": "https://cryptojobslist.com/jobs/senior-aml-analyst-sanctions-bangalore-remote-first-in-india-at-circle",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Senior Jobs \u2022 Cryptocurrency Aml Jobs \u2022 Web3 Compliance Jobs \u2022 Blockchain Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Web3 Stablecoin Jobs Circle is looking for a Senior Analyst, Sanctions to join its Compliance O\u2026",
+    "title": "Distributed Systems Engineer",
+    "link": "https://cryptojobslist.com/jobs/distributed-systems-engineer-ritual-remote",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Web3 Web3 Jobs \u2022 Blockchain Research Jobs \u2022 Web3 Developer Jobs \u2022 Blockchain Rust Jobs \u2022 Blockchain Operations Jobs \u2022 Web3 Startup Jobs \u2022 Blockchain Cryptography Jobs \u2022 Cryptocurrency Open Source\u2026",
     "matched_keywords": [
+      "rust",
       "web3",
       "blockchain",
-      "analyst"
+      "developer"
     ],
     "published": "",
     "published_iso": "",
@@ -1330,20 +1592,20 @@
     "deadline": ""
   },
   {
-    "item_id": "c37b0d20b5bbfb94",
+    "item_id": "992f4d6f83d7baef",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "Arbeitnow Remote & Visa",
-    "title": "Wayve: Tech Lead - Remote Assist, Robotaxi",
-    "link": "https://www.arbeitnow.co.uk/jobs/companies/wayve/tech-lead-remote-assist-robotaxi-london-214975",
-    "summary": "Before the detail, here's the challenge you'd help us solve. We build the embodied intelligence that moves real vehicles safely, and the ecosystem a billion machines will run on in the future. Very few people in AI can say this. Every role\u2026",
+    "source_name": "We Work Remotely",
+    "title": "Welo Data: Brazilian Subject Matter Expert in TV & Movies",
+    "link": "https://weworkremotely.com/remote-jobs/welo-data-brazilian-subject-matter-expert-in-tv-movies",
+    "summary": "Headquarters: Remote, Worldwide About Welo Global Welo Global is a leader in multilingual AI, technology, and content solutions serving over 2,000 clients in 300 languages. The company combines globally scaled multilingual infrastructure,\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 21:40:16 +0000",
-    "published_iso": "2026-11-25T21:40:16+00:00",
+    "published": "Thu, 26 Nov 2026 13:00:14 +0000",
+    "published_iso": "2026-11-26T13:00:14+00:00",
     "badges": [
-      "\ud83d\udec2 Visa Sponsored"
+      "\ud83c\udf0d Worldwide"
     ],
     "deadline": ""
   },
@@ -1364,39 +1626,38 @@
     "deadline": ""
   },
   {
-    "item_id": "10db35d12b95b586",
+    "item_id": "dc91d24b821889a5",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "VP, Global Head of Product Security and Risk",
-    "link": "https://cryptojobslist.com/jobs/vp-global-head-of-product-security-and-san-francisco-remote-first-dallas-at-circle",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Executive Jobs \u2022 Cryptocurrency Security Jobs \u2022 Web3 Compliance Jobs \u2022 Cryptocurrency Legal Jobs \u2022 Cryptocurrency Engineering Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Blockchain Stablecoin Jobs\u2026",
+    "title": "Senior Analyst, Investigation Operations",
+    "link": "https://cryptojobslist.com/jobs/senior-analyst-investigation-operations-bangalore-remote-first-in-india-at-circle",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Analyst Jobs \u2022 Web3 Compliance Jobs \u2022 Blockchain Aml Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Web3 Stablecoin Jobs As a Senior Anti-Money Laundering (AML) Analyst,\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain"
+      "blockchain",
+      "analyst"
     ],
     "published": "",
     "published_iso": "",
-    "badges": [
-      "\ud83c\udf0d Worldwide"
-    ],
+    "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "19d879361c16d700",
+    "item_id": "399f83faccf374fd",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Arbeitnow Remote & Visa",
-    "title": "Wayve: Software Engineer, Simulation",
-    "link": "https://www.arbeitnow.co.uk/jobs/companies/wayve/software-engineer-simulation-london-282637",
-    "summary": "Before the detail, here's the challenge you'd help us solve. We build the embodied intelligence that moves real vehicles safely, and the ecosystem a billion machines will run on in the future. Very few people in AI can say this. Every role\u2026",
+    "title": "Gismart: Growth R&D Lead  (FitMe)",
+    "link": "https://www.arbeitnow.com/jobs/companies/gismart/remote-growth-rd-lead-fitme-137268",
+    "summary": "About Us Gismart is a value-driven mobile app developer with a strong presence in the Health & Wellness, Utilities, and Music app markets. We have recently achieved a significant milestone of over 1 billion downloads worldwide, taking a st\u2026",
     "matched_keywords": [
-      "software engineer"
+      "remote"
     ],
-    "published": "Wed, 25 Nov 2026 21:40:16 +0000",
-    "published_iso": "2026-11-25T21:40:16+00:00",
+    "published": "Thu, 26 Nov 2026 12:40:14 +0000",
+    "published_iso": "2026-11-26T12:40:14+00:00",
     "badges": [
-      "\ud83d\udec2 Visa Sponsored"
+      "\ud83c\udf0d Worldwide"
     ],
     "deadline": ""
   },
@@ -1419,13 +1680,13 @@
     "deadline": ""
   },
   {
-    "item_id": "c0e04de14d9a30e0",
+    "item_id": "0fbc472585aac41a",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Solutions Engineer (Americas)",
-    "link": "https://cryptojobslist.com/jobs/solutions-engineer-americas-remote-americas-at-ondo-finance",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Devrel Jobs \u2022 Cryptocurrency Engineering Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Full Time Jobs About the company Hi, we're Ondo Finance. Our mission is to provide institutional-grade, b\u2026",
+    "title": "VP, Implementation Services",
+    "link": "https://cryptojobslist.com/jobs/vp-implementation-services-united-states-remote-within-location-at-zerohash",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Project Manager Jobs \u2022 Blockchain Director Jobs \u2022 Cryptocurrency Finance Jobs \u2022 Blockchain Compliance Jobs \u2022 Blockchain Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Stablecoin Jobs About the Job zerohash is standing up\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
@@ -1436,21 +1697,19 @@
     "deadline": ""
   },
   {
-    "item_id": "d7e136494b736047",
+    "item_id": "f8f14d577fa85b0d",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Arbeitnow Remote & Visa",
-    "title": "Wayve: Software Engineer, Data Enrichment",
-    "link": "https://www.arbeitnow.co.uk/jobs/companies/wayve/software-engineer-data-enrichment-london-347759",
-    "summary": "Before the detail, here's the challenge you'd help us solve. We build the embodied intelligence that moves real vehicles safely, and the ecosystem a billion machines will run on in the future. Very few people in AI can say this. Every role\u2026",
+    "title": "Plantura GmbH: Pflichtpraktikum Content Management & SEO (w/m/d) \u2013 in Teilzeit, remote oder hybrid",
+    "link": "https://www.arbeitnow.com/jobs/companies/plantura-gmbh/pflichtpraktikum-content-management-seo-in-teilzeit-remote-oder-hybrid-munich-300524",
+    "summary": "Deine Mission bei uns Wir bei Plantura bringen Menschen wieder mit der Natur in Verbindung und sorgen daf\u00fcr, dass die Welt jeden Tag ein bisschen gr\u00fcner wird. Du bist auf der Suche nach einem Pflichtpraktikum, bei dem du sowohl ambitionier\u2026",
     "matched_keywords": [
-      "software engineer"
+      "remote"
     ],
-    "published": "Wed, 25 Nov 2026 21:40:16 +0000",
-    "published_iso": "2026-11-25T21:40:16+00:00",
-    "badges": [
-      "\ud83d\udec2 Visa Sponsored"
-    ],
+    "published": "Thu, 26 Nov 2026 12:31:28 +0000",
+    "published_iso": "2026-11-26T12:31:28+00:00",
+    "badges": [],
     "deadline": ""
   },
   {
@@ -1473,18 +1732,17 @@
     "deadline": ""
   },
   {
-    "item_id": "956fc82ecaea867f",
+    "item_id": "bcaabd710899cd69",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Distributed Systems Engineer",
-    "link": "https://cryptojobslist.com/jobs/distributed-systems-engineer-ritual-remote",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Cryptocurrency Research Jobs \u2022 Cryptocurrency Developer Jobs \u2022 Blockchain Rust Jobs \u2022 Blockchain Operations Jobs \u2022 Cryptocurrency Startup Jobs \u2022 Blockchain Cryptography\u2026",
+    "title": "Senior Data Analyst",
+    "link": "https://cryptojobslist.com/jobs/senior-data-analyst-remote-at-figure-lending",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Data Analyst Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Cryptocurrency Web3 Jobs About Figure Figure (NASDAQ: FIGR) is transforming capital markets through blockchain. We\u2019re proving that blockchain isn\u2026",
     "matched_keywords": [
-      "rust",
       "web3",
       "blockchain",
-      "developer"
+      "analyst"
     ],
     "published": "",
     "published_iso": "",
@@ -1492,21 +1750,19 @@
     "deadline": ""
   },
   {
-    "item_id": "ac7989d5d303c002",
+    "item_id": "7d466cf5284752c0",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Arbeitnow Remote & Visa",
-    "title": "Wayve: Senior Software Engineer, Data and Orchestration",
-    "link": "https://www.arbeitnow.co.uk/jobs/companies/wayve/senior-software-engineer-data-and-orchestration-london-317223",
-    "summary": "Before the detail, here's the challenge you'd help us solve. We build the embodied intelligence that moves real vehicles safely, and the ecosystem a billion machines will run on in the future. Very few people in AI can say this. Every role\u2026",
+    "title": "Makersite GmbH: Senior Data Scientist - Research EU/UK (m/f/x)",
+    "link": "https://www.arbeitnow.com/jobs/companies/makersite-gmbh/remote-senior-data-scientist-research-eu-uk-berlin-247671",
+    "summary": "Senior Data Scientist - Research (m/f/x) Location: EU (Remote) Who You\u2019ll Work For : At Makersite, we're pioneering the future of sustainable product development and digital collaboration. As a leading platform for product lifecycle manage\u2026",
     "matched_keywords": [
-      "software engineer"
+      "remote"
     ],
-    "published": "Wed, 25 Nov 2026 21:40:16 +0000",
-    "published_iso": "2026-11-25T21:40:16+00:00",
-    "badges": [
-      "\ud83d\udec2 Visa Sponsored"
-    ],
+    "published": "Thu, 26 Nov 2026 12:31:11 +0000",
+    "published_iso": "2026-11-26T12:31:11+00:00",
+    "badges": [],
     "deadline": ""
   },
   {
@@ -1526,39 +1782,38 @@
     "deadline": "December 31, 2026"
   },
   {
-    "item_id": "dc91d24b821889a5",
+    "item_id": "6bbad8553cf53b23",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Analyst, Investigation Operations",
-    "link": "https://cryptojobslist.com/jobs/senior-analyst-investigation-operations-bangalore-remote-first-in-india-at-circle",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Analyst Jobs \u2022 Web3 Compliance Jobs \u2022 Blockchain Aml Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Web3 Jobs \u2022 Blockchain Stablecoin Jobs As a Senior Anti-Money Laundering (AML) Analyst, you\u2019ll\u2026",
+    "title": "Crypto KOL / Affiliate Partner / Content Creator",
+    "link": "https://cryptojobslist.com/jobs/crypto-kol-affiliate-partner-content-remote-at-mubite",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Content Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Full Time Jobs Mubite is a fast-growing crypto proprietary trading firm based in Prague, Czech Republic, with a community of over 40,000 traders worldwide. We're growing q\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain",
-      "analyst"
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
-    "badges": [],
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
     "deadline": ""
   },
   {
-    "item_id": "d47e619e790a4ab9",
+    "item_id": "aaa642f14bec4002",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Arbeitnow Remote & Visa",
-    "title": "Wayve: Software Engineer, AI Libraries",
-    "link": "https://www.arbeitnow.co.uk/jobs/companies/wayve/software-engineer-ai-libraries-london-433096",
-    "summary": "Before the detail, here's the challenge you'd help us solve. We build the embodied intelligence that moves real vehicles safely, and the ecosystem a billion machines will run on in the future. Very few people in AI can say this. Every role\u2026",
+    "title": "Signode: Business Development Manager - New Customer Acquisition",
+    "link": "https://www.arbeitnow.fr/jobs/companies/signode/remote-business-development-manager-new-customer-acquisition-creteil-381862",
+    "summary": "Build new relationships. Win new business. Drive growth. We are looking for an experienced Business Development Manager \u2013 New Customer Acquisition to identify and win new customers across Europe. This is a hands-on commercial role for some\u2026",
     "matched_keywords": [
-      "software engineer"
+      "remote"
     ],
-    "published": "Wed, 25 Nov 2026 21:40:16 +0000",
-    "published_iso": "2026-11-25T21:40:16+00:00",
-    "badges": [
-      "\ud83d\udec2 Visa Sponsored"
-    ],
+    "published": "Thu, 26 Nov 2026 12:31:10 +0000",
+    "published_iso": "2026-11-26T12:31:10+00:00",
+    "badges": [],
     "deadline": ""
   },
   {
@@ -1580,13 +1835,13 @@
     "deadline": ""
   },
   {
-    "item_id": "0fbc472585aac41a",
+    "item_id": "024b639eb9111eaf",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "VP, Implementation Services",
-    "link": "https://cryptojobslist.com/jobs/vp-implementation-services-united-states-remote-within-location-at-zerohash",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Project Manager Jobs \u2022 Web3 Director Jobs \u2022 Blockchain Finance Jobs \u2022 Blockchain Compliance Jobs \u2022 Web3 Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Stablecoin Jobs About the Job zerohash is standing up a dedicated Impl\u2026",
+    "title": "Regulatory Counsel (Crypto)",
+    "link": "https://cryptojobslist.com/jobs/regulatory-counsel-crypto-office-barcelona-lisbon-london-at-revolut",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Legal Jobs \u2022 Blockchain Compliance Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Cryptocurrency Web3 Jobs About the roleThe Legal team turns complexity into clarity by partnering with teams across R\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
@@ -1597,21 +1852,19 @@
     "deadline": ""
   },
   {
-    "item_id": "5366d1f50b6573fb",
+    "item_id": "b9bd531f62ad8c60",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "Arbeitnow Remote & Visa",
-    "title": "Wayve: Senior Software Engineer - Runtime Platform, Robot Software",
-    "link": "https://www.arbeitnow.co.uk/jobs/companies/wayve/senior-software-engineer-runtime-platform-robot-software-london-199439",
-    "summary": "Before the detail, here's the challenge you'd help us solve. We build the embodied intelligence that moves real vehicles safely, and the ecosystem a billion machines will run on in the future. Very few people in AI can say this. Every role\u2026",
+    "source_name": "We Work Remotely",
+    "title": "Silverback Strategies: Senior Motion & Graphic Designer (Remote)",
+    "link": "https://weworkremotely.com/remote-jobs/silverback-strategies-senior-motion-graphic-designer-remote",
+    "summary": "Headquarters: Remote Silverback Strategies is a performance marketing agency built to help marketers grow and capitalize on change. Ad Age, Inc Magazine, The Washington Post, The Washingtonian, and The Washington Business Journal have reco\u2026",
     "matched_keywords": [
-      "software engineer"
+      "remote"
     ],
-    "published": "Wed, 25 Nov 2026 21:40:16 +0000",
-    "published_iso": "2026-11-25T21:40:16+00:00",
-    "badges": [
-      "\ud83d\udec2 Visa Sponsored"
-    ],
+    "published": "Thu, 26 Nov 2026 12:20:13 +0000",
+    "published_iso": "2026-11-26T12:20:13+00:00",
+    "badges": [],
     "deadline": ""
   },
   {
@@ -1634,17 +1887,18 @@
     "deadline": ""
   },
   {
-    "item_id": "bcaabd710899cd69",
+    "item_id": "466efb4d16cbc4e8",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Data Analyst",
-    "link": "https://cryptojobslist.com/jobs/senior-data-analyst-remote-at-figure-lending",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Data Analyst Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Cryptocurrency Web3 Jobs About Figure Figure (NASDAQ: FIGR) is transforming capital markets through blockchain. We\u2019re proving that blockchain i\u2026",
+    "title": "Blockchain Engineer \u533a\u5757\u94fe\u5de5\u7a0b\u5e08",
+    "link": "https://cryptojobslist.com/jobs/blockchain-engineer-windranger-labs-remote",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Cryptocurrency Non Tech Jobs \u2022 Web3 Community Jobs \u2022 Blockchain Security Jobs \u2022 Blockchain Developer Jobs \u2022 Web3 Engineering Jobs \u2022 Cryptocurrency Golang Jobs \u2022 Web3 Rust Jo\u2026",
     "matched_keywords": [
+      "rust",
       "web3",
       "blockchain",
-      "analyst"
+      "developer"
     ],
     "published": "",
     "published_iso": "",
@@ -1652,18 +1906,18 @@
     "deadline": ""
   },
   {
-    "item_id": "d71e271c08b421a7",
+    "item_id": "82bea923b1f3e944",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "Arbeitnow Remote & Visa",
-    "title": "Divio: Senior Frontend Developer",
-    "link": "https://www.arbeitnow.ch/jobs/companies/divio/remote-senior-frontend-developer-switzerland-292678",
-    "summary": "About Divio Divio is a remote-first company spread across Europe. Our core product is a multi-cloud Platform-as-a-Service (PaaS) for deploying and managing web applications, used by agencies, developers, and enterprises who want to move fa\u2026",
+    "title": "VDK Groep B.V.: Hoofd Monteur - Beveiligingstechniek - Datacenters - Midden-Nederland",
+    "link": "https://www.arbeitnow.nl/jobs/companies/vdk-groep-bv/remote-hoofd-monteur-beveiligingstechniek-datacenters-midden-nederland-assendelft-101384",
+    "summary": "Je installeert en onderhoudt beveiligingssystemen zoals camera\u2019s en toegangscontrole. Op locatie pak jij de leiding: je stuurt collega\u2019s aan, houdt overzicht en zorgt dat het werk goed en op tijd wordt opgeleverd! Onze Hoofd Monteur Beveil\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 21:20:04 +0000",
-    "published_iso": "2026-11-25T21:20:04+00:00",
+    "published": "Thu, 26 Nov 2026 09:31:25 +0000",
+    "published_iso": "2026-11-26T09:31:25+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -1684,37 +1938,36 @@
     "deadline": ""
   },
   {
-    "item_id": "6bbad8553cf53b23",
+    "item_id": "f64ea8b6bfa071cf",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Crypto KOL / Affiliate Partner / Content Creator",
-    "link": "https://cryptojobslist.com/jobs/crypto-kol-affiliate-partner-content-remote-at-mubite",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Content Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Full Time Jobs Mubite is a fast-growing crypto proprietary trading firm based in Prague, Czech Republic, with a community of over 40,000 traders worldw\u2026",
+    "title": "Senior QA Engineer /\u533a\u5757\u94fe\u6d4b\u8bd5\u5de5\u7a0b\u5e08",
+    "link": "https://cryptojobslist.com/jobs/senior-qa-engineer-windranger-labs-remote",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Web3 Web3 Jobs \u2022 Blockchain Non Tech Jobs \u2022 Blockchain Research Jobs \u2022 Blockchain Community Jobs \u2022 Blockchain Security Jobs \u2022 Blockchain Developer Jobs \u2022 Cryptocurrency Engineering Jobs \u2022 Cryptocu\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain"
+      "blockchain",
+      "developer"
     ],
     "published": "",
     "published_iso": "",
-    "badges": [
-      "\ud83c\udf0d Worldwide"
-    ],
+    "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "751a3856ad96d4e8",
+    "item_id": "5e83a4f3347fcecf",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "Arbeitnow Remote & Visa",
-    "title": "Clipboard: Strategy & Ops Lead, Applied AI",
-    "link": "https://www.arbeitnow.com/jobs/companies/clipboard/strategy-ops-lead-applied-ai-berlin-333117",
-    "summary": "About Clipboard Our mission is to uplift as many communities as possible. We do this through our app-based marketplace that connects healthcare professionals with the workplaces that need amazing workers. This enables hundreds of thousands\u2026",
+    "source_name": "We Work Remotely",
+    "title": "Bybit: VIP Relationship Manager, Italy",
+    "link": "https://weworkremotely.com/remote-jobs/bybit-vip-relationship-manager-italy",
+    "summary": "Headquarters: Europe - Remote About Us Established in 2018, Bybit is one of the world\u2019s leading cryptocurrency exchanges and digital financial platforms, serving over 90 million users across more than 200 countries and regions. Powered by\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:40:17 +0000",
-    "published_iso": "2026-11-25T18:40:17+00:00",
+    "published": "Thu, 26 Nov 2026 09:20:07 +0000",
+    "published_iso": "2026-11-26T09:20:07+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -1738,13 +1991,13 @@
     "deadline": ""
   },
   {
-    "item_id": "024b639eb9111eaf",
+    "item_id": "f25e9c2d5c75383e",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Regulatory Counsel (Crypto)",
-    "link": "https://cryptojobslist.com/jobs/regulatory-counsel-crypto-office-barcelona-lisbon-london-at-revolut",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Legal Jobs \u2022 Cryptocurrency Compliance Jobs \u2022 Blockchain Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Web3 Web3 Jobs About the roleThe Legal team turns complexity into clarity by partnering with teams across Revolut to provid\u2026",
+    "title": "Sr Staff Product Designer - Krak",
+    "link": "https://cryptojobslist.com/jobs/sr-staff-product-designer-krak-united-states-at-kraken",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Product Designer Jobs \u2022 Web3 Senior Jobs \u2022 Web3 Lead Level Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Cryptocurrency Web3 Jobs Building the Future of Open Finance Payward - the parent company behind\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
@@ -1755,18 +2008,18 @@
     "deadline": ""
   },
   {
-    "item_id": "74cc4f01103f02a6",
+    "item_id": "61c2c7af28b70ab9",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "Arbeitnow Remote & Visa",
-    "title": "LILT (Production): Linguist - Somali - UI Technical / Marketing - Remote",
-    "link": "https://www.arbeitnow.com/jobs/companies/lilt-production/linguist-somali-ui-technical-marketing-remote-247010",
-    "summary": "About the Opportunity We are expanding our talent network and seeking skilled Somali-language professionals with expertise in user interfaces, marketing localization, and retail content. Our ideal partners possess a nuanced command of mark\u2026",
+    "source_name": "We Work Remotely",
+    "title": "OKX: Assistant VIP Relationship Manager",
+    "link": "https://weworkremotely.com/remote-jobs/okx-assistant-vip-relationship-manager",
+    "summary": "Headquarters: Poland (Remote) Who We Are At OKX, we believe that the future will be reshaped by crypto, and ultimately contribute to every individual's freedom. OKX is a leading crypto exchange, and the developer of OKX Wallet, giving mill\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:40:11 +0000",
-    "published_iso": "2026-11-25T18:40:11+00:00",
+    "published": "Thu, 26 Nov 2026 09:00:11 +0000",
+    "published_iso": "2026-11-26T09:00:11+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -1787,17 +2040,18 @@
     "deadline": "4 January 2027"
   },
   {
-    "item_id": "466efb4d16cbc4e8",
+    "item_id": "d2aa98d9d1ae5889",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Blockchain Engineer \u533a\u5757\u94fe\u5de5\u7a0b\u5e08",
-    "link": "https://cryptojobslist.com/jobs/blockchain-engineer-windranger-labs-remote",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Cryptocurrency Non Tech Jobs \u2022 Blockchain Community Jobs \u2022 Web3 Security Jobs \u2022 Cryptocurrency Developer Jobs \u2022 Web3 Engineering Jobs \u2022 Blockchain Golang Jobs \u2022 Cryptocurrency Rus\u2026",
+    "title": "Staff Software Engineer, C++/Rust",
+    "link": "https://cryptojobslist.com/jobs/staff-software-engineer-c-rust-remote-at-stellar-development-foundation",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Engineering Jobs \u2022 Cryptocurrency C++ Jobs \u2022 Blockchain Rust Jobs \u2022 Blockchain Remote Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Blockchain Web3 Jobs Interested in working on cutting-edge blockchain technology\u2026",
     "matched_keywords": [
+      "rust",
       "web3",
       "blockchain",
-      "developer"
+      "software engineer"
     ],
     "published": "",
     "published_iso": "",
@@ -1805,18 +2059,18 @@
     "deadline": ""
   },
   {
-    "item_id": "5fcebb4ddd7d0026",
+    "item_id": "57c49063728b8c9d",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Datadog: Certification Program Lead",
-    "link": "https://weworkremotely.com/remote-jobs/datadog-certification-program-lead",
-    "summary": "Headquarters: California, USA, Remote; Massachusetts, USA, Remote; New York, USA, Remote; Washington, USA, Remote As Certification Program Lead, you will join the Customer Education and Training team and will take ownership of the strategy\u2026",
+    "source_name": "Arbeitnow Remote & Visa",
+    "title": "Nmi: Senior Product Owner",
+    "link": "https://www.arbeitnow.co.uk/jobs/companies/nmi/remote-senior-product-owner-355662",
+    "summary": "<p>As a Senior Product Owner, you will manage the execution of NMI's strategy and roadmap, while facilitating backlog grooming, prioritisation, triage and other development ceremonies. Our Product Owners also take an active role in product\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:33:24 +0000",
-    "published_iso": "2026-11-25T18:33:24+00:00",
+    "published": "Thu, 26 Nov 2026 06:55:16 +0000",
+    "published_iso": "2026-11-26T06:55:16+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -1837,17 +2091,16 @@
     "deadline": "January 15, 2027"
   },
   {
-    "item_id": "f64ea8b6bfa071cf",
+    "item_id": "c3f8bb9ebf3d1381",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior QA Engineer /\u533a\u5757\u94fe\u6d4b\u8bd5\u5de5\u7a0b\u5e08",
-    "link": "https://cryptojobslist.com/jobs/senior-qa-engineer-windranger-labs-remote",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Cryptocurrency Non Tech Jobs \u2022 Blockchain Research Jobs \u2022 Blockchain Community Jobs \u2022 Blockchain Security Jobs \u2022 Blockchain Developer Jobs \u2022 Cryptocurrency Engineering Jobs\u2026",
+    "title": "Senior Events Marketing Manager",
+    "link": "https://cryptojobslist.com/jobs/senior-events-marketing-manager-remote-at-stellar-development-foundation",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Event Marketing Jobs \u2022 Web3 Senior Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Blockchain Web3 Jobs Interested in working on cutting-edge blockchain technology and creating equitable access to\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain",
-      "developer"
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
@@ -1855,18 +2108,18 @@
     "deadline": ""
   },
   {
-    "item_id": "f9c84b274881caea",
+    "item_id": "ebcc10bc7dd1dccd",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Cribl: Partner Business Manager, Midwest",
-    "link": "https://weworkremotely.com/remote-jobs/cribl-partner-business-manager-midwest",
-    "summary": "Headquarters: Remote - Chicago, Illinois Join the company that\u2019s building the telemetry infrastructure for the AI era. At Cribl, we partner with IT and Security teams at many of the world\u2019s biggest enterprises, including half of the Fortun\u2026",
+    "source_name": "Arbeitnow Remote & Visa",
+    "title": "Constructor: Sr. Account Executive, Retail Media",
+    "link": "https://www.arbeitnow.co.uk/jobs/companies/constructor/remote-sr-account-executive-retail-media-499130",
+    "summary": "Help retailers turn shopper intent into a growing media business Constructor helps e-commerce businesses connect shoppers with the products they want through AI-powered search and product discovery. We\u2019re looking for an experienced Retail\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:33:11 +0000",
-    "published_iso": "2026-11-25T18:33:11+00:00",
+    "published": "Thu, 26 Nov 2026 06:40:17 +0000",
+    "published_iso": "2026-11-26T06:40:17+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -1887,16 +2140,19 @@
     "deadline": "January 31, 2027"
   },
   {
-    "item_id": "f25e9c2d5c75383e",
+    "item_id": "5a9642acccb909c0",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Sr Staff Product Designer - Krak",
-    "link": "https://cryptojobslist.com/jobs/sr-staff-product-designer-krak-united-states-at-kraken",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Product Designer Jobs \u2022 Cryptocurrency Senior Jobs \u2022 Web3 Lead Level Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Cryptocurrency Web3 Jobs Building the Future of Open Finance Payward - the parent c\u2026",
+    "title": "Software Engineer, Data Feeds",
+    "link": "https://cryptojobslist.com/jobs/software-engineer-data-feeds-brazil-brazil-argentina-colombia-at-chainlink-labs",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Engineering Jobs \u2022 Blockchain Backend Jobs \u2022 Web3 Smart Contract Jobs \u2022 Blockchain Golang Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Web3 Jobs About Chainlink Chainlink is the industry-standard oracle platfor\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain"
+      "blockchain",
+      "smart contract",
+      "software engineer",
+      "backend"
     ],
     "published": "",
     "published_iso": "",
@@ -1904,20 +2160,21 @@
     "deadline": ""
   },
   {
-    "item_id": "0e955d0332c48109",
+    "item_id": "fae48de34636d2ce",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Veracode: Senior Account Executive - DACH",
-    "link": "https://weworkremotely.com/remote-jobs/veracode-senior-account-executive-dach",
-    "summary": "Headquarters: London, England; Remote, Germany Looking for an innovative, high-growth, multi-award-winning company in one of the hottest segments of the security market? Look no further than Veracode! Veracode is a global leader in Applica\u2026",
+    "source_name": "Arbeitnow Remote & Visa",
+    "title": "BSI Software: Junior Cloud Operations Engineer (all genders) CH",
+    "link": "https://www.arbeitnow.ch/jobs/companies/bsi-software/remote-junior-cloud-operations-engineer-all-genders-ch-baar-288099",
+    "summary": "Alle reden von Digitalisierung \u2013 Wir machen es. Als Hersteller von Europas #1 CRM/CX-Plattform entwickeln wir innovative Softwareprodukte in den Bereichen Kundenbeziehungsmanagement, Marketing Automation und Machine Learning. Unternehmen b\u2026",
     "matched_keywords": [
-      "remote"
+      "remote",
+      "junior"
     ],
-    "published": "Wed, 25 Nov 2026 18:33:11 +0000",
-    "published_iso": "2026-11-25T18:33:11+00:00",
+    "published": "Thu, 26 Nov 2026 06:31:21 +0000",
+    "published_iso": "2026-11-26T06:31:21+00:00",
     "badges": [
-      "\ud83c\udf0d Worldwide"
+      "\ud83d\udfe2 Entry / Intern"
     ],
     "deadline": ""
   },
@@ -1938,18 +2195,18 @@
     "deadline": "November 27, 2026"
   },
   {
-    "item_id": "d2aa98d9d1ae5889",
+    "item_id": "c0007d7eae457c46",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Staff Software Engineer, C++/Rust",
-    "link": "https://cryptojobslist.com/jobs/staff-software-engineer-c-rust-remote-at-stellar-development-foundation",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Engineering Jobs \u2022 Web3 C++ Jobs \u2022 Web3 Rust Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Cryptocurrency Web3 Jobs Interested in working on cutting-edge blockchain technology and creating equitable\u2026",
+    "title": "Senior Software Engineer, Fiat Payments & Banking Infrastructure",
+    "link": "https://cryptojobslist.com/jobs/senior-software-engineer-fiat-payments-united-states-remote-any-location-at-zerohash",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Senior Jobs \u2022 Cryptocurrency Golang Jobs \u2022 Blockchain Backend Jobs \u2022 Cryptocurrency Engineering Jobs \u2022 Blockchain Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Cryptocurrency Stablecoin Jobs About the Job zeroha\u2026",
     "matched_keywords": [
-      "rust",
       "web3",
       "blockchain",
-      "software engineer"
+      "software engineer",
+      "backend"
     ],
     "published": "",
     "published_iso": "",
@@ -1957,19 +2214,21 @@
     "deadline": ""
   },
   {
-    "item_id": "6601fdee0a9930ad",
+    "item_id": "52fdf4937b04f43e",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Cribl: GSI Partner Business Manager",
-    "link": "https://weworkremotely.com/remote-jobs/cribl-gsi-partner-business-manager",
-    "summary": "Headquarters: Remote - United Kingdom Join the company that\u2019s building the telemetry infrastructure for the AI era. At Cribl, we partner with IT and Security teams at many of the world\u2019s biggest enterprises, including half of the Fortune 1\u2026",
+    "title": "Ping Identity: Director, Sales Engineering (Southern Europe)",
+    "link": "https://weworkremotely.com/remote-jobs/ping-identity-director-sales-engineering-southern-europe",
+    "summary": "Headquarters: France - Remote About Ping Identity: At Ping Identity, we believe in making digital experiences both secure and seamless for all users, without compromise. We call this digital freedom. And it's not just something we provide\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:33:04 +0000",
-    "published_iso": "2026-11-25T18:33:04+00:00",
-    "badges": [],
+    "published": "Thu, 26 Nov 2026 06:20:11 +0000",
+    "published_iso": "2026-11-26T06:20:11+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
     "deadline": ""
   },
   {
@@ -1990,16 +2249,17 @@
     "deadline": "November 27, 2026"
   },
   {
-    "item_id": "c3f8bb9ebf3d1381",
+    "item_id": "8b2aef953a14e788",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Events Marketing Manager",
-    "link": "https://cryptojobslist.com/jobs/senior-events-marketing-manager-remote-at-stellar-development-foundation",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Event Marketing Jobs \u2022 Web3 Senior Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Cryptocurrency Web3 Jobs Interested in working on cutting-edge blockchain technology and creating equitable access to\u2026",
+    "title": "FinCrime Analyst",
+    "link": "https://cryptojobslist.com/jobs/fincrime-analyst-buenos-aires-argentina-colombia-at-arq",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Compliance Jobs \u2022 Cryptocurrency Aml Jobs \u2022 Web3 Customer Support Jobs \u2022 Blockchain Full Time Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Web3 Jobs \u2022 Cryptocurrency Stablecoin Jobs About ARQ ARQ is one of the\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain"
+      "blockchain",
+      "analyst"
     ],
     "published": "",
     "published_iso": "",
@@ -2007,18 +2267,18 @@
     "deadline": ""
   },
   {
-    "item_id": "8c59eba03f7d6d58",
+    "item_id": "c4960bc6a0f47fd8",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Instacart: Detection Engineer II",
-    "link": "https://weworkremotely.com/remote-jobs/instacart-detection-engineer-ii",
-    "summary": "Headquarters: Canada - Remote (ON, AB, BC, or NS Only) We're transforming the grocery industry At Instacart, we invite the world to share love through food because we believe everyone should have access to the food they love and more time\u2026",
+    "title": "Upstart: Lead Legal Counsel - HELOC",
+    "link": "https://weworkremotely.com/remote-jobs/upstart-lead-legal-counsel-heloc",
+    "summary": "Headquarters: United States | Remote About Upstart At Upstart, we\u2019re united by a mission that matters: to radically reduce the cost and complexity of borrowing for all Americans. Every day, we bring creativity, experimentation, and advance\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:33:00 +0000",
-    "published_iso": "2026-11-25T18:33:00+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:41 +0000",
+    "published_iso": "2026-11-26T06:02:41+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2042,19 +2302,16 @@
     "deadline": ""
   },
   {
-    "item_id": "5a9642acccb909c0",
+    "item_id": "54fcb659e5af645b",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Software Engineer, Data Feeds",
-    "link": "https://cryptojobslist.com/jobs/software-engineer-data-feeds-brazil-brazil-argentina-colombia-at-chainlink-labs",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Engineering Jobs \u2022 Cryptocurrency Backend Jobs \u2022 Web3 Smart Contract Jobs \u2022 Web3 Golang Jobs \u2022 Web3 Remote Jobs \u2022 Cryptocurrency Web3 Jobs About Chainlink Chainlink is the industry-standard oracle platform brin\u2026",
+    "title": "Creative Strategist & Producer - Consumer",
+    "link": "https://cryptojobslist.com/jobs/creative-strategist-producer-united-states-at-kraken",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Content Marketing Jobs \u2022 Cryptocurrency Copywriter Jobs \u2022 Blockchain Remote Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Blockchain Web3 Jobs Building the Future of Open Finance Payward - the parent company behind Kr\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain",
-      "smart contract",
-      "software engineer",
-      "backend"
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
@@ -2062,18 +2319,18 @@
     "deadline": ""
   },
   {
-    "item_id": "1a2a7cd488b7b4ce",
+    "item_id": "273cb50b6b2451a9",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "GitLab: Candidate Experience Specialist, Contractor (AUS)",
-    "link": "https://weworkremotely.com/remote-jobs/gitlab-candidate-experience-specialist-contractor-aus",
-    "summary": "Headquarters: Remote, Australia GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accel\u2026",
+    "title": "6sense: Head of Technology & Data Partnerships",
+    "link": "https://weworkremotely.com/remote-jobs/6sense-head-of-technology-data-partnerships",
+    "summary": "Headquarters: United States, Remote Our Mission: 6sense's mission is to multiply what matters: growth, retention, and efficiency. We envision a future where companies, teams and people reach their full potential. Our People: People are the\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:33:00 +0000",
-    "published_iso": "2026-11-25T18:33:00+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:38 +0000",
+    "published_iso": "2026-11-26T06:02:38+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2094,18 +2351,16 @@
     "deadline": ""
   },
   {
-    "item_id": "c0007d7eae457c46",
+    "item_id": "f0d480c714b4577a",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Software Engineer, Fiat Payments & Banking Infrastructure",
-    "link": "https://cryptojobslist.com/jobs/senior-software-engineer-fiat-payments-united-states-remote-any-location-at-zerohash",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Senior Jobs \u2022 Blockchain Golang Jobs \u2022 Blockchain Backend Jobs \u2022 Web3 Engineering Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Web3 Stablecoin Jobs About the Job zerohash is looking for a Senior+ Soft\u2026",
+    "title": "Senior Database Administrator - Core Infrastructure",
+    "link": "https://cryptojobslist.com/jobs/senior-database-administrator-core-european-union-united-arab-emirates-at-kraken",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Sysadmin Jobs \u2022 Web3 DevOps Jobs \u2022 Cryptocurrency SRE Jobs \u2022 Web3 Engineering Jobs \u2022 Web3 Full Time Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Web3 Jobs Building the Future of Open Finance Payward - the parent company behi\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain",
-      "software engineer",
-      "backend"
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
@@ -2113,18 +2368,18 @@
     "deadline": ""
   },
   {
-    "item_id": "1f1028569cba3a41",
+    "item_id": "8dd401a691b25986",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Coinbase: Engineering Manager, FinHub - Financial Intelligence (Platform)",
-    "link": "https://weworkremotely.com/remote-jobs/coinbase-engineering-manager-finhub-financial-intelligence-platform",
-    "summary": "Headquarters: Remote - USA Ready to do the most impactful work of your career? Coinbase is building the future of finance for people, institutions and their agents, with one place to trade crypto, equities, derivatives and prediction marke\u2026",
+    "title": "Affirm: Compliance Manager, Card",
+    "link": "https://weworkremotely.com/remote-jobs/affirm-compliance-manager-card-1",
+    "summary": "Headquarters: Remote Canada At Affirm, we exist for the moments that matter\u2014giving people a clear, predictable way to pay over time, with no hidden fees, no surprises, and no tradeoffs on what matters most. About the Legal, Compliance, and\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:53 +0000",
-    "published_iso": "2026-11-25T18:32:53+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:34 +0000",
+    "published_iso": "2026-11-26T06:02:34+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2148,17 +2403,16 @@
     "deadline": ""
   },
   {
-    "item_id": "8b2aef953a14e788",
+    "item_id": "4414972067a6ee02",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "FinCrime Analyst",
-    "link": "https://cryptojobslist.com/jobs/fincrime-analyst-buenos-aires-argentina-colombia-at-arq",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Compliance Jobs \u2022 Web3 Aml Jobs \u2022 Cryptocurrency Customer Support Jobs \u2022 Blockchain Full Time Jobs \u2022 Blockchain Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Blockchain Stablecoin Jobs About ARQ ARQ is one of th\u2026",
+    "title": "Web3 Business Development",
+    "link": "https://cryptojobslist.com/jobs/web3-business-development-europe-remote-remote-europe-dubai-at-certik",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Business Development Jobs \u2022 Web3 Contract Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Web3 Jobs About the Company Born from groundbreaking research at Columbia University and Yale University, CertiK is a leading W\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain",
-      "analyst"
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
@@ -2166,18 +2420,18 @@
     "deadline": ""
   },
   {
-    "item_id": "7ea2e395c5a7d9c3",
+    "item_id": "ae2379cd5c78d5a3",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "GitLab: Business Development Representative, Australia",
-    "link": "https://weworkremotely.com/remote-jobs/gitlab-business-development-representative-australia",
-    "summary": "Headquarters: Remote, Australia GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accel\u2026",
+    "title": "6sense: Director, Revenue Accounting",
+    "link": "https://weworkremotely.com/remote-jobs/6sense-director-revenue-accounting",
+    "summary": "Headquarters: United States, Remote Our Mission: 6sense's mission is to multiply what matters: growth, retention, and efficiency. We envision a future where companies, teams and people reach their full potential. Our People: People are the\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:53 +0000",
-    "published_iso": "2026-11-25T18:32:53+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:34 +0000",
+    "published_iso": "2026-11-26T06:02:34+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2198,13 +2452,13 @@
     "deadline": "27 November 2026"
   },
   {
-    "item_id": "54fcb659e5af645b",
+    "item_id": "df50aa6738683014",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Creative Strategist & Producer - Consumer",
-    "link": "https://cryptojobslist.com/jobs/creative-strategist-producer-united-states-at-kraken",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Content Marketing Jobs \u2022 Blockchain Copywriter Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Cryptocurrency Web3 Jobs Building the Future of Open Finance Payward - the parent company behind Kraken, NinjaTrader, Bre\u2026",
+    "title": "Director of Research",
+    "link": "https://cryptojobslist.com/jobs/director-of-research-at-stellar-development-foundation",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Blockchain Research Jobs \u2022 Blockchain Non Tech Jobs \u2022 Web3 Phd Jobs \u2022 Blockchain Senior Jobs \u2022 Cryptocurrency Director Jobs \u2022 Web3 Community Jobs \u2022 Blockchain Cryptography J\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
@@ -2215,18 +2469,18 @@
     "deadline": ""
   },
   {
-    "item_id": "4f13933deac1ce23",
+    "item_id": "560abf5466778c25",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Coinbase: Director, Credit Risk",
-    "link": "https://weworkremotely.com/remote-jobs/coinbase-director-credit-risk",
-    "summary": "Headquarters: Remote - USA Ready to do the most impactful work of your career? Coinbase is building the future of finance for people, institutions and their agents, with one place to trade crypto, equities, derivatives and prediction marke\u2026",
+    "title": "Justworks: Senior Account Executive - In-Territory (SF/Bay Area, LA, Orange County, San Diego)",
+    "link": "https://weworkremotely.com/remote-jobs/justworks-senior-account-executive-in-territory-sf-bay-area-la-orange-county-san-diego",
+    "summary": "Headquarters: Remote - U.S.A. Who We Are At Justworks, you\u2019ll enjoy a welcoming and casual environment, great benefits, wellness program offerings, company retreats, and the ability to interact with and learn from leaders in the startup co\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:53 +0000",
-    "published_iso": "2026-11-25T18:32:53+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:32 +0000",
+    "published_iso": "2026-11-26T06:02:32+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2247,13 +2501,13 @@
     "deadline": "January 15, 2027"
   },
   {
-    "item_id": "f0d480c714b4577a",
+    "item_id": "a171f3867cbd0b8f",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Database Administrator - Core Infrastructure",
-    "link": "https://cryptojobslist.com/jobs/senior-database-administrator-core-european-union-united-arab-emirates-at-kraken",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Sysadmin Jobs \u2022 Cryptocurrency DevOps Jobs \u2022 Blockchain SRE Jobs \u2022 Blockchain Engineering Jobs \u2022 Blockchain Full Time Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Web3 Jobs Building the Future of Open Finance P\u2026",
+    "title": "Executive Assistant",
+    "link": "https://cryptojobslist.com/jobs/executive-assistant-new-york-united-states-at-chainlink-labs",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Web3 Executive Jobs \u2022 Cryptocurrency Compliance Jobs \u2022 Blockchain Senior Jobs \u2022 Blockchain Security Jobs \u2022 Cryptocurrency Swift Jobs \u2022 Web3 Startup Jobs \u2022 Cryptocurrency DeF\u2026",
     "matched_keywords": [
       "web3",
       "blockchain"
@@ -2264,18 +2518,18 @@
     "deadline": ""
   },
   {
-    "item_id": "591de4914103179f",
+    "item_id": "7d91ab112f153f25",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Anthropic: Community Engagement Manager, Data Centres (Canada)",
-    "link": "https://weworkremotely.com/remote-jobs/anthropic-community-engagement-manager-data-centres-canada",
-    "summary": "Headquarters: Alberta, CAN | Remote-Friendly, Canada About Anthropic Anthropic\u2019s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our tea\u2026",
+    "title": "ZoomInfo Technologies LLC: Technical Support Engineer",
+    "link": "https://weworkremotely.com/remote-jobs/zoominfo-technologies-llc-technical-support-engineer",
+    "summary": "Headquarters: Remote ZoomInfo is where careers accelerate. We move fast, think boldly, and empower you to do the best work of your life. You\u2019ll be surrounded by teammates who care deeply, challenge each other, and celebrate wins. With tool\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:52 +0000",
-    "published_iso": "2026-11-25T18:32:52+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:32 +0000",
+    "published_iso": "2026-11-26T06:02:32+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2298,15 +2552,18 @@
     "deadline": ""
   },
   {
-    "item_id": "4414972067a6ee02",
+    "item_id": "1314b96803eeb614",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Web3 Business Development",
-    "link": "https://cryptojobslist.com/jobs/web3-business-development-europe-remote-remote-europe-dubai-at-certik",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Business Development Jobs \u2022 Web3 Contract Jobs \u2022 Web3 Remote Jobs \u2022 Cryptocurrency Web3 Jobs About the Company Born from groundbreaking research at Columbia University and Yale University, CertiK is a leadi\u2026",
+    "title": "Smart Contract Auditor \u2014 Rust",
+    "link": "https://cryptojobslist.com/jobs/smart-contract-auditor-rust-remote-at-sigintzero",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Cryptocurrency Rust Jobs \u2022 Blockchain Solana Jobs \u2022 Cryptocurrency Security Jobs \u2022 Cryptocurrency Contract Jobs \u2022 Web3 Smart Contract Jobs \u2022 Cryptocurrency Full Time Job\u2026",
     "matched_keywords": [
-      "web3"
+      "rust",
+      "web3",
+      "blockchain",
+      "smart contract"
     ],
     "published": "",
     "published_iso": "",
@@ -2314,18 +2571,18 @@
     "deadline": ""
   },
   {
-    "item_id": "3c744580dc8b8df8",
+    "item_id": "089531ce370e7b22",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Oportun: Sr. Manager, Bank Partner Program Management (R14382)",
-    "link": "https://weworkremotely.com/remote-jobs/oportun-sr-manager-bank-partner-program-management-r14382",
-    "summary": "Headquarters: Remote - US Who We Are Oportun (Nasdaq: OPRT) is a mission-driven financial services company that puts its members' financial goals within reach. With intelligent borrowing, savings, and budgeting capabilities, Oportun empowe\u2026",
+    "title": "Justworks: Project Manager, Financial Benefits",
+    "link": "https://weworkremotely.com/remote-jobs/justworks-project-manager-financial-benefits",
+    "summary": "Headquarters: Remote - U.S.A. Who We Are At Justworks, you\u2019ll enjoy a welcoming and casual environment, great benefits, wellness program offerings, company retreats, and the ability to interact with and learn from leaders in the startup co\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:43 +0000",
-    "published_iso": "2026-11-25T18:32:43+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:29 +0000",
+    "published_iso": "2026-11-26T06:02:29+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2346,35 +2603,40 @@
     "deadline": "January 31, 2027"
   },
   {
-    "item_id": "df50aa6738683014",
+    "item_id": "23d1fa47dcb718e1",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Director of Research",
-    "link": "https://cryptojobslist.com/jobs/director-of-research-at-stellar-development-foundation",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Cryptocurrency Research Jobs \u2022 Cryptocurrency Non Tech Jobs \u2022 Cryptocurrency Phd Jobs \u2022 Cryptocurrency Senior Jobs \u2022 Blockchain Director Jobs \u2022 Web3 Community Jobs \u2022 Blo\u2026",
+    "title": "Blockchain Security Expert Intern - AI Track",
+    "link": "https://cryptojobslist.com/jobs/blockchain-security-expert-intern-ai-new-york-new-york-remote-at-certik",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Web3 Research Jobs \u2022 Web3 Developer Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Web3 Phd Jobs \u2022 Web3 Sales Jobs \u2022 Cryptocurrency Polygon Jobs \u2022 Blockchain Entry Level Jobs \u2022 Web3 B\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain"
+      "blockchain",
+      "developer",
+      "intern"
     ],
     "published": "",
     "published_iso": "",
-    "badges": [],
+    "badges": [
+      "\ud83d\udfe2 Entry / Intern"
+    ],
     "deadline": ""
   },
   {
-    "item_id": "994b380ab7c31bea",
+    "item_id": "831625aa6e891809",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Bybit: Country Manager, Germany",
-    "link": "https://weworkremotely.com/remote-jobs/bybit-country-manager-germany",
-    "summary": "Headquarters: Germany - Remote About Us Established in 2018, Bybit is one of the world\u2019s leading cryptocurrency exchanges and digital financial platforms, serving over 90 million users across more than 200 countries and regions. Powered by\u2026",
+    "title": "ZoomInfo Technologies LLC: Senior Software Engineer (Java)- US Remote",
+    "link": "https://weworkremotely.com/remote-jobs/zoominfo-technologies-llc-senior-software-engineer-java-us-remote",
+    "summary": "Headquarters: Remote-US-DC; Remote-US-MD; Remote-US-VA ZoomInfo is where careers accelerate. We move fast, think boldly, and empower you to do the best work of your life. You\u2019ll be surrounded by teammates who care deeply, challenge each ot\u2026",
     "matched_keywords": [
-      "remote"
+      "remote",
+      "software engineer"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:43 +0000",
-    "published_iso": "2026-11-25T18:32:43+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:29 +0000",
+    "published_iso": "2026-11-26T06:02:29+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2395,16 +2657,19 @@
     "deadline": "29 November 2026"
   },
   {
-    "item_id": "a171f3867cbd0b8f",
+    "item_id": "67524787b8a0fc0d",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Executive Assistant",
-    "link": "https://cryptojobslist.com/jobs/executive-assistant-new-york-united-states-at-chainlink-labs",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Cryptocurrency Executive Jobs \u2022 Web3 Compliance Jobs \u2022 Web3 Senior Jobs \u2022 Cryptocurrency Security Jobs \u2022 Web3 Swift Jobs \u2022 Blockchain Startup Jobs \u2022 Cryptocurrency D\u2026",
+    "title": "Site Reliability Engineer",
+    "link": "https://cryptojobslist.com/jobs/site-reliability-engineer-at-anagram",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Blockchain Developer Jobs \u2022 Cryptocurrency Engineering Jobs \u2022 Blockchain Rust Jobs \u2022 Web3 Python Jobs \u2022 Cryptocurrency Solana Jobs \u2022 Blockchain Security Jobs \u2022 Cryptocur\u2026",
     "matched_keywords": [
+      "rust",
       "web3",
-      "blockchain"
+      "blockchain",
+      "python",
+      "developer"
     ],
     "published": "",
     "published_iso": "",
@@ -2412,18 +2677,18 @@
     "deadline": ""
   },
   {
-    "item_id": "e79663c1932848ad",
+    "item_id": "6e5027d367ebd91c",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Anthropic: Community Engagement Manager, Data Centres (Australia)",
-    "link": "https://weworkremotely.com/remote-jobs/anthropic-community-engagement-manager-data-centres-australia",
-    "summary": "Headquarters: Sydney, Australia | Remote-Friendly, Australia About Anthropic Anthropic\u2019s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole.\u2026",
+    "title": "Dropbox: Integrated Campaign Strategist",
+    "link": "https://weworkremotely.com/remote-jobs/dropbox-integrated-campaign-strategist",
+    "summary": "Headquarters: Remote - US: Select locations Role Description Dropbox is hiring an Integrated Campaign Strategist to architect and orchestrate marketing campaigns for priority product launches and evergreen marketing motions. This role turn\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:43 +0000",
-    "published_iso": "2026-11-25T18:32:43+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:20 +0000",
+    "published_iso": "2026-11-26T06:02:20+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2446,18 +2711,19 @@
     "deadline": "December 6, 2026"
   },
   {
-    "item_id": "1314b96803eeb614",
+    "item_id": "f765446c32061581",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Smart Contract Auditor \u2014 Rust",
-    "link": "https://cryptojobslist.com/jobs/smart-contract-auditor-rust-remote-at-sigintzero",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Cryptocurrency Rust Jobs \u2022 Cryptocurrency Solana Jobs \u2022 Cryptocurrency Security Jobs \u2022 Web3 Contract Jobs \u2022 Cryptocurrency Smart Contract Jobs \u2022 Blockchain Full Time Jobs We a\u2026",
+    "title": "Senior Build/Release/CI Engineer",
+    "link": "https://cryptojobslist.com/jobs/senior-build-release-ci-engineer-remote-in-americas-at-brave",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Blockchain Research Jobs \u2022 Web3 Developer Jobs \u2022 Web3 Engineering Jobs \u2022 Cryptocurrency Rust Jobs \u2022 Blockchain Python Jobs \u2022 Web3 Senior Jobs \u2022 Web3 Security Jobs \u2022 Web3\u2026",
     "matched_keywords": [
       "rust",
       "web3",
       "blockchain",
-      "smart contract"
+      "python",
+      "developer"
     ],
     "published": "",
     "published_iso": "",
@@ -2465,18 +2731,18 @@
     "deadline": ""
   },
   {
-    "item_id": "84c384bae3b82bec",
+    "item_id": "ab4ea7fc52bbf4f7",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Bybit: Asset/Wallet Operations",
-    "link": "https://weworkremotely.com/remote-jobs/bybit-asset-wallet-operations",
-    "summary": "Headquarters: Abu Dhabi, UAE; Europe - Remote; Hong Kong SAR About Us Established in 2018, Bybit is one of the world\u2019s leading cryptocurrency exchanges and digital financial platforms, serving over 90 million users across more than 200 cou\u2026",
+    "title": "Maven Clinic: Resolution Response Specialist",
+    "link": "https://weworkremotely.com/remote-jobs/maven-clinic-resolution-response-specialist",
+    "summary": "Headquarters: Remote Maven Clinic is the world's largest virtual clinic for women and families on a mission to make healthcare work for all of us. Through Maven Enterprise, the company partners with more than 2,300 employers and health pla\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:43 +0000",
-    "published_iso": "2026-11-25T18:32:43+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:20 +0000",
+    "published_iso": "2026-11-26T06:02:20+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2497,39 +2763,39 @@
     "deadline": "December 15, 2026"
   },
   {
-    "item_id": "23d1fa47dcb718e1",
+    "item_id": "81ba4bb38ac34522",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Blockchain Security Expert Intern - AI Track",
-    "link": "https://cryptojobslist.com/jobs/blockchain-security-expert-intern-ai-new-york-new-york-remote-at-certik",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Web3 Research Jobs \u2022 Cryptocurrency Developer Jobs \u2022 Web3 Full Time Jobs \u2022 Blockchain Phd Jobs \u2022 Web3 Sales Jobs \u2022 Blockchain Polygon Jobs \u2022 Cryptocurrency Entry Lev\u2026",
+    "title": "Ecosystem Engineer",
+    "link": "https://cryptojobslist.com/jobs/ecosystem-engineer-ritual-remote",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Web3 Web3 Jobs \u2022 Cryptocurrency Developer Jobs \u2022 Blockchain Engineering Jobs \u2022 Cryptocurrency Typescript Jobs \u2022 Blockchain Python Jobs \u2022 Web3 Content Jobs \u2022 Blockchain Operations Jobs \u2022 Blockchain\u2026",
     "matched_keywords": [
       "web3",
       "blockchain",
-      "developer",
-      "intern"
+      "python",
+      "typescript",
+      "developer"
     ],
     "published": "",
     "published_iso": "",
-    "badges": [
-      "\ud83d\udfe2 Entry / Intern"
-    ],
+    "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "e25f71e909568333",
+    "item_id": "05c83782f002e0e6",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Tebra: Senior Events Marketing Manager",
-    "link": "https://weworkremotely.com/remote-jobs/tebra-senior-events-marketing-manager",
-    "summary": "Headquarters: United States - Remote Tebra only initiates contact with candidates via email from an official Tebra email address (@ tebra.com , @ patientpop.com , or @ kareo.com ) or through our applicant tracking system, Greenhouse. We wi\u2026",
+    "title": "Dropbox: Infrastructure Software Engineer, Orchestration",
+    "link": "https://weworkremotely.com/remote-jobs/dropbox-infrastructure-software-engineer-orchestration",
+    "summary": "Headquarters: Remote - Poland Role Description As an Infrastructure Software Engineer on Dropbox\u2019s Orchestration team, you\u2019ll build and operate the platforms that help engineering teams run services reliably, efficiently, and at scale. The\u2026",
     "matched_keywords": [
-      "remote"
+      "remote",
+      "software engineer"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:43 +0000",
-    "published_iso": "2026-11-25T18:32:43+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:20 +0000",
+    "published_iso": "2026-11-26T06:02:20+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2553,18 +2819,19 @@
     "deadline": "20 January 2027"
   },
   {
-    "item_id": "67524787b8a0fc0d",
+    "item_id": "77b62fb7bcea95ea",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Site Reliability Engineer",
-    "link": "https://cryptojobslist.com/jobs/site-reliability-engineer-at-anagram",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Blockchain Developer Jobs \u2022 Blockchain Engineering Jobs \u2022 Blockchain Rust Jobs \u2022 Blockchain Python Jobs \u2022 Cryptocurrency Solana Jobs \u2022 Cryptocurrency Security Jobs \u2022 Blockchain De\u2026",
+    "title": "Frontend Engineer",
+    "link": "https://cryptojobslist.com/jobs/frontend-engineer-ritual-remote",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Cryptocurrency Developer Jobs \u2022 Blockchain Typescript Jobs \u2022 Blockchain React Jobs \u2022 Web3 Operations Jobs \u2022 Web3 EVM Jobs \u2022 Web3 Startup Jobs \u2022 Cryptocurrency DeFi Jobs \u2022 Cr\u2026",
     "matched_keywords": [
-      "rust",
       "web3",
       "blockchain",
-      "python",
+      "defi",
+      "frontend",
+      "typescript",
       "developer"
     ],
     "published": "",
@@ -2573,18 +2840,18 @@
     "deadline": ""
   },
   {
-    "item_id": "918d8a79a4676e3e",
+    "item_id": "3583b0d2626d3070",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Abnormal: Channel Enablement Manager",
-    "link": "https://weworkremotely.com/remote-jobs/abnormal-channel-enablement-manager",
-    "summary": "Headquarters: Remote - USA About the Role Through the channel, a great product only wins when the partner knows how to sell it. At Abnormal, we want every partner ready to lead with the whole platform. Abnormal is a channel-first company:\u2026",
+    "title": "Sumo Logic: Partner Marketing Program Manager",
+    "link": "https://weworkremotely.com/remote-jobs/sumo-logic-partner-marketing-program-manager",
+    "summary": "Headquarters: Remote USA Sumo Logic is seeking a highly organized, analytical, and process-driven Partner Marketing Program Manager to support the growth and operational effectiveness of our global partner marketing organization. This role\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:32 +0000",
-    "published_iso": "2026-11-25T18:32:32+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:20 +0000",
+    "published_iso": "2026-11-26T06:02:20+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2605,18 +2872,18 @@
     "deadline": ""
   },
   {
-    "item_id": "f765446c32061581",
+    "item_id": "e544e45b3ed03f60",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Build/Release/CI Engineer",
-    "link": "https://cryptojobslist.com/jobs/senior-build-release-ci-engineer-remote-in-americas-at-brave",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Web3 Research Jobs \u2022 Blockchain Developer Jobs \u2022 Web3 Engineering Jobs \u2022 Web3 Rust Jobs \u2022 Blockchain Python Jobs \u2022 Blockchain Senior Jobs \u2022 Web3 Security Jobs \u2022 Web3 Operation\u2026",
+    "title": "Senior Software Engineer",
+    "link": "https://cryptojobslist.com/jobs/senior-software-engineer-remote-canada-at-shakepay-1",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Web3 Developer Jobs \u2022 Cryptocurrency Non Tech Jobs \u2022 Cryptocurrency Typescript Jobs \u2022 Blockchain React Jobs \u2022 Web3 Senior Jobs \u2022 Cryptocurrency React Native Jobs \u2022 B\u2026",
     "matched_keywords": [
-      "rust",
       "web3",
       "blockchain",
-      "python",
+      "software engineer",
+      "typescript",
       "developer"
     ],
     "published": "",
@@ -2625,18 +2892,18 @@
     "deadline": ""
   },
   {
-    "item_id": "35055c921a746558",
+    "item_id": "292e5199573c1087",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Tebra: Manager, GTM Engineering (TAM & Outbound)",
-    "link": "https://weworkremotely.com/remote-jobs/tebra-manager-gtm-engineering-tam-outbound",
-    "summary": "Headquarters: United States - Remote Tebra only initiates contact with candidates via email from an official Tebra email address (@ tebra.com , @ patientpop.com , or @ kareo.com ) or through our applicant tracking system, Greenhouse. We wi\u2026",
+    "title": "Maven Clinic: Regional Vice President, Taft-Hartley & Labor",
+    "link": "https://weworkremotely.com/remote-jobs/maven-clinic-regional-vice-president-taft-hartley-labor",
+    "summary": "Headquarters: Remote Maven Clinic is the world's largest virtual clinic for women and families on a mission to make healthcare work for all of us. Through Maven Enterprise, the company partners with more than 2,300 employers and health pla\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:32 +0000",
-    "published_iso": "2026-11-25T18:32:32+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:20 +0000",
+    "published_iso": "2026-11-26T06:02:20+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2661,18 +2928,16 @@
     "deadline": "December 15th, 2026"
   },
   {
-    "item_id": "81ba4bb38ac34522",
+    "item_id": "7738aebef75c0321",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Ecosystem Engineer",
-    "link": "https://cryptojobslist.com/jobs/ecosystem-engineer-ritual-remote",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Web3 Jobs \u2022 Cryptocurrency Developer Jobs \u2022 Web3 Engineering Jobs \u2022 Blockchain Typescript Jobs \u2022 Web3 Python Jobs \u2022 Web3 Content Jobs \u2022 Cryptocurrency Operations Jobs \u2022 Web3 EVM Jobs \u2022 Blockchain S\u2026",
+    "title": "Head of Business Development \u2013 Shelby Platform",
+    "link": "https://cryptojobslist.com/jobs/head-of-business-development-shelby-us-global-remote-at-aptos",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Web3 Jobs \u2022 Blockchain Developer Jobs \u2022 Cryptocurrency Marketing Jobs \u2022 Blockchain Engineering Jobs \u2022 Web3 Business Development Jobs \u2022 Blockchain Security Jobs \u2022 Blockchain Open Source Jo\u2026",
     "matched_keywords": [
       "web3",
       "blockchain",
-      "python",
-      "typescript",
       "developer"
     ],
     "published": "",
@@ -2681,18 +2946,18 @@
     "deadline": ""
   },
   {
-    "item_id": "da656c196f7cd0b7",
+    "item_id": "9f442e4cfcbfe9a5",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Abnormal: Art Director",
-    "link": "https://weworkremotely.com/remote-jobs/abnormal-art-director",
-    "summary": "Headquarters: Remote - USA About the Role Abnormal is built to look and feel like nothing else in security: precision-engineered, a little rebellious, and a few steps ahead of now. We protect more than 5,000 customers, including 30% of the\u2026",
+    "title": "Smartsheet: Senior Product Manager I (Remote Eligible)",
+    "link": "https://weworkremotely.com/remote-jobs/smartsheet-senior-product-manager-i-remote-eligible",
+    "summary": "Headquarters: -REMOTE, USA- For over 20 years, Smartsheet has empowered teams to manage work seamlessly and scale solutions smarter. Now, in our most ambitious chapter yet, we are uniting human teams with AI agents. By orchestrating the wo\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:26 +0000",
-    "published_iso": "2026-11-25T18:32:26+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:20 +0000",
+    "published_iso": "2026-11-26T06:02:20+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2717,20 +2982,16 @@
     "deadline": "December 6, 2026"
   },
   {
-    "item_id": "77b62fb7bcea95ea",
+    "item_id": "785967a4445f8c9e",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Frontend Engineer",
-    "link": "https://cryptojobslist.com/jobs/frontend-engineer-ritual-remote",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Blockchain Developer Jobs \u2022 Web3 Typescript Jobs \u2022 Cryptocurrency React Jobs \u2022 Cryptocurrency Operations Jobs \u2022 Blockchain EVM Jobs \u2022 Blockchain Startup Jobs \u2022 Web3 DeFi Job\u2026",
+    "title": "Community Manager, Korea",
+    "link": "https://cryptojobslist.com/jobs/community-manager-korea-aptos-foundation-remote",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Blockchain Marketing Jobs \u2022 Blockchain Non Tech Jobs \u2022 Web3 Social Media Jobs \u2022 Cryptocurrency Content Jobs \u2022 Blockchain Community Manager Jobs \u2022 Blockchain Community Jobs \u2022 B\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain",
-      "defi",
-      "frontend",
-      "typescript",
-      "developer"
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
@@ -2738,18 +2999,18 @@
     "deadline": ""
   },
   {
-    "item_id": "37e7687a2baaaa66",
+    "item_id": "d10e662082ab7654",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Fivetran : Partner Sales Manager",
-    "link": "https://weworkremotely.com/remote-jobs/fivetran-partner-sales-manager",
-    "summary": "Headquarters: Remote, California, United States, AMER From Fivetran\u2019s founding until now, our mission has remained the same: to make access to data as simple and reliable as electricity. With Fivetran, customer data arrives in their wareho\u2026",
+    "title": "Rubrik Job Board: GSI Account Executive - LTM/HCL",
+    "link": "https://weworkremotely.com/remote-jobs/rubrik-job-board-gsi-account-executive-ltm-hcl",
+    "summary": "Headquarters: Remote - New Jersey Serve as the day-to-day business development lead for Rubrik's partnerships with LTIMindtree and HCLTech in the Americas. Drive partner-sourced and partner-influenced pipeline by connecting each GSI's acco\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:26 +0000",
-    "published_iso": "2026-11-25T18:32:26+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:10 +0000",
+    "published_iso": "2026-11-26T06:02:10+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2773,39 +3034,41 @@
     "deadline": ""
   },
   {
-    "item_id": "e544e45b3ed03f60",
+    "item_id": "f51fc1a8439f14ba",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Software Engineer",
-    "link": "https://cryptojobslist.com/jobs/senior-software-engineer-remote-canada-at-shakepay-1",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Blockchain Developer Jobs \u2022 Web3 Non Tech Jobs \u2022 Blockchain Typescript Jobs \u2022 Web3 React Jobs \u2022 Web3 Senior Jobs \u2022 Blockchain React Native Jobs \u2022 Blockchain Communit\u2026",
+    "title": "Founding Senior Messenger Engineer",
+    "link": "https://cryptojobslist.com/jobs/founding-cto-messenger-stablecoin-remote-at-ihsan",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Full Time Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Cto Jobs \u2022 Cryptocurrency Stablecoin Jobs \u2022 Cryptocurrency Developer Jobs Founding Senior Messenger Engineer \u2014 React Native, Go & Real-Time Systems Location: Remote Type\u2026",
     "matched_keywords": [
       "web3",
       "blockchain",
-      "software engineer",
-      "typescript",
       "developer"
     ],
     "published": "",
     "published_iso": "",
-    "badges": [],
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
     "deadline": ""
   },
   {
-    "item_id": "1e530109945e7124",
+    "item_id": "4e16151d40645e19",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Justworks: Account Executive - In-Territory (Tampa, Miami, Orlando, Sarasota)",
-    "link": "https://weworkremotely.com/remote-jobs/justworks-account-executive-in-territory-tampa-miami-orlando-sarasota",
-    "summary": "Headquarters: Remote - U.S.A. Who We Are At Justworks, you\u2019ll enjoy a welcoming and casual environment, great benefits, wellness program offerings, company retreats, and the ability to interact with and learn from leaders in the startup co\u2026",
+    "title": "Smartsheet: Product Readiness Manager (Remote eligible in Bulgaria)",
+    "link": "https://weworkremotely.com/remote-jobs/smartsheet-product-readiness-manager-remote-eligible-in-bulgaria",
+    "summary": "Headquarters: -REMOTE, BULGARIA- For over 20 years, Smartsheet has empowered teams to manage work seamlessly and scale solutions smarter. Now, in our most ambitious chapter yet, we are uniting human teams with AI agents. By orchestrating t\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:24 +0000",
-    "published_iso": "2026-11-25T18:32:24+00:00",
-    "badges": [],
+    "published": "Thu, 26 Nov 2026 06:02:10 +0000",
+    "published_iso": "2026-11-26T06:02:10+00:00",
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
     "deadline": ""
   },
   {
@@ -2828,41 +3091,41 @@
     "deadline": ""
   },
   {
-    "item_id": "7738aebef75c0321",
+    "item_id": "5b0c2bb3f35f6e15",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Head of Business Development \u2013 Shelby Platform",
-    "link": "https://cryptojobslist.com/jobs/head-of-business-development-shelby-us-global-remote-at-aptos",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Web3 Developer Jobs \u2022 Web3 Marketing Jobs \u2022 Cryptocurrency Engineering Jobs \u2022 Blockchain Business Development Jobs \u2022 Blockchain Security Jobs \u2022 Cryptocurrency Open Source Jo\u2026",
+    "title": "Senior Smart Contract Engineer \u2014 Ihsan Gold Token",
+    "link": "https://cryptojobslist.com/jobs/founding-payments-engineer-backend-remote-at-ihsan-pay-1",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Developer Jobs \u2022 Web3 Backend Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Full Time Jobs Location: Remote Type: Full-time Company: Ihsan Product: Ihsan Gold Token Website: https://ihsan.com/ Instagram: https\u2026",
     "matched_keywords": [
       "web3",
       "blockchain",
+      "smart contract",
+      "backend",
       "developer"
     ],
     "published": "",
     "published_iso": "",
-    "badges": [],
+    "badges": [
+      "\ud83c\udf0d Worldwide"
+    ],
     "deadline": ""
   },
   {
-    "item_id": "bd114266085a48b5",
+    "item_id": "79a66af7125a8543",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Sezzle: Junior Software Engineer with Accounting Experience (Argentina)",
-    "link": "https://weworkremotely.com/remote-jobs/sezzle-junior-software-engineer-with-accounting-experience-argentina",
-    "summary": "Headquarters: Argentina, Remote The salary range for this role is $1,500 - $4,000 per month (Gross in USD) About Sezzle: With a mission to financially empower the next generation, Sezzle is revolutionizing the shopping experience beyond pa\u2026",
+    "title": "Rubrik Job Board: Global Solutions Architect",
+    "link": "https://weworkremotely.com/remote-jobs/rubrik-job-board-global-solutions-architect",
+    "summary": "Headquarters: USA , Remote About the role Rubrik Professional Services is hiring a Global Solutions Architect to serve as our most senior technical authority for public cloud. This is a global, individual-contributor role at Technical Dire\u2026",
     "matched_keywords": [
-      "remote",
-      "junior",
-      "software engineer"
+      "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:24 +0000",
-    "published_iso": "2026-11-25T18:32:24+00:00",
-    "badges": [
-      "\ud83d\udfe2 Entry / Intern"
-    ],
+    "published": "Thu, 26 Nov 2026 06:02:04 +0000",
+    "published_iso": "2026-11-26T06:02:04+00:00",
+    "badges": [],
     "deadline": ""
   },
   {
@@ -2884,16 +3147,18 @@
     "deadline": ""
   },
   {
-    "item_id": "785967a4445f8c9e",
+    "item_id": "2360cd55f48f72bd",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Community Manager, Korea",
-    "link": "https://cryptojobslist.com/jobs/community-manager-korea-aptos-foundation-remote",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Web3 Jobs \u2022 Blockchain Marketing Jobs \u2022 Web3 Non Tech Jobs \u2022 Web3 Social Media Jobs \u2022 Blockchain Content Jobs \u2022 Blockchain Community Manager Jobs \u2022 Cryptocurrency Community Jobs \u2022 Web3 Discord Jobs\u2026",
+    "title": "Quantitative Developer C++",
+    "link": "https://cryptojobslist.com/jobs/quantitative-developer-c-at-wintermute-london",
+    "summary": "Tags: Web3 Jobs \u2022 Web3 Remote Jobs \u2022 Web3 Trading Jobs \u2022 Web3 Developer Jobs \u2022 Cryptocurrency DeFi Jobs \u2022 Cryptocurrency Finance Jobs \u2022 Blockchain Data Jobs About Wintermute Wintermute is a leading market maker of digital assets globally.\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain"
+      "blockchain",
+      "defi",
+      "developer"
     ],
     "published": "",
     "published_iso": "",
@@ -2901,18 +3166,19 @@
     "deadline": ""
   },
   {
-    "item_id": "69c5764cabec035e",
+    "item_id": "f677733f53e2bcf7",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Clover Health: Inpatient Coding Specialist",
-    "link": "https://weworkremotely.com/remote-jobs/clover-health-inpatient-coding-specialist",
-    "summary": "Headquarters: Remote - USA The Payment Integrity team is a group of innovative thinkers sitting at the intersection of Clover's provider Network, Claims, and Tech teams. The Payment Integrity team ensures that Clover pays claims in an accu\u2026",
+    "title": "Customer.io: Senior Software Engineer, Product/AI",
+    "link": "https://weworkremotely.com/remote-jobs/customer-io-senior-software-engineer-product-ai",
+    "summary": "Headquarters: Americas Remote Hi, I\u2019m Paul, VP of Engineering at Customer.io . We\u2019re looking for curious, driven Fullstack (Product) Engineers who want to own big things and delight our customers. You\u2019ll design, build, and ship the core pr\u2026",
     "matched_keywords": [
-      "remote"
+      "remote",
+      "software engineer"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:22 +0000",
-    "published_iso": "2026-11-25T18:32:22+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:04 +0000",
+    "published_iso": "2026-11-26T06:02:04+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2935,38 +3201,34 @@
     "deadline": ""
   },
   {
-    "item_id": "f51fc1a8439f14ba",
+    "item_id": "ec374c1a172492f9",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Founding Senior Messenger Engineer",
-    "link": "https://cryptojobslist.com/jobs/founding-cto-messenger-stablecoin-remote-at-ihsan",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Full Time Jobs \u2022 Blockchain Remote Jobs \u2022 Web3 Cto Jobs \u2022 Blockchain Stablecoin Jobs \u2022 Cryptocurrency Developer Jobs Founding Senior Messenger Engineer \u2014 React Native, Go & Real-Time Systems Location: Remote Type: Fu\u2026",
+    "title": "Senior Security Operations Engineer",
+    "link": "https://cryptojobslist.com/jobs/senior-security-operations-engineer-tel-aviv-israel-at-paxos",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Security Jobs \u2022 Cryptocurrency Engineering Jobs \u2022 Cryptocurrency SRE Jobs \u2022 Web3 Ai Jobs \u2022 Web3 Full Time Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Web3 Jobs About Paxos Today\u2019s financial infrastru\u2026",
     "matched_keywords": [
-      "web3",
-      "blockchain",
-      "developer"
+      "web3"
     ],
     "published": "",
     "published_iso": "",
-    "badges": [
-      "\ud83c\udf0d Worldwide"
-    ],
+    "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "4b1acc2adbf58617",
+    "item_id": "7dee6e673ec64d7d",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Descript: Strategic Finance, GTM",
-    "link": "https://weworkremotely.com/remote-jobs/descript-strategic-finance-gtm",
-    "summary": "Headquarters: San Francisco, CA or Remote, US About the role Finance at Descript isn\u2019t a back office function. It\u2019s a strategic partner in shaping where and how we grow. This role exists to turn insight into leverage, helping the company m\u2026",
+    "title": "Wrike: Senior Manager, Competitive Intelligence & Positioning",
+    "link": "https://weworkremotely.com/remote-jobs/wrike-senior-manager-competitive-intelligence-positioning",
+    "summary": "Headquarters: US - Remote Wrike is the most powerful work management platform. Built for teams and organizations looking to collaborate, create, and exceed every day, Wrike brings everyone and all work into a single place to remove complex\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:22 +0000",
-    "published_iso": "2026-11-25T18:32:22+00:00",
+    "published": "Thu, 26 Nov 2026 06:02:04 +0000",
+    "published_iso": "2026-11-26T06:02:04+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -2989,40 +3251,35 @@
     "deadline": ""
   },
   {
-    "item_id": "5b0c2bb3f35f6e15",
+    "item_id": "c5180daa1ed23f84",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Smart Contract Engineer \u2014 Ihsan Gold Token",
-    "link": "https://cryptojobslist.com/jobs/founding-payments-engineer-backend-remote-at-ihsan-pay-1",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Developer Jobs \u2022 Cryptocurrency Backend Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Full Time Jobs Location: Remote Type: Full-time Company: Ihsan Product: Ihsan Gold Token Website: https://ihsan.com/ Instagram: h\u2026",
+    "title": "Senior Manager, Events Marketing",
+    "link": "https://cryptojobslist.com/jobs/senior-manager-events-marketing-new-york-united-states-at-chainlink-labs",
+    "summary": "Tags: Web3 Jobs \u2022 Blockchain Event Marketing Jobs \u2022 Blockchain Manager Jobs \u2022 Blockchain Lead Level Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Cryptocurrency Web3 Jobs About Chainlink Labs Chainlink Labs is one of\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain",
-      "smart contract",
-      "backend",
-      "developer"
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
-    "badges": [
-      "\ud83c\udf0d Worldwide"
-    ],
+    "badges": [],
     "deadline": ""
   },
   {
-    "item_id": "ecff5e94473a877b",
+    "item_id": "ec1675defbf4d74c",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Fivetran : Director, Enterprise Sales Field Operations, Americas",
-    "link": "https://weworkremotely.com/remote-jobs/fivetran-director-enterprise-sales-field-operations-americas",
-    "summary": "Headquarters: Remote, California, United States, AMER From Fivetran\u2019s founding until now, our mission has remained the same: to make access to data as simple and reliable as electricity. With Fivetran, customer data arrives in their wareho\u2026",
+    "title": "Reddit: International Payroll Analyst",
+    "link": "https://weworkremotely.com/remote-jobs/reddit-international-payroll-analyst",
+    "summary": "Headquarters: Remote - United Kingdom Reddit is a community of communities. It\u2019s built on shared interests, passion, and trust, and is home to the most open and authentic conversations on the internet. Every day, Reddit users submit, vote,\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:22 +0000",
-    "published_iso": "2026-11-25T18:32:22+00:00",
+    "published": "Thu, 26 Nov 2026 06:01:59 +0000",
+    "published_iso": "2026-11-26T06:01:59+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -3043,18 +3300,17 @@
     "deadline": ""
   },
   {
-    "item_id": "2360cd55f48f72bd",
+    "item_id": "33eba4b9c5cc5aae",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Quantitative Developer C++",
-    "link": "https://cryptojobslist.com/jobs/quantitative-developer-c-at-wintermute-london",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Trading Jobs \u2022 Blockchain Developer Jobs \u2022 Web3 DeFi Jobs \u2022 Web3 Finance Jobs \u2022 Blockchain Data Jobs About Wintermute Wintermute is a leading market maker of digital assets globally. We m\u2026",
+    "title": "Security Chain Engineer",
+    "link": "https://cryptojobslist.com/jobs/security-chain-engineer-united-states-at-injective-labs",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Security Jobs \u2022 Cryptocurrency Engineering Jobs \u2022 Blockchain Solidity Jobs \u2022 Web3 Remote Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Cryptocurrency Web3 Jobs About Injective Labs Injective Labs is trailblazing a\u2026",
     "matched_keywords": [
+      "solidity",
       "web3",
-      "blockchain",
-      "defi",
-      "developer"
+      "blockchain"
     ],
     "published": "",
     "published_iso": "",
@@ -3062,18 +3318,18 @@
     "deadline": ""
   },
   {
-    "item_id": "9e1c6e188e195425",
+    "item_id": "17044375d4a2b9e7",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Justworks: Account Executive - In-Territory (San Diego, CA)",
-    "link": "https://weworkremotely.com/remote-jobs/justworks-account-executive-in-territory-san-diego-ca",
-    "summary": "Headquarters: Remote - U.S.A. Who We Are At Justworks, you\u2019ll enjoy a welcoming and casual environment, great benefits, wellness program offerings, company retreats, and the ability to interact with and learn from leaders in the startup co\u2026",
+    "title": "Salesloft: Regional Vice President, Enterprise Account Management",
+    "link": "https://weworkremotely.com/remote-jobs/salesloft-regional-vice-president-enterprise-account-management",
+    "summary": "Headquarters: United States, Remote Job Title: Regional Vice President, Enterprise Account Management Location: United States, Remote This is a fully remote opportunity and can be worked from any location in the United States. ABOUT THE CO\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:22 +0000",
-    "published_iso": "2026-11-25T18:32:22+00:00",
+    "published": "Thu, 26 Nov 2026 06:01:59 +0000",
+    "published_iso": "2026-11-26T06:01:59+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -3094,16 +3350,18 @@
     "deadline": ""
   },
   {
-    "item_id": "ec374c1a172492f9",
+    "item_id": "d559576210b005b1",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Security Operations Engineer",
-    "link": "https://cryptojobslist.com/jobs/senior-security-operations-engineer-tel-aviv-israel-at-paxos",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Security Jobs \u2022 Web3 Engineering Jobs \u2022 Cryptocurrency SRE Jobs \u2022 Blockchain Ai Jobs \u2022 Blockchain Full Time Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Blockchain Web3 Jobs About Paxos Today\u2019s financial infrastructure\u2026",
+    "title": "Software Engineer II - React Native - Consumer Growth",
+    "link": "https://cryptojobslist.com/jobs/software-engineer-ii-react-native-london-united-kingdom-brazil-united-at-kraken",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency React Native Jobs \u2022 Cryptocurrency Mobile Jobs \u2022 Blockchain Typescript Jobs \u2022 Blockchain Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Web3 Web3 Jobs Building the Future of Open Finance Payward - the parent company b\u2026",
     "matched_keywords": [
       "web3",
-      "blockchain"
+      "blockchain",
+      "software engineer",
+      "typescript"
     ],
     "published": "",
     "published_iso": "",
@@ -3111,18 +3369,18 @@
     "deadline": ""
   },
   {
-    "item_id": "f34c91ed0f886ec1",
+    "item_id": "5f04c5c31a6e84a2",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Wrike: Senior Business Value Consultant",
-    "link": "https://weworkremotely.com/remote-jobs/wrike-senior-business-value-consultant",
+    "title": "Wrike: Senior Demand Generation Marketing Manager",
+    "link": "https://weworkremotely.com/remote-jobs/wrike-senior-demand-generation-marketing-manager",
     "summary": "Headquarters: US - Remote Wrike is the most powerful work management platform. Built for teams and organizations looking to collaborate, create, and exceed every day, Wrike brings everyone and all work into a single place to remove complex\u2026",
     "matched_keywords": [
       "remote"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:22 +0000",
-    "published_iso": "2026-11-25T18:32:22+00:00",
+    "published": "Thu, 26 Nov 2026 06:01:59 +0000",
+    "published_iso": "2026-11-26T06:01:59+00:00",
     "badges": [],
     "deadline": ""
   },
@@ -3143,16 +3401,15 @@
     "deadline": ""
   },
   {
-    "item_id": "c5180daa1ed23f84",
+    "item_id": "88a36192af9d6481",
     "category": "web3_jobs",
     "category_label": "\u26d3\ufe0f Web3 Remote Job",
     "source_name": "CryptoJobsList",
-    "title": "Senior Manager, Events Marketing",
-    "link": "https://cryptojobslist.com/jobs/senior-manager-events-marketing-new-york-united-states-at-chainlink-labs",
-    "summary": "Tags: Web3 Jobs \u2022 Web3 Event Marketing Jobs \u2022 Web3 Manager Jobs \u2022 Web3 Lead Level Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Blockchain Web3 Jobs About Chainlink Labs Chainlink Labs is one of the primary contributing developers\u2026",
+    "title": "Community Lead - Kraken Pro",
+    "link": "https://cryptojobslist.com/jobs/community-lead-kraken-pro-london-united-kingdom-brazil-united-at-kraken",
+    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Community Manager Jobs \u2022 Cryptocurrency Trading Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Web3 Web3 Jobs Building the Future of Open Finance Payward - the parent company behind Kraken, Ninja\u2026",
     "matched_keywords": [
-      "web3",
-      "blockchain"
+      "web3"
     ],
     "published": "",
     "published_iso": "",
@@ -3160,22 +3417,22 @@
     "deadline": ""
   },
   {
-    "item_id": "535dc64f87de9fc7",
+    "item_id": "ac49766cc439ee2a",
     "category": "jobs",
     "category_label": "\ud83d\udcbc Job Alert",
     "source_name": "We Work Remotely",
-    "title": "Sezzle: Junior Software Engineer with Accounting Experience",
-    "link": "https://weworkremotely.com/remote-jobs/sezzle-junior-software-engineer-with-accounting-experience",
-    "summary": "Headquarters: T\u00fcrkiye, Remote The salary range for this role is $1,500 - $4,000 per month (Gross in USD) About Sezzle: With a mission to financially empower the next generation, Sezzle is revolutionizing the shopping experience beyond paym\u2026",
+    "title": "Customer.io: Senior Software Engineer - Backend Platform",
+    "link": "https://weworkremotely.com/remote-jobs/customer-io-senior-software-engineer-backend-platform",
+    "summary": "Headquarters: Americas Remote Hi, I'm Manu, Engineering Manager at Customer.io . We're looking for experienced backend engineers who want to build and own the infrastructure that powers one of the most data-intensive platforms in marketing\u2026",
     "matched_keywords": [
+      "backend",
       "remote",
-      "junior",
       "software engineer"
     ],
-    "published": "Wed, 25 Nov 2026 18:32:22 +0000",
-    "published_iso": "2026-11-25T18:32:22+00:00",
+    "published": "Thu, 26 Nov 2026 06:01:59 +0000",
+    "published_iso": "2026-11-26T06:01:59+00:00",
     "badges": [
-      "\ud83d\udfe2 Entry / Intern"
+      "\ud83c\udf0d Worldwide"
     ],
     "deadline": ""
   },
@@ -3195,266 +3452,6 @@
     "badges": [
       "\ud83d\udcb0 Fully Funded"
     ],
-    "deadline": ""
-  },
-  {
-    "item_id": "33eba4b9c5cc5aae",
-    "category": "web3_jobs",
-    "category_label": "\u26d3\ufe0f Web3 Remote Job",
-    "source_name": "CryptoJobsList",
-    "title": "Security Chain Engineer",
-    "link": "https://cryptojobslist.com/jobs/security-chain-engineer-united-states-at-injective-labs",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Security Jobs \u2022 Cryptocurrency Engineering Jobs \u2022 Blockchain Solidity Jobs \u2022 Blockchain Remote Jobs \u2022 Cryptocurrency Full Time Jobs \u2022 Cryptocurrency Web3 Jobs About Injective Labs Injective Labs is trailbla\u2026",
-    "matched_keywords": [
-      "solidity",
-      "web3",
-      "blockchain"
-    ],
-    "published": "",
-    "published_iso": "",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "93713107a7e04797",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Wrike: Head of Finance",
-    "link": "https://weworkremotely.com/remote-jobs/wrike-head-of-finance",
-    "summary": "Headquarters: US - Remote Wrike is the most powerful work management platform. Built for teams and organizations looking to collaborate, create, and exceed every day, Wrike brings everyone and all work into a single place to remove complex\u2026",
-    "matched_keywords": [
-      "remote"
-    ],
-    "published": "Wed, 25 Nov 2026 18:32:22 +0000",
-    "published_iso": "2026-11-25T18:32:22+00:00",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "1f8108fa2304e937",
-    "category": "scholarships",
-    "category_label": "\ud83c\udf93 Scholarship & Fellowship",
-    "source_name": "Opportunities Corners",
-    "title": "OIST Internship in Japan (Fully Funded) (Fall 2027)",
-    "link": "https://opportunitiescorners.com/oist-internship-in-japan-fall-2027/",
-    "summary": "Applications are now open for the OIST Internship in Japan for the Fall 2027 intake. The Okinawa Institute of Science and Technology (OIST) offers a fully funded internship for international students from all over the world. The internship\u2026",
-    "matched_keywords": [
-      "fully funded"
-    ],
-    "published": "Sun, 15 Nov 2026 08:13:54 +0000",
-    "published_iso": "2026-11-15T08:13:54+00:00",
-    "badges": [
-      "\ud83d\udcb0 Fully Funded",
-      "\ud83d\udfe2 Entry / Intern"
-    ],
-    "deadline": ""
-  },
-  {
-    "item_id": "d559576210b005b1",
-    "category": "web3_jobs",
-    "category_label": "\u26d3\ufe0f Web3 Remote Job",
-    "source_name": "CryptoJobsList",
-    "title": "Software Engineer II - React Native - Consumer Growth",
-    "link": "https://cryptojobslist.com/jobs/software-engineer-ii-react-native-london-united-kingdom-brazil-united-at-kraken",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain React Native Jobs \u2022 Cryptocurrency Mobile Jobs \u2022 Cryptocurrency Typescript Jobs \u2022 Web3 Remote Jobs \u2022 Blockchain Full Time Jobs \u2022 Web3 Web3 Jobs Building the Future of Open Finance Payward - the parent company b\u2026",
-    "matched_keywords": [
-      "web3",
-      "blockchain",
-      "software engineer",
-      "typescript"
-    ],
-    "published": "",
-    "published_iso": "",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "a4e961245a9f91b6",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Clover Health: Enterprise Performance Lead",
-    "link": "https://weworkremotely.com/remote-jobs/clover-health-enterprise-performance-lead",
-    "summary": "Headquarters: Remote - USA Clover is reinventing health insurance by working to keep people healthier. The Actuarial Strategic Operations team serves as the operational and financial nerve center for Clover's Medicare Advantage business. E\u2026",
-    "matched_keywords": [
-      "remote"
-    ],
-    "published": "Wed, 25 Nov 2026 18:32:14 +0000",
-    "published_iso": "2026-11-25T18:32:14+00:00",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "a2e741dc787d7fee",
-    "category": "scholarships",
-    "category_label": "\ud83c\udf93 Scholarship & Fellowship",
-    "source_name": "Opportunities Corners",
-    "title": "Summer Programs in Europe in 2027 (Fully Funded)",
-    "link": "https://opportunitiescorners.com/summer-programs-in-europe-in-2027/",
-    "summary": "Europe is Calling. Your European Summer Adventure Starts Here! Exciting Summer Programs in Europe in 2027. Whether you\u2019re an undergraduate student, a Master\u2019s or PhD candidate, a young professional, or an aspiring leader, 2027 could be you\u2026",
-    "matched_keywords": [
-      "fully funded",
-      "undergraduate"
-    ],
-    "published": "Sat, 14 Nov 2026 11:02:56 +0000",
-    "published_iso": "2026-11-14T11:02:56+00:00",
-    "badges": [
-      "\ud83d\udcb0 Fully Funded"
-    ],
-    "deadline": ""
-  },
-  {
-    "item_id": "b1c6d448b9efcf6f",
-    "category": "web3_jobs",
-    "category_label": "\u26d3\ufe0f Web3 Remote Job",
-    "source_name": "CryptoJobsList",
-    "title": "Security Architect",
-    "link": "https://cryptojobslist.com/jobs/security-architect-at-blockstream",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Security Jobs \u2022 Cryptocurrency Backend Jobs \u2022 Cryptocurrency Engineering Jobs \u2022 Web3 Cryptography Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Web3 Jobs Blockstream was founded in 2014 by Dr. Adam Back and a grou\u2026",
-    "matched_keywords": [
-      "web3",
-      "blockchain",
-      "backend"
-    ],
-    "published": "",
-    "published_iso": "",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "ac9cec2ff1aa3365",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Celonis: Senior Deployment Engineer - Public Sector",
-    "link": "https://weworkremotely.com/remote-jobs/celonis-senior-deployment-engineer-public-sector",
-    "summary": "Headquarters: Remote, US, Washington DC Celonis is the trusted platform to industrialize Enterprise AI. At our core is the Celonis Context Model \u2014 which combines process data, business knowledge, and intelligence into a living digital twin\u2026",
-    "matched_keywords": [
-      "remote"
-    ],
-    "published": "Wed, 25 Nov 2026 18:32:00 +0000",
-    "published_iso": "2026-11-25T18:32:00+00:00",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "d642e8a185f065a0",
-    "category": "web3_jobs",
-    "category_label": "\u26d3\ufe0f Web3 Remote Job",
-    "source_name": "CryptoJobsList",
-    "title": "VP of Enterprise Products (CRO)",
-    "link": "https://cryptojobslist.com/jobs/vp-of-enterprise-products-cro-menlo-park-united-states-at-blockstream",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain Executive Jobs \u2022 Blockchain Finance Jobs \u2022 Cryptocurrency Business Development Jobs \u2022 Blockchain Web3 Jobs \u2022 Cryptocurrency Bitcoin Jobs \u2022 Cryptocurrency Remote Jobs Blockstream is a global fintech company foun\u2026",
-    "matched_keywords": [
-      "web3",
-      "blockchain"
-    ],
-    "published": "",
-    "published_iso": "",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "a2fd9d5a393b1354",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "Celonis: Senior AI Applied Value Architect",
-    "link": "https://weworkremotely.com/remote-jobs/celonis-senior-ai-applied-value-architect",
-    "summary": "Headquarters: Remote, Canada Celonis is the trusted platform to industrialize Enterprise AI. At our core is the Celonis Context Model \u2014 which combines process data, business knowledge, and intelligence into a living digital twin of the ent\u2026",
-    "matched_keywords": [
-      "remote"
-    ],
-    "published": "Wed, 25 Nov 2026 18:32:00 +0000",
-    "published_iso": "2026-11-25T18:32:00+00:00",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "31ee2fd1fe2070be",
-    "category": "web3_jobs",
-    "category_label": "\u26d3\ufe0f Web3 Remote Job",
-    "source_name": "CryptoJobsList",
-    "title": "VP, Policy and Regulatory Strategy, Latin America",
-    "link": "https://cryptojobslist.com/jobs/vp-policy-and-regulatory-strategy-s-o-paulo-remote-first-in-brazil-at-circle",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Policy Jobs \u2022 Cryptocurrency Director Jobs \u2022 Blockchain Remote Jobs \u2022 Web3 Full Time Jobs \u2022 Blockchain Web3 Jobs \u2022 Cryptocurrency Stablecoin Jobs The VP, Policy and Regulatory Strategy, Latin America will l\u2026",
-    "matched_keywords": [
-      "web3",
-      "blockchain"
-    ],
-    "published": "",
-    "published_iso": "",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "239a23ee4f691606",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "MetaMask: Senior Systems Administrator",
-    "link": "https://weworkremotely.com/remote-jobs/metamask-senior-systems-administrator",
-    "summary": "Headquarters: UNITED STATES - Remote, EMEA - Remote, LATAM - Remote, CANADA - Remote Please note that we are unable to consider applications from candidates based in France, Italy, or Germany for this role. Money is moving onto the interne\u2026",
-    "matched_keywords": [
-      "remote"
-    ],
-    "published": "Wed, 25 Nov 2026 18:32:00 +0000",
-    "published_iso": "2026-11-25T18:32:00+00:00",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "46362ad4bf72e730",
-    "category": "web3_jobs",
-    "category_label": "\u26d3\ufe0f Web3 Remote Job",
-    "source_name": "CryptoJobsList",
-    "title": "Front End Engineer",
-    "link": "https://cryptojobslist.com/jobs/front-end-engineer-united-states-canada-remote-within-at-zerohash",
-    "summary": "Tags: Web3 Jobs \u2022 Cryptocurrency Frontend Jobs \u2022 Blockchain Typescript Jobs \u2022 Cryptocurrency React Jobs \u2022 Blockchain Javascript Jobs \u2022 Blockchain Remote Jobs \u2022 Blockchain Web3 Jobs \u2022 Cryptocurrency Stablecoin Jobs About the Job zerohash is\u2026",
-    "matched_keywords": [
-      "web3",
-      "blockchain",
-      "frontend",
-      "typescript"
-    ],
-    "published": "",
-    "published_iso": "",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "5ca4e4d642569671",
-    "category": "jobs",
-    "category_label": "\ud83d\udcbc Job Alert",
-    "source_name": "We Work Remotely",
-    "title": "MetaMask: Senior Software Engineer: Assets",
-    "link": "https://weworkremotely.com/remote-jobs/metamask-senior-software-engineer-assets",
-    "summary": "Headquarters: United States - Remote, EMEA - Remote Please note that we are unable to consider applications from candidates based in France, Italy, or Germany for this role. Money is moving onto the internet, and the shift has a name: Open\u2026",
-    "matched_keywords": [
-      "remote",
-      "software engineer"
-    ],
-    "published": "Wed, 25 Nov 2026 18:31:45 +0000",
-    "published_iso": "2026-11-25T18:31:45+00:00",
-    "badges": [],
-    "deadline": ""
-  },
-  {
-    "item_id": "a202c19841131f9d",
-    "category": "web3_jobs",
-    "category_label": "\u26d3\ufe0f Web3 Remote Job",
-    "source_name": "CryptoJobsList",
-    "title": "Staff Site Reliability Engineer",
-    "link": "https://cryptojobslist.com/jobs/staff-site-reliability-engineer-san-francisco-remote-first-in-us-at-circle",
-    "summary": "Tags: Web3 Jobs \u2022 Blockchain SRE Jobs \u2022 Web3 Infrastructure Jobs \u2022 Blockchain Kubernetes Jobs \u2022 Cryptocurrency Ai Jobs \u2022 Cryptocurrency Remote Jobs \u2022 Cryptocurrency Web3 Jobs \u2022 Blockchain Stablecoin Jobs As a Staff Site Reliability Enginee\u2026",
-    "matched_keywords": [
-      "web3",
-      "blockchain"
-    ],
-    "published": "",
-    "published_iso": "",
-    "badges": [],
     "deadline": ""
   }
 ]
